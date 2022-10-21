@@ -20,7 +20,7 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/questions" element={<Questions />}></Route>
         <Route path="/askquestions" element={<AskQuestions />}></Route>
-        <Route path="editquestion" element={<EditQuestion />}></Route>
+        <Route path="/editquestion" element={<EditQuestion />}></Route>
       </Routes>
     </BrowserRouter>
   );
