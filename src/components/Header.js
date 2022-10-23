@@ -1,35 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FiMenu } from "react-icons/fi";
-import { AiOutlineSearch } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiTwotoneTrophy,
+  AiOutlineStar,
+} from "react-icons/ai";
 import stackLogo from "../img/stackOverflowLogo.png";
+import { GoInbox } from "react-icons/go";
+import { FaQuestionCircle, FaStackExchange } from "react-icons/fa";
 
 function Header() {
+  const [isLogin, setIsLogin] = useState(false);
+  console.log(isLogin);
+
+  const loginBtn = () => {
+    setIsLogin(true);
+  };
+  const logoutBtn = () => {
+    setIsLogin(false);
+  };
+
   return (
     <Wraper>
-      <HeaderWraper>
-        <HeaderIcon>
-          <FiMenu />
-        </HeaderIcon>
-        <LogoBtn>
-          <LogoImg src={stackLogo} />
-        </LogoBtn>
-        <LinkBtnSpace>
-          <LinkBtn>About</LinkBtn>
-          <LinkBtn>Products</LinkBtn>
-          <LinkBtn>For Teams</LinkBtn>
-        </LinkBtnSpace>
-        <SearchSpace>
-          <SearchIcons>
-            <AiOutlineSearch />
-          </SearchIcons>
-          <SearchInput placeholder="Search..." />
-        </SearchSpace>
-        <BtnSpace>
-          <MemberBtn>Log in</MemberBtn>
-          <MemberBtn>Sign up</MemberBtn>
-        </BtnSpace>
-      </HeaderWraper>
+      {isLogin ? (
+        <HeaderWraper>
+          <LogoBtn>
+            <LogoImg src={stackLogo} />
+          </LogoBtn>
+          <LinkBtnSpace isLogin={isLogin}>
+            <LinkBtn>Products</LinkBtn>
+          </LinkBtnSpace>
+          <SearchSpace isLogin={isLogin}>
+            <SearchIcons>
+              <AiOutlineSearch />
+            </SearchIcons>
+            <SearchInput placeholder="Search..." isLogin={isLogin} />
+          </SearchSpace>
+          <UserProfile>사용자</UserProfile>
+          <BtnSpace isLogin={isLogin}>
+            <HeaderIcon isLogin={isLogin}>
+              <GoInbox />
+            </HeaderIcon>
+            <HeaderIcon isLogin={isLogin}>
+              <AiTwotoneTrophy />
+            </HeaderIcon>
+            <HeaderIcon isLogin={isLogin}>
+              <FaQuestionCircle />
+            </HeaderIcon>
+            <HeaderIcon isLogin={isLogin}>
+              <FaStackExchange />
+            </HeaderIcon>
+          </BtnSpace>
+        </HeaderWraper>
+      ) : (
+        <HeaderWraper>
+          <HeaderIcon isLogin={isLogin}>
+            <FiMenu />
+          </HeaderIcon>
+          <LogoBtn>
+            <LogoImg src={stackLogo} />
+          </LogoBtn>
+          <LinkBtnSpace>
+            <LinkBtn>About</LinkBtn>
+            <LinkBtn>Products</LinkBtn>
+            <LinkBtn>For Teams</LinkBtn>
+          </LinkBtnSpace>
+          <SearchSpace isLogin={isLogin}>
+            <SearchIcons>
+              <AiOutlineSearch />
+            </SearchIcons>
+            <SearchInput placeholder="Search..." isLogin={isLogin} />
+          </SearchSpace>
+          <BtnSpace isLogin={isLogin}>
+            <MemberBtn onClick={loginBtn}>Log in</MemberBtn>
+            <MemberBtn onClick={logoutBtn}>Sign up</MemberBtn>
+          </BtnSpace>
+        </HeaderWraper>
+      )}
     </Wraper>
   );
 }
@@ -44,7 +92,6 @@ const Wraper = styled.div`
   margin-left: auto;
   margin-right: auto;
   position: fixed;
-  min-width: 900px;
 `;
 const HeaderWraper = styled.div`
   height: 50px;
@@ -57,20 +104,25 @@ const HeaderWraper = styled.div`
 
 const HeaderIcon = styled.button`
   height: 100%;
-  font-size: 25px;
+  font-size: 23px;
   padding: 10px 15px 0px 15px;
   border: none;
   background-color: white;
   &:hover {
+    height: 54px;
+    border-top: 4px solid orange;
     background-color: rgb(226, 230, 232);
+    margin-bottom: 3px;
   }
-  min-width: 100px;
+  min-width: 50px;
 `;
 const LogoBtn = styled.button`
   border: none;
   background-color: white;
   &:hover {
+    height: 100%;
     background-color: rgb(226, 230, 232);
+    margin-bottom: 1px;
   }
 `;
 const LogoImg = styled.img`
@@ -79,11 +131,12 @@ const LogoImg = styled.img`
   padding: 5px 12px;
 `;
 const LinkBtnSpace = styled.div`
-  width: 400px;
+  width: ${(props) => (props.isLogin ? "100px" : "400px")};
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  margin-right: 20px;
 `;
 
 const LinkBtn = styled.button`
@@ -92,6 +145,7 @@ const LinkBtn = styled.button`
   background-color: white;
   border: none;
   &:hover {
+    height: 35px;
     background-color: rgb(226, 230, 232);
   }
   padding: 10px 5px 10px 5px;
@@ -104,7 +158,7 @@ const LinkBtn = styled.button`
   }
 `;
 const SearchSpace = styled.div`
-  width: 90%;
+  width: ${(props) => (props.isLogin ? "54%" : "90%")};
   height: 40px;
   min-width: 30%;
   display: flex;
@@ -112,7 +166,7 @@ const SearchSpace = styled.div`
 `;
 
 const SearchInput = styled.input`
-  width: 94%;
+  width: ${(props) => (props.isLogin ? "100%" : "93%")};
   height: 30px;
   margin: 5px 0px 0px 20px;
   padding-left: 40px;
@@ -137,7 +191,7 @@ const SearchIcons = styled.div`
 const BtnSpace = styled.div`
   width: 140px;
   height: 40px;
-  min-width: 140px;
+  min-width: ${(props) => (props.isLogin ? "200px" : "140px")};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -155,6 +209,18 @@ const MemberBtn = styled.button`
     background-color: rgb(20, 148, 245);
     color: white;
     border-top: double white;
+  }
+`;
+
+const UserProfile = styled.button`
+  width: 80px;
+  height: 100%;
+  background-color: white;
+  border: none;
+  min-width: 80px;
+  &:hover {
+    background-color: rgb(226, 230, 232);
+    margin-bottom: 2px;
   }
 `;
 
