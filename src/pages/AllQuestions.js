@@ -9,6 +9,7 @@ function AllQuestions() {
   return (
     <DisplayWraper>
       <Header />
+      test
       <Wraper>
         <LeftNvi />
         <QuestionList>
