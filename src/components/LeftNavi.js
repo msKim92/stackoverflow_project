@@ -4,7 +4,7 @@ import styled from "styled-components";
 function LeftNvi() {
   return (
     <LeftNaviWraper>
-      <Wraper>123</Wraper>
+      <Wraper>LN</Wraper>
     </LeftNaviWraper>
   );
 }
