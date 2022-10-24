@@ -24,7 +24,7 @@ public class UserController {
 
     /**
      * 파라미터에 유효성 적용 예정 : @Valid / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * Dto로 갈아끼울 예정 / 상태: undo.
      */
     @PostMapping
     public ResponseEntity postUser(@RequestBody User user) {
