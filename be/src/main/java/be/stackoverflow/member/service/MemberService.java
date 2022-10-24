@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
     public Member createMember(Member member) {
         log.info("member = {}",member.getEmail());
         verifyExistsEmail(member.getEmail());
