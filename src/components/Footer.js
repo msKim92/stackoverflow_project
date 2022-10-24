@@ -8,21 +8,21 @@ function Footer() {
       <Wraper>
         <FooterStackLeft>
           <FooterLogo src={footerLogo} />
-          <FirstMenu>
+          <FooterStackMenu>
             <BigMenu>STACK OVERFLOW</BigMenu>
             <SmallMenu>Questions</SmallMenu>
             <SmallMenu>Help</SmallMenu>
-          </FirstMenu>
+          </FooterStackMenu>
         </FooterStackLeft>
         <FooterStackMid>
-          <SecondMenu>
+          <FooterSmallMenu>
             <BigMenu>PRODUCT</BigMenu>
             <SmallMenu>Teams</SmallMenu>
             <SmallMenu>Advertising</SmallMenu>
             <SmallMenu>Collectives</SmallMenu>
             <SmallMenu>Talent</SmallMenu>
-          </SecondMenu>
-          <ThirdMenu>
+          </FooterSmallMenu>
+          <FooterSmallMenu>
             <BigMenu>COMPANY</BigMenu>
             <SmallMenu>About</SmallMenu>
             <SmallMenu>Press</SmallMenu>
@@ -33,8 +33,8 @@ function Footer() {
             <SmallMenu>Contact Us</SmallMenu>
             <SmallMenu>Cookie Settings</SmallMenu>
             <SmallMenu>Cookie Policy</SmallMenu>
-          </ThirdMenu>
-          <FourthMenu>
+          </FooterSmallMenu>
+          <FooterSmallMenu>
             <BigMenu>STACK EXCHANGE NETWORK</BigMenu>
             <SmallMenu>Technology</SmallMenu>
             <SmallMenu>Culture & recreation</SmallMenu>
@@ -45,15 +45,15 @@ function Footer() {
             <br />
             <SmallMenu>API</SmallMenu>
             <SmallMenu>Data</SmallMenu>
-          </FourthMenu>
+          </FooterSmallMenu>
         </FooterStackMid>
         <FooterStackRight>
           <LinkMenu>
-            <LinkSmallMenu>Blog</LinkSmallMenu>
-            <LinkSmallMenu>Facebook</LinkSmallMenu>
-            <LinkSmallMenu>Twitter</LinkSmallMenu>
-            <LinkSmallMenu>Linkedln</LinkSmallMenu>
-            <LinkSmallMenu>Instargram</LinkSmallMenu>
+            <LinkInMenu>Blog</LinkInMenu>
+            <LinkInMenu>Facebook</LinkInMenu>
+            <LinkInMenu>Twitter</LinkInMenu>
+            <LinkInMenu>Linkedln</LinkInMenu>
+            <LinkInMenu>Instargram</LinkInMenu>
           </LinkMenu>
           <StackOverFlowInformation>
             <SmallContents>
@@ -91,8 +91,8 @@ const FooterStackLeft = styled.div`
   display: flex;
 `;
 const FooterLogo = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   margin: 0px 25px 0px 10px;
 `;
 const FooterStackMid = styled.div`
@@ -105,35 +105,45 @@ const FooterStackRight = styled.div`
   justify-content: space-between;
   margin-right: 40px;
 `;
+const FooterStackMenu = styled.div``;
 
-const FirstMenu = styled.div``;
-const SecondMenu = styled.div``;
-const ThirdMenu = styled.div`
-  margin: 0px 110px;
+const FooterSmallMenu = styled.div`
+  &:nth-child(2) {
+    margin: 0px 100px;
+  }
 `;
-const FourthMenu = styled.div``;
 const LinkMenu = styled.div`
   display: flex;
-`;
-const StackOverFlowInformation = styled.div`
-  margin-bottom: 40px;
+  font-size: 14px;
+  cursor: pointer;
 `;
 
 const BigMenu = styled.div`
   color: #dce0e6;
   font-weight: bold;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   font-size: 15px;
 `;
 
 const SmallMenu = styled.div`
   color: #949aa1;
   margin-bottom: 15px;
+  cursor: pointer;
+  &:hover {
+    color: #bbbdbf;
+  }
 `;
 
-const LinkSmallMenu = styled.div`
+const LinkInMenu = styled.div`
   color: #949aa1;
   margin-right: 12px;
+  &:hover {
+    color: #bbbdbf;
+  }
+`;
+
+const StackOverFlowInformation = styled.div`
+  margin-bottom: 40px;
 `;
 
 const SmallContents = styled.p`
@@ -149,5 +159,6 @@ const UnderLineContents = styled.span`
   text-decoration: underline;
   margin-left: 2px;
   font-size: 14px;
+  cursor: pointer;
 `;
 export default Footer;

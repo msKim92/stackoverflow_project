@@ -16,7 +16,6 @@ const LeftNaviWraper = styled.div`
 `;
 
 const Wraper = styled.div`
-  width: 100%;
   height: 100vh;
   position: fixed;
 `;
