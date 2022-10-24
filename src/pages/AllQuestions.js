@@ -9,25 +9,11 @@ function AllQuestions() {
   return (
     <DisplayWraper>
       <Header />
-      test
       <Wraper>
         <LeftNvi />
         <QuestionList>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
-          <Been></Been>
+          <Been />
+          <Been />
         </QuestionList>
         <RightNavi />
       </Wraper>
