@@ -92,6 +92,7 @@ const Wraper = styled.div`
   margin-left: auto;
   margin-right: auto;
   position: fixed;
+  background-color: white;
 `;
 const HeaderWraper = styled.div`
   height: 50px;
@@ -151,7 +152,6 @@ const LinkBtn = styled.button`
   padding: 10px 5px 10px 5px;
   border-radius: 25px;
   font-size: 15px;
-
   &:nth-child(3) {
     width: 110px;
     padding: 10px 12px 10px 12px;
