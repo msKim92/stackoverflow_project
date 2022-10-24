@@ -17,6 +17,7 @@ public class UserDto {
         @Pattern(regexp = "^[a-z0-9]{4,20}$", message = "아이디는 영어 소문자와 숫자만 사용하여 4~20자리여야 합니다.")
         private String userName;
 
+
         @NotBlank(message = "이메일 입력란을 채워주세요.")
         @Email(message = "이메일 형식이 올바르지 않습니다.")
         private String userEmail;

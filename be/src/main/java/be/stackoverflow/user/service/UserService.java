@@ -16,8 +16,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     public User createUser(User user) {
-        verifyExistsEmail(user.getUserEmail());
         verifyExistsUserName(user.getUserName());
+        verifyExistsEmail(user.getUserEmail());
 
         user.setUserStatus(true);
 
