@@ -1,37 +1,44 @@
 package be.stackoverflow.user.controller;
 
 
+import be.stackoverflow.user.dto.UserDto;
 import be.stackoverflow.user.entity.User;
 //import be.stackoverflow.user.mapper.UserMapper;
+import be.stackoverflow.user.mapper.UserMapper;
 import be.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/v1")
+@Validated
 public class UserController {
 
     private final UserService userService;
 
-//    private final UserMapper userMapper;
+    private final UserMapper userMapper;
 
     /**
      * 파라미터에 유효성 적용 예정 : @Valid / 상태: undo
      * Dto로 갈아끼울 예정 / 상태: undo.
      */
-    @PostMapping
-    public ResponseEntity postUser(@RequestBody User user) {
+    @PostMapping("/sign")
+    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post request) {
+
+        User user = userMapper.userPostToUser(request);
 
         User createdUser = userService.createUser(user);
 
-        return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
+        return new ResponseEntity<>(userMapper.userToUserResponse(createdUser),HttpStatus.CREATED);
     }
 
     /**
@@ -43,7 +50,7 @@ public class UserController {
     public ResponseEntity getUser(@PathVariable("userId") Long userId) {
         User chosenUser = userService.findUser(userId);
 
-        return new ResponseEntity<>(chosenUser, HttpStatus.OK);
+        return new ResponseEntity<>(userMapper.userToUserResponse(chosenUser), HttpStatus.OK);
     }
 
     /**
@@ -53,7 +60,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity getUsers() {
         List<User> userAll = userService.findUserAll();
-        return new ResponseEntity<>(userAll, HttpStatus.OK);
+        return new ResponseEntity<>(userMapper.usersToUserReponses(userAll), HttpStatus.OK);
     }
 
     /**
@@ -61,10 +68,11 @@ public class UserController {
      * Dto로 갈아끼울 예정 / 상태: undo
      */
     @PatchMapping("/{userId}")
-    public ResponseEntity patchUser(@PathVariable("userId") Long userId, @RequestBody User user) {
-        User updateUser = userService.updateUser(userId, user);
+    public ResponseEntity patchUser(@PathVariable("userId") Long userId, @RequestBody UserDto.Patch request) {
 
-        return new ResponseEntity<>(updateUser, HttpStatus.UPGRADE_REQUIRED);
+        User user = userService.updateUser(userId,userMapper.userPatchToUser(request));
+
+        return new ResponseEntity<>(userMapper.userToUserResponse(user), HttpStatus.UPGRADE_REQUIRED);
     }
 
     /**

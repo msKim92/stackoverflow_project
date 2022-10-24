@@ -16,11 +16,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     public User createUser(User user) {
-        log.info("user = {}",user.getEmail());
-        verifyExistsEmail(user.getEmail());
+        verifyExistsEmail(user.getUserEmail());
+        verifyExistsUserName(user.getUserName());
+
+        user.setUserStatus(true);
+
+        user.setRole(User.Role.USER);
 
         User savedUser = userRepository.save(user);
-        log.info("savedUser = {}",savedUser.getName());
         return savedUser;
     }
 
@@ -37,8 +40,7 @@ public class UserService {
     public User updateUser(Long userId, User user) {
         User chosenUser = this.findUser(userId);
 
-        Optional.ofNullable(user.getName()).ifPresent(name -> chosenUser.setName(name));
-        Optional.ofNullable(user.getEmail()).ifPresent(email -> chosenUser.setEmail(email));
+        Optional.ofNullable(user.getUserEmail()).ifPresent(email -> chosenUser.setUserEmail(email));
         Optional.ofNullable(user.getPassword()).ifPresent(password -> chosenUser.setPassword(password));
 
         return userRepository.save(chosenUser);
@@ -56,9 +58,15 @@ public class UserService {
         return findUser;
     }
     public void verifyExistsEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByUserEmail(email);
         if (user.isPresent()) {
-            throw new RuntimeException("회원이 이미 있습니다.");
+            throw new RuntimeException("같은 이메일로 등록된 회원이 이미 있습니다.");
+        }
+    }
+    public void verifyExistsUserName(String userName) {
+        Optional<User> user = userRepository.findByUserName(userName);
+        if (user.isPresent()) {
+            throw new RuntimeException("같은 이름으로 등록된 회원이 이미 있습니다.");
         }
     }
 
