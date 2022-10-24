@@ -1,15 +1,15 @@
-package be.stackoverflow.member.repository;
+package be.stackoverflow.user.repository;
 
-import be.stackoverflow.member.entity.Member;
+import be.stackoverflow.user.entity.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member,Long> {
+public interface UserRepository extends JpaRepository<User,Long> {
     // 중복 회원가입인지 확인하는 용도
 //    Optional<User> findByUsername(String userName);
 
     // 회원을 조회하는 용도
-    Optional<Member> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }
