@@ -172,6 +172,7 @@ const CollectivesMenu = styled.div`
 `;
 
 const TeamsMenu = styled.div`
+  color: rgb(106, 115, 124);
   margin-left: 5px;
   margin-top: 28px;
   font-size: 11px;
@@ -185,7 +186,7 @@ const DisplayText = styled.div`
 const TeamsContents = styled.div`
   height: 290px;
   width: 163px;
-  border: 1px solid rgb(106, 115, 124);
+  border: 1px solid #d6d9dc;
   display: flex;
   flex-direction: column;
   align-items: center;
