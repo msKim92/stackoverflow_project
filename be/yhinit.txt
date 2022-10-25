@@ -1,1 +1,1 @@
-yh init
+yh init zzz
