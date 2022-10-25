@@ -51,6 +51,7 @@ function LeftNvi() {
           </div>        
         </TeamMainMenu>  
       </Wraper>
+
     </LeftNaviWraper>
   );
 }
