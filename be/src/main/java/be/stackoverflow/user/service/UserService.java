@@ -69,7 +69,4 @@ public class UserService {
             throw new RuntimeException("같은 이름으로 등록된 회원이 이미 있습니다.");
         }
     }
-
-
-
 }
