@@ -3,10 +3,14 @@ package be.stackoverflow.user.dto;
 import be.stackoverflow.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 
 
 public class UserDto {
@@ -48,5 +52,14 @@ public class UserDto {
         private String password;
         private boolean userStatus;
         private User.Role role;
+
+        /**
+         * 유현 : Audit 기능 추가
+         * 코드리뷰 후 적용 예정 부분
+         */
+        private LocalDateTime created_at;
+        private LocalDateTime updated_at;
+        private String create_by;
+        private String updated_by;
     }
 }

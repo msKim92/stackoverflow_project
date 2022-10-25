@@ -27,10 +27,6 @@ public class UserController {
 
     private final UserMapper userMapper;
 
-    /**
-     * 파라미터에 유효성 적용 예정 : @Valid / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo.
-     */
     @PostMapping("/sign")
     public ResponseEntity postUser(@Valid @RequestBody UserDto.Post request) {
 
@@ -42,9 +38,7 @@ public class UserController {
     }
 
     /**
-     * @GetMapping url 생성후 기입 / 상태: undo
      * 이 부분은 테스트시 사용자 조회용으로 사용될 예정 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
      */
     @GetMapping("/{userId}")
     public ResponseEntity getUser(@PathVariable("userId") Long userId) {
@@ -54,8 +48,7 @@ public class UserController {
     }
 
     /**
-     * @GetMapping url 생성후 기입 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * 이 부분은 사용자 전체 조회 및 페이지네이션 용도로 사용될 예정 / 상태: undo
      */
     @GetMapping
     public ResponseEntity getUsers() {
@@ -64,8 +57,7 @@ public class UserController {
     }
 
     /**
-     * @PatchMapping url 생성후 기입 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * 안쓰게 될 확률이 큰 uri
      */
     @PatchMapping("/{userId}")
     public ResponseEntity patchUser(@PathVariable("userId") Long userId, @RequestBody UserDto.Patch request) {
@@ -76,8 +68,7 @@ public class UserController {
     }
 
     /**
-     * @DeleteMapping url 생성후 기입 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * 안쓰게 될 확률이 큰 uri
      */
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteOne(@PathVariable("userId") Long userId) {
