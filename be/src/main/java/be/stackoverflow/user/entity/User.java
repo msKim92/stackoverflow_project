@@ -1,5 +1,6 @@
 package be.stackoverflow.user.entity;
 
+import be.stackoverflow.audit.TimeAudit;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "User_Table")
-public class User {
+public class User extends TimeAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
