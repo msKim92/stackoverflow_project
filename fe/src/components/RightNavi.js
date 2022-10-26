@@ -21,14 +21,14 @@ function RightNavi() {
       <Wrapper>
         <Subject>The Overflow Blog</Subject>
         <Content>
-          <div style={{ paddingRight: "3%" }}>
+          <div>
             <FaPen />
           </div>
           <div>Introducing the Overflow Offline project</div>
         </Content>
 
         <Content>
-          <div style={{ paddingRight: "3%" }}>
+          <div>
             <FaPen />
           </div>
           <div>
@@ -39,19 +39,19 @@ function RightNavi() {
 
         <Subject>Featured on Meta</Subject>
         <Content>
-          <div style={{ paddingRight: "3%", color: "#46A2D9" }}>
-            <FaRegCommentAlt />
+          <div>
+            <MessageIcon />
           </div>
           <div>The 2022 Community-a-thon has begun!</div>
         </Content>
         <Content>
-          <div style={{ paddingRight: "3%", color: "#46A2D9" }}>
-            <FaRegCommentAlt />
+          <div>
+            <MessageIcon />
           </div>
           <div>Mobile app infrastructure being decommissioned</div>
         </Content>
         <Content>
-          <div style={{ paddingRight: "3%" }}>
+          <div>
             <FaStackOverflow />
           </div>
           <div>
@@ -59,13 +59,13 @@ function RightNavi() {
           </div>
         </Content>
         <Content>
-          <div style={{ paddingRight: "3%" }}>
+          <div>
             <FaStackOverflow />
           </div>
           <div>Staging Ground Workflow: Canned Comments</div>
         </Content>
         <Content>
-          <div style={{ paddingRight: "3%" }}>
+          <div>
             <FaStackOverflow />
           </div>
           <div>The [script] tag is being burninated</div>
@@ -81,7 +81,7 @@ function RightNavi() {
 
       <SecondWrapper>
         <SecondSubject>Custom Filters</SecondSubject>
-        <div style={{ padding: "4%" }}>
+        <div>
           <SecondContent as="a" href="*">
             Create a custom filter
           </SecondContent>
@@ -92,15 +92,8 @@ function RightNavi() {
 
       <SecondWrapper>
         <SecondSubject>Watched Tags</SecondSubject>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <FaSearch
-            style={{ color: "#379FEF", fontSize: "260%", padding: "4%" }}
-          />
+        <div className="watch_tag">
+          <SearchIcon />
         </div>
         <ThirdContent>Watch tags to curate your list of</ThirdContent>
         <ThirdContent>questions.</ThirdContent>
@@ -130,9 +123,7 @@ function RightNavi() {
         </ThirdSubject>
         <CollectWrapper>
           <div>
-            <FaGofore
-              style={{ color: "#379FEF", fontSize: "200%", padding: "4%" }}
-            />
+            <GoogleIcon />
           </div>
           <ContentWrapper>
             <div className="google">Google Cloud</div>
@@ -149,9 +140,7 @@ function RightNavi() {
 
         <CollectWrapper>
           <div>
-            <FaLinkedin
-              style={{ color: "#0068B5", fontSize: "200%", padding: "4%" }}
-            />
+            <IntelIcon />
           </div>
           <ContentWrapper>
             <div className="google">Intel</div>
@@ -168,9 +157,7 @@ function RightNavi() {
 
         <CollectWrapper>
           <div>
-            <SiTwilio
-              style={{ color: "#F22F46", fontSize: "200%", padding: "4%" }}
-            />
+            <TwilioIcon />
           </div>
           <ContentWrapper>
             <div className="google">Twilio</div>
@@ -186,20 +173,14 @@ function RightNavi() {
 
       <Space></Space>
 
-      <div style={{ fontSize: "20px" }}>Hot Network Questions</div>
+      <Network>Hot Network Questions</Network>
 
       <Space></Space>
 
       <QuestionsWrapper>
         <Questions>
           <div>
-            <FaConnectdevelop
-              style={{
-                color: "#F22F46",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
+            <SixCircleIcon />
           </div>
           <a href="*" className="text">
             Can Level 6 Circle of the Moon Druids wild shape into a flying
@@ -209,13 +190,7 @@ function RightNavi() {
 
         <Questions>
           <div>
-            <FaCentos
-              style={{
-                color: "#90F097",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
+            <GreenIcon />
           </div>
           <a href="*" className="text">
             In what airports do I undergo US exit immigration checks, if I have
@@ -225,13 +200,7 @@ function RightNavi() {
 
         <Questions>
           <div>
-            <FaBuffer
-              style={{
-                color: "#0068B5",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
+            <StackIcon />
           </div>
           <a href="*" className="text">
             Why do root and intermediate levels of NON-unique NON-clustered
@@ -241,13 +210,7 @@ function RightNavi() {
 
         <Questions>
           <div>
-            <FaRegCommentAlt
-              style={{
-                color: "#0068B5",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
+            <MmsIcon />
           </div>
           <a href="*" className="text">
             Why do root and intermediate levels of NON-unique NON-clustered
@@ -257,13 +220,7 @@ function RightNavi() {
 
         <Questions>
           <div>
-            <RiBracesFill
-              style={{
-                color: "#F22F46",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
+            <BracesFillIcon />
           </div>
           <a href="*" className="text">
             How can I get dashed line in the segment EH?
@@ -272,13 +229,7 @@ function RightNavi() {
 
         <Questions>
           <div>
-            <FaRegCommentAlt
-              style={{
-                color: "#0068B5",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
+            <MmsIcon />
           </div>
           <a href="*" className="text">
             Expectations in how to get faster with Vim/Nvim?
@@ -292,8 +243,7 @@ function RightNavi() {
 const RightNaviWraper = styled.div`
   box-sizing: border-box;
   width: 33%;
-  // height: 100vh;
-  border: 5px solid blue;
+  height: 100vh;
 `;
 
 const Space = styled.div`
@@ -322,6 +272,9 @@ const Content = styled.div`
   padding: 4%;
   font-size: 13px;
   background-color: #fdf7e2;
+  & > div {
+    padding-right: 3%;
+  }
 `;
 
 const SecondWrapper = styled.div`
@@ -329,6 +282,13 @@ const SecondWrapper = styled.div`
   border: 1px solid #d6d9dc;
   margin-right: auto;
   min-width: 300px;
+  & > div {
+    padding: 3%;
+  }
+  & > .watch_tag {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const SecondSubject = styled.div`
@@ -413,6 +373,13 @@ const Text = styled.div`
   padding: 4%;
 `;
 
+const Network = styled.div`
+  fontsize: 30px;
+  width: 300px;
+  margin-right: auto;
+  min-width: 300px;
+`;
+
 const QuestionsWrapper = styled.div`
   width: 300px;
   margin-right: auto;
@@ -432,4 +399,63 @@ const Questions = styled.div`
     color: #0074cc;
   }
 `;
+
+const MessageIcon = styled(FaRegCommentAlt)`
+  color: #46a2d9;
+`;
+
+const SearchIcon = styled(FaSearch)`
+  color: #46a2d9;
+  font-size: 260%;
+  padding: 4%;
+`;
+
+const GoogleIcon = styled(FaGofore)`
+  color: #46a2d9;
+  font-size: 200%;
+  padding: 4%;
+`;
+
+const IntelIcon = styled(FaLinkedin)`
+  color: #0068b5;
+  font-size: 200%;
+  padding: 4%;
+`;
+
+const TwilioIcon = styled(SiTwilio)`
+  color: #f22f46;
+  font-size: 200%;
+  padding: 4%;
+`;
+
+const SixCircleIcon = styled(FaConnectdevelop)`
+  color: #f22f46;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const GreenIcon = styled(FaCentos)`
+  color: #90f097;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const StackIcon = styled(FaBuffer)`
+  color: #0068b5;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const MmsIcon = styled(FaRegCommentAlt)`
+  color: #46a2d9;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const BracesFillIcon = styled(RiBracesFill)`
+  color: #f22f46;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
 export default RightNavi;
