@@ -6,6 +6,9 @@ import be.stackoverflow.user.entity.User;
 import be.stackoverflow.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,9 +36,9 @@ public class UserService {
         return findVerifiedUser(userId);
     }
 
-    public List<User> findUserAll() {
-        List<User> userAll = userRepository.findAll();
-        return userAll;
+    public Page<User> findUserAll(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page, size,
+                Sort.by("userId").descending()));
     }
 
     // ACCESS와 MEMBERSTATUS는 설정하고, 바꾸는 권한은 뒤에 admin 완성시 구성 예정 / 상태 : undo
