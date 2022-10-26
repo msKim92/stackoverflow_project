@@ -2,29 +2,61 @@
   "questions": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "title": "question1",
+      "author": "나",
+      "answer": [
+        {
+          "id": "1",
+          "votes": 1,
+          "contentsbody": "콘텐츠1입니다",
+          "contentscode": "for (let i = 0;i< comment.length; i++{ return comment[i] })"
+        },
+        {
+          "id": "2",
+          "votes": 2,
+          "contentbody": "콘텐츠2입니다",
+          "contentcode": "for (let j = 0;j< comment.length; j++{ return comment[j] })"
+        },
+        {
+          "id": "3",
+          "votes": 3,
+          "contentbody": "콘텐츠3입니다",
+          "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "question2",
+      "author": "너",
+      "answer": [{ "id": "4" }, { "id": "5" }, { "id": "6" }]
+    },
+    {
+      "id": 3,
+      "title": "question3",
+      "author": "당신",
+      "answer": [{ "id": "7" }, { "id": "8" }, { "id": "9" }]
     }
   ],
   "user": [
     {
       "id": 1,
-      "body": "one comment",
+      "body": "one user",
       "postId": 1
     },
     {
       "id": 2,
-      "body": "two comment",
+      "body": "two user",
       "postId": 1
     },
     {
       "id": 3,
-      "body": "three comment",
+      "body": "three user",
       "postId": 1
     },
     {
       "id": 4,
-      "body": "four comment",
+      "body": "four user",
       "postId": 1
     }
   ]
