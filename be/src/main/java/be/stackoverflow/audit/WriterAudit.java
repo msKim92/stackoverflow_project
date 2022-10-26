@@ -21,8 +21,8 @@ public class WriterAudit extends TimeAudit {
      */
     @CreatedBy
     @Column(updatable = false)
-    private String create_by;
+    private String create_by_user;
 
     @LastModifiedBy
-    private String updated_by;
+    private String updated_by_user;
 }
