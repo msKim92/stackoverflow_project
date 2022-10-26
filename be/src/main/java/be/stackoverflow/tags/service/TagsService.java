@@ -3,6 +3,9 @@ package be.stackoverflow.tags.service;
 import be.stackoverflow.tags.entity.Tags;
 import be.stackoverflow.tags.repository.TagsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -36,8 +39,9 @@ public class TagsService {
         return findVerifiedTag(tagId);
     }
 
-    public List<Tags> findTags() {
-        return tagsRepository.findAll();
+    public Page<Tags> findTags(int page, int size) {
+        return tagsRepository.findAll(PageRequest.of(page, size,
+                Sort.by("tagId").descending()));
     }
 
 
