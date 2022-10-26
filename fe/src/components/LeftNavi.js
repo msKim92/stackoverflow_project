@@ -17,7 +17,6 @@ function LeftNvi() {
         <HomeMenu click={clickElement} onClick={() => clickHere()}>
           Home
         </HomeMenu>
-
         <MainMenu>
           <PublicMenu>PUBLIC</PublicMenu>
           <QuestionsContents click={clickElement} onClick={() => clickHere()}>
@@ -43,10 +42,9 @@ function LeftNvi() {
             <CollectivesMenu>Explore Collectives</CollectivesMenu>
           </CollectivesContents>
         </MainMenu>
-
         <TeamsMenu>TEAMS</TeamsMenu>
         <TeamMainMenu>
-          <div>
+          <TeamsContents>
             <DisplayText>
               Stack Overflow for Teams – Start collaborating and sharing
               organizational knowledge.
@@ -56,7 +54,7 @@ function LeftNvi() {
               Create a free Team
             </CreateBtn>
             <TeamsMsg>Why Teams?</TeamsMsg>
-          </div>
+          </TeamsContents>
         </TeamMainMenu>
       </Wraper>
     </LeftNaviWraper>
@@ -67,6 +65,7 @@ const LeftNaviWraper = styled.div`
   width: 168px;
   height: 100vh;
   border: 1px solid black;
+  border: none;
 `;
 
 const Wraper = styled.div`
@@ -85,6 +84,7 @@ const HomeMenu = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const MainMenu = styled.div`
@@ -116,6 +116,7 @@ const QuestionsContents = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const EarthIcon = styled.div`
@@ -139,6 +140,7 @@ const Menu = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const Collectives = styled.div`
@@ -153,10 +155,12 @@ const CollectivesContents = styled.button`
   background-color: white;
   margin-top: 13px;
   display: flex;
+  font-size: 13px;
   color: rgb(106, 115, 124);
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const StarIcon = styled.div`
@@ -169,6 +173,7 @@ const CollectivesMenu = styled.div`
 `;
 
 const TeamsMenu = styled.div`
+  color: rgb(106, 115, 124);
   margin-left: 5px;
   margin-top: 28px;
   font-size: 11px;
@@ -179,10 +184,21 @@ const DisplayText = styled.div`
   font-size: 13px;
 `;
 
-const SideImage = styled.div`
+const TeamsContents = styled.div`
+  height: 290px;
+  width: 163px;
+  border: 1px solid #d6d9dc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const SideImage = styled.img`
+  margin: 8px;
+  border: 1px solid red;
+  border: none;
   width: 139px;
   height: 114px;
-  background-color: green;
 `;
 
 const CreateBtn = styled.button`
@@ -193,9 +209,12 @@ const CreateBtn = styled.button`
   font-size: 11px;
   width: 138px;
   height: 30px;
+  cursor: pointer;
 `;
 
 const TeamsMsg = styled.div`
+  margin-top: 10px;
+  color: rgb(106, 115, 124);
   font-size: 11px;
   display: flex;
   justify-content: center;
