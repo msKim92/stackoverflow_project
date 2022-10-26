@@ -12,18 +12,10 @@ import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function AllQuestions() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { questions, loading, error } = useSelector((state) => state.questions);
 
   const clickAddQuetion = () => {
     navigate("/askquestions");
   };
-
-  useEffect(() => {
-    if (questions.length === 0) {
-      dispatch(fetchQuestion());
-    }
-  }, []);
 
   return (
     <>
@@ -110,7 +102,6 @@ const AllQuestionsAddBtn = styled.button`
   border-top: double white;
   color: white;
   border: none;
-  border-top: double white;
   border-radius: 5px;
 `;
 
@@ -148,7 +139,7 @@ const AllQuestionsMenuBtn = styled.button`
   &:nth-child(3) {
     width: 45px;
   }
-  &:last-child {
+  &:nth-child(5) {
     border-radius: 0px 5px 5px 0px;
   }
   &:focus {

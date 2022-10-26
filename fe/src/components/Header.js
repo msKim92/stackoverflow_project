@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
-  console.log(isLogin);
 
   const loginBtn = () => {
     setIsLogin(true);
