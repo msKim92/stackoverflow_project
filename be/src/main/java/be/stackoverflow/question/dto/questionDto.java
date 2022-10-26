@@ -1,9 +1,13 @@
 package be.stackoverflow.question.dto;
 
+import be.stackoverflow.user.entity.User;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class questionDto {
@@ -11,6 +15,9 @@ public class questionDto {
     @Getter
     @Builder
     public static class questionPost {
+
+        @Positive
+        private long userId;
 
         @NotBlank(message = "제목을 기입하기 바랍니다.")
         private String questionTitle;
@@ -41,7 +48,7 @@ public class questionDto {
     }
 
     @Getter
-    @Builder
+    @Setter
     public static class questionFrontResponse {
 
 
@@ -54,12 +61,21 @@ public class questionDto {
         private int questionVote;
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
-        private String create_by_user;
-        private String updated_by_user;
+        // 로그인 기능 추가 후 구현 예정
+//        private String create_by_user;
+//        private String updated_by_user;
+
+        //User 정보 구간 ===============시작
+        @Setter(AccessLevel.NONE)//일반 setter로 접근하지 못하게 한다.
+        private String userName;
+
+        public void setUser(User user) {
+            this.userName = user.getUserName();
+        }
     }
 
     @Getter
-    @Builder
+    @Setter
     public static class questionDetailResponse {
 
         private String questionTitle;
@@ -71,9 +87,17 @@ public class questionDto {
         private int questionVote;
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
-        private String create_by_user;
-        private String updated_by_user;
+        // 로그인 기능 추가 후 구현 예정
+//        private String create_by_user;
+//        private String updated_by_user;
 
+        //User 정보 구간 ===============시작
+        @Setter(AccessLevel.NONE)//일반 setter로 접근하지 못하게 한다.
+        private String userName;
+
+        public void setUser(User user) {
+            this.userName = user.getUserName();
+        }
     }
 
 

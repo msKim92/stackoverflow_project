@@ -1,11 +1,16 @@
 package be.stackoverflow.user.entity;
 
 import be.stackoverflow.audit.TimeAudit;
+import be.stackoverflow.question.entity.Question;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@NoArgsConstructor
 @Entity
 @Getter
 @Setter
@@ -27,20 +32,19 @@ public class User extends TimeAudit {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Question> questions = new ArrayList<>();
+
     public enum Role{
         // USER, ADMIN, BASIC 이면 될것 같은데, 차후 협의 필요
         USER, ADMIN, BASIC;
     }
 
-    protected User() {
-    }
 
-    public User(Long userId, String userName, String userEmail, String password, boolean userStatus, Role role) {
+    public User(Long userId, String userName, String userEmail, String password) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
         this.password = password;
-        this.userStatus = userStatus;
-        this.role = role;
     }
 }

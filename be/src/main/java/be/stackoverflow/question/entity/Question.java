@@ -1,6 +1,10 @@
 package be.stackoverflow.question.entity;
 
+import be.stackoverflow.audit.TimeAudit;
 import be.stackoverflow.audit.WriterAudit;
+import be.stackoverflow.tags.entity.Tags;
+import be.stackoverflow.user.entity.User;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "QUESTIONS")
-public class Question extends WriterAudit {
+public class Question extends TimeAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +35,14 @@ public class Question extends WriterAudit {
     private Boolean questionStatus = true; //삭제시 false로 처리
     @Column(nullable = false)
     private int questionViewCount = 0;
-    
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+        user.getQuestions().add(this);
+    }
+
 }
