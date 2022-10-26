@@ -5,10 +5,10 @@ import { AiOutlineSearch, AiTwotoneTrophy } from "react-icons/ai";
 import stackLogo from "../img/stackOverflowLogo.png";
 import { GoInbox } from "react-icons/go";
 import { FaQuestionCircle, FaStackExchange } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
-  console.log(isLogin);
+  const navigate = useNavigate();
 
   const loginBtn = () => {
     setIsLogin(true);
@@ -17,11 +17,15 @@ function Header() {
     setIsLogin(false);
   };
 
+  const clickAllQuestion = () => {
+    navigate("/");
+  };
+
   return (
     <Wraper>
       {isLogin ? (
         <HeaderWraper>
-          <LogoBtn>
+          <LogoBtn onClick={clickAllQuestion}>
             <LogoImg src={stackLogo} />
           </LogoBtn>
           <LinkBtnSpace isLogin={isLogin}>
@@ -54,7 +58,7 @@ function Header() {
           <HeaderIcon isLogin={isLogin}>
             <FiMenu />
           </HeaderIcon>
-          <LogoBtn>
+          <LogoBtn onClick={clickAllQuestion}>
             <LogoImg src={stackLogo} />
           </LogoBtn>
           <LinkBtnSpace>

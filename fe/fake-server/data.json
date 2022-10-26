@@ -2,29 +2,81 @@
   "questions": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "questionTitle": "제목1",
+      "questionBody": "게시글 내용 첫번째입니다",
+      "tags": ["javascript", "react"],
+      "questionViewCount": 0,
+      "questionstatus": null,
+      "createdAt": "2022-10-24T14:09:04.6402551",
+      "modifiedAt": "2022-10-24T14:09:04.6402551",
+      "questionVote": 111,
+      "answer": [
+        {
+          "id": "1",
+          "votes": 1,
+          "contentsbody": "콘텐츠1입니다",
+          "contentscode": "for (let i = 0;i< comment.length; i++{ return comment[i] })"
+        },
+        {
+          "id": "2",
+          "votes": 2,
+          "contentbody": "콘텐츠2입니다",
+          "contentcode": "for (let j = 0;j< comment.length; j++{ return comment[j] })"
+        },
+        {
+          "id": "3",
+          "votes": 3,
+          "contentbody": "콘텐츠3입니다",
+          "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "questionTitle": "제목2",
+      "questionBody": "게시글 내용 두번째 입니다",
+      "tags": ["springboot", "node.js"],
+      "questionViewCount": 0,
+      "questionstatus": null,
+      "createdAt": "2022-10-24T14:09:04.6402551",
+      "modifiedAt": "2022-10-24T14:09:04.6402551",
+      "questionVote": 222,
+      "answer": [{ "id": "4" }, { "id": "5" }, { "id": "6" }]
+    },
+    {
+      "id": 3,
+      "questionTitle": "제목3",
+      "questionBody": "게시글 내용 세번째입니다",
+      "tags": null,
+      "questionViewCount": 0,
+      "questionstatus": null,
+      "createdAt": "2022-10-24T14:09:04.6402551",
+      "modifiedAt": "2022-10-24T14:09:04.6402551",
+      "questionVote": 333,
+      "title": "question3",
+      "author": "당신",
+      "answer": [{ "id": "7" }, { "id": "8" }, { "id": "9" }]
     }
   ],
   "user": [
     {
       "id": 1,
-      "body": "one comment",
+      "body": "one user",
       "postId": 1
     },
     {
       "id": 2,
-      "body": "two comment",
+      "body": "two user",
       "postId": 1
     },
     {
       "id": 3,
-      "body": "three comment",
+      "body": "three user",
       "postId": 1
     },
     {
       "id": 4,
-      "body": "four comment",
+      "body": "four user",
       "postId": 1
     }
   ]

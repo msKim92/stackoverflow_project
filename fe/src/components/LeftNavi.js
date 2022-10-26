@@ -6,7 +6,6 @@ import sideImage from "../img/sideImg.png";
 
 function LeftNvi() {
   const [clickElement, setClickElement] = useState(false);
-  console.log(clickElement);
 
   const clickHere = () => {
     setClickElement(!clickElement);

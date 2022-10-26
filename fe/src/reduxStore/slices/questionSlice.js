@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-  return axios
-    .get("http://localhost:3001/memo/")
-    .then((res) => console.log(res).catch((err) => console.log(err)));
-});
+export const fetchQuestion = createAsyncThunk(
+  "questions/fetchUser",
+  async () => {
+    return axios
+      .get("http://localhost:3001/questions/")
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+);
 
 const questionsSlice = createSlice({
   name: "questions",
@@ -16,17 +20,17 @@ const questionsSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [fetchUser.pending]: (state) => {
+    [fetchQuestion.pending]: (state) => {
       state.questions = [];
       state.loading = true;
       state.error = "";
     },
-    [fetchUser.fulfilled]: (state, action) => {
+    [fetchQuestion.fulfilled]: (state, action) => {
       state.questions = action.payload;
       state.loading = false;
       state.error = "";
     },
-    [fetchUser.rejected]: (state, action) => {
+    [fetchQuestion.rejected]: (state, action) => {
       state.questions = [];
       state.loading = false;
       state.error = action.payload;

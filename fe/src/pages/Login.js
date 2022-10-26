@@ -8,7 +8,6 @@ import Header from "../components/Header";
 
 function Login() {
   const [clickElement, setClickElement] = useState(false);
-  console.log(clickElement);
 
   const clickHere = () => {
     setClickElement(!clickElement);
