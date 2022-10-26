@@ -18,7 +18,6 @@ function LeftNvi() {
         <HomeMenu click={clickElement} onClick={() => clickHere()}>
           Home
         </HomeMenu>
-
         <MainMenu>
           <PublicMenu>PUBLIC</PublicMenu>
           <QuestionsContents click={clickElement} onClick={() => clickHere()}>
@@ -44,7 +43,6 @@ function LeftNvi() {
             <CollectivesMenu>Explore Collectives</CollectivesMenu>
           </CollectivesContents>
         </MainMenu>
-
         <TeamsMenu>TEAMS</TeamsMenu>
         <TeamMainMenu>
           <TeamsContents>
@@ -87,6 +85,7 @@ const HomeMenu = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const MainMenu = styled.div`
@@ -118,6 +117,7 @@ const QuestionsContents = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const EarthIcon = styled.div`
@@ -141,6 +141,7 @@ const Menu = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const Collectives = styled.div`
@@ -160,6 +161,7 @@ const CollectivesContents = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const StarIcon = styled.div`
@@ -208,6 +210,7 @@ const CreateBtn = styled.button`
   font-size: 11px;
   width: 138px;
   height: 30px;
+  cursor: pointer;
 `;
 
 const TeamsMsg = styled.div`

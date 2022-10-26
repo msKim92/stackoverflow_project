@@ -93,6 +93,8 @@ const LoginWraper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
 `;
 
 const SocialLogWraper = styled.div`
