@@ -91,8 +91,8 @@ public class questionDto {
          */
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
-        private String create_by;
-        private String updated_by;
+        private String create_by_user;
+        private String updated_by_user;
 
     }
 
