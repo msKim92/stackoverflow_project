@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
@@ -7,26 +7,33 @@ import Footer from "../components/Footer";
 import AddComment from "../components/AddComment";
 import Question from "../components/Question";
 
+import { useDispatch, useSelector } from "react-redux";
+import { fetchQuestion } from "../reduxStore/slices/questionSlice";
+
 function AllQuestions() {
+  const { questions, loading, error } = useSelector((state) => state.questions);
   return (
     <>
       <Header />
       <Wraper>
         <LeftNvi />
         <QuestionList>
-          <div>
-            <div>Top Questions</div>
-            <div></div>
-          </div>
-          <div>
-            <div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
+          <AllQuestionsMenu>
+            <AllQuestionsTop>
+              <AllQuestionsTitle>Top Questions</AllQuestionsTitle>
+              <AllQuestionsAddBtn>Ask Question</AllQuestionsAddBtn>
+            </AllQuestionsTop>
+            <AllQuestionsBottom>
+              <AllQuestionsMenuBtn>Interestion</AllQuestionsMenuBtn>
+              <AllQuestionsInMenuSpace>
+                <AllQuestionsMenuInBtn>274</AllQuestionsMenuInBtn>
+                <AllQuestionsMenuBtn>Bountied</AllQuestionsMenuBtn>
+              </AllQuestionsInMenuSpace>
+              <AllQuestionsMenuBtn>Hot</AllQuestionsMenuBtn>
+              <AllQuestionsMenuBtn>Week</AllQuestionsMenuBtn>
+              <AllQuestionsMenuBtn>Month</AllQuestionsMenuBtn>
+            </AllQuestionsBottom>
+          </AllQuestionsMenu>
           <Question />
           <AddComment />
         </QuestionList>
@@ -52,6 +59,88 @@ const QuestionList = styled.div`
   overflow-y: auto;
   border: 1px solid yellowgreen;
   margin: 20px;
+`;
+const AllQuestionsMenu = styled.div`
+  width: 99%;
+  height: 135px;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+const AllQuestionsTop = styled.div`
+  width: 100%;
+  height: 65px;
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const AllQuestionsBottom = styled.div`
+  width: 100%;
+  height: 40px;
+  border: 1px solid red;
+  display: flex;
+  justify-content: end;
+`;
+const AllQuestionsTitle = styled.div`
+  font-size: 30px;
+`;
+const AllQuestionsAddBtn = styled.button`
+  width: 120px;
+  height: 40px;
+  font-size: 15px;
+  background-color: rgb(20, 148, 245);
+  border-top: double white;
+  color: white;
+  border: none;
+  border-top: double white;
+  border-radius: 5px;
+`;
+
+const AllQuestionsInMenuSpace = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const AllQuestionsMenuInBtn = styled.div`
+  background-color: #0074cc;
+  color: white;
+  width: 35px;
+  height: 20px;
+  &:focus {
+    background-color: gray;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: -43px;
+  z-index: 2;
+`;
+const AllQuestionsMenuBtn = styled.button`
+  width: 60px;
+  background-color: white;
+
+  &:nth-child(1) {
+    width: 100px;
+    border-radius: 5px 0px 0px 5px;
+  }
+  &:nth-child(2) {
+    width: 110px;
+    height: 100%;
+    padding-left: 40px;
+  }
+  &:nth-child(3) {
+    width: 45px;
+  }
+  &:last-child {
+    border-radius: 0px 5px 5px 0px;
+  }
+  &:focus {
+    background-color: #e3e6e8;
+  }
 `;
 
 export default AllQuestions;

@@ -12,6 +12,6 @@ function Question() {
 const QuestionSpace = styled.div`
   width: 100%;
   height: 100px;
-  border: 1px solid red;
+  border: 5px solid blue;
 `;
 export default Question;
