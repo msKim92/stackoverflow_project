@@ -14,50 +14,53 @@ function Login() {
   };
 
   return (
-    <Display>
-      <Wraper>
-        <LoginWraper>
-          <Logo src={StackOverflowIcon} click={clickElement} onClick={() => clickHere()}></Logo>
-          <SocialLogWraper>
-            <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-              <SocialIcon><FcGoogle/></SocialIcon>
-              <BtnText>Log in with Google</BtnText>
-            </SocialLogBtn>
-            <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-            <SocialIcon><AiFillGithub/></SocialIcon>
-            <BtnText>Log in with GitHub</BtnText>
-            </SocialLogBtn>
-            <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-            <SocialIcon><AiFillFacebook/></SocialIcon>
-            <BtnText>Log in with Facebook</BtnText>
-            </SocialLogBtn>
-          </SocialLogWraper>
-          <LoginBox>
-            <LoginForm>
-              <EmailForm>
-                <Text>Email</Text>
-                <TextInput></TextInput>
-              </EmailForm>
-              <PasswardForm>
-                <Text>Passward</Text>
-                <TextInput></TextInput>
-              </PasswardForm>
-              <LoginBtn click={clickElement} onClick={() => clickHere()}>Log in</LoginBtn>
-            </LoginForm>
-          </LoginBox>
-          <Space>
-            <SignUpBox>
-              <MsgForm>Don’t have an account?</MsgForm>
-              <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up</MsgButton>
-            </SignUpBox>
-            <SignUpBox>
-              <MsgForm>Are you an employer?</MsgForm>
-              <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
-            </SignUpBox>
-          </Space>
-        </LoginWraper>
-      </Wraper>
-    </Display>
+    <>
+      <Header />
+      <Display>
+        <Wraper>
+          <LoginWraper>
+            <Logo src={StackOverflowIcon} click={clickElement} onClick={() => clickHere()}></Logo>
+            <SocialLogWraper>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+                <SocialIcon><FcGoogle/></SocialIcon>
+                <BtnText>Log in with Google</BtnText>
+              </SocialLogBtn>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialIcon><AiFillGithub/></SocialIcon>
+              <BtnText>Log in with GitHub</BtnText>
+              </SocialLogBtn>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialIcon><AiFillFacebook/></SocialIcon>
+              <BtnText>Log in with Facebook</BtnText>
+              </SocialLogBtn>
+            </SocialLogWraper>
+            <LoginBox>
+              <LoginForm>
+                <EmailForm>
+                  <Text>Email</Text>
+                  <TextInput></TextInput>
+                </EmailForm>
+                <PasswardForm>
+                  <Text>Passward</Text>
+                  <TextInput></TextInput>
+                </PasswardForm>
+                <LoginBtn click={clickElement} onClick={() => clickHere()}>Log in</LoginBtn>
+              </LoginForm>
+            </LoginBox>
+            <Space>
+              <SignUpBox>
+                <MsgForm>Don’t have an account?</MsgForm>
+                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up</MsgButton>
+              </SignUpBox>
+              <SignUpBox>
+                <MsgForm>Are you an employer?</MsgForm>
+                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
+              </SignUpBox>
+            </Space>
+          </LoginWraper>
+        </Wraper>
+      </Display>
+    </>
   );
 }
 
