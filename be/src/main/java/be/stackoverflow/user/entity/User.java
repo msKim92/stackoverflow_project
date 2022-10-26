@@ -22,7 +22,6 @@ public class User extends TimeAudit {
 
     private String password;
 
-    // erd 현재 memberStatus -> userStatus 수정 필요
     private boolean userStatus;
 
     @Enumerated(value = EnumType.STRING)

@@ -63,11 +63,6 @@ public class questionService {
                 .ifPresent(new_body -> questionFromRepository.setQuestionBody(new_body));//body
 
         log.info("tag 관련 업데이트 필요");//tag 관련 업데이트 필요
-        /**
-         * 유현 : Audit 기능 추가
-         * 코드리뷰이후 audit 채택 되면 아래 내용 삭제 예정
-         */
-//        questionFromRepository.setModifiedAt(LocalDateTime.now()); //수정시간 현재로 수정
 
         return questionRepository.save(questionFromRepository);
 
