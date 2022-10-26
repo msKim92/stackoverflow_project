@@ -1,11 +1,14 @@
 package be.stackoverflow.question.controller;
 
+import be.stackoverflow.dto.MultiResponseDto;
+import be.stackoverflow.dto.SingleResponseDto;
 import be.stackoverflow.question.dto.questionDto;
 import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.question.mapper.questionMapper;
 import be.stackoverflow.question.service.questionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +19,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-//@Validated 업데이트 예정
+@Validated
 @Slf4j
 @RequestMapping("/v1/questions")
 public class questionController {
@@ -25,13 +28,16 @@ public class questionController {
     private final questionService questionService;
     private final questionMapper mapper;
 
-    //ReadAll (싹다 조회)
+    //R: 모든 질문페이지 요청하기
     @GetMapping
-    public ResponseEntity getAllQuestions() {
+    public ResponseEntity getAllQuestions(@Positive @RequestParam int page,
+                                          @Positive @RequestParam int size) {
 
-        List<Question> FoundQuestions = questionService.findAllQuestion(); //페이지네이션 추가예정
+        Page<Question> pageInfomation = questionService.findAllQuestion(page-1, size);
+        List<Question> allQuestions = pageInfomation.getContent();
 
-        return new ResponseEntity<>(FoundQuestions, HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInfomation) , HttpStatus.CREATED);
     }
 
 
@@ -44,7 +50,8 @@ public class questionController {
         Question question = mapper.questionPostToQuestion(postdata);
         Question savedQuestion = questionService.createQuestion(question);
 
-        return new ResponseEntity<>(mapper.questionToFrontResponse(savedQuestion), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToFrontResponse(savedQuestion)), HttpStatus.CREATED);
     }
 
 
@@ -54,7 +61,8 @@ public class questionController {
 
         Question FoundQuestion = questionService.findQuestion(questionId);
 
-        return new ResponseEntity<>(mapper.questionToDeatilResponse(FoundQuestion), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToDeatilResponse(FoundQuestion)), HttpStatus.CREATED);
     }
 
 
@@ -66,20 +74,17 @@ public class questionController {
         patchData.setQuestionId(questionId);
         Question ModifiedQuestion = questionService.updateQuestion(mapper.questionPatchToQuestion(patchData));
 
-        return new ResponseEntity<>(mapper.questionToDeatilResponse(ModifiedQuestion), HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToDeatilResponse(ModifiedQuestion)), HttpStatus.CREATED);
     }
 
 
     //Delete(삭제)
     @DeleteMapping("/{question-id}")
     public ResponseEntity postQuestion(@PathVariable("question-id")@Positive long questionId) {
-        // 비즈니스 예외 로직 추가시, 수정예정
         // Stauts를 false로 바꾸고 자료는 남길지?
-        try {
-            questionService.deleteQuestion(questionId); 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        questionService.deleteQuestion(questionId);
+
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

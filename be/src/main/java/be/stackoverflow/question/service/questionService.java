@@ -1,8 +1,13 @@
 package be.stackoverflow.question.service;
 
+import be.stackoverflow.exception.BusinessLogicException;
+import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,19 +25,20 @@ public class questionService {
 
     private final be.stackoverflow.question.repository.questionRepository questionRepository;
 
-    //전체조회
-    public List<Question> findAllQuestion() {
-        return questionRepository.findAll();
+    //전체 질문 조회 페이지
+    public Page<Question> findAllQuestion(int page, int size) {
+        return questionRepository.findAll(PageRequest.of(page, size,
+                Sort.by("questionId").descending())); //최신순으로 나중에 좋아요 정렬까지 필요하면 questionId를 변수받을 예정
     }
 
-    //게시글 생성
+    //C: 질문 추가 페이지
     public Question createQuestion(Question question) {
+
         return questionRepository.save(question);
     }
 
-    //게시글 찾기
-
-    public Question findQuestion(long questionId) throws Exception {
+    //R: 질문 상세 페이지
+    public Question findQuestion(long questionId){
 
         Question found_question = verifyQuestionUsingID(questionId);
         found_question.setQuestionViewCount(found_question.getQuestionViewCount()+1); // 조회할때마다 상승...? 인간당으로 바꿔야하나? 고민필요
@@ -42,11 +48,10 @@ public class questionService {
     }
 
 
-    //게시글 수정
+    //U: 질문 수정페이지
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     //propagation(번식) 동작도중에 다른 트랜잭션을 호출시 어찌할지(전파옵션), isolation 일관성없는 데이터 허용수준 설정
-    //isolation.serializable
-    public Question updateQuestion(Question question) throws Exception {
+    public Question updateQuestion(Question question){
 
 
         Question questionFromRepository = verifyQuestionUsingID(question.getQuestionId());
@@ -69,18 +74,21 @@ public class questionService {
     }
 
 
-    //게시글 삭제
-    public void deleteQuestion(long questionId) throws Exception {
+    //D: 질문 삭제
+    public void deleteQuestion(long questionId){
         Question verifiedQuestion = verifyQuestionUsingID(questionId);//삭제하기전에 해당아이디에 데이터가 있는지 확인한다.
         questionRepository.delete(verifiedQuestion);
     }
 
-    private Question verifyQuestionUsingID(Long questionId) throws Exception {
+
+    //질문이 있는지 없는지 확인
+    private Question verifyQuestionUsingID(Long questionId){
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question question = optionalQuestion.orElseThrow(() ->
-                new Exception("존재하지않은 아이디입니다. 해당 로직은 비즈니스로직 구현시 업데이트 예정입니다."));
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return question;
 
     }
+
 }

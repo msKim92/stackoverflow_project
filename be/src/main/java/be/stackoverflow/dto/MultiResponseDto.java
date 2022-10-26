@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 public class MultiResponseDto<T> {
-    private List<T> data;
+    private List<T> data; //json 함수명
     private PageInfo pageInfo;
 
     public MultiResponseDto(List<T> data, Page page) {
