@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchQuestion = createAsyncThunk(
   "questions/fetchUser",
   async () => {
-    return await axios
+    return axios
       .get("http://localhost:3001/questions/")
       .then((res) => res.data)
       .catch((err) => console.log(err));

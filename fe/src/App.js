@@ -14,19 +14,19 @@ const EditComment = lazy(() => import("./pages/EditComment"));
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading....!</div>}></Suspense>
-      <Routes>
-        {/* <Route path="/" element={<Main />}></Route> */}
-        <Route path="/" element={<AllQuestions />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/logout" element={<Logout />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
-        {/* <Route path="/allquestions" element={<AllQuestions />}></Route> */}
-        <Route path="/askquestions" element={<AskQuestions />}></Route>
-        <Route path="/editquestion" element={<EditQuestion />}></Route>
-        <Route path="/detailquestion" element={<DetailQuestion />}></Route>
-        <Route path="/editcomment" element={<EditComment />}></Route>
-      </Routes>
+      <Suspense fallback={<div>Loading....!</div>}>
+        <Routes>
+          {/* <Route path="/" element={<Main />}></Route> */}
+          <Route path="/" element={<AllQuestions />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/logout" element={<Logout />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/askquestions" element={<AskQuestions />}></Route>
+          <Route path="/editquestion" element={<EditQuestion />}></Route>
+          <Route path="/detailquestion" element={<DetailQuestion />}></Route>
+          <Route path="/editcomment" element={<EditComment />}></Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

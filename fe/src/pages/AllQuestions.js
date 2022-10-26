@@ -6,12 +6,25 @@ import RightNavi from "../components/RightNavi";
 import Footer from "../components/Footer";
 import AddComment from "../components/AddComment";
 import Question from "../components/Question";
-
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function AllQuestions() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { questions, loading, error } = useSelector((state) => state.questions);
+
+  const clickAddQuetion = () => {
+    navigate("/askquestions");
+  };
+
+  useEffect(() => {
+    if (questions.length === 0) {
+      dispatch(fetchQuestion());
+    }
+  }, []);
+
   return (
     <>
       <Header />
@@ -21,7 +34,9 @@ function AllQuestions() {
           <AllQuestionsMenu>
             <AllQuestionsTop>
               <AllQuestionsTitle>Top Questions</AllQuestionsTitle>
-              <AllQuestionsAddBtn>Ask Question</AllQuestionsAddBtn>
+              <AllQuestionsAddBtn onClick={clickAddQuetion}>
+                Ask Question
+              </AllQuestionsAddBtn>
             </AllQuestionsTop>
             <AllQuestionsBottom>
               <AllQuestionsMenuBtn>Interestion</AllQuestionsMenuBtn>
@@ -62,18 +77,17 @@ const QuestionList = styled.div`
 `;
 const AllQuestionsMenu = styled.div`
   width: 99%;
-  height: 135px;
-  border: 1px solid blue;
+  height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #9ea6ac;
 `;
 
 const AllQuestionsTop = styled.div`
   width: 100%;
-  height: 65px;
-  border: 1px solid red;
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -82,7 +96,6 @@ const AllQuestionsTop = styled.div`
 const AllQuestionsBottom = styled.div`
   width: 100%;
   height: 40px;
-  border: 1px solid red;
   display: flex;
   justify-content: end;
 `;
@@ -91,7 +104,7 @@ const AllQuestionsTitle = styled.div`
 `;
 const AllQuestionsAddBtn = styled.button`
   width: 120px;
-  height: 40px;
+  height: 45px;
   font-size: 15px;
   background-color: rgb(20, 148, 245);
   border-top: double white;
@@ -122,7 +135,7 @@ const AllQuestionsMenuInBtn = styled.div`
 const AllQuestionsMenuBtn = styled.button`
   width: 60px;
   background-color: white;
-
+  border: 1px solid #9ea6ac;
   &:nth-child(1) {
     width: 100px;
     border-radius: 5px 0px 0px 5px;
