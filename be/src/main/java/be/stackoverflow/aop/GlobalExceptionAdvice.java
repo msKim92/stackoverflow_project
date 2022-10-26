@@ -1,6 +1,7 @@
 package be.stackoverflow.aop;
 
 
+import be.stackoverflow.dto.ErrorResponseDto;
 import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -29,17 +30,26 @@ import javax.validation.ConstraintViolationException;
 public class GlobalExceptionAdvice {
 
     /**
-     * businesslogicException은 우리가 에러를 만드는것이기 때문에 상태코드는 200으로 서블릿한테 보냄
+     * businesslogicException은 논리적 에러처리 하는 메서드
+     * 예시
+     *    "error": {
+     *         "status": 404,
+     *         "message": "Question not exists",
+     *         "fieldErrors": null,
+     *         "violationErrors": null
+     *     }
      */
     @ExceptionHandler
     public ResponseEntity BusinessHandler(BusinessLogicException e) {
         final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
 
-        return new ResponseEntity(response, HttpStatus.valueOf(e.getExceptionCode().getCode()));
+        return new ResponseEntity(
+                new ErrorResponseDto<>(response), HttpStatus.valueOf(e.getExceptionCode().getCode()));
     }
 
     /*
      * MethodArgumentNotValidException @validation으로 에러가 났을때 처리하는 함수
+     * 프론트단에서 에러를 처리하므로 JSON 메시지를 다시 리백해줘야하는지?
      */
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -64,6 +74,7 @@ public class GlobalExceptionAdvice {
     }
     /*
      * HttpRequestMethodNotSupportedException 지원하지않는 API 호출에 대해서 에러 날리는 경우
+     * POST만 받는 URI에 GET을 보냈다던지 etc
      */
     @ExceptionHandler
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
@@ -105,6 +116,7 @@ public class GlobalExceptionAdvice {
 
     /*
     * 위에 에러를 다 지나 추가적으로 발생되는 에러를 핸들링하는 메서드
+    * 디스코드에 보내는걸로...?
     * */
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

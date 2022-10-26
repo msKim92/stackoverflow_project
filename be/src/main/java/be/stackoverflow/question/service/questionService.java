@@ -51,7 +51,6 @@ public class questionService {
     //U: 질문 수정페이지
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     //propagation(번식) 동작도중에 다른 트랜잭션을 호출시 어찌할지(전파옵션), isolation 일관성없는 데이터 허용수준 설정
-    //isolation.serializable
     public Question updateQuestion(Question question){
 
 
@@ -87,4 +86,5 @@ public class questionService {
         return question;
 
     }
+
 }
