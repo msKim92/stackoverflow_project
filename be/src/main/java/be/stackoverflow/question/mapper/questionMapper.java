@@ -5,6 +5,8 @@ import be.stackoverflow.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface questionMapper {
 
@@ -14,5 +16,6 @@ public interface questionMapper {
 
     questionDto.questionDetailResponse questionToDeatilResponse(Question question); //상세 게시글에 쏴줄 데이터로 변환
 
+    List<questionDto.questionFrontResponse> questionListResponse(List<Question> questionList);
 
 }
