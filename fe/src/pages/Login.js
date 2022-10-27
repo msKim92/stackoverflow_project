@@ -13,66 +13,53 @@ function Login() {
   };
 
   return (
-    <Display>
-      <Wraper>
-        <LoginWraper>
-          <Logo
-            src={StackOverflowIcon}
-            click={clickElement}
-            onClick={() => clickHere()}
-          ></Logo>
-          <SocialLogWraper>
-            <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-              <SocialIcon>
-                <FcGoogle />
-              </SocialIcon>
-              <BtnText>Log in with Google</BtnText>
-            </SocialLogBtn>
-            <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-              <SocialIcon>
-                <AiFillGithub />
-              </SocialIcon>
+    <>
+      <Header />
+      <Display>
+        <Wrapper>
+          <LoginWrapper>
+            <Logo src={StackOverflowIcon} click={clickElement} onClick={() => clickHere()}></Logo>
+            <SocialLogWrapper>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+                <SocialIcon><FcGoogle/></SocialIcon>
+                <BtnText>Log in with Google</BtnText>
+              </SocialLogBtn>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialIcon><AiFillGithub/></SocialIcon>
               <BtnText>Log in with GitHub</BtnText>
-            </SocialLogBtn>
-            <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-              <SocialIcon>
-                <AiFillFacebook />
-              </SocialIcon>
+              </SocialLogBtn>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialIcon><AiFillFacebook/></SocialIcon>
               <BtnText>Log in with Facebook</BtnText>
-            </SocialLogBtn>
-          </SocialLogWraper>
-          <LoginBox>
-            <LoginForm>
-              <EmailForm>
-                <Text>Email</Text>
-                <TextInput></TextInput>
-              </EmailForm>
-              <PasswardForm>
-                <Text>Passward</Text>
-                <TextInput></TextInput>
-              </PasswardForm>
-              <LoginBtn click={clickElement} onClick={() => clickHere()}>
-                Log in
-              </LoginBtn>
-            </LoginForm>
-          </LoginBox>
-          <Space>
-            <SignUpBox>
-              <MsgForm>Don’t have an account?</MsgForm>
-              <MsgButton click={clickElement} onClick={() => clickHere()}>
-                Sign up
-              </MsgButton>
-            </SignUpBox>
-            <SignUpBox>
-              <MsgForm>Are you an employer?</MsgForm>
-              <MsgButton click={clickElement} onClick={() => clickHere()}>
-                Sign up on Talent
-              </MsgButton>
-            </SignUpBox>
-          </Space>
-        </LoginWraper>
-      </Wraper>
-    </Display>
+              </SocialLogBtn>
+            </SocialLogWrapper>
+            <LoginBox>
+              <LoginForm>
+                <EmailForm>
+                  <Text>Email</Text>
+                  <TextInput></TextInput>
+                </EmailForm>
+                <PasswardForm>
+                  <Text>Passward</Text>
+                  <TextInput></TextInput>
+                </PasswardForm>
+                <LoginBtn click={clickElement} onClick={() => clickHere()}>Log in</LoginBtn>
+              </LoginForm>
+            </LoginBox>
+            <Space>
+              <SignUpBox>
+                <MsgForm>Don’t have an account?</MsgForm>
+                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up</MsgButton>
+              </SignUpBox>
+              <SignUpBox>
+                <MsgForm>Are you an employer?</MsgForm>
+                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
+              </SignUpBox>
+            </Space>
+          </LoginWrapper>
+        </Wrapper>
+      </Display>
+    </>
   );
 }
 
@@ -84,7 +71,7 @@ const Display = styled.div`
   background-color: #f1f2f3;
 `;
 
-const Wraper = styled.div`
+const Wrapper = styled.div`
   width: 65vw;
   height: 100vh;
   display: flex;
@@ -100,7 +87,7 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-const LoginWraper = styled.div`
+const LoginWrapper = styled.div`
   width: 278px;
   height: 570px;
   display: flex;
@@ -111,7 +98,7 @@ const LoginWraper = styled.div`
   margin-bottom: auto;
 `;
 
-const SocialLogWraper = styled.div`
+const SocialLogWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 16px;
@@ -161,6 +148,7 @@ const LoginBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
+  box-shadow: 0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
 `;
 
 const LoginForm = styled.div`
