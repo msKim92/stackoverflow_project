@@ -17,10 +17,10 @@ function Login() {
     <>
       <Header />
       <Display>
-        <Wraper>
-          <LoginWraper>
+        <Wrapper>
+          <LoginWrapper>
             <Logo src={StackOverflowIcon} click={clickElement} onClick={() => clickHere()}></Logo>
-            <SocialLogWraper>
+            <SocialLogWrapper>
               <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
                 <SocialIcon><FcGoogle/></SocialIcon>
                 <BtnText>Log in with Google</BtnText>
@@ -33,7 +33,7 @@ function Login() {
               <SocialIcon><AiFillFacebook/></SocialIcon>
               <BtnText>Log in with Facebook</BtnText>
               </SocialLogBtn>
-            </SocialLogWraper>
+            </SocialLogWrapper>
             <LoginBox>
               <LoginForm>
                 <EmailForm>
@@ -57,8 +57,8 @@ function Login() {
                 <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
               </SignUpBox>
             </Space>
-          </LoginWraper>
-        </Wraper>
+          </LoginWrapper>
+        </Wrapper>
       </Display>
     </>
   );
@@ -72,7 +72,7 @@ const Display = styled.div`
   background-color: #f1f2f3;
 `
 
-const Wraper = styled.div`
+const Wrapper = styled.div`
   width: 65vw;
   height: 100vh;
   display: flex;
@@ -88,7 +88,7 @@ const Logo = styled.img`
   cursor: pointer;
 `
 
-const LoginWraper = styled.div`
+const LoginWrapper = styled.div`
   width: 278px;
   height: 570px;
   display: flex;
@@ -99,7 +99,7 @@ const LoginWraper = styled.div`
   margin-bottom: auto;
 `;
 
-const SocialLogWraper = styled.div`
+const SocialLogWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 16px;

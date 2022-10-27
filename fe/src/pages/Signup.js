@@ -1,15 +1,328 @@
-import React from "react";
+import React,{ useState } from "react";
+import styled from "styled-components";
+import { FcGoogle } from "react-icons/fc";
+import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
+import Header from "../components/Header";
+import { RiQuestionnaireFill } from "react-icons/ri";
+import { TiArrowUnsorted } from "react-icons/ti";
+import { ImPriceTags, ImTrophy } from "react-icons/im";
+
 
 function Signup() {
+  const [clickElement, setClickElement] = useState(false);
+
+  const clickHere = () => {
+    setClickElement(!clickElement);
+  };
+
   return (
-    <div>
-      <div>
-        .
-      </div>
-    </div>
+    <>
+    <Header />
+    <Display>
+      <DisplayWrapper>
+        <Main>
+          <TextBox>
+            <MainText>Join the Stack Overflow community</MainText>
+            <FlexItem>
+              <Icon><RiQuestionnaireFill/></Icon>
+              <Text>Get unstuck — ask a question</Text>
+            </FlexItem>
+            <FlexItem>
+              <Icon><TiArrowUnsorted/></Icon>
+              <Text>Unlock new privileges like voting and commenting</Text>
+            </FlexItem>
+            <FlexItem>
+              <Icon><ImPriceTags/></Icon>
+              <Text>Save your favorite tags, filters, and jobs</Text>
+            </FlexItem>
+            <FlexItem>
+              <Icon><ImTrophy/></Icon>
+              <Text>Earn reputation and badges</Text>
+            </FlexItem>
+            <SmallText>
+              <SmallText>Collaborate and share knowledge with a private group for FREE.</SmallText>
+              <SmallTextBlue>Get Stack Overflow for Teams free for up to 50 users.</SmallTextBlue>
+            </SmallText>
+          </TextBox>
+          <MainBox>
+            <SocialLogWrapper>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+                <SocialIcon><FcGoogle/></SocialIcon>
+                <BtnText>Sign up with Google</BtnText>
+              </SocialLogBtn>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialIcon><AiFillGithub/></SocialIcon>
+              <BtnText>Sign up with GitHub</BtnText>
+              </SocialLogBtn>
+              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialIcon><AiFillFacebook/></SocialIcon>
+              <BtnText>Sign up with Facebook</BtnText>
+              </SocialLogBtn>
+            </SocialLogWrapper>
+            <SignupBox>
+                <div>
+                 <TextContents>Display name</TextContents>
+                 <InputBox/>
+                 <TextContents>Email</TextContents>
+                 <InputBox/>
+                 <TextContents>Password</TextContents>
+                 <InputBox/>
+                </div>
+                 <Message>
+                   Passwords must contain at least eight characters, 
+                   including at least 1 letter and 1 number.
+                 </Message>
+                 <RobotBox>
+                   로봇
+                 </RobotBox>
+                 <CheckBox>
+                   <Check />
+                   <Message>
+                   Opt-in to receive occasional product 
+                   updates, user research invitations, company 
+                   announcements, and digests.
+                   </Message>
+                 </CheckBox>
+                 <SignupBtn click={clickElement} onClick={() => clickHere()}>Sign up</SignupBtn>
+                <Form>
+                 <MessageBlack>
+                   By clicking “Sign up”, you agree to our
+                 </MessageBlack>
+                 <MessageBlue>
+                   terms of service, privacy policy and cookie policy
+                 </MessageBlue>
+                </Form> 
+             </SignupBox>
+             <Space>
+             <SignUpBox>
+               <MsgForm>Don’t have an account?</MsgForm>
+               <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up</MsgButton>
+              </SignUpBox>
+              <SignUpBox>
+                <MsgForm>Are you an employer?</MsgForm>
+                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
+              </SignUpBox>
+              </Space>
+          </MainBox>
+        </Main>
+      </DisplayWrapper>
+    </Display>
+    </>
   )
 }
 
+const Display = styled.div` 
+  width: 100%;
+  height: 100%;
+  padding-top: 52px;
+  display: flex;
+  justify-content: center;
+  background-color: #f1f2f3;
+`
 
+const DisplayWrapper = styled.div` 
+  width: 75vw;
+  height: 900px;
+  padding: 8px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Main = styled.div` 
+  width: 790px;
+  height: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const TextBox = styled.div`
+  margin: 0px 10px 100px 0px;
+  height: 300px;
+  padding-right: 22px;
+`
+
+const MainText = styled.div`
+  font-size: 1.6em;
+  margin-bottom: 35px;
+`
+
+const Icon = styled.div`
+  font-size: 28px;
+  color:hsl(206deg 85% 57%);
+`
+
+const FlexItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`
+
+const Text = styled.div`
+  font-size: 15px;
+  margin-left: 5px;
+`
+
+const SmallText = styled.div`
+  font-size: 13px;
+`
+
+const SmallTextBlue = styled.div`
+  font-size: 13px;
+  color: hsl(206deg 100% 40%);
+`
+const InputBox = styled.input`
+  width: 264px;
+  height: 28px;
+  border: 1px solid hsl(210deg 8% 75%);
+  border-radius: 5px;
+`
+
+const MainBox = styled.div`
+  width: 316px;
+  height: 900px;
+`
+
+const SignupBox = styled.div`
+  width: 266px;
+  height: 600px;
+  border-radius: 7px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  display: flex;
+  align-items: center;
+`
+
+const SocialLogWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px;
+`;
+
+const SocialLogBtn = styled.button`
+  width: 316px;
+  height: 37px;
+  margin: 4px;
+  border-radius: 5px;
+  border: 1px solid #D6D9DC;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:first-child {
+    background-color: #fff;
+    color:#232629
+  }
+  &:nth-child(2){
+    background-color: #232629;
+    color: white;
+  }
+  &:nth-child(3){
+    background-color: #314A86;
+    color: white;
+  }
+`;
+
+const SocialIcon = styled.div`
+  font-size: 19px;
+`;
+
+const BtnText = styled.div`
+  font-weight: 100;
+  margin-left: 5px;
+`;
+
+const TextContents = styled.div`
+  font-weight: 550;
+  margin: 6px 1px;
+  color: hsl(210deg 8% 25%);
+  margin-bottom: 15px;
+`;
+
+
+const Message = styled.div`
+  font-size: 11.5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+`;
+
+const RobotBox = styled.div`
+  border: 1px solid red;
+  width: 260px;
+  height: 156px;
+  margin-top: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const CheckBox = styled.div`
+  display: flex;
+  align-items: baseline;
+`
+
+const Check = styled.input`
+  width: 5px;
+  height: 7px;
+`
+
+const SignupBtn = styled.button`
+  width:268px;
+  height: 37px;
+  margin-top: 8px;
+  background-color: hsl(206deg 100% 52%);
+  color:white;
+  border: 1px solid white;
+  border: none;
+  border-radius: 3px;
+  font-weight: 200;
+  box-shadow: inset 0 2px 0 0 hsl(0deg 0% 100% / 40%);
+  cursor: pointer;
+`;
+
+const Space = styled.div`
+  margin-top: 32px;
+`;
+
+const SignUpBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7px;
+`;
+
+const MsgForm = styled.span`
+  font-size: 13px;
+`;
+
+const MsgButton = styled.button`
+  border: none;
+  margin-left: 1px;
+  font-size:  14px;
+  color: hsl(206deg 100% 40%);
+  cursor: pointer;
+`;
+
+const MessageBlack = styled.span`
+  color: black;
+  font-size: 11.5px;
+`;
+
+const MessageBlue = styled.span`
+  margin-left: 3px;
+  color: hsl(206deg 100% 40%);
+  font-size: 11.5px;
+`;
+
+const Form = styled.div`
+  margin-top: 40px;
+`
 
 export default Signup;

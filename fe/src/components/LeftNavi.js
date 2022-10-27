@@ -12,8 +12,8 @@ function LeftNvi() {
   };
 
   return (
-    <LeftNaviWraper>
-      <Wraper>
+    <LeftNaviWrapper>
+      <Wrapper>
         <HomeMenu click={clickElement} onClick={() => clickHere()}>
           Home
         </HomeMenu>
@@ -56,18 +56,18 @@ function LeftNvi() {
             <TeamsMsg>Why Teams?</TeamsMsg>
           </TeamsContents>
         </TeamMainMenu>
-      </Wraper>
-    </LeftNaviWraper>
+      </Wrapper>
+    </LeftNaviWrapper>
   );
 }
 
-const LeftNaviWraper = styled.div`
+const LeftNaviWrapper = styled.div`
   width: 168px;
   height: 100vh;
   border: none;
 `;
 
-const Wraper = styled.div`
+const Wrapper = styled.div`
   width: 163px;
   height: 100vh;
   position: fixed;
