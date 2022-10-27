@@ -32,7 +32,7 @@ public class User extends TimeAudit {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
 
     public enum Role{

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "QUESTIONS")
-public class Question extends TimeAudit {
+public class Question extends WriterAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +40,8 @@ public class Question extends TimeAudit {
     @JoinColumn(name = "user_id")
     private User user;
 
+
+    //양방향 연관관계 편의 메서드
     public void setUser(User user) {
         this.user = user;
         user.getQuestions().add(this);

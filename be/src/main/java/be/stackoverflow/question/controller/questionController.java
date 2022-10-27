@@ -46,10 +46,8 @@ public class questionController {
     //create (게시글 생성)
     @PostMapping("/createQuestion")
     public ResponseEntity postQuestion(@Validated @RequestBody questionDto.questionPost postdata) {
-        log.info("postdata ={}", postdata);
         Question question = mapper.questionPostToQuestion(postdata);
         Question savedQuestion = questionService.createQuestion(question);
-
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToFrontResponse(savedQuestion)), HttpStatus.CREATED);
     }
@@ -72,8 +70,9 @@ public class questionController {
     public ResponseEntity postQuestion(@PathVariable("question-id")@Positive long questionId,
                                         @Validated @RequestBody questionDto.questionPatch patchData) throws Exception {
         patchData.setQuestionId(questionId);
-        Question ModifiedQuestion = questionService.updateQuestion(mapper.questionPatchToQuestion(patchData));
-
+        log.info("patchDto userid = {}",patchData.getUserId());
+        Question ModifiedQuestion = questionService.updateQuestion(patchData.getUserId(),mapper.questionPatchToQuestion(patchData));
+        log.info("Question userid = {}",ModifiedQuestion.getUser().getUserId());
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToDeatilResponse(ModifiedQuestion)), HttpStatus.CREATED);
     }

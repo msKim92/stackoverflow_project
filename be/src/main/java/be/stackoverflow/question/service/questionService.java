@@ -3,6 +3,7 @@ package be.stackoverflow.question.service;
 import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,8 +34,12 @@ public class questionService {
 
     //C: 질문 추가 페이지
     public Question createQuestion(Question question) {
+        User user = question.getUser();
 
-        return questionRepository.save(question);
+        Question question1 = questionRepository.save(question);
+
+        log.info("user.UserName = {}",user.getUserName());
+        return question1;
     }
 
     //R: 질문 상세 페이지
@@ -51,10 +56,12 @@ public class questionService {
     //U: 질문 수정페이지
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     //propagation(번식) 동작도중에 다른 트랜잭션을 호출시 어찌할지(전파옵션), isolation 일관성없는 데이터 허용수준 설정
-    public Question updateQuestion(Question question){
+    public Question updateQuestion(long userId,Question question){
 
 
         Question questionFromRepository = verifyQuestionUsingID(question.getQuestionId());
+
+        questionFromRepository.setUpdated_by_user(question.getUser().getUserName());
 
         //CustomBeanUtils 써보기 <리팩토링시>
         Optional.ofNullable(question.getQuestionTitle())

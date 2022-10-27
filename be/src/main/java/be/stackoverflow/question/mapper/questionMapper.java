@@ -3,6 +3,7 @@ package be.stackoverflow.question.mapper;
 import be.stackoverflow.question.dto.questionDto;
 import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.user.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -12,13 +13,28 @@ import java.util.List;
 public interface questionMapper {
 
     List<questionDto.questionFrontResponse> questionListResponse(List<Question> questionList);
-    Question questionPatchToQuestion(questionDto.questionPatch patchToEntity); //patchDto 데이터를 Question entity화
+    default Question questionPatchToQuestion(questionDto.questionPatch patchToEntity) {
+        Question question = new Question();
+        User user = new User();
+        user.setUserId(patchToEntity.getUserId());
+        System.out.println("postDataToEntity.getUserId() = " + patchToEntity.getUserId());
+        question.setUser(user);
+        System.out.println("user.getUserId() = " + user.getUserId());
+        System.out.println("user.getUserName() = " + user.getUserName());
+
+        question.setQuestionId(patchToEntity.getQuestionId());
+        question.setQuestionTitle(patchToEntity.getQuestionTitle());
+        question.setQuestionBody(patchToEntity.getQuestionBody());
+
+        return question;
+    } //patchDto 데이터를 Question entity화
     default Question questionPostToQuestion(questionDto.questionPost postDataToEntity) {
         Question question = new Question();
         User user = new User();
         user.setUserId(postDataToEntity.getUserId());
         question.setUser(user);
-
+        System.out.println("user.getUserId() = " + user.getUserId());
+        System.out.println("user.getUserName() = " + user.getUserName());
         question.setQuestionTitle(postDataToEntity.getQuestionTitle());
         question.setQuestionBody(postDataToEntity.getQuestionBody());
 
@@ -34,6 +50,8 @@ public interface questionMapper {
         questionFrontResponse.setCreated_at(question.getCreated_at());
         questionFrontResponse.setUpdated_at(question.getUpdated_at());
         questionFrontResponse.setUser(question.getUser());
+        System.out.println("question.getUser().getUserName() = " + question.getUser().getUserName());
+        System.out.println("question.getUser().getUserId() = " + question.getUser().getUserId());
 
         return questionFrontResponse;
     }//게시판 처음에 쏴줄 데이터들 변환
@@ -49,7 +67,8 @@ public interface questionMapper {
         questionDetailResponse.setCreated_at(question.getCreated_at());
         questionDetailResponse.setUpdated_at(question.getUpdated_at());
         questionDetailResponse.setUser(question.getUser());
-
+        System.out.println("question.getUser().getUserId() = " + question.getUser().getUserId());
+        System.out.println("question.getUser().getUserName() = " + question.getUser().getUserName());
         return questionDetailResponse;
     } //상세 게시글에 쏴줄 데이터로 변환
 
