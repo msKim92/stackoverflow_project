@@ -228,12 +228,13 @@ const AnswerContentsSpace = styled.div`
   margin-top: 20px;
 `;
 const AnswerContentsSpaceLeft = styled.div`
-  width: 70px;
+  width: 50px;
   height: 240px;
   margin-right: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 1px solid red; */
 `;
 const AnswerContentsSpaceRight = styled.div`
   width: 85%;
