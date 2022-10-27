@@ -6,7 +6,7 @@ import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaRegBookmark, FaHistory } from "react-icons/fa";
 import userImg from "../img/user.png";
 
-function ReadComment() {
+function ReadAnswer() {
   const { questions, loading, error } = useSelector((state) => state.questions);
   const [clickSelect, setClickSelect] = useState("");
   const dispatch = useDispatch();
@@ -329,4 +329,4 @@ const UserName = styled.div`
   }
   margin-bottom: 5px;
 `;
-export default ReadComment;
+export default ReadAnswer;

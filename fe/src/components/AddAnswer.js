@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { RiLinksLine, RiFileCodeFill, RiKeyboardLine } from "react-icons/ri";
 import { IoMdQuote } from "react-icons/io";
@@ -16,11 +16,48 @@ import {
 } from "react-icons/md";
 import { CgUndo, CgRedo } from "react-icons/cg";
 import { BiCodeCurly } from "react-icons/bi";
-function AddComment() {
+import { useDispatch } from "react-redux";
+import { addAnswer } from "../reduxStore/slices/answerSlice";
+
+function AddAnswer() {
   const [openQe, setOpenQe] = useState(false);
+  const [openCode, setOpenCode] = useState(false);
+  const [answerWrite, setAnswerWrite] = useState("");
+  const [answerCodeWrite, setAnswerCodeWrite] = useState("");
+  const dispatch = useDispatch();
 
   const clickOpenQuestion = () => {
     setOpenQe(!openQe);
+  };
+
+  const clickOpenWriteCode = () => {
+    setOpenCode(!openCode);
+  };
+
+  const userWriteAnswer = (e) => {
+    setAnswerWrite(e.target.value);
+  };
+  const userWriteAnswerCode = (e) => {
+    setAnswerCodeWrite(e.target.value);
+  };
+
+  const clickAddAnswer = () => {
+    let addData = {};
+    if (answerCodeWrite) {
+      addData = {
+        votes: 0,
+        contentsbody: answerWrite,
+        contentscode: answerCodeWrite,
+      };
+    } else {
+      addData = {
+        votes: 0,
+        contentsbody: answerWrite,
+        contentscode: "",
+      };
+    }
+
+    dispatch(addAnswer(addData));
   };
 
   return (
@@ -98,7 +135,9 @@ function AddComment() {
                 <UserWriteTagBtn>Styling/Headres</UserWriteTagBtn>
                 <UserWriteTagBtn>Lists</UserWriteTagBtn>
                 <UserWriteTagBtn>Blockqquotes</UserWriteTagBtn>
-                <UserWriteTagBtn>Code</UserWriteTagBtn>
+                <UserWriteTagBtn onClick={clickOpenWriteCode}>
+                  Code
+                </UserWriteTagBtn>
                 <UserWriteTagBtn>Html</UserWriteTagBtn>
                 <UserWriteTagBtn>Tables</UserWriteTagBtn>
               </UserWriteTagBtnSpace>
@@ -106,13 +145,19 @@ function AddComment() {
             </UserWriteTagBtnSpace>
           ) : null}
 
-          <UserWriteTextareaBox />
+          <UserWriteTextareaBox isOpen={openCode} onChange={userWriteAnswer} />
+          {openCode ? (
+            <UserWriteTextareaBox
+              isOpen={openCode}
+              onChange={userWriteAnswerCode}
+            />
+          ) : null}
           <UserWriteBoxBtn>
             <RiKeyboardLine />
           </UserWriteBoxBtn>
         </UserWriteSpace>
         <UserClickBtnSpace>
-          <UserClickBtn>Post Your Answer</UserClickBtn>
+          <UserClickBtn onClick={clickAddAnswer}>Post Your Answer</UserClickBtn>
         </UserClickBtnSpace>
       </AnswerWapper>
       <AllQuestionsInformation>
@@ -272,13 +317,17 @@ const UserWriteTagHelpBtn = styled.button`
 
 const UserWriteTextareaBox = styled.textarea`
   width: 99.5%;
-  height: 70%;
+  height: ${(props) => (props.isOpen ? "30%" : "70%")};
+  overflow-y: scroll;
   text-align: start;
 
   &:focus {
     box-shadow: 0px 0px 3px 3px rgba(107, 186, 247, 0.5);
     border: none;
     outline: 0;
+  }
+  &:nth-child(4) {
+    background-color: gray;
   }
 `;
 const UserWriteBoxBtn = styled.div`
@@ -310,4 +359,4 @@ const UserClickBtn = styled.button`
   border-top: double white;
   border-radius: 5px;
 `;
-export default AddComment;
+export default AddAnswer;

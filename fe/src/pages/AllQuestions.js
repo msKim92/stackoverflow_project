@@ -4,12 +4,8 @@ import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import RightNavi from "../components/RightNavi";
 import Footer from "../components/Footer";
-import ReadComment from "../components/ReadComment";
-import AddComment from "../components/AddComment";
 import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function AllQuestions() {
   const navigate = useNavigate();
@@ -51,8 +47,6 @@ function AllQuestions() {
             </div>
             <InformationDiv>unanswered questions.</InformationDiv>
           </AllQuestionsInformation>
-          <ReadComment />
-          <AddComment />
         </QuestionList>
         <RightNavi />
       </Wraper>
