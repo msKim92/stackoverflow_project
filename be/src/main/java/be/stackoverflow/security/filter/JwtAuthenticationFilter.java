@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,19 +15,18 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
  * JWT를 이용한 로그인 인증을 요청하는 필터
+ * attemptAuthentication >> 로그인 시도 호출되는 메서드
+ * successfulAuthentication >> 로그인 성공시 엑세스랑 리프레쉬 토큰 발급
  */
 
 @Slf4j
-@Configuration
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -54,7 +52,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // 3. 데이터를 토큰해 넣는다.
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getUserEmail(), loginDto.getPassword());
 
         // 4. 만든 토큰을 이제 인증도우미에게 전달함.
         return authenticationManager.authenticate(authenticationToken);
@@ -68,15 +66,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         User user = (User) authResult.getPrincipal();
 
         // 2. 엑세스 토큰과 리프레쉬 토큰을 발급한다.
-        String accessToken = makingAccessToken(user);
-        String refreshToken = makingRefeshToken(user);
+        String accessToken = makeAccessToken(user);
+        String refreshToken = makeRefreshToken(user);
 
         //3. jwt의 요구한 구조에 맞게 헤더를 변경한다.
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
     }
 
-    private String makingRefeshToken(User user) {
+    
+    
+    private String makeRefreshToken(User user) {
         //1. 검증수단을 확인
         String subject = user.getUserEmail();
         //2. 만료된 기한을 yml 파일에서 지정한 시간만큼 업데이트 하고 비번도 재 암호화
@@ -89,7 +89,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     }
 
-    private String makingAccessToken(User user) {
+    private String makeAccessToken(User user) {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("userEmail", user.getUserEmail());
         claims.put("roles", user.getRoles());

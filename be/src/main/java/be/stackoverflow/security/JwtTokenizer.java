@@ -15,7 +15,9 @@ import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-
+/*
+ * jwt 토큰을 사용하기 위한 메서드
+ */
 @Component
 public class JwtTokenizer {
     //해당 정보들은 yml파일에 저장하기 JWT의 기본정보 엑세스토큰과 리프레쉬토큰

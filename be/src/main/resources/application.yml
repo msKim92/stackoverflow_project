@@ -22,18 +22,20 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
+#postman 한글깨짐 현상을 없애기 위해 추가함.
 server:
   servlet:
     encoding:
       force-response: true
+      charset: utf-8
+      force: true
 
 #JWT 관련 spec
 mail:
   address:
     admin: test@gmail.com
-    users: user@gmail.com
 
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
+  secret-key: ${JWT_SECRET_KEY} #256bit 이상안하면 tokenizer에서 거절함.
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420

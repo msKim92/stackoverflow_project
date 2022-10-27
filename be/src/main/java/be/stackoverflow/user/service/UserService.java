@@ -37,10 +37,10 @@ public class UserService implements UserDetailsService {
     public User createUser(User user) {
         verifyExistsUserName(user.getUserName());
         verifyExistsEmail(user.getUserEmail());
-
         user.setUserStatus(true);
+
         /**
-         * 비밀번호와 롤 지정하는 함수
+         * 비밀번호와 권한 지정하는 함수
          */
         //Password 암호화
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
