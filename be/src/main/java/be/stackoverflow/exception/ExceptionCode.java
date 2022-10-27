@@ -14,8 +14,10 @@ public enum ExceptionCode {
 
     //User 부분 예외 ==============끝
     QUESTION_NOT_FOUND(404, "Question not exists"),
+
+    //Answer 부분 예외 ==============시작
     ANSWER_NOT_FOUND(404, "Answer not exists");
-    
+    //Answer 부분 예외 ==============끝
     /* 위에다가 추가 하세요 */
     
     @Getter

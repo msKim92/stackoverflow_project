@@ -94,7 +94,6 @@ public class questionService {
                 new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return question;
-
     }
 
 }

@@ -63,7 +63,7 @@ public interface questionMapper {
         questionDetailResponse.setUpdated_at(question.getUpdated_at());
         questionDetailResponse.setCreate_by_user(question.getCreate_by_user());
         questionDetailResponse.setUpdated_by_user(question.getUpdated_by_user());
-        
+
         return questionDetailResponse;
     } //상세 게시글에 쏴줄 데이터로 변환
 

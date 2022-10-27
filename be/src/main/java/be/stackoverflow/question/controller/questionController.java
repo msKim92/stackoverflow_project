@@ -33,11 +33,11 @@ public class questionController {
     public ResponseEntity getAllQuestions(@Positive @RequestParam int page,
                                           @Positive @RequestParam int size) {
 
-        Page<Question> pageInfomation = questionService.findAllQuestion(page-1, size);
-        List<Question> allQuestions = pageInfomation.getContent();
+        Page<Question> pageInformation = questionService.findAllQuestion(page-1, size);
+        List<Question> allQuestions = pageInformation.getContent();
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInfomation) , HttpStatus.CREATED);
+                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation) , HttpStatus.CREATED);
     }
 
 
@@ -70,9 +70,8 @@ public class questionController {
     public ResponseEntity postQuestion(@PathVariable("question-id")@Positive long questionId,
                                         @Validated @RequestBody questionDto.questionPatch patchData) throws Exception {
         patchData.setQuestionId(questionId);
-        log.info("patchDto userid = {}",patchData.getUserId());
         Question ModifiedQuestion = questionService.updateQuestion(patchData.getUserId(),mapper.questionPatchToQuestion(patchData));
-        log.info("Question userid = {}",ModifiedQuestion.getUser().getUserId());
+
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToDeatilResponse(ModifiedQuestion)), HttpStatus.CREATED);
     }
