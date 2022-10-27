@@ -243,7 +243,9 @@ function RightNavi() {
 const RightNaviWraper = styled.div`
   box-sizing: border-box;
   width: 33%;
-  height: 100vh;
+  height: 100%;
+  overflow-y: auto;
+  padding-left: 20px;
 `;
 
 const Space = styled.div`

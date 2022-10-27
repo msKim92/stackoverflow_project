@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import RightNavi from "../components/RightNavi";
 import Footer from "../components/Footer";
+import ReadComment from "../components/ReadComment";
 import AddComment from "../components/AddComment";
 import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
@@ -50,6 +51,7 @@ function AllQuestions() {
             </div>
             <InformationDiv>unanswered questions.</InformationDiv>
           </AllQuestionsInformation>
+          <ReadComment />
           <AddComment />
         </QuestionList>
         <RightNavi />
@@ -64,13 +66,12 @@ const Wraper = styled.div`
   width: 1400px;
   padding-top: 60px;
   height: 100%;
-  border: 2px solid black;
   display: flex;
   margin-left: auto;
   margin-right: auto;
 `;
 const QuestionList = styled.div`
-  width: 800px;
+  width: 750px;
   height: 100%;
   overflow-y: auto;
   margin: 10px 10px 10px 0px;
@@ -159,7 +160,7 @@ const AllQuestionsMenuBtn = styled.button`
   }
 `;
 const AllQuestionsInformation = styled.div`
-  width: 100%;
+  width: 96%;
   height: 150px;
   display: flex;
   flex-direction: column;

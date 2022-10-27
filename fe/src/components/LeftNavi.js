@@ -65,6 +65,7 @@ const LeftNaviWraper = styled.div`
   width: 168px;
   height: 100vh;
   border: none;
+  margin-right: 5px;
 `;
 
 const Wraper = styled.div`

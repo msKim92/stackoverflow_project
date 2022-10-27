@@ -5,13 +5,12 @@ import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function Question() {
   const { questions, loading, error } = useSelector((state) => state.questions);
-  console.log(questions);
   const dispatch = useDispatch();
   useEffect(() => {
     if (questions.length === 0) {
       dispatch(fetchQuestion());
     }
-  }, []);
+  }, [dispatch]);
 
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
@@ -125,7 +124,7 @@ function Question() {
 }
 
 const QuestionSpace = styled.div`
-  width: 100%;
+  width: 88%;
   height: 80px;
   padding: 20px 40px 16px 40px;
   display: flex;
