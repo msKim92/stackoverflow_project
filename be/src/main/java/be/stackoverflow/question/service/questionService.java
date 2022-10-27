@@ -3,6 +3,9 @@ package be.stackoverflow.question.service;
 import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.user.entity.User;
+import be.stackoverflow.user.repository.UserRepository;
+import be.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,7 @@ import java.util.Optional;
 public class questionService {
 
     private final be.stackoverflow.question.repository.questionRepository questionRepository;
+    private final UserService userService;
 
     //전체 질문 조회 페이지
     public Page<Question> findAllQuestion(int page, int size) {
@@ -33,8 +37,13 @@ public class questionService {
 
     //C: 질문 추가 페이지
     public Question createQuestion(Question question) {
+        long userId = question.getUser().getUserId();
+        User user = userService.findUser(userId);
+        question.setCreate_by_user(user.getUserName());
+        question.setUpdated_by_user(user.getUserName());
 
-        return questionRepository.save(question);
+        Question savedQuestion = questionRepository.save(question);
+        return savedQuestion;
     }
 
     //R: 질문 상세 페이지
@@ -51,10 +60,12 @@ public class questionService {
     //U: 질문 수정페이지
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     //propagation(번식) 동작도중에 다른 트랜잭션을 호출시 어찌할지(전파옵션), isolation 일관성없는 데이터 허용수준 설정
-    public Question updateQuestion(Question question){
+    public Question updateQuestion(long userId,Question question){
 
 
         Question questionFromRepository = verifyQuestionUsingID(question.getQuestionId());
+
+        questionFromRepository.setUpdated_by_user(question.getUser().getUserName());
 
         //CustomBeanUtils 써보기 <리팩토링시>
         Optional.ofNullable(question.getQuestionTitle())
@@ -63,11 +74,6 @@ public class questionService {
                 .ifPresent(new_body -> questionFromRepository.setQuestionBody(new_body));//body
 
         log.info("tag 관련 업데이트 필요");//tag 관련 업데이트 필요
-        /**
-         * 유현 : Audit 기능 추가
-         * 코드리뷰이후 audit 채택 되면 아래 내용 삭제 예정
-         */
-//        questionFromRepository.setModifiedAt(LocalDateTime.now()); //수정시간 현재로 수정
 
         return questionRepository.save(questionFromRepository);
 
@@ -88,7 +94,6 @@ public class questionService {
                 new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return question;
-
     }
 
 }

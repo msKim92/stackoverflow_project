@@ -33,11 +33,11 @@ public class questionController {
     public ResponseEntity getAllQuestions(@Positive @RequestParam int page,
                                           @Positive @RequestParam int size) {
 
-        Page<Question> pageInfomation = questionService.findAllQuestion(page-1, size);
-        List<Question> allQuestions = pageInfomation.getContent();
+        Page<Question> pageInformation = questionService.findAllQuestion(page-1, size);
+        List<Question> allQuestions = pageInformation.getContent();
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInfomation) , HttpStatus.CREATED);
+                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation) , HttpStatus.CREATED);
     }
 
 
@@ -46,10 +46,8 @@ public class questionController {
     //create (게시글 생성)
     @PostMapping("/createQuestion")
     public ResponseEntity postQuestion(@Validated @RequestBody questionDto.questionPost postdata) {
-        log.info("postdata ={}", postdata);
         Question question = mapper.questionPostToQuestion(postdata);
         Question savedQuestion = questionService.createQuestion(question);
-
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToFrontResponse(savedQuestion)), HttpStatus.CREATED);
     }
@@ -72,7 +70,7 @@ public class questionController {
     public ResponseEntity postQuestion(@PathVariable("question-id")@Positive long questionId,
                                         @Validated @RequestBody questionDto.questionPatch patchData) throws Exception {
         patchData.setQuestionId(questionId);
-        Question ModifiedQuestion = questionService.updateQuestion(mapper.questionPatchToQuestion(patchData));
+        Question ModifiedQuestion = questionService.updateQuestion(patchData.getUserId(),mapper.questionPatchToQuestion(patchData));
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToDeatilResponse(ModifiedQuestion)), HttpStatus.CREATED);

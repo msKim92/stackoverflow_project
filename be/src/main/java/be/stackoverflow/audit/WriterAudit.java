@@ -1,6 +1,7 @@
 package be.stackoverflow.audit;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -14,15 +15,15 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class WriterAudit extends TimeAudit {
     /**
      * 생성자, 수정자는 일부 엔티티에 적용 되나, TimeAudit가 필요하므로 TimeAudit를 상속받게 설계함
      */
-    @CreatedBy
     @Column(updatable = false)
     private String create_by_user;
 
-    @LastModifiedBy
+    @Column
     private String updated_by_user;
 }
