@@ -23,7 +23,7 @@ function App() {
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/askquestions" element={<AskQuestions />}></Route>
           <Route path="/editquestion" element={<EditQuestion />}></Route>
-          <Route path="/detailquestion" element={<DetailQuestion />}></Route>
+          <Route path="/:id" element={<DetailQuestion />}></Route>
           <Route path="/editcomment" element={<EditComment />}></Route>
         </Routes>
       </Suspense>

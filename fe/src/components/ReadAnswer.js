@@ -6,9 +6,8 @@ import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaRegBookmark, FaHistory } from "react-icons/fa";
 import userImg from "../img/user.png";
 
-function AddComment() {
+function ReadAnswer() {
   const { questions, loading, error } = useSelector((state) => state.questions);
-  console.log(questions);
   const [clickSelect, setClickSelect] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +23,7 @@ function AddComment() {
   const filterModified = questions[0]?.modifiedAt;
   const filterReputation = questions[0]?.reputation;
   const filterAuthor = questions[0]?.author;
+
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
     let creatTime = new Date(createTime);
@@ -162,7 +162,7 @@ function AddComment() {
   );
 }
 const AnswerWrapper = styled.div`
-  width: 98%;
+  width: 94%;
   height: 570px;
   display: flex;
   flex-direction: column;
@@ -228,12 +228,13 @@ const AnswerContentsSpace = styled.div`
   margin-top: 20px;
 `;
 const AnswerContentsSpaceLeft = styled.div`
-  width: 70px;
+  width: 50px;
   height: 240px;
   margin-right: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 1px solid red; */
 `;
 const AnswerContentsSpaceRight = styled.div`
   width: 85%;
@@ -328,4 +329,4 @@ const UserName = styled.div`
   }
   margin-bottom: 5px;
 `;
-export default AddComment;
+export default ReadAnswer;
