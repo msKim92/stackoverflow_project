@@ -4,6 +4,8 @@ import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.user.entity.User;
+import be.stackoverflow.user.repository.UserRepository;
+import be.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,7 @@ import java.util.Optional;
 public class questionService {
 
     private final be.stackoverflow.question.repository.questionRepository questionRepository;
+    private final UserService userService;
 
     //전체 질문 조회 페이지
     public Page<Question> findAllQuestion(int page, int size) {
@@ -34,12 +37,13 @@ public class questionService {
 
     //C: 질문 추가 페이지
     public Question createQuestion(Question question) {
-        User user = question.getUser();
+        long userId = question.getUser().getUserId();
+        User user = userService.findUser(userId);
+        question.setCreate_by_user(user.getUserName());
+        question.setUpdated_by_user(user.getUserName());
 
-        Question question1 = questionRepository.save(question);
-
-        log.info("user.UserName = {}",user.getUserName());
-        return question1;
+        Question savedQuestion = questionRepository.save(question);
+        return savedQuestion;
     }
 
     //R: 질문 상세 페이지

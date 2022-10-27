@@ -62,18 +62,9 @@ public class questionDto {
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
         // 로그인 기능 추가 후 구현 예정
-        @Setter(AccessLevel.NONE)//일반 setter로 접근하지 못하게 한다.
         private String create_by_user;
         private String updated_by_user;
 
-        public void setUser(User user) {
-            if (create_by_user == null) {
-                create_by_user = user.getUserName();
-                updated_by_user = user.getUserName();
-            } else {
-                updated_by_user=user.getUserName();
-            }
-        }
     }
 
     @Getter
@@ -90,18 +81,9 @@ public class questionDto {
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
         // 로그인 기능 추가 후 구현 예정
-        @Setter(AccessLevel.NONE)//일반 setter로 접근하지 못하게 한다.
         private String create_by_user;
         private String updated_by_user;
 
-        public void setUser(User user) {
-            if (create_by_user == null) {
-                create_by_user = user.getUserName();
-                updated_by_user = user.getUserName();
-            } else {
-                updated_by_user=user.getUserName();
-            }
-        }
     }
 
 
