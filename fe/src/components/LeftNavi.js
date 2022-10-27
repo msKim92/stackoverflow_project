@@ -64,7 +64,6 @@ function LeftNvi() {
 const LeftNaviWraper = styled.div`
   width: 168px;
   height: 100vh;
-  border: 1px solid black;
   border: none;
 `;
 
@@ -73,6 +72,7 @@ const Wraper = styled.div`
   height: 100vh;
   position: fixed;
   font-size: 14px;
+  border-right: 1px solid black;
 `;
 
 const HomeMenu = styled.button`
@@ -191,7 +191,7 @@ const TeamsContents = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const SideImage = styled.img`
   margin: 8px;

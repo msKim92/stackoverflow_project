@@ -42,10 +42,19 @@ function AllQuestions() {
             </AllQuestionsBottom>
           </AllQuestionsMenu>
           <Question />
+          <AllQuestionsInformation>
+            <div>
+              Looking for more? Browse the
+              <InformationSpan> complete list of questions</InformationSpan>, or
+              <InformationSpan>popular tags</InformationSpan>. Help us answer
+            </div>
+            <InformationDiv>unanswered questions.</InformationDiv>
+          </AllQuestionsInformation>
           <AddComment />
         </QuestionList>
         <RightNavi />
       </Wraper>
+
       <Footer />
     </>
   );
@@ -64,8 +73,7 @@ const QuestionList = styled.div`
   width: 800px;
   height: 100%;
   overflow-y: auto;
-  border: 1px solid yellowgreen;
-  margin: 20px;
+  margin: 10px 10px 10px 0px;
 `;
 const AllQuestionsMenu = styled.div`
   width: 99%;
@@ -99,9 +107,9 @@ const AllQuestionsAddBtn = styled.button`
   height: 45px;
   font-size: 15px;
   background-color: rgb(20, 148, 245);
-  border-top: double white;
   color: white;
   border: none;
+  border-top: double white;
   border-radius: 5px;
 `;
 
@@ -122,11 +130,14 @@ const AllQuestionsMenuInBtn = styled.div`
   align-items: center;
   margin-right: -43px;
   z-index: 2;
+  padding-top: 3px;
+  cursor: pointer;
 `;
 const AllQuestionsMenuBtn = styled.button`
   width: 60px;
   background-color: white;
   border: 1px solid #9ea6ac;
+  cursor: pointer;
   &:nth-child(1) {
     width: 100px;
     border-radius: 5px 0px 0px 5px;
@@ -135,6 +146,7 @@ const AllQuestionsMenuBtn = styled.button`
     width: 110px;
     height: 100%;
     padding-left: 40px;
+    z-index: 1;
   }
   &:nth-child(3) {
     width: 45px;
@@ -144,6 +156,34 @@ const AllQuestionsMenuBtn = styled.button`
   }
   &:focus {
     background-color: #e3e6e8;
+  }
+`;
+const AllQuestionsInformation = styled.div`
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+  font-size: 18px;
+`;
+
+const InformationSpan = styled.span`
+  color: #0074cc;
+  cursor: pointer;
+  &:hover {
+    color: #0995ff;
+  }
+  &:nth-child(2) {
+    margin-left: 5px;
+  }
+`;
+const InformationDiv = styled.div`
+  color: #0074cc;
+  cursor: pointer;
+  margin-top: 10px;
+  &:hover {
+    color: #0995ff;
   }
 `;
 

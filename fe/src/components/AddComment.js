@@ -4,6 +4,7 @@ import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaRegBookmark, FaHistory } from "react-icons/fa";
+import userImg from "../img/user.png";
 
 function AddComment() {
   const { questions, loading, error } = useSelector((state) => state.questions);
@@ -15,11 +16,72 @@ function AddComment() {
       dispatch(fetchQuestion());
     }
   }, []);
+  const filterAnswerLength = questions[0]?.answer.length;
+  const filterAnswerVotes = questions[0]?.answer[2].votes;
+  const filterAnswerContentBody = questions[0]?.answer[2].contentbody;
+  const filterAnswerContentCode = questions[0]?.answer[2].contentcode;
+  const filterCreate = questions[0]?.createdAt;
+  const filterModified = questions[0]?.modifiedAt;
+  const filterReputation = questions[0]?.reputation;
+  const filterAuthor = questions[0]?.author;
+  const renderTime = (createTime, modifiedTime) => {
+    let result = "";
+    let creatTime = new Date(createTime);
+    let modifieTime = new Date(modifiedTime);
 
-  let filterAnswerLength = questions[0]?.answer.length;
-  let filterAnswerVotes = questions[0]?.answer[2].votes;
-  let filterAnswerContentBody = questions[0]?.answer[2].contentbody;
-  let filterAnswerContentCode = questions[0]?.answer[2].contentcode;
+    let crYear = creatTime.getFullYear();
+    let crMonth = creatTime.getMonth() + 1;
+    let crDay = creatTime.getDate();
+    let createDate = crYear + "/" + crMonth + "/" + crDay;
+
+    let moYear = creatTime.getFullYear();
+    let moMonth = creatTime.getMonth() + 1;
+    let moDay = creatTime.getDate();
+    let modifiedDate = moYear + "/" + moMonth + "/" + moDay;
+
+    let elapsedTime = modifieTime - creatTime;
+    let dayTime = Math.floor(elapsedTime / 1000 / 60 / 60 / 24); // 하루계산
+    let hourTime = Math.floor(elapsedTime / 1000 / 60 / 60); // 시간 계산
+    let minuteTime = Math.floor(elapsedTime / 1000 / 60); // 분 계산
+    let secondTime = Math.floor(elapsedTime); // 초 계산
+
+    if (dayTime > 0) {
+      result = modifiedDate;
+    } else if (
+      dayTime === 0 &&
+      hourTime !== 0 &&
+      minuteTime !== 0 &&
+      secondTime !== 0
+    ) {
+      if (hourTime === 24) {
+        result = dayTime + "날짜";
+      } else {
+        result = hourTime + " hours ago";
+      }
+    } else if (
+      dayTime === 0 &&
+      hourTime === 0 &&
+      minuteTime !== 0 &&
+      secondTime !== 0
+    ) {
+      if (minuteTime === 24) {
+        result = hourTime + " hours ago";
+      } else {
+        result = minuteTime + " min ago";
+      }
+    } else if (
+      dayTime === 0 &&
+      hourTime === 0 &&
+      minuteTime === 0 &&
+      secondTime > 0
+    ) {
+      result = secondTime + " secs ago";
+    } else {
+      result = createDate + "망";
+    }
+
+    return <UserElapsedTime>answered {result}</UserElapsedTime>;
+  };
 
   const selectOption = [
     { id: 1, value: "Highest score ( default ) " },
@@ -38,7 +100,7 @@ function AddComment() {
           <AnswerTextSpace>{filterAnswerLength}</AnswerTextSpace>
           <AnswerTextSpace>Answer</AnswerTextSpace>
         </TitleAnswerLeft>
-        <AnswerTitleSelectSpace>
+        <TitleAnswerRight>
           <AsnwerTitleSelectExplanation>
             Sorted by :
           </AsnwerTitleSelectExplanation>
@@ -49,7 +111,7 @@ function AddComment() {
               </AswerTitleOption>
             ))}
           </AnswerTitleSelect>
-        </AnswerTitleSelectSpace>
+        </TitleAnswerRight>
       </AnswerTitleSpace>
       <AnswerContentsSpace>
         <AnswerContentsSpaceLeft>
@@ -77,51 +139,39 @@ function AddComment() {
           <AnswerRightContentsBottom>
             <AnswerRightBottomSpace>
               <AnswerRightBottomUpSpace>
-                <ContentButton>쉐어</ContentButton>
-                <ContentButton>수정</ContentButton>
-                <ContentButton>팔로우</ContentButton>
+                <ContentDetailBtn>Share</ContentDetailBtn>
+                <ContentDetailBtn>Edit</ContentDetailBtn>
+                <ContentDetailBtn>Follow</ContentDetailBtn>
               </AnswerRightBottomUpSpace>
-              <div>Add a comment</div>
+              <ContentsAddBtn>Add a comment</ContentsAddBtn>
             </AnswerRightBottomSpace>
-            <div>
-              <div>작성시간</div>
-              <div>
-                <div>작성자이미지</div>
-                <div>
-                  <div>작성자 본인</div>
-                  <div>평판수</div>
-                </div>
-              </div>
-            </div>
+            <ContentsUserInformationSpace>
+              {renderTime(filterCreate, filterModified)}
+              <ContentsUserSpace>
+                <ContentsUserImg src={userImg} />
+                <UserSpace>
+                  <UserName>{filterAuthor}</UserName>
+                  <div>{filterReputation} K</div>
+                </UserSpace>
+              </ContentsUserSpace>
+            </ContentsUserInformationSpace>
           </AnswerRightContentsBottom>
         </AnswerContentsSpaceRight>
       </AnswerContentsSpace>
-      <div></div>
-      <div></div>
-      <div>
-        <div></div>
-        <div></div>
-      </div>
-      <div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
     </AnswerWrapper>
   );
 }
 const AnswerWrapper = styled.div`
-  border: 3px solid yellowgreen;
-  width: 100%;
-  height: 600px;
+  width: 98%;
+  height: 570px;
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border: none;
+  border-bottom: 1px solid #9ea6ac;
 `;
 const AnswerTitleSpace = styled.div`
-  width: 100%;
-  border: 1px solid blue;
+  width: 98%;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -129,20 +179,19 @@ const AnswerTitleSpace = styled.div`
 `;
 
 const TitleAnswerLeft = styled.div`
-  width: 80px;
+  width: 150px;
   height: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   font-size: 20px;
-  border: 1px solid yellowgreen;
 `;
 const AnswerTextSpace = styled.div`
-  color: red;
-  font-size: 20px;
+  font-weight: bolder;
+  font-size: 30px;
 `;
 
-const AnswerTitleSelectSpace = styled.div`
+const TitleAnswerRight = styled.div`
   display: flex;
   border: none;
   width: 325px;
@@ -176,6 +225,7 @@ const AnswerContentsSpace = styled.div`
   width: 100%;
   height: 400px;
   display: flex;
+  margin-top: 20px;
 `;
 const AnswerContentsSpaceLeft = styled.div`
   width: 70px;
@@ -221,9 +271,9 @@ const AnswerRightContentsTop = styled.div`
 `;
 const AnswerRightContentsBottom = styled.div`
   width: 100%;
-  height: 115px;
-  border: 1px solid violet;
+  height: 90px;
   display: flex;
+  justify-content: space-between;
 `;
 const AnswerRightBottomSpace = styled.div`
   display: flex;
@@ -234,8 +284,48 @@ const AnswerRightBottomUpSpace = styled.div`
   display: flex;
 `;
 
-const ContentButton = styled.button`
+const ContentDetailBtn = styled.button`
   background-color: white;
+  color: rgba(31, 30, 30, 0.6);
+  border: none;
+  cursor: pointer;
 `;
-
+const ContentsAddBtn = styled.button`
+  color: #d4d4d4;
+  background-color: white;
+  border: none;
+`;
+const ContentsUserInformationSpace = styled.div`
+  width: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const UserElapsedTime = styled.div`
+  font-size: 15px;
+  color: rgba(31, 30, 30, 0.6);
+  margin-top: 10px;
+`;
+const ContentsUserSpace = styled.div`
+  display: flex;
+  margin-top: 5px;
+`;
+const ContentsUserImg = styled.img`
+  width: 35px;
+  height: 35px;
+`;
+const UserSpace = styled.div`
+  width: 80px;
+  height: 35px;
+  margin-left: 15px;
+`;
+const UserName = styled.div`
+  color: #0074cc;
+  cursor: pointer;
+  &:hover {
+    color: #0995ff;
+  }
+  margin-bottom: 5px;
+`;
 export default AddComment;
