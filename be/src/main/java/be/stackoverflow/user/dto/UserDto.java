@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class UserDto {
@@ -51,7 +52,7 @@ public class UserDto {
         private String userEmail;
         private String password;
         private boolean userStatus;
-        private User.Role role;
+        private List<String> roles;
 
         /**
          * 유현 : Audit 기능 추가

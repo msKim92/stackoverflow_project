@@ -26,3 +26,14 @@ server:
   servlet:
     encoding:
       force-response: true
+
+#JWT 관련 spec
+mail:
+  address:
+    admin: test@gmail.com
+    users: user@gmail.com
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
