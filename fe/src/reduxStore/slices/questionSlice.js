@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchQuestion = createAsyncThunk(
-  "questions/fetchUser",
+  "questions/fetchQuestion",
   async () => {
     return axios
       .get("http://localhost:3001/questions/")
