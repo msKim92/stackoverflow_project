@@ -1,9 +1,13 @@
 package be.stackoverflow.question.dto;
 
+import be.stackoverflow.user.entity.User;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class questionDto {
@@ -11,6 +15,9 @@ public class questionDto {
     @Getter
     @Builder
     public static class questionPost {
+
+        @Positive
+        private long userId;
 
         @NotBlank(message = "제목을 기입하기 바랍니다.")
         private String questionTitle;
@@ -24,7 +31,8 @@ public class questionDto {
     @Getter
     @Builder
     public static class questionPatch {
-
+        @Positive
+        private long userId;
         private Long questionId;
 
         public void setQuestionId(Long questionId) {
@@ -41,34 +49,26 @@ public class questionDto {
     }
 
     @Getter
-    @Builder
+    @Setter
     public static class questionFrontResponse {
 
 
         private String questionTitle;
-        private String questionBody;
 
         private String tags; // tag CRUD 기능 완료시 구현 예정
         private int questionViewCount;
         private Boolean questionstatus;
-        /**
-         * 유현 : Audit 기능 추가
-         * 코드리뷰이후 audit 채택 되면 아래 내용 삭제 예정
-         */
         private int questionVote;
-
-        /**
-         * 유현 : Audit 기능 추가
-         * 코드리뷰 후 적용 예정 부분
-         */
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
+        // 로그인 기능 추가 후 구현 예정
         private String create_by_user;
         private String updated_by_user;
+
     }
 
     @Getter
-    @Builder
+    @Setter
     public static class questionDetailResponse {
 
         private String questionTitle;
@@ -77,20 +77,10 @@ public class questionDto {
         private String tags; // tag CRUD 기능 완료시 구현 예정
         private int questionViewCount;
         private Boolean questionStatus;
-        /**
-         * 유현 : Audit 기능 추가
-         * 코드리뷰이후 audit 채택 되면 아래 내용 삭제 예정
-         */
-//        private LocalDateTime createdAt; /// 모든 컨트롤러 완성된뒤에 추가적으로 상속받을예정
-//        private LocalDateTime modifiedAt; //// 모든 컨트롤러 완성된뒤에 추가적으로 상속받을예정
         private int questionVote;
-
-        /**
-         * 유현 : Audit 기능 추가
-         * 코드리뷰 후 적용 예정 부분
-         */
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
+        // 로그인 기능 추가 후 구현 예정
         private String create_by_user;
         private String updated_by_user;
 

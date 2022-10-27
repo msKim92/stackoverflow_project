@@ -20,7 +20,7 @@ public class StackoverflowApplication {
 	/**
 	 * 유현 : Audit 기능 추가
 	 * 코드리뷰 후 적용 예정 부분
-	 * 현재는 UUID로 생성자 작성자를 임의의 값으로 넣지만, 연관관계 매핑 이후 USER로 교체 예정
+	 * 현재는 UUID로 생성자 작성자를 임의의 값으로 넣지만, 연관관계 매핑과 로그인 인증 이후 USER로 교체 예정
 	 */
 	@Bean
 	public AuditorAware<String> auditorProvider() {

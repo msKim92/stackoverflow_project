@@ -52,12 +52,14 @@ public class UserDto {
         private String userEmail;
         private String password;
         private boolean userStatus;
+
         private List<String> roles;
 
         /**
          * 유현 : Audit 기능 추가
          * 코드리뷰 후 적용 예정 부분
          */
+
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
         private String create_by;
