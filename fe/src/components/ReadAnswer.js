@@ -89,7 +89,7 @@ function ReadAnswer() {
     return <UserElapsedTime>answered {result}</UserElapsedTime>;
   };
   const clickEditAnswer = () => {
-    navigate("/editanswer");
+    navigate("/edit/:id");
   };
 
   const selectOption = [

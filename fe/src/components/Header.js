@@ -179,6 +179,7 @@ const SearchInput = styled.input`
     border: none;
     outline: 0;
   }
+
   margin-left: -35px;
   z-index: 1;
 `;

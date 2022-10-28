@@ -17,14 +17,14 @@ function App() {
       <Suspense fallback={<div>Loading....!</div>}>
         <Routes>
           {/* <Route path="/" element={<Main />}></Route> */}
-          <Route path="/" element={<AllQuestions />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/" element={<AllQuestions />}></Route>
           <Route path="/logout" element={<Logout />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/askquestions" element={<AskQuestions />}></Route>
           <Route path="/editquestion" element={<EditQuestion />}></Route>
           <Route path="/:id" element={<DetailQuestion />}></Route>
-          <Route path="/editanswer" element={<EditAnswer />}></Route>
+          <Route path="/edit/:id" element={<EditAnswer />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>
