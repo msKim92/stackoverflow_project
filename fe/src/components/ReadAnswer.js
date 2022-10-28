@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaRegBookmark, FaHistory } from "react-icons/fa";
 import userImg from "../img/user.png";
+import { useNavigate } from "react-router-dom";
+import { fetchQuestion } from "../reduxStore/slices/questionSlice";
+import { deleteAnswer, fetchAnswer } from "../reduxStore/slices/answerSlice";
 
 function ReadAnswer() {
-  const { questions, loading, error } = useSelector((state) => state.questions);
+  const questions = useSelector((state) => state.questions.questions);
+  const answers = useSelector((state) => state.answers.answers);
   const [clickSelect, setClickSelect] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (questions.length === 0) {
       dispatch(fetchQuestion());
+      dispatch(fetchAnswer());
     }
   }, []);
+  const filterAnswerId = answers[0]?.id;
   const filterAnswerLength = questions[0]?.answer.length;
   const filterAnswerVotes = questions[0]?.answer[2].votes;
-  const filterAnswerContentBody = questions[0]?.answer[2].contentbody;
-  const filterAnswerContentCode = questions[0]?.answer[2].contentcode;
+  const filterAnswerContentBody = answers[0]?.contentbody;
+  const filterAnswerContentCode = answers[0]?.contentcode;
   const filterCreate = questions[0]?.createdAt;
   const filterModified = questions[0]?.modifiedAt;
   const filterReputation = questions[0]?.reputation;
@@ -82,6 +88,9 @@ function ReadAnswer() {
 
     return <UserElapsedTime>answered {result}</UserElapsedTime>;
   };
+  const clickEditAnswer = () => {
+    navigate("/editanswer");
+  };
 
   const selectOption = [
     { id: 1, value: "Highest score ( default ) " },
@@ -93,6 +102,10 @@ function ReadAnswer() {
     setClickSelect(e.target.value);
   };
 
+  const deleteClick = (id) => {
+    console.log(id);
+    dispatch(deleteAnswer(id));
+  };
   return (
     <AnswerWrapper>
       <AnswerTitleSpace>
@@ -140,7 +153,12 @@ function ReadAnswer() {
             <AnswerRightBottomSpace>
               <AnswerRightBottomUpSpace>
                 <ContentDetailBtn>Share</ContentDetailBtn>
-                <ContentDetailBtn>Edit</ContentDetailBtn>
+                <ContentDetailBtn onClick={clickEditAnswer}>
+                  Edit
+                </ContentDetailBtn>
+                <ContentDetailBtn onClick={() => deleteClick(filterAnswerId)}>
+                  Delete
+                </ContentDetailBtn>
                 <ContentDetailBtn>Follow</ContentDetailBtn>
               </AnswerRightBottomUpSpace>
               <ContentsAddBtn>Add a comment</ContentsAddBtn>
