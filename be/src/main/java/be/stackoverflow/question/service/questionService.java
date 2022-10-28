@@ -27,6 +27,8 @@ import java.util.Optional;
 public class questionService {
 
     private final be.stackoverflow.question.repository.questionRepository questionRepository;
+
+    // SRP 위반에 따른 리팩토링 필요
     private final UserService userService;
 
     //전체 질문 조회 페이지
@@ -38,6 +40,7 @@ public class questionService {
     //C: 질문 추가 페이지
     public Question createQuestion(Question question) {
         long userId = question.getUser().getUserId();
+        // SRP 위반에 따른 리팩토링 필요
         User user = userService.findUser(userId);
         question.setCreate_by_user(user.getUserName());
         question.setUpdated_by_user(user.getUserName());

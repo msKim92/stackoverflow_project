@@ -1,5 +1,6 @@
 package be.stackoverflow.user.entity;
 
+import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.audit.TimeAudit;
 import be.stackoverflow.question.entity.Question;
 import lombok.Getter;
@@ -38,7 +39,9 @@ public class User extends TimeAudit {
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
-    
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Answer> answers = new ArrayList<>();
 /*
     public enum Role{
         // USER, ADMIN, BASIC 이면 될것 같은데, 차후 협의 필요
