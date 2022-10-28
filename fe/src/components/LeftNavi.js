@@ -6,10 +6,15 @@ import sideImage from "../img/sideImg.png";
 
 function LeftNvi() {
   const [clickElement, setClickElement] = useState(false);
+  const navigate = useNavigate();
 
   const clickHere = () => {
     setClickElement(!clickElement);
   };
+  const clickQuestion = () => {
+    navigate("/")
+  }
+
 
   return (
     <LeftNaviWrapper>
@@ -19,7 +24,7 @@ function LeftNvi() {
         </HomeMenu>
         <MainMenu>
           <PublicMenu>PUBLIC</PublicMenu>
-          <QuestionsContents click={clickElement} onClick={() => clickHere()}>
+          <QuestionsContents onClick={clickQuestion}>
             <EarthIcon>
               <IoEarthSharp />
             </EarthIcon>
