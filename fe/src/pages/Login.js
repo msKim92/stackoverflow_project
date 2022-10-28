@@ -5,11 +5,13 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
+import axios from 'axios';
+
 
 function Login() {
   const [clickElement, setClickElement] = useState(false);
   const navigate = useNavigate();
-
+  
   const clickHere = () => {
     setClickElement(!clickElement);
   };
@@ -42,11 +44,11 @@ function Login() {
               <LoginForm>
                 <EmailForm>
                   <Text>Email</Text>
-                  <TextInput></TextInput>
+                  <TextInput type="email"/>
                 </EmailForm>
                 <PasswardForm>
                   <Text>Passward</Text>
-                  <TextInput></TextInput>
+                  <TextInput type="password"/>
                 </PasswardForm>
                 <LoginBtn click={clickElement} onClick={() => clickHere()}>Log in</LoginBtn>
               </LoginForm>
@@ -197,7 +199,7 @@ const TextInput = styled.input`
   margin-top: 6px;
   border: 1px solid #d6d9dc;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 13.2px;
 `;
 
 const Space = styled.div`
