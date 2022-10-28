@@ -126,7 +126,6 @@ public class GlobalExceptionAdvice {
         //실시간 관제가 어렵다, 실시간 관제할 서버같은 역할을 할 디스코드 webhook으로 보내기
         System.out.println(e.getMessage());
 
-
         final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
         return response;
     }

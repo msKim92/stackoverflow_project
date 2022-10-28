@@ -26,16 +26,15 @@ public interface questionMapper {
 
         return question;
     } //patchDto 데이터를 Question entity화
-    default Question questionPostToQuestion(questionDto.questionPost postDataToEntity) {
+    default Question questionPostToQuestion(questionDto.questionPost postDataToEntity, User findUser) {
         Question question = new Question();
-        User user = new User();
-        user.setUserId(postDataToEntity.getUserId());
-        question.setUser(user);
+        question.setUser(findUser);
         question.setQuestionTitle(postDataToEntity.getQuestionTitle());
         question.setQuestionBody(postDataToEntity.getQuestionBody());
 
         return question;
-    } //postDto 데이터를 Question entity화
+    }
+    //postDto 데이터를 Question entity화
     default questionDto.questionFrontResponse questionToFrontResponse(Question question) {
         questionDto.questionFrontResponse questionFrontResponse = new questionDto.questionFrontResponse();
 

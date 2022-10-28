@@ -1,15 +1,18 @@
 package be.stackoverflow.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
+import com.fasterxml.jackson.datatype.jsr310.deser.DurationDeserializer;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.io.Deserializer;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Calendar;
@@ -40,6 +43,7 @@ public class JwtTokenizer {
     public String makingSecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
+
 
     /**
      * 1. 인증된 사용자에게 JWT를 최초로 발급해주기 위한 JWT 생성 메서드입니다.
@@ -119,4 +123,18 @@ public class JwtTokenizer {
         return key;
     }
 
+    public String getEmailWithToken(HttpServletRequest request) {
+        //HEADER에 있는 복호화된 값을 가져옴
+        String authorization = request.getHeader("Authorization");
+        String[] split = authorization.split("\\ "); //barer asdasdasd.adasdasd.asdasdasd 이런식으로 되어있어서 나눈다.
+
+        try {
+            Claims body = Jwts.parserBuilder().setSigningKey(getKeyFromBase64EncodedKey(makingSecretKey(secretKey)))
+                    .build().parseClaimsJws(split[1]).getBody(); //값을 넣어서 되돌려받는다.
+            return  (String) body.get("userEmail"); //우리가 그토록 원하는 이메일을 돌려받는다.
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

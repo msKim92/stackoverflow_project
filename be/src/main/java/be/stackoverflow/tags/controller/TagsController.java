@@ -27,6 +27,7 @@ public class TagsController {
 
     /**
      * @PostConstruct로 미리 넣어둘 예정
+     * 되도록이면 스탭데이터를 넣어서 그대로 사용하는게 좋을꺼같다는 생각입니다.
      */
 
     @PostMapping
