@@ -18,8 +18,8 @@
         {
           "id": "1",
           "votes": 1,
-          "contentsbody": "콘텐츠1입니다",
-          "contentscode": "for (let i = 0;i< comment.length; i++{ return comment[i] })"
+          "contentbody": "콘텐츠1입니다",
+          "contentcode": "for (let i = 0;i< comment.length; i++{ return comment[i] })"
         },
         {
           "id": "2",
@@ -139,18 +139,6 @@
     }
   ],
   "answer": [
-    {
-      "id": 1,
-      "votes": 1,
-      "contentsbody": "콘텐츠1입니다",
-      "contentscode": "for (let i = 0;i< comment.length; i++{ return comment[i] })"
-    },
-    {
-      "id": 2,
-      "votes": 2,
-      "contentbody": "콘텐츠2입니다",
-      "contentcode": "for (let j = 0;j< comment.length; j++{ return comment[j] })"
-    },
     {
       "id": 3,
       "votes": 3,

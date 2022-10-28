@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../reduxStore/slices/userSlice";
 import { fetchQuestion } from "../reduxStore/slices/questionSlice";
+import { fetchAnswer } from "../reduxStore/slices/answerSlice";
 
 function Question() {
-  const { questions, loading, error } = useSelector((state) => state.questions);
+  const questions = useSelector((state) => state.questions.questions);
   const dispatch = useDispatch();
   useEffect(() => {
     if (questions.length === 0) {
@@ -78,7 +80,6 @@ function Question() {
     }
     return <QuestionerDetailInformation>{result}</QuestionerDetailInformation>;
   };
-
   return (
     <>
       {questions?.map((data) => (
