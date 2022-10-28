@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
@@ -7,9 +8,13 @@ import Header from "../components/Header";
 
 function Login() {
   const [clickElement, setClickElement] = useState(false);
+  const navigate = useNavigate();
 
   const clickHere = () => {
     setClickElement(!clickElement);
+  };
+  const signupBtn = () => {
+    navigate("/Signup")
   };
 
   return (
@@ -49,11 +54,11 @@ function Login() {
             <Space>
               <SignUpBox>
                 <MsgForm>Don’t have an account?</MsgForm>
-                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up</MsgButton>
+                <MsgButton onClick={signupBtn}>Sign up</MsgButton>
               </SignUpBox>
               <SignUpBox>
                 <MsgForm>Are you an employer?</MsgForm>
-                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
+                <MsgButton>Sign up on Talent</MsgButton>
               </SignUpBox>
             </Space>
           </LoginWrapper>
