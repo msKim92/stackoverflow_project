@@ -1,5 +1,6 @@
 import React,{ useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import Header from "../components/Header";
@@ -10,10 +11,14 @@ import { ImPriceTags, ImTrophy } from "react-icons/im";
 
 function Signup() {
   const [clickElement, setClickElement] = useState(false);
+  const navigate = useNavigate();
 
   const clickHere = () => {
     setClickElement(!clickElement);
   };
+  const clickLogin = () => {
+    navigate("/Login")
+  }
 
   return (
     <>
@@ -96,11 +101,11 @@ function Signup() {
              <Space>
              <SignUpBox>
                <MsgForm>Don’t have an account?</MsgForm>
-               <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up</MsgButton>
+               <MsgButton onClick={clickLogin}>Log in</MsgButton>
               </SignUpBox>
               <SignUpBox>
                 <MsgForm>Are you an employer?</MsgForm>
-                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
+                <MsgButton>Sign up on Talent</MsgButton>
               </SignUpBox>
               </Space>
           </MainBox>

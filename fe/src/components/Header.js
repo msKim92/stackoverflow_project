@@ -12,7 +12,13 @@ function Header() {
 
   const loginBtn = () => {
     setIsLogin(true);
+    navigate("/Login");
   };
+  
+  const signupBtn = () => {
+    navigate("/Signup")
+  }
+
   const logoutBtn = () => {
     setIsLogin(false);
   };
@@ -74,7 +80,7 @@ function Header() {
           </SearchSpace>
           <BtnSpace isLogin={isLogin}>
             <MemberBtn onClick={loginBtn}>Log in</MemberBtn>
-            <MemberBtn onClick={logoutBtn}>Sign up</MemberBtn>
+            <MemberBtn onClick={signupBtn}>Sign up</MemberBtn>
           </BtnSpace>
         </HeaderWraper>
       )}
