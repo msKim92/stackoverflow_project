@@ -17,226 +17,228 @@ import { RiBracesFill } from "react-icons/ri";
 
 function RightNavi() {
   return (
-    <RightNaviWraper>
-      <Wrapper>
-        <Subject>The Overflow Blog</Subject>
-        <Content>
+    <div>
+      <RightNaviWraper>
+        <Wrapper>
+          <Subject>The Overflow Blog</Subject>
+          <Content>
+            <div>
+              <FaPen />
+            </div>
+            <div>Introducing the Overflow Offline project</div>
+          </Content>
+
+          <Content>
+            <div>
+              <FaPen />
+            </div>
+            <div>
+              He helped build .NET and VS Code — Now’s he working on Web3 (Ep.
+              499)
+            </div>
+          </Content>
+
+          <Subject>Featured on Meta</Subject>
+          <Content>
+            <div>
+              <MessageIcon />
+            </div>
+            <div>The 2022 Community-a-thon has begun!</div>
+          </Content>
+          <Content>
+            <div>
+              <MessageIcon />
+            </div>
+            <div>Mobile app infrastructure being decommissioned</div>
+          </Content>
+          <Content>
+            <div>
+              <FaStackOverflow />
+            </div>
+            <div>
+              Collectives Update: Recognized Members, Articles, and GitLab
+            </div>
+          </Content>
+          <Content>
+            <div>
+              <FaStackOverflow />
+            </div>
+            <div>Staging Ground Workflow: Canned Comments</div>
+          </Content>
+          <Content>
+            <div>
+              <FaStackOverflow />
+            </div>
+            <div>The [script] tag is being burninated</div>
+          </Content>
+
+          <Subject>Hot Meta Posts</Subject>
+          <Content>
+            <div>23 Burninate [self-hosting]</div>
+          </Content>
+        </Wrapper>
+
+        <Space></Space>
+
+        <SecondWrapper>
+          <SecondSubject>Custom Filters</SecondSubject>
           <div>
-            <FaPen />
+            <SecondContent as="a" href="*">
+              Create a custom filter
+            </SecondContent>
           </div>
-          <div>Introducing the Overflow Offline project</div>
-        </Content>
+        </SecondWrapper>
 
-        <Content>
-          <div>
-            <FaPen />
+        <Space></Space>
+
+        <SecondWrapper>
+          <SecondSubject>Watched Tags</SecondSubject>
+          <div className="watch_tag">
+            <SearchIcon />
           </div>
-          <div>
-            He helped build .NET and VS Code — Now’s he working on Web3 (Ep.
-            499)
-          </div>
-        </Content>
+          <ThirdContent>Watch tags to curate your list of</ThirdContent>
+          <ThirdContent>questions.</ThirdContent>
 
-        <Subject>Featured on Meta</Subject>
-        <Content>
-          <div>
-            <MessageIcon />
-          </div>
-          <div>The 2022 Community-a-thon has begun!</div>
-        </Content>
-        <Content>
-          <div>
-            <MessageIcon />
-          </div>
-          <div>Mobile app infrastructure being decommissioned</div>
-        </Content>
-        <Content>
-          <div>
-            <FaStackOverflow />
-          </div>
-          <div>
-            Collectives Update: Recognized Members, Articles, and GitLab
-          </div>
-        </Content>
-        <Content>
-          <div>
-            <FaStackOverflow />
-          </div>
-          <div>Staging Ground Workflow: Canned Comments</div>
-        </Content>
-        <Content>
-          <div>
-            <FaStackOverflow />
-          </div>
-          <div>The [script] tag is being burninated</div>
-        </Content>
+          <TagWrapper>
+            <button>Watch a tag</button>
+          </TagWrapper>
+        </SecondWrapper>
 
-        <Subject>Hot Meta Posts</Subject>
-        <Content>
-          <div>23 Burninate [self-hosting]</div>
-        </Content>
-      </Wrapper>
+        <Space></Space>
 
-      <Space></Space>
+        <SecondWrapper>
+          <SecondSubject>Ignored Tags</SecondSubject>
+          <TagWrapper>
+            <button>Add an Ignored tag</button>
+          </TagWrapper>
+        </SecondWrapper>
 
-      <SecondWrapper>
-        <SecondSubject>Custom Filters</SecondSubject>
-        <div>
-          <SecondContent as="a" href="*">
-            Create a custom filter
-          </SecondContent>
-        </div>
-      </SecondWrapper>
+        <Space></Space>
 
-      <Space></Space>
+        <SecondWrapper>
+          <ThirdSubject>
+            <div className="collectives">Collectives</div>
+            <a href="*" className="seeAll">
+              see all
+            </a>
+          </ThirdSubject>
+          <CollectWrapper>
+            <div>
+              <GoogleIcon />
+            </div>
+            <ContentWrapper>
+              <div className="google">Google Cloud</div>
+              <div className="member">30k Members</div>
+            </ContentWrapper>
+            <button>Join</button>
+          </CollectWrapper>
+          <Text>
+            Google Cloud provides organizations with leading infrastructure,
+            platform capabilities...
+          </Text>
 
-      <SecondWrapper>
-        <SecondSubject>Watched Tags</SecondSubject>
-        <div className="watch_tag">
-          <SearchIcon />
-        </div>
-        <ThirdContent>Watch tags to curate your list of</ThirdContent>
-        <ThirdContent>questions.</ThirdContent>
+          <Line></Line>
 
-        <TagWrapper>
-          <button>Watch a tag</button>
-        </TagWrapper>
-      </SecondWrapper>
+          <CollectWrapper>
+            <div>
+              <IntelIcon />
+            </div>
+            <ContentWrapper>
+              <div className="google">Intel</div>
+              <div className="member">80k Members</div>
+            </ContentWrapper>
+            <button>Join</button>
+          </CollectWrapper>
+          <Text>
+            A space for developers to collaborate on Intel software tools,
+            libraries, and resources. Share...
+          </Text>
 
-      <Space></Space>
+          <Line></Line>
 
-      <SecondWrapper>
-        <SecondSubject>Ignored Tags</SecondSubject>
-        <TagWrapper>
-          <button>Add an Ignored tag</button>
-        </TagWrapper>
-      </SecondWrapper>
+          <CollectWrapper>
+            <div>
+              <TwilioIcon />
+            </div>
+            <ContentWrapper>
+              <div className="google">Twilio</div>
+              <div className="member">5k Members</div>
+            </ContentWrapper>
+            <button>Join</button>
+          </CollectWrapper>
+          <Text>
+            Twilio has democratized channels like voice, text, chat, video, and
+            email by virtualizing the...
+          </Text>
+        </SecondWrapper>
 
-      <Space></Space>
+        <Space></Space>
 
-      <SecondWrapper>
-        <ThirdSubject>
-          <div className="collectives">Collectives</div>
-          <a href="*" className="seeAll">
-            see all
-          </a>
-        </ThirdSubject>
-        <CollectWrapper>
-          <div>
-            <GoogleIcon />
-          </div>
-          <ContentWrapper>
-            <div className="google">Google Cloud</div>
-            <div className="member">30k Members</div>
-          </ContentWrapper>
-          <button>Join</button>
-        </CollectWrapper>
-        <Text>
-          Google Cloud provides organizations with leading infrastructure,
-          platform capabilities...
-        </Text>
+        <Network>Hot Network Questions</Network>
 
-        <Line></Line>
+        <Space></Space>
 
-        <CollectWrapper>
-          <div>
-            <IntelIcon />
-          </div>
-          <ContentWrapper>
-            <div className="google">Intel</div>
-            <div className="member">80k Members</div>
-          </ContentWrapper>
-          <button>Join</button>
-        </CollectWrapper>
-        <Text>
-          A space for developers to collaborate on Intel software tools,
-          libraries, and resources. Share...
-        </Text>
+        <QuestionsWrapper>
+          <Questions>
+            <div>
+              <SixCircleIcon />
+            </div>
+            <a href="*" className="text">
+              Can Level 6 Circle of the Moon Druids wild shape into a flying
+              beast?
+            </a>
+          </Questions>
 
-        <Line></Line>
+          <Questions>
+            <div>
+              <GreenIcon />
+            </div>
+            <a href="*" className="text">
+              In what airports do I undergo US exit immigration checks, if I
+              have a connecting flight?
+            </a>
+          </Questions>
 
-        <CollectWrapper>
-          <div>
-            <TwilioIcon />
-          </div>
-          <ContentWrapper>
-            <div className="google">Twilio</div>
-            <div className="member">5k Members</div>
-          </ContentWrapper>
-          <button>Join</button>
-        </CollectWrapper>
-        <Text>
-          Twilio has democratized channels like voice, text, chat, video, and
-          email by virtualizing the...
-        </Text>
-      </SecondWrapper>
+          <Questions>
+            <div>
+              <StackIcon />
+            </div>
+            <a href="*" className="text">
+              Why do root and intermediate levels of NON-unique NON-clustered
+              indexes additionally store row ID?
+            </a>
+          </Questions>
 
-      <Space></Space>
+          <Questions>
+            <div>
+              <MmsIcon />
+            </div>
+            <a href="*" className="text">
+              Why do root and intermediate levels of NON-unique NON-clustered
+              indexes additionally store row ID?
+            </a>
+          </Questions>
 
-      <Network>Hot Network Questions</Network>
+          <Questions>
+            <div>
+              <BracesFillIcon />
+            </div>
+            <a href="*" className="text">
+              How can I get dashed line in the segment EH?
+            </a>
+          </Questions>
 
-      <Space></Space>
-
-      <QuestionsWrapper>
-        <Questions>
-          <div>
-            <SixCircleIcon />
-          </div>
-          <a href="*" className="text">
-            Can Level 6 Circle of the Moon Druids wild shape into a flying
-            beast?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <GreenIcon />
-          </div>
-          <a href="*" className="text">
-            In what airports do I undergo US exit immigration checks, if I have
-            a connecting flight?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <StackIcon />
-          </div>
-          <a href="*" className="text">
-            Why do root and intermediate levels of NON-unique NON-clustered
-            indexes additionally store row ID?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <MmsIcon />
-          </div>
-          <a href="*" className="text">
-            Why do root and intermediate levels of NON-unique NON-clustered
-            indexes additionally store row ID?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <BracesFillIcon />
-          </div>
-          <a href="*" className="text">
-            How can I get dashed line in the segment EH?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <MmsIcon />
-          </div>
-          <a href="*" className="text">
-            Expectations in how to get faster with Vim/Nvim?
-          </a>
-        </Questions>
-      </QuestionsWrapper>
-    </RightNaviWraper>
+          <Questions>
+            <div>
+              <MmsIcon />
+            </div>
+            <a href="*" className="text">
+              Expectations in how to get faster with Vim/Nvim?
+            </a>
+          </Questions>
+        </QuestionsWrapper>
+      </RightNaviWraper>
+    </div>
   );
 }
 
@@ -244,7 +246,6 @@ const RightNaviWraper = styled.div`
   box-sizing: border-box;
   width: 33%;
   height: 100%;
-  overflow-y: auto;
   padding-left: 20px;
 `;
 
