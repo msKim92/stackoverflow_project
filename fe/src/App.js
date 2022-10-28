@@ -9,7 +9,7 @@ const AllQuestions = lazy(() => import("./pages/AllQuestions"));
 const AskQuestions = lazy(() => import("./pages/AskQuestions"));
 const EditQuestion = lazy(() => import("./pages/EditQuestion"));
 const DetailQuestion = lazy(() => import("./pages/DetailQuestion"));
-const EditComment = lazy(() => import("./pages/EditComment"));
+const EditAnswer = lazy(() => import("./pages/EditAnswer"));
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
           <Route path="/askquestions" element={<AskQuestions />}></Route>
           <Route path="/editquestion" element={<EditQuestion />}></Route>
           <Route path="/:id" element={<DetailQuestion />}></Route>
-          <Route path="/editcomment" element={<EditComment />}></Route>
+          <Route path="/editanswer" element={<EditAnswer />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>

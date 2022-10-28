@@ -21,6 +21,16 @@ export const addAnswer = createAsyncThunk(
   }
 );
 
+export const deleteAnswer = createAsyncThunk(
+  "questions/deleteAnswer",
+  async (id) => {
+    return axios
+      .delete(`http://localhost:3001/answer/${id}`)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+);
+
 const answerSlice = createSlice({
   name: "questions",
   initialState: {
@@ -56,6 +66,29 @@ const answerSlice = createSlice({
       state.error = "";
     },
     [addAnswer.rejected]: (state, action) => {
+      state.answers = [];
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [deleteAnswer.pending]: (state) => {
+      state.answers = [];
+      state.loading = true;
+      state.error = "";
+    },
+    [deleteAnswer.fulfilled]: (state, action) => {
+      const id = action.meta.arg;
+      // console.log(id);
+      if (id) {
+        // console.log(state.answers);
+        // state.answer = state.answer.filter((item) => item._id !== id);
+        // state.answer = state.answer.filter((item) => item._id !== id);
+      }
+      state.answers = [action.payload];
+      state.loading = false;
+      state.error = "";
+    },
+    [deleteAnswer.rejected]: (state, action) => {
+      console.log(action.payload);
       state.answers = [];
       state.loading = false;
       state.error = action.payload.message;
