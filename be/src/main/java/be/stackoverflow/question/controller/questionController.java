@@ -66,8 +66,8 @@ public class questionController {
     @PostMapping("/createQuestion")
     public ResponseEntity postQuestion(@Validated @RequestBody questionDto.questionPost postdata, HttpServletRequest request) {
         String emailWithToken = jwtTokenizer.getEmailWithToken(request);
-        Long userId = userService.findIdByEmail(emailWithToken);
-        User user = userService.findUser(userId);
+        User user = userService.findIdByEmail(emailWithToken);
+
 
         Question question = mapper.questionPostToQuestion(postdata, user);
         Question savedQuestion = questionService.createQuestion(question);
