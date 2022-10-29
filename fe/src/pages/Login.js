@@ -46,6 +46,7 @@ function Login() {
       <Display>
         <Wrapper>
           <LoginWrapper>
+
             <Logo src={StackOverflowIcon} onClick={homeNav}></Logo>
             <SocialLogWrapper>
               <SocialLogBtn>
@@ -59,6 +60,7 @@ function Login() {
               <SocialLogBtn>
               <SocialIcon><AiFillFacebook/></SocialIcon>
               <BtnText>Log in with Facebook</BtnText>
+
               </SocialLogBtn>
             </SocialLogWrapper>
             <LoginBox>
@@ -71,12 +73,15 @@ function Login() {
                   <Text>Passward</Text>
                   <TextInput type="password" onChange={userPassWord}/>
                 </PasswardForm>
+
                 <LoginBtn onClick={clickLoginBtn}>Log in</LoginBtn>
+
               </LoginForm>
             </LoginBox>
             <Space>
               <SignUpBox>
                 <MsgForm>Don’t have an account?</MsgForm>
+
                 <MsgButton onClick={signupBtn}>Sign up</MsgButton>
               </SignUpBox>
               <SignUpBox>
@@ -176,7 +181,8 @@ const LoginBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
-  box-shadow: 0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
+    0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
 `;
 
 const LoginForm = styled.div`
