@@ -7,18 +7,62 @@ import Header from "../components/Header";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
+import { useDispatch } from 'react-redux';
+import { signupUser } from '../reduxStore/slices/userSlice'
+import { nickNameCheck, emaileCheck, pwdCheck } from '../components/effectivenessCheck'
+
 
 
 function Signup() {
-  const [clickElement, setClickElement] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const clickHere = () => {
-    setClickElement(!clickElement);
-  };
+  const [userWriteName, setUserWriteName] = useState("");
+  const [userWriteEmail, setUserWriteEmail] = useState("");
+  const [userWritePassword, setUserWritePassword] = useState("");
+  const [nickCheck, setnickCheck] = useState(false);
+  const [writeEmailCheck, setWriteEmailCheck] = useState(false);
+  const [writePwdCheck, setWritePwdCheck] = useState(false);
+
+
   const clickLogin = () => {
-    navigate("/Login")
-  }
+    navigate("/Login");
+  };
+
+  const clickSignupBtn = () => {
+    let addData = {
+      userName: userWriteName,
+      userEmail: userWriteEmail,
+      userPassword: userWritePassword
+    };
+
+    if(userWriteName === '' || userWriteEmail === '' || userWritePassword === ''){
+      setnickCheck(true);
+      setWriteEmailCheck(true);
+      setWritePwdCheck(true);
+    } else if(!nickNameCheck(userWriteEmail)){
+      setnickCheck(true);
+    } else if(!emaileCheck(userWriteEmail)){
+      setWriteEmailCheck(true);
+    } else if(!pwdCheck(userWritePassword)){
+      setWritePwdCheck(true);
+    } else{
+      dispatch(signupUser(addData));
+    };
+  };
+
+  const userName = (e) => {
+    setUserWriteName(e.target.value);
+  };
+
+  const userEmail = (e) => {
+    setUserWriteEmail(e.target.value);
+  };
+
+  const userPassword = (e) => {
+    setUserWritePassword(e.target.value);
+  };
+
 
   return (
     <>
@@ -51,15 +95,15 @@ function Signup() {
           </TextBox>
           <MainBox>
             <SocialLogWrapper>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialLogBtn>
                 <SocialIcon><FcGoogle/></SocialIcon>
                 <BtnText>Sign up with Google</BtnText>
               </SocialLogBtn>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialLogBtn>
               <SocialIcon><AiFillGithub/></SocialIcon>
               <BtnText>Sign up with GitHub</BtnText>
               </SocialLogBtn>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialLogBtn>
               <SocialIcon><AiFillFacebook/></SocialIcon>
               <BtnText>Sign up with Facebook</BtnText>
               </SocialLogBtn>
@@ -67,11 +111,11 @@ function Signup() {
             <SignupBox>
                 <div>
                  <TextContents>Display name</TextContents>
-                 <InputBox/>
+                 <InputBox onChange={userName}/>
                  <TextContents>Email</TextContents>
-                 <InputBox/>
+                 <InputBox onChange={userEmail}/>
                  <TextContents>Password</TextContents>
-                 <InputBox/>
+                 <InputBox onChange={userPassword}/>
                 </div>
                  <Message>
                    Passwords must contain at least eight characters, 
@@ -88,7 +132,7 @@ function Signup() {
                    announcements, and digests.
                    </Message>
                  </CheckBox>
-                 <SignupBtn click={clickElement} onClick={() => clickHere()}>Sign up</SignupBtn>
+                 <SignupBtn onClick={clickSignupBtn}>Sign up</SignupBtn>
                 <Form>
                  <MessageBlack>
                    By clicking “Sign up”, you agree to our

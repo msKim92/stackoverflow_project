@@ -6,18 +6,39 @@ import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
 import axios from 'axios';
+import { loginUser } from "../reduxStore/slices/userSlice"
+import { useDispatch } from 'react-redux';
 
 
 function Login() {
-  const [clickElement, setClickElement] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
-  const clickHere = () => {
-    setClickElement(!clickElement);
-  };
+  const [userWriteEmail, setUserWriteEmail] = useState("");
+  const [userWritePassword, setUserWritepassword] = useState("");
+
   const signupBtn = () => {
     navigate("/Signup")
   };
+  const homeNav = () => {
+    navigate("/")
+  };
+
+  const clickLoginBtn = () => {
+    let addData = {
+      userEmail: userWriteEmail,
+      PasswardForm: userWritePassword
+    };
+    dispatch(loginUser(addData));
+  };
+
+  const userEmail = (e) => {
+    setUserWriteEmail(e.target.value);
+  }
+
+  const userPassWord = (e) => {
+    setUserWritepassword(e.target.value);
+  }
 
   return (
     <>
@@ -25,50 +46,37 @@ function Login() {
       <Display>
         <Wrapper>
           <LoginWrapper>
-            <Logo
-              src={StackOverflowIcon}
-              click={clickElement}
-              onClick={() => clickHere()}
-            ></Logo>
+            <Logo src={StackOverflowIcon} onClick={homeNav}></Logo>
             <SocialLogWrapper>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-                <SocialIcon>
-                  <FcGoogle />
-                </SocialIcon>
+              <SocialLogBtn>
+                <SocialIcon><FcGoogle/></SocialIcon>
                 <BtnText>Log in with Google</BtnText>
               </SocialLogBtn>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-                <SocialIcon>
-                  <AiFillGithub />
-                </SocialIcon>
-                <BtnText>Log in with GitHub</BtnText>
+              <SocialLogBtn>
+              <SocialIcon><AiFillGithub/></SocialIcon>
+              <BtnText>Log in with GitHub</BtnText>
               </SocialLogBtn>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-                <SocialIcon>
-                  <AiFillFacebook />
-                </SocialIcon>
-                <BtnText>Log in with Facebook</BtnText>
+              <SocialLogBtn>
+              <SocialIcon><AiFillFacebook/></SocialIcon>
+              <BtnText>Log in with Facebook</BtnText>
               </SocialLogBtn>
             </SocialLogWrapper>
             <LoginBox>
               <LoginForm>
                 <EmailForm>
                   <Text>Email</Text>
-                  <TextInput type="email"/>
+                  <TextInput type="email" onChange={userEmail}/>
                 </EmailForm>
                 <PasswardForm>
                   <Text>Passward</Text>
-                  <TextInput type="password"/>
+                  <TextInput type="password" onChange={userPassWord}/>
                 </PasswardForm>
-                <LoginBtn click={clickElement} onClick={() => clickHere()}>
-                  Log in
-                </LoginBtn>
+                <LoginBtn onClick={clickLoginBtn}>Log in</LoginBtn>
               </LoginForm>
             </LoginBox>
             <Space>
               <SignUpBox>
                 <MsgForm>Don’t have an account?</MsgForm>
-
                 <MsgButton onClick={signupBtn}>Sign up</MsgButton>
               </SignUpBox>
               <SignUpBox>
@@ -82,6 +90,7 @@ function Login() {
     </>
   );
 }
+
 
 const Display = styled.div`
   width: 100%;

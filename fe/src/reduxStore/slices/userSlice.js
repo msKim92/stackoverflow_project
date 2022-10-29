@@ -1,9 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchUser = createAsyncThunk("questions/fetchUser", async () => {
+export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
   return axios
     .get("http://localhost:3001/user/")
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+});
+
+export const loginUser = createAsyncThunk("user/loginUser", async (addData) => {
+  return axios
+    .post("http://localhost:3001/user/", addData)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+});
+
+export const signupUser = createAsyncThunk("signup/signupUser", async (addData) => {
+  return axios
+    .post("http://localhost:3001/signup/", addData)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
