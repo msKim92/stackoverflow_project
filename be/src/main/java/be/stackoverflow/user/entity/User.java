@@ -38,14 +38,6 @@ public class User extends TimeAudit {
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
-    
-/*
-    public enum Role{
-        // USER, ADMIN, BASIC 이면 될것 같은데, 차후 협의 필요
-        USER, ADMIN, BASIC;
-    }
-*/
-
 
 
     public User(Long userId, String userName, String userEmail, String password, boolean userStatus, List<String> roles) {

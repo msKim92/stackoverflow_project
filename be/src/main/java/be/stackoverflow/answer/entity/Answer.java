@@ -22,4 +22,5 @@ public class Answer extends WriterAudit {
     private String answerBody;
 
     private int answerVote=0;
+
 }
