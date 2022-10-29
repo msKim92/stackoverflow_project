@@ -46,6 +46,9 @@ public class Question extends WriterAudit {
     @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
     private List<Answer> answers = new ArrayList<>();
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    private List<TagsQuestion> tagsQuestions = new ArrayList<>();
+
     //양방향 연관관계 편의 메서드
     public void setUser(User user) {
         this.user = user;
