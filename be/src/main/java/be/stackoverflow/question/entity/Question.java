@@ -1,19 +1,13 @@
 package be.stackoverflow.question.entity;
 
 import be.stackoverflow.answer.entity.Answer;
-import be.stackoverflow.audit.TimeAudit;
 import be.stackoverflow.audit.WriterAudit;
-import be.stackoverflow.tags.entity.Tags;
 import be.stackoverflow.user.entity.User;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

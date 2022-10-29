@@ -1,5 +1,7 @@
 package be.stackoverflow.question.dto;
 
+import be.stackoverflow.answer.dto.AnswerDto;
+import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,6 +11,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class questionDto {
 
@@ -53,6 +56,7 @@ public class questionDto {
         // 로그인 기능 추가 후 구현 예정
         private String create_by_user;
         private String updated_by_user;
+        private List<Answer> answers;
 
     }
 
@@ -72,8 +76,24 @@ public class questionDto {
         private LocalDateTime updated_at;
         private String create_by_user;
         private String updated_by_user;
+        private List<QuestionAnswerResponseDto> answers;
 
     }
+
+    @Builder
+    @Getter
+    public static class QuestionAnswerResponseDto {
+        private Long answerId;
+        private String answerBody;
+        private int answerVote;
+        //댓글 작성자 확인
+        private LocalDateTime created_at;
+        private LocalDateTime updated_at;
+        private String create_by_user;
+        private String updated_by_user;
+        private long answerSize;
+    }
+
 
 
 }

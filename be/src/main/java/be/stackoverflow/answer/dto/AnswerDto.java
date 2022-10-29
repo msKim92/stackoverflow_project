@@ -16,9 +16,7 @@ public class AnswerDto {
     public static class Post {
 
         @Positive
-        private Long userId;
-
-
+        private Long questionId;
 
         @NotBlank(message = "내용을 기입하기 바랍니다.")
         private String answerBody;
@@ -28,6 +26,8 @@ public class AnswerDto {
     @Getter
     @Builder
     public static class Patch {
+
+        private Long questionId;
 
         @NotBlank(message = "내용을 기입하기 바랍니다.")
         private String answerBody;

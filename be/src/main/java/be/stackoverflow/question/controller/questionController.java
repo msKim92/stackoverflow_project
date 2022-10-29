@@ -40,11 +40,11 @@ public class questionController {
 
     //DI 주입
     private final questionService questionService;
+    private final UserService userService;
     private final questionMapper mapper;
-
     private final JwtTokenizer jwtTokenizer;
 
-    private final UserService userService;
+
 
 
     //R: 모든 질문페이지 요청하기

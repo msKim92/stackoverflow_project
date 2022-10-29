@@ -5,6 +5,7 @@ import be.stackoverflow.answer.repository.AnswerRepository;
 import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,14 @@ import java.util.Optional;
 public class AnswerService  {
 
     private final AnswerRepository answerRepository;
-    public Answer createAnswer(Answer answer) {
+    public Answer createAnswer(Answer answer, User user,Question question) {
+
+        answer.setCreate_by_user(user.getUserName());
+        answer.setUpdated_by_user(user.getUserName());
+        answer.setUser(user);
+
+        answer.setQuestion(question);
+
         return answerRepository.save(answer);
     }
 
@@ -33,6 +41,27 @@ public class AnswerService  {
     public void deleteAnswer(long answerId) {
         Answer verifiedAnswer = verifyAnswer(answerId);
         answerRepository.delete(verifiedAnswer);
+
+    }
+
+    public void deleteAllAnswer() {
+        answerRepository.deleteAll();
+    }
+
+    public Answer updateAnswer(long answerId, Answer answer,User user) {
+
+        Answer chosenAnswer = this.findAnswer(answerId);
+
+        chosenAnswer.setUpdated_by_user(user.getUserName());
+
+        Optional.ofNullable(answer.getAnswerBody())
+                .ifPresent(new_body -> chosenAnswer.setAnswerBody(new_body));
+        log.info("패치 서비스");
+        return answerRepository.save(chosenAnswer);
+    }
+
+    private Answer findAnswer(long answerId) {
+        return verifyAnswer(answerId);
     }
 
     private Answer verifyAnswer(Long answerId){
@@ -41,25 +70,5 @@ public class AnswerService  {
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
 
         return answer;
-    }
-
-    public void deleteAllAnswer() {
-        answerRepository.deleteAll();
-    }
-
-    public Answer updateAnswer(long answerId, Answer answer) {
-
-        Answer chosenUser = this.findAnswer(answerId);
-
-        Optional.ofNullable(answer.getAnswerBody())
-                .ifPresent(new_body -> chosenUser.setAnswerBody(new_body));
-        Optional.ofNullable(answer.getAnswerVote())
-                .ifPresent(new_vote->chosenUser.setAnswerVote(new_vote));
-
-        return answerRepository.save(chosenUser);
-    }
-
-    private Answer findAnswer(long answerId) {
-        return verifyAnswer(answerId);
     }
 }

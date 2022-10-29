@@ -1,13 +1,14 @@
 package be.stackoverflow.question.mapper;
 
+import be.stackoverflow.answer.dto.AnswerDto;
+import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.question.dto.questionDto;
 import be.stackoverflow.question.entity.Question;
-import be.stackoverflow.user.entity.User;
-import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface questionMapper {
@@ -58,10 +59,30 @@ public interface questionMapper {
         questionDetailResponse.setUpdated_at(question.getUpdated_at());
         questionDetailResponse.setCreate_by_user(question.getCreate_by_user());
         questionDetailResponse.setUpdated_by_user(question.getUpdated_by_user());
+        questionDetailResponse.setAnswers(answerToAnswerResponseDto(question.getAnswers()));
 
         return questionDetailResponse;
     } //상세 게시글에 쏴줄 데이터로 변환
 
+    default List<questionDto.QuestionAnswerResponseDto> answerToAnswerResponseDto(List<Answer> answers) {
+        return answers
+                .stream()
+                .map(answer-> questionDto.QuestionAnswerResponseDto
+                        .builder()
+                        .answerId(answer.getAnswerId())
+                        .answerBody(answer.getAnswerBody())
+                        .answerVote(answer.getAnswerVote())
+                        .created_at(answer.getCreated_at())
+                        .updated_at(answer.getUpdated_at())
+                        .create_by_user(answer.getCreate_by_user())
+                        .updated_by_user(answer.getUpdated_by_user())
+                        .answerSize(answers.size())
+                        .build())
+                .collect(Collectors.toList());
+
+
+
+    }
 
 
 }

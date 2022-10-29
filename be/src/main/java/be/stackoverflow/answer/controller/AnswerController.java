@@ -1,6 +1,5 @@
 package be.stackoverflow.answer.controller;
 
-
 import be.stackoverflow.answer.dto.AnswerDto;
 import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.answer.mapper.AnswerMapper;
@@ -8,6 +7,10 @@ import be.stackoverflow.answer.service.AnswerService;
 import be.stackoverflow.dto.MultiResponseDto;
 import be.stackoverflow.dto.SingleResponseDto;
 import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.question.service.questionService;
+import be.stackoverflow.security.JwtTokenizer;
+import be.stackoverflow.user.entity.User;
+import be.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -16,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -29,15 +33,22 @@ public class AnswerController {
     //C ( POST ) R ( GET ) U ( PATCH ) D ( DELETE )
 
     private final AnswerService answerService;
-
+    private final questionService questionService;
+    private final UserService userService;
+    private final JwtTokenizer jwtTokenizer;
     private final AnswerMapper answerMapper;
 
     @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post postData) {
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post postData, HttpServletRequest request) {
+
+        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
+        User user = userService.findIdByEmail(emailWithToken);
 
         Answer answer = answerMapper.answerPostToAnswer(postData);
 
-        Answer savedAnswer = answerService.createAnswer(answer);
+        Question question = questionService.findQuestion(postData.getQuestionId());
+
+        Answer savedAnswer = answerService.createAnswer(answer,user,question);
 
         return new ResponseEntity(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponse(savedAnswer)),HttpStatus.OK);
@@ -52,11 +63,17 @@ public class AnswerController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(answerMapper.answersToAnswerReponses(allAnswers), pageInformation), HttpStatus.OK);
     }
-    @PatchMapping("/{answerId}")
-    public ResponseEntity patchAnswer(@PathVariable("answerId") @Positive long answerId,
-                                      @Valid @RequestBody AnswerDto.Patch patchData) {
+    @PatchMapping("/{answer-Id}")
+    public ResponseEntity patchAnswer(@Valid @RequestBody AnswerDto.Patch patchData,@PathVariable("answer-Id") @Positive long answerId,
+                                      HttpServletRequest request
+                                      ) throws Exception{
 
-        Answer answer = answerService.updateAnswer(answerId, answerMapper.answerPatchToAnswer(patchData));
+        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
+        User user = userService.findIdByEmail(emailWithToken);
+
+        Answer answer = answerService.updateAnswer(answerId, answerMapper.answerPatchToAnswer(patchData),user);
+            log.info("answerId={}",answerId);
+            log.info("username = {}",user.getUserName());
 
         return new ResponseEntity(
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponse(answer)),HttpStatus.OK);

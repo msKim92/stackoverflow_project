@@ -2,8 +2,6 @@ package be.stackoverflow.answer.mapper;
 
 import be.stackoverflow.answer.dto.AnswerDto;
 import be.stackoverflow.answer.entity.Answer;
-import be.stackoverflow.user.dto.UserDto;
-import be.stackoverflow.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -30,6 +28,12 @@ public interface AnswerMapper {
         AnswerDto.Response answerResponse = new AnswerDto.Response();
 
         answerResponse.setAnswerId(answer.getAnswerId());
+        answerResponse.setAnswerBody(answer.getAnswerBody());
+        answerResponse.setAnswerVote(answer.getAnswerVote());
+        answerResponse.setCreated_at(answer.getCreated_at());
+        answerResponse.setUpdated_at(answer.getUpdated_at());
+        answerResponse.setCreate_by_user(answer.getCreate_by_user());
+        answerResponse.setUpdated_by_user(answer.getUpdated_by_user());
 
         return answerResponse;
     }
