@@ -17,6 +17,9 @@ import java.util.Optional;
 public class TagsService {
     private final TagsRepository tagsRepository;
 
+    /*
+     더미데이터 저장소
+     */
     @PostConstruct
     public void init() {
         Tags tagJava = new Tags("JAVA", "자바는 어려워");

@@ -88,4 +88,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * 로그아웃기능도 구현 필요
+     */
 }

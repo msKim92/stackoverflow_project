@@ -109,12 +109,24 @@ public class UserService implements UserDetailsService {
      * @return
      * @throws UsernameNotFoundException
      */
+
+    public User findIdByEmail(String emailWithToken) {
+        Optional<User> byUserEmail = userRepository.findByUserEmail(emailWithToken);
+        Long userId = byUserEmail.map(user -> user.getUserId()).orElseThrow(()->new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        User user = findUser(userId);
+
+        return user;
+
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> byUserEmail = userRepository.findByUserEmail(username);
         User findUser = byUserEmail.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return new Details(findUser);
     }
+
+
 
     private class Details extends User implements UserDetails {
         public Details(User user) {

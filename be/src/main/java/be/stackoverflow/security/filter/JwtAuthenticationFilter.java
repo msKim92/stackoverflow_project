@@ -5,6 +5,7 @@ import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.security.dto.LoginDto;
 import be.stackoverflow.user.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager; //인증도우미
     private final JwtTokenizer jwtTokenizer; //jwt토큰 생성규칙
+
 
     /**
      * 로그인을 시도할떄 서블릿으로부터 값을 전해받음
@@ -88,6 +90,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return refreshToken;
 
     }
+
+    /**
+     * 엑세스 토큰 만들기
+     * @param user
+     * @return
+     */
+
 
     private String makeAccessToken(User user) {
         HashMap<String, Object> claims = new HashMap<>();
