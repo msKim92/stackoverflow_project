@@ -1,9 +1,13 @@
 package be.stackoverflow.tags.entity;
 
+import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.question.entity.TagsQuestion;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,6 +23,11 @@ public class Tags {
 
     @Column(nullable = false)
     private String tagDetail;
+
+
+    //Question과 TagsQuestion 사이에 있는 일을 몰라도 될까 같아서 단반향
+    @OneToMany(mappedBy = "tags", cascade = CascadeType.PERSIST)
+    private List<TagsQuestion> tagsQuestions = new ArrayList<>();
 
     public Tags() {
     }

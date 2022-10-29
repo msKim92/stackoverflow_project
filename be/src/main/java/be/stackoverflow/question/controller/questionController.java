@@ -40,11 +40,11 @@ public class questionController {
 
     //DI 주입
     private final questionService questionService;
+    private final UserService userService;
     private final questionMapper mapper;
-
     private final JwtTokenizer jwtTokenizer;
 
-    private final UserService userService;
+
 
 
     //R: 모든 질문페이지 요청하기
@@ -68,9 +68,8 @@ public class questionController {
         String emailWithToken = jwtTokenizer.getEmailWithToken(request);
         User user = userService.findIdByEmail(emailWithToken);
 
-
-        Question question = mapper.questionPostToQuestion(postdata, user);
-        Question savedQuestion = questionService.createQuestion(question);
+        Question question = mapper.questionPostToQuestion(postdata);
+        Question savedQuestion = questionService.createQuestion(question,user);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToFrontResponse(savedQuestion)), HttpStatus.CREATED);
     }
@@ -83,26 +82,29 @@ public class questionController {
         Question FoundQuestion = questionService.findQuestion(questionId);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.questionToDeatilResponse(FoundQuestion)), HttpStatus.CREATED);
+                new SingleResponseDto<>(mapper.questionToDetailResponse(FoundQuestion)), HttpStatus.CREATED);
     }
 
 
 
     //UPDATE (수정)
     @PatchMapping("/{question-id}")
-    public ResponseEntity postQuestion(@PathVariable("question-id")@Positive long questionId,
-                                        @Validated @RequestBody questionDto.questionPatch patchData) throws Exception {
-        patchData.setQuestionId(questionId);
-        Question ModifiedQuestion = questionService.updateQuestion(patchData.getUserId(),mapper.questionPatchToQuestion(patchData));
+    public ResponseEntity patchQuestion(@PathVariable("question-id")@Positive long questionId,
+                                        @Validated @RequestBody questionDto.questionPatch patchData,
+                                        HttpServletRequest request) throws Exception {
+        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
+        User user = userService.findIdByEmail(emailWithToken);
+
+        Question ModifiedQuestion = questionService.updateQuestion(questionId, mapper.questionPatchToQuestion(patchData), user);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.questionToDeatilResponse(ModifiedQuestion)), HttpStatus.CREATED);
+                new SingleResponseDto<>(mapper.questionToDetailResponse(ModifiedQuestion)), HttpStatus.CREATED);
     }
 
 
     //Delete(삭제)
     @DeleteMapping("/{question-id}")
-    public ResponseEntity postQuestion(@PathVariable("question-id")@Positive long questionId) {
+    public ResponseEntity deleteQuestion(@PathVariable("question-id")@Positive long questionId) {
         // Stauts를 false로 바꾸고 자료는 남길지?
         questionService.deleteQuestion(questionId);
 

@@ -1,6 +1,8 @@
 package be.stackoverflow.answer.entity;
 
 import be.stackoverflow.audit.WriterAudit;
+import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,4 +25,22 @@ public class Answer extends WriterAudit {
 
     private int answerVote=0;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
+    private Question question;
+
+    //양방향 연관관계 편의 메서드
+    public void setUser(User user) {
+        this.user = user;
+        user.getAnswers().add(this);
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+        question.getAnswers().add(this);
+    }
 }
