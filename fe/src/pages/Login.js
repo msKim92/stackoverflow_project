@@ -25,19 +25,29 @@ function Login() {
       <Display>
         <Wrapper>
           <LoginWrapper>
-            <Logo src={StackOverflowIcon} click={clickElement} onClick={() => clickHere()}></Logo>
+            <Logo
+              src={StackOverflowIcon}
+              click={clickElement}
+              onClick={() => clickHere()}
+            ></Logo>
             <SocialLogWrapper>
               <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-                <SocialIcon><FcGoogle/></SocialIcon>
+                <SocialIcon>
+                  <FcGoogle />
+                </SocialIcon>
                 <BtnText>Log in with Google</BtnText>
               </SocialLogBtn>
               <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-              <SocialIcon><AiFillGithub/></SocialIcon>
-              <BtnText>Log in with GitHub</BtnText>
+                <SocialIcon>
+                  <AiFillGithub />
+                </SocialIcon>
+                <BtnText>Log in with GitHub</BtnText>
               </SocialLogBtn>
               <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
-              <SocialIcon><AiFillFacebook/></SocialIcon>
-              <BtnText>Log in with Facebook</BtnText>
+                <SocialIcon>
+                  <AiFillFacebook />
+                </SocialIcon>
+                <BtnText>Log in with Facebook</BtnText>
               </SocialLogBtn>
             </SocialLogWrapper>
             <LoginBox>
@@ -50,12 +60,15 @@ function Login() {
                   <Text>Passward</Text>
                   <TextInput type="password"/>
                 </PasswardForm>
-                <LoginBtn click={clickElement} onClick={() => clickHere()}>Log in</LoginBtn>
+                <LoginBtn click={clickElement} onClick={() => clickHere()}>
+                  Log in
+                </LoginBtn>
               </LoginForm>
             </LoginBox>
             <Space>
               <SignUpBox>
                 <MsgForm>Don’t have an account?</MsgForm>
+
                 <MsgButton onClick={signupBtn}>Sign up</MsgButton>
               </SignUpBox>
               <SignUpBox>
@@ -155,7 +168,8 @@ const LoginBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
-  box-shadow: 0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
+    0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
 `;
 
 const LoginForm = styled.div`

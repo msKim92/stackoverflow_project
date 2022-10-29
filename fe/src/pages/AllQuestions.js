@@ -6,7 +6,8 @@ import RightNavi from "../components/RightNavi";
 import Footer from "../components/Footer";
 import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
-
+import AddAnswer from "../components/AddAnswer";
+import ReadAnswer from "../components/ReadAnswer";
 function AllQuestions() {
   const navigate = useNavigate();
 
@@ -47,6 +48,8 @@ function AllQuestions() {
             </div>
             <InformationDiv>unanswered questions.</InformationDiv>
           </AllQuestionsInformation>
+          <AddAnswer />
+          <ReadAnswer />
         </QuestionList>
         <RightNavi />
       </Wraper>
