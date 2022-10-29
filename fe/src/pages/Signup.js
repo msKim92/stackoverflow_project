@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 import styled from "styled-components";
-import { useAsyncError, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import Header from "../components/Header";
@@ -9,6 +9,9 @@ import { TiArrowUnsorted } from "react-icons/ti";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
 import { useDispatch } from 'react-redux';
 import { signupUser } from '../reduxStore/slices/userSlice'
+import { nickNameCheck, emaileCheck, pwdCheck } from '../components/effectivenessCheck'
+
+
 
 function Signup() {
   const navigate = useNavigate();
@@ -17,6 +20,10 @@ function Signup() {
   const [userWriteName, setUserWriteName] = useState("");
   const [userWriteEmail, setUserWriteEmail] = useState("");
   const [userWritePassword, setUserWritePassword] = useState("");
+  const [nickCheck, setnickCheck] = useState(false);
+  const [writeEmailCheck, setWriteEmailCheck] = useState(false);
+  const [writePwdCheck, setWritePwdCheck] = useState(false);
+
 
   const clickLogin = () => {
     navigate("/Login");
@@ -28,7 +35,20 @@ function Signup() {
       userEmail: userWriteEmail,
       userPassword: userWritePassword
     };
-    dispatch(signupUser(addData));
+
+    if(userWriteName === '' || userWriteEmail === '' || userWritePassword === ''){
+      setnickCheck(true);
+      setWriteEmailCheck(true);
+      setWritePwdCheck(true);
+    } else if(!nickNameCheck(userWriteEmail)){
+      setnickCheck(true);
+    } else if(!emaileCheck(userWriteEmail)){
+      setWriteEmailCheck(true);
+    } else if(!pwdCheck(userWritePassword)){
+      setWritePwdCheck(true);
+    } else{
+      dispatch(signupUser(addData));
+    };
   };
 
   const userName = (e) => {
