@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Img from "../img/image.jpg";
+// import Img from "../img/image.jpg";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 
@@ -47,7 +47,8 @@ function AskQuestions() {
           >
             Ask a public question
           </div>
-          <img src={Img} style={{ marginLeft: "auto" }}></img>
+          {/* <img src={Img} style={{ marginLeft: "auto" }}></img> */}
+          <img style={{ marginLeft: "auto" }}></img>
         </div>
         <div style={{ width: "67%" }}>
           <div

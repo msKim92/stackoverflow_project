@@ -12,7 +12,7 @@ export const fetchAnswer = createAsyncThunk(
 );
 
 export const addAnswer = createAsyncThunk(
-  "questions/addAnswer",
+  "answers/addAnswer",
   async (answerData) => {
     return axios
       .post(`http://localhost:3001/answer/`, answerData)
@@ -21,8 +21,19 @@ export const addAnswer = createAsyncThunk(
   }
 );
 
+export const updateAnswer = createAsyncThunk(
+  "answers/updateAnswer",
+  async (filterData) => {
+    console.log(filterData);
+    return axios
+      .put(`http://localhost:3001/answer/${id}`, filterData)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+);
+
 export const deleteAnswer = createAsyncThunk(
-  "questions/deleteAnswer",
+  "answers/deleteAnswer",
   async (id) => {
     return axios
       .delete(`http://localhost:3001/answer/${id}`)
@@ -31,8 +42,31 @@ export const deleteAnswer = createAsyncThunk(
   }
 );
 
+// export const updatePost = createAsyncThunk('posts/updatePost', async (initialPost) => {
+//   const { id } = initialPost;
+//   try {
+//       const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
+//       return response.data
+//   } catch (err) {
+//       //return err.message;
+//       return initialPost; // only for testing Redux!
+//   }
+// })
+
+// .addCase(updatePost.fulfilled, (state, action) => {
+//   if (!action.payload?.id) {
+//       console.log('Update could not complete')
+//       console.log(action.payload)
+//       return;
+//   }
+//   const { id } = action.payload;
+//   action.payload.date = new Date().toISOString();
+//   const posts = state.posts.filter(post => post.id !== id);
+//   state.posts = [...posts, action.payload];
+// })
+
 const answerSlice = createSlice({
-  name: "questions",
+  name: "answers",
   initialState: {
     answers: [],
     loading: false,
@@ -90,6 +124,26 @@ const answerSlice = createSlice({
     [deleteAnswer.rejected]: (state, action) => {
       console.log(action.payload);
       state.answers = [];
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [updateAnswer.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateAnswer.fulfilled]: (state, action) => {
+      console.log(state, 11, action, 33);
+      state.loading = false;
+      const {
+        arg: { id },
+      } = action.meta;
+      if (id) {
+        state.answer = state.answer.map((item) =>
+          item._id === id ? action.payload : item
+        );
+      }
+      console.log(state);
+    },
+    [updateAnswer.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },

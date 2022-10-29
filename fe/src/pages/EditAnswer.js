@@ -1,45 +1,54 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import RightNavi from "../components/RightNavi";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
-import { Viewer } from "@toast-ui/react-editor";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAnswer } from "../reduxStore/slices/answerSlice";
+import { fetchAnswer, updateAnswer } from "../reduxStore/slices/answerSlice";
+import { BsCheckSquare, BsTable } from "react-icons/bs";
+import { RiKeyboardLine } from "react-icons/ri";
+import {
+  MdFormatListNumbered,
+  MdFormatListBulleted,
+  MdOutlineFormatItalic,
+  MdOutlineFormatBold,
+} from "react-icons/md";
+import { AiOutlineStrikethrough } from "react-icons/ai";
+import { HiCodeBracket } from "react-icons/hi2";
+import { CgBorderStyleSolid } from "react-icons/cg";
+import { TfiQuoteLeft } from "react-icons/tfi";
+import { FaIndent } from "react-icons/fa";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { useParams } from "react-router-dom";
 
 function EditAnswer() {
   const answer = useSelector((state) => state.answers.answers);
-  const editorRef = useRef();
-
-  console.log(answer);
-  const [write, setWrite] = useState(answer?.contentbody);
+  const [write, setWrite] = useState(" ");
   const dispatch = useDispatch();
-  const param = useParams();
-  const answerWrite = () => {
-    const data = editorRef.current.getInstance().getMarkdown();
-    setWrite(data);
-  };
-  const answerFilter = answer?.filter((data) => data.id === Number(param.id));
-  const toolbarItems = [
-    ["bold", "italic", "strike"],
-    ["code", "codeblock"],
-    ["hr", "quote"],
-    ["ul", "ol", "task", "indent"],
-    ["table", "link"],
-    ["image"],
-    ["code"],
-    ["scrollSync"],
-  ];
-
-  const clickAnswerEdit = () => {
-    console.log(Number(param.id));
-  };
+  const params = useParams();
+  console.log(Number(params.id));
+  console.log(write);
+  console.log(answer);
+  const filterAnswer = answer?.filter((data) => data.id === Number(params.id));
+  console.log(filterAnswer);
   useEffect(() => {
     dispatch(fetchAnswer());
   }, []);
+
+  const userWriteContents = (e) => {
+    setWrite(e.target.value);
+  };
+
+  const clickUpdateAnswer = () => {
+    let id = Number(params.id);
+    console.log(id);
+    let upData = {
+      id: filterAnswer.id,
+      contentbody: write,
+    };
+    console.log(upData);
+    dispatch(updateAnswer(id, upData));
+  };
 
   return (
     <>
@@ -65,21 +74,76 @@ function EditAnswer() {
                 </div>
               </div>
             </AsnwerEditTop>
-
             <AsnwerEditMiddle>
               <AsnwerEditTitle>Body</AsnwerEditTitle>
-              <Editor
-                initialEditType="wysiwyg" // 초기 입력모드 설정
-                previewStyle="vertical" // 미리보기 스타일 지정
-                height="300px" // 에디터 창 높이
-                toolbarItems={toolbarItems}
-                onChange={answerWrite}
-                ref={editorRef}
-                initialValue={write}
-              ></Editor>
+              <UserWriteSpace>
+                <UserWriteBtnSpace>
+                  <UserWriteBtnLeft>
+                    <UserWriteBtns>
+                      <UserWriteBtnText>Write</UserWriteBtnText>
+                      <UserWriteBtnText>Preview</UserWriteBtnText>
+                    </UserWriteBtns>
+                    <UserWriteBtns>
+                      <UserWriteBtn>
+                        <MdOutlineFormatBold />
+                      </UserWriteBtn>
+                      <UserWriteBtn>
+                        <MdOutlineFormatItalic />
+                      </UserWriteBtn>
+                      <UserWriteBtn>
+                        <AiOutlineStrikethrough />
+                      </UserWriteBtn>
+                    </UserWriteBtns>
+                    <UserWriteBtns>
+                      <UserWriteBtn>
+                        <HiCodeBracket />
+                      </UserWriteBtn>
+                      <UserWriteBtn>CB</UserWriteBtn>
+                    </UserWriteBtns>
+                    <UserWriteBtns>
+                      <UserWriteBtn>
+                        <CgBorderStyleSolid />
+                      </UserWriteBtn>
+                      <UserWriteBtn>
+                        <TfiQuoteLeft />
+                      </UserWriteBtn>
+                    </UserWriteBtns>
+                    <UserWriteBtns>
+                      <UserWriteBtn>
+                        <MdFormatListBulleted />
+                      </UserWriteBtn>
+                      <UserWriteBtn>
+                        <MdFormatListNumbered />
+                      </UserWriteBtn>
+                      <UserWriteBtn>
+                        <BsCheckSquare />
+                      </UserWriteBtn>
+                      <UserWriteBtn>
+                        <FaIndent />
+                      </UserWriteBtn>
+                    </UserWriteBtns>
+                  </UserWriteBtnLeft>
+                  <UserWriteBtnRight>
+                    <UserWriteBtns>
+                      <UserWriteBtn>
+                        <BsTable />
+                      </UserWriteBtn>
+                      <UserWriteQeBtn>
+                        <HiOutlineDotsHorizontal />
+                      </UserWriteQeBtn>
+                    </UserWriteBtns>
+                  </UserWriteBtnRight>
+                </UserWriteBtnSpace>
+                <UserWriteTextareaBox onChange={userWriteContents} />
+                <UserWriteBoxBtn>
+                  <RiKeyboardLine />
+                </UserWriteBoxBtn>
+              </UserWriteSpace>
             </AsnwerEditMiddle>
             <UserClickBtnSpace>
-              <UserClickBtn onClick={clickAnswerEdit}>Save Edits</UserClickBtn>
+              <UserClickBtn onClick={clickUpdateAnswer}>
+                Save Edits
+              </UserClickBtn>
               <UserClickBtn>Cancel</UserClickBtn>
             </UserClickBtnSpace>
           </AnswerContent>
@@ -129,8 +193,131 @@ const AsnwerEditMiddle = styled.div`
 const AsnwerEditTitle = styled.div`
   margin-bottom: 7px;
 `;
+
+const UserWriteSpace = styled.div`
+  width: 100%;
+  height: 330px;
+  margin-top: 20px;
+  background-color: #f8f9fc;
+`;
+
+const UserWriteBtnSpace = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 20px;
+  border: 1px solid #9ea6ac;
+  border-radius: 5px 5px 0px 0px;
+  padding: 10px 0px;
+`;
+const UserWriteBtns = styled.div`
+  display: flex;
+  width: 80px;
+  &:nth-child(1) {
+    border-bottom: none;
+  }
+  &:nth-child(2) {
+    margin-left: 50px;
+  }
+  &:nth-child(3) {
+    border-left: 1px solid black;
+    margin-left: 40px;
+    padding-left: 5px;
+  }
+  &:nth-child(5) {
+    border-left: 1px solid black;
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+`;
+const UserWriteBtnLeft = styled.div`
+  display: flex;
+  width: 600px;
+`;
+const UserWriteBtnRight = styled.div`
+  display: flex;
+  width: 100px;
+  border-left: 1px solid black;
+  padding-left: 10px;
+`;
+const UserWriteBtn = styled.button`
+  border: none;
+  background-color: white;
+  width: 100%;
+  font-size: 20px;
+  opacity: 0.6;
+  width: 40px;
+  height: 20px;
+  margin: 0px 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
+const UserWriteBtnText = styled.button`
+  background-color: white;
+  width: 100%;
+  font-size: 15px;
+  opacity: 0.6;
+  height: 30px;
+  width: 70px;
+  border: 1px solid black;
+  border-bottom: none;
+  border-radius: 5px 5px 0px 0px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  &:nth-child(2) {
+    background-color: #eaedf1;
+    margin-left: 0px;
+  }
+`;
+const UserWriteQeBtn = styled.button`
+  border: none;
+  background-color: white;
+  width: 100%;
+  font-size: 20px;
+  opacity: 0.6;
+  width: 30px;
+  margin: 0px 3px;
+  cursor: pointer;
+  &:hover {
+    background-color: #dbdbd9;
+  }
+`;
+
+const UserWriteTextareaBox = styled.textarea`
+  width: 99.5%;
+  height: 70%;
+  overflow-y: scroll;
+  text-align: start;
+  border-top: none;
+
+  &:focus {
+    box-shadow: 0px 0px 3px 3px rgba(107, 186, 247, 0.5);
+    border: none;
+    outline: 0;
+  }
+  &:nth-child(4) {
+    background-color: gray;
+  }
+`;
+const UserWriteBoxBtn = styled.div`
+  width: 100%;
+  height: 20px;
+  margin-top: -5px;
+  border: 1px solid blue;
+  border-top: 1px solid #9ea6ac;
+  display: flex;
+  justify-content: center;
+  background-color: #dbdbd9;
+  &:hover {
+    cursor: s-resize;
+  }
+  border-radius: 0px 0px 5px 5px;
+`;
 const UserClickBtnSpace = styled.div`
-  width: 400px;
+  width: 220px;
   height: 45px;
   min-width: 150px;
   display: flex;

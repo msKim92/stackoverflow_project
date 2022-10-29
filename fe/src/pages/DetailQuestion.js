@@ -10,6 +10,8 @@ import {
   AiOutlineHistory,
 } from "react-icons/ai";
 import { FaRegBookmark } from "react-icons/fa";
+import ReadAnswer from "../components/ReadAnswer";
+import AddAnswer from "../components/AddAnswer";
 
 function DetailQuestion() {
   return (
