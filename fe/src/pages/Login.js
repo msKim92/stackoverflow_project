@@ -6,13 +6,13 @@ import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
 import axios from 'axios';
-import { addUser } from "../reduxStore/slices/userSlice"
+import { loginUser } from "../reduxStore/slices/userSlice"
 import { useDispatch } from 'react-redux';
 
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   
   const [userWriteEmail, setUserWriteEmail] = useState("");
   const [userWritePassword, setUserWritepassword] = useState("");
@@ -25,11 +25,11 @@ function Login() {
   };
 
   const clickLoginBtn = () => {
-    let addDate = {
+    let addData = {
       userEmail: userWriteEmail,
       PasswardForm: userWritePassword
     };
-    dispatch(addUser(addDate));
+    dispatch(loginUser(addData));
   };
 
   const userEmail = (e) => {
@@ -37,7 +37,7 @@ function Login() {
   }
 
   const userPassWord = (e) => {
-    setUserWriteEmail(e.target.value);
+    setUserWritepassword(e.target.value);
   }
 
   return (
