@@ -26,8 +26,8 @@ public class Tags {
 
 
     //Question과 TagsQuestion 사이에 있는 일을 몰라도 될까 같아서 단반향
-//    @OneToMany(mappedBy = "tags", cascade = CascadeType.PERSIST)
-//    private List<TagsQuestion> tagsQuestions = new ArrayList<>();
+    @OneToMany(mappedBy = "tags", cascade = CascadeType.PERSIST)
+    private List<TagsQuestion> tagsQuestions = new ArrayList<>();
 
     public Tags() {
     }

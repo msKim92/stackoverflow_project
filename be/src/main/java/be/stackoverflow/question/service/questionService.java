@@ -28,9 +28,6 @@ public class questionService {
 
     private final be.stackoverflow.question.repository.questionRepository questionRepository;
 
-    // SRP 위반에 따른 리팩토링 필요
-    private final UserService userService;
-
     //전체 질문 조회 페이지
     public Page<Question> findAllQuestion(int page, int size) {
         return questionRepository.findAll(PageRequest.of(page, size,
@@ -38,12 +35,11 @@ public class questionService {
     }
 
     //C: 질문 추가 페이지
-    public Question createQuestion(Question question) {
-        long userId = question.getUser().getUserId();
-        // SRP 위반에 따른 리팩토링 필요
-        User user = userService.findUser(userId);
+    public Question createQuestion(Question question, User user) {
+
         question.setCreate_by_user(user.getUserName());
         question.setUpdated_by_user(user.getUserName());
+        question.setUser(user);
 
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion;
@@ -63,12 +59,12 @@ public class questionService {
     //U: 질문 수정페이지
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     //propagation(번식) 동작도중에 다른 트랜잭션을 호출시 어찌할지(전파옵션), isolation 일관성없는 데이터 허용수준 설정
-    public Question updateQuestion(long userId,Question question){
+    public Question updateQuestion(long questionId,Question question,User user){
 
+        Question questionFromRepository = verifyQuestionUsingID(questionId);
 
-        Question questionFromRepository = verifyQuestionUsingID(question.getQuestionId());
-
-        questionFromRepository.setUpdated_by_user(question.getUser().getUserName());
+        questionFromRepository.setUpdated_by_user(user.getUserName());
+        //수정자 구분하는 로직 필요
 
         //CustomBeanUtils 써보기 <리팩토링시>
         Optional.ofNullable(question.getQuestionTitle())
