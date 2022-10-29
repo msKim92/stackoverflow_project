@@ -5,31 +5,38 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
-import { addUser } from "../reduxStore/slices/userSlice";
+import axios from "axios";
+import { loginUser } from "../reduxStore/slices/userSlice";
 import { useDispatch } from "react-redux";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [userWriteEmail, setUserWriteEmail] = useState("");
-  const [userWritePwd, setUserWritePwd] = useState("");
+  const [userWritePassword, setUserWritepassword] = useState("");
 
   const signupBtn = () => {
-    navigate("/signup");
+    navigate("/Signup");
   };
+  const homeNav = () => {
+    navigate("/");
+  };
+
   const clickLoginBtn = () => {
-    let addDate = {
+    let addData = {
       userEmail: userWriteEmail,
-      password: userWritePwd,
+      PasswardForm: userWritePassword,
     };
-    dispatch(addUser(addDate));
+    dispatch(loginUser(addData));
   };
 
   const userEmail = (e) => {
     setUserWriteEmail(e.target.value);
   };
-  const userPwd = (e) => {
-    setUserWritePwd(e.target.value);
+
+  const userPassWord = (e) => {
+    setUserWritepassword(e.target.value);
   };
 
   return (
@@ -38,7 +45,7 @@ function Login() {
       <Display>
         <Wrapper>
           <LoginWrapper>
-            <Logo src={StackOverflowIcon}></Logo>
+            <Logo src={StackOverflowIcon} onClick={homeNav}></Logo>
             <SocialLogWrapper>
               <SocialLogBtn>
                 <SocialIcon>
@@ -67,7 +74,7 @@ function Login() {
                 </EmailForm>
                 <PasswardForm>
                   <Text>Passward</Text>
-                  <TextInput onChange={userPwd} />
+                  <TextInput type="password" onChange={userPassWord} />
                 </PasswardForm>
                 <LoginBtn onClick={clickLoginBtn}>Log in</LoginBtn>
               </LoginForm>
@@ -75,7 +82,6 @@ function Login() {
             <Space>
               <SignUpBox>
                 <MsgForm>Don’t have an account?</MsgForm>
-
                 <MsgButton onClick={signupBtn}>Sign up</MsgButton>
               </SignUpBox>
               <SignUpBox>

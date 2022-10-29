@@ -136,6 +136,49 @@
       "id": 4,
       "body": "four user",
       "postId": 1
+    },
+    {
+      "userEmail": "테스트",
+      "PasswardForm": "3333",
+      "id": 5
+    },
+    {
+      "userEmail": "",
+      "PasswardForm": "",
+      "id": 6
+    },
+    {
+      "userEmail": "",
+      "PasswardForm": "",
+      "id": 7
+    }
+  ],
+  "signup": [
+    {
+      "id": 1,
+      "uerName": "",
+      "passward": ""
+    },
+    {
+      "id": 2,
+      "uerName": "",
+      "passward": ""
+    },
+    {
+      "id": 3,
+      "uerName": "",
+      "passward": ""
+    },
+    {
+      "id": 4,
+      "uerName": "",
+      "passward": ""
+    },
+    {
+      "userName": "테스트",
+      "userEmail": "1111",
+      "userPassword": "2222",
+      "id": 5
     }
   ],
   "answer": [
