@@ -1,9 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchUser = createAsyncThunk("questions/fetchUser", async () => {
+export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
   return axios
     .get("http://localhost:3001/user/")
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+});
+
+export const addUser = createAsyncThunk("user/addUser", async (addData) => {
+  return axios
+    .post("http://localhost:3001/user/", addData)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
