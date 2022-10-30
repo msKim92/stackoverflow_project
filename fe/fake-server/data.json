@@ -185,15 +185,13 @@
     {
       "id": 1,
       "votes": 1,
-      "contentbody": "콘텐츠3입니다",
-      "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })",
-      "requestId": "bFPb0_fhy-1i3-CxGlzwi",
-      "signal": {}
+      "contentbody": "test3입니다!",
+      "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
     },
     {
       "id": 2,
       "votes": 2,
-      "contentbody": "콘텐츠3입니다",
+      "contentbody": "테스트입니다",
       "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
     },
     {
@@ -203,27 +201,27 @@
       "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
     },
     {
-      "votes": 0,
-      "contentsbody": "zxc",
-      "contentscode": "",
+      "votes": 4,
+      "contentbody": "zxc",
+      "contentcode": "12",
       "id": 4
     },
     {
-      "votes": 0,
-      "contentsbody": "테스트입니다!",
-      "contentscode": "",
+      "votes": 5,
+      "contentbody": "테스트입니다!",
+      "contentcode": "123",
       "id": 5
     },
     {
-      "votes": 0,
-      "contentsbody": "테스트입니다2",
-      "contentscode": "",
+      "votes": 6,
+      "contentbody": "테스트입니다2",
+      "contentcode": "1234",
       "id": 6
     },
     {
-      "votes": 0,
-      "contentsbody": "테스트입니다3",
-      "contentscode": "테스트입니다3",
+      "votes": 7,
+      "contentbody": "테스트입니다3",
+      "contentcode": "테스트입니다3",
       "id": 7
     }
   ]

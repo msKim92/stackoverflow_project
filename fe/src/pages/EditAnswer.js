@@ -5,7 +5,7 @@ import LeftNvi from "../components/LeftNavi";
 import RightNavi from "../components/RightNavi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAnswer, updateAnswer } from "../reduxStore/slices/answerSlice";
-import { BsCheckSquare, BsTable } from "react-icons/bs";
+import { BsCheckSquare, BsTable, BsCodeSlash } from "react-icons/bs";
 import { RiKeyboardLine } from "react-icons/ri";
 import {
   MdFormatListNumbered,
@@ -14,7 +14,6 @@ import {
   MdOutlineFormatBold,
 } from "react-icons/md";
 import { AiOutlineStrikethrough } from "react-icons/ai";
-import { HiCodeBracket } from "react-icons/hi2";
 import { CgBorderStyleSolid } from "react-icons/cg";
 import { TfiQuoteLeft } from "react-icons/tfi";
 import { FaIndent } from "react-icons/fa";
@@ -26,11 +25,7 @@ function EditAnswer() {
   const [write, setWrite] = useState(" ");
   const dispatch = useDispatch();
   const params = useParams();
-  console.log(Number(params.id));
-  console.log(write);
-  console.log(answer);
   const filterAnswer = answer?.filter((data) => data.id === Number(params.id));
-  console.log(filterAnswer);
   useEffect(() => {
     dispatch(fetchAnswer());
   }, []);
@@ -41,13 +36,13 @@ function EditAnswer() {
 
   const clickUpdateAnswer = () => {
     let id = Number(params.id);
-    console.log(id);
-    let upData = {
-      id: filterAnswer.id,
+    const upData = {
+      id: filterAnswer[0]?.id,
+      votes: filterAnswer[0]?.votes,
       contentbody: write,
+      contentcode: filterAnswer[0]?.contentcode,
     };
-    console.log(upData);
-    dispatch(updateAnswer(id, upData));
+    dispatch(updateAnswer({ id, upData }));
   };
 
   return (
@@ -96,7 +91,7 @@ function EditAnswer() {
                     </UserWriteBtns>
                     <UserWriteBtns>
                       <UserWriteBtn>
-                        <HiCodeBracket />
+                        <BsCodeSlash />
                       </UserWriteBtn>
                       <UserWriteBtn>CB</UserWriteBtn>
                     </UserWriteBtns>

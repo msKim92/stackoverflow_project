@@ -23,10 +23,9 @@ export const addAnswer = createAsyncThunk(
 
 export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
-  async (filterData) => {
-    console.log(filterData);
+  async (oj) => {
     return axios
-      .put(`http://localhost:3001/answer/${id}`, filterData)
+      .patch(`http://localhost:3001/answer/${oj.id}`, oj.upData)
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
@@ -41,29 +40,6 @@ export const deleteAnswer = createAsyncThunk(
       .catch((err) => console.log(err));
   }
 );
-
-// export const updatePost = createAsyncThunk('posts/updatePost', async (initialPost) => {
-//   const { id } = initialPost;
-//   try {
-//       const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
-//       return response.data
-//   } catch (err) {
-//       //return err.message;
-//       return initialPost; // only for testing Redux!
-//   }
-// })
-
-// .addCase(updatePost.fulfilled, (state, action) => {
-//   if (!action.payload?.id) {
-//       console.log('Update could not complete')
-//       console.log(action.payload)
-//       return;
-//   }
-//   const { id } = action.payload;
-//   action.payload.date = new Date().toISOString();
-//   const posts = state.posts.filter(post => post.id !== id);
-//   state.posts = [...posts, action.payload];
-// })
 
 const answerSlice = createSlice({
   name: "answers",
@@ -110,13 +86,6 @@ const answerSlice = createSlice({
       state.error = "";
     },
     [deleteAnswer.fulfilled]: (state, action) => {
-      const id = action.meta.arg;
-      // console.log(id);
-      if (id) {
-        // console.log(state.answers);
-        // state.answer = state.answer.filter((item) => item._id !== id);
-        // state.answer = state.answer.filter((item) => item._id !== id);
-      }
       state.answers = [action.payload];
       state.loading = false;
       state.error = "";
@@ -131,17 +100,11 @@ const answerSlice = createSlice({
       state.loading = true;
     },
     [updateAnswer.fulfilled]: (state, action) => {
-      console.log(state, 11, action, 33);
-      state.loading = false;
       const {
         arg: { id },
       } = action.meta;
-      if (id) {
-        state.answer = state.answer.map((item) =>
-          item._id === id ? action.payload : item
-        );
-      }
-      console.log(state);
+      state.loading = false;
+      state.answers = [action.payload];
     },
     [updateAnswer.rejected]: (state, action) => {
       state.loading = false;
