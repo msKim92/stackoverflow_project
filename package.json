@@ -1,0 +1,11 @@
+{
+  "name": "pre-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:codestates-seb/seb40_pre_019.git",
+  "author": "leeseoshim <leeseoit@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}

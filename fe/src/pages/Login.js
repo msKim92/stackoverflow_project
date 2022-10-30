@@ -1,16 +1,44 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
+import axios from 'axios';
+import { loginUser } from "../reduxStore/slices/userSlice"
+import { useDispatch } from 'react-redux';
+
 
 function Login() {
-  const [clickElement, setClickElement] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const [userWriteEmail, setUserWriteEmail] = useState("");
+  const [userWritePassword, setUserWritepassword] = useState("");
 
-  const clickHere = () => {
-    setClickElement(!clickElement);
+  const signupBtn = () => {
+    navigate("/Signup")
   };
+  const homeNav = () => {
+    navigate("/")
+  };
+
+  const clickLoginBtn = () => {
+    let addData = {
+      userEmail: userWriteEmail,
+      PasswardForm: userWritePassword
+    };
+    dispatch(loginUser(addData));
+  };
+
+  const userEmail = (e) => {
+    setUserWriteEmail(e.target.value);
+  }
+
+  const userPassWord = (e) => {
+    setUserWritepassword(e.target.value);
+  }
 
   return (
     <>
@@ -18,17 +46,17 @@ function Login() {
       <Display>
         <Wrapper>
           <LoginWrapper>
-            <Logo src={StackOverflowIcon} click={clickElement} onClick={() => clickHere()}></Logo>
+            <Logo src={StackOverflowIcon} onClick={homeNav}></Logo>
             <SocialLogWrapper>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialLogBtn>
                 <SocialIcon><FcGoogle/></SocialIcon>
                 <BtnText>Log in with Google</BtnText>
               </SocialLogBtn>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialLogBtn>
               <SocialIcon><AiFillGithub/></SocialIcon>
               <BtnText>Log in with GitHub</BtnText>
               </SocialLogBtn>
-              <SocialLogBtn click={clickElement} onClick={() => clickHere()}>
+              <SocialLogBtn>
               <SocialIcon><AiFillFacebook/></SocialIcon>
               <BtnText>Log in with Facebook</BtnText>
               </SocialLogBtn>
@@ -37,23 +65,23 @@ function Login() {
               <LoginForm>
                 <EmailForm>
                   <Text>Email</Text>
-                  <TextInput></TextInput>
+                  <TextInput type="email" onChange={userEmail}/>
                 </EmailForm>
                 <PasswardForm>
                   <Text>Passward</Text>
-                  <TextInput></TextInput>
+                  <TextInput type="password" onChange={userPassWord}/>
                 </PasswardForm>
-                <LoginBtn click={clickElement} onClick={() => clickHere()}>Log in</LoginBtn>
+                <LoginBtn onClick={clickLoginBtn}>Log in</LoginBtn>
               </LoginForm>
             </LoginBox>
             <Space>
               <SignUpBox>
                 <MsgForm>Don’t have an account?</MsgForm>
-                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up</MsgButton>
+                <MsgButton onClick={signupBtn}>Sign up</MsgButton>
               </SignUpBox>
               <SignUpBox>
                 <MsgForm>Are you an employer?</MsgForm>
-                <MsgButton click={clickElement} onClick={() => clickHere()}>Sign up on Talent</MsgButton>
+                <MsgButton>Sign up on Talent</MsgButton>
               </SignUpBox>
             </Space>
           </LoginWrapper>
@@ -62,6 +90,7 @@ function Login() {
     </>
   );
 }
+
 
 const Display = styled.div`
   width: 100%;
@@ -148,7 +177,8 @@ const LoginBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
-  box-shadow: 0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
+    0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
 `;
 
 const LoginForm = styled.div`
@@ -192,7 +222,7 @@ const TextInput = styled.input`
   margin-top: 6px;
   border: 1px solid #d6d9dc;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 13.2px;
 `;
 
 const Space = styled.div`
