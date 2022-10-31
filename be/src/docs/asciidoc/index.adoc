@@ -97,8 +97,41 @@ include::{snippets}/delete-answers/curl-request.adoc[]
 .http-request
 include::{snippets}/delete-answers/http-request.adoc[]
 
-
 .http-response
 include::{snippets}/delete-answers/http-response.adoc[]
+
+== QuestionController
+=== 특정 질문 상세 조회
+.curl-request
+include::{snippets}/get-question/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-question/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/get-question/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-question/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-question/response-fields.adoc[]
+
+=== 질문 전체 조회
+.curl-request
+include::{snippets}/get-questions/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-questions/http-request.adoc[]
+
+.request-parameters
+include::{snippets}/get-questions/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-questions/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-questions/response-fields.adoc[]
 ***
 image::https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg[spring]
+

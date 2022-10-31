@@ -52,4 +52,13 @@ public class Question extends WriterAudit {
     public Question(Long questionId) {
         this.questionId = questionId;
     }
+
+    public Question(Long questionId, String questionTitle, String questionBody, int questionVote, Boolean questionStatus, int questionViewCount) {
+        this.questionId = questionId;
+        this.questionTitle = questionTitle;
+        this.questionBody = questionBody;
+        this.questionVote = questionVote;
+        this.questionStatus = questionStatus;
+        this.questionViewCount = questionViewCount;
+    }
 }

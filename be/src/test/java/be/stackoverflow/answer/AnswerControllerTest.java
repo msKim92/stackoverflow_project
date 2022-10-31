@@ -159,10 +159,10 @@ public class AnswerControllerTest {
     /*
      * 주소 : DELETE v1/answer/{answerId}
      * Feature : 작성자가 자신의 댓글을 지우고 싶을때 사용하는 요청
-     * Scenario : 원하는 questionId를 입력시 해당 댓글을 데이터베이스에서 지운다.
+     * Scenario : 원하는 answerId 입력시 해당 댓글을 데이터베이스에서 지운다.
      * Given : AnswerDto.Response, answerId
-     * When : 원하는 questionId가 주어질떄,
-     * Then : questionId의 댓글이 삭제 된다.
+     * When : 원하는 answerId가 주어질떄,
+     * Then : answerId의 댓글이 삭제 된다.
      */
     @Test
     void deleteAnswerTest() throws Exception{
