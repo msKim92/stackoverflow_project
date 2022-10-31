@@ -7,26 +7,53 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
-export const addUser = createAsyncThunk("user/addUser", async (addData) => {
+export const signUser = createAsyncThunk("user/addUser", async (addData) => {
   return axios
-    .get(`v1/login/`, addData)
+    .post(`/v1/sign/`, addData, {
+      headers: {
+        "ngrok-skip-browser-warning": "111",
+      },
+    })
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
 
-export const loginUser = createAsyncThunk("user/loginUser", async (addData) => {
-  return axios
-    .post("http://localhost:3001/user/", addData)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
-
-export const signupUser = createAsyncThunk("signup/signupUser", async (addData) => {
-  return axios
-    .post("http://localhost:3001/signup/", addData)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
+  async (loginData) => {
+    return (
+      axios
+        .post(
+          "v1/login",
+          { ...loginData },
+          {
+            headers: {
+              // "Content-Type": "*/*",
+              "Content-Length": 0,
+              "ngrok-skip-browser-warning": "111",
+            },
+          }
+        )
+        // return fetch("/v1/login", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Length": 0,
+        //     "ngrok-skip-browser-warning": "111",
+        //   },
+        //   body: JSON.stringify(loginData),
+        // })
+        .then((res) => {
+          console.log(res.headers);
+          let jwtToken = res.headers.get("Authorization");
+          let jwtrefreshToken = res.headers.get("refresh");
+          localStorage.setItem("Authorization", jwtToken);
+          localStorage.setItem("refresh", jwtrefreshToken);
+          return res.json();
+        })
+        .catch((err) => console.log(err))
+    );
+  }
+);
 
 const userSlice = createSlice({
   name: "users",
@@ -52,17 +79,32 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    [addUser.pending]: (state) => {
+    [signUser.pending]: (state) => {
       state.users = [];
       state.loading = true;
       state.error = "";
     },
-    [addUser.fulfilled]: (state, action) => {
+    [signUser.fulfilled]: (state, action) => {
+      // state.users = action.payload;
+      // state.loading = false;
+      // state.error = "";
+    },
+    [signUser.rejected]: (state, action) => {
+      state.users = [];
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [loginUser.pending]: (state) => {
+      state.users = [];
+      state.loading = true;
+      state.error = "";
+    },
+    [loginUser.fulfilled]: (state, action) => {
       state.users = action.payload;
       state.loading = false;
       state.error = "";
     },
-    [addUser.rejected]: (state, action) => {
+    [loginUser.rejected]: (state, action) => {
       state.users = [];
       state.loading = false;
       state.error = action.payload;

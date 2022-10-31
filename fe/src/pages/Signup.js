@@ -8,7 +8,7 @@ import { RiQuestionnaireFill } from "react-icons/ri";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
 import { useDispatch } from "react-redux";
-import { signupUser } from "../reduxStore/slices/userSlice";
+import { signUser } from "../reduxStore/slices/userSlice";
 import {
   nickNameCheck,
   emaileCheck,
@@ -30,11 +30,13 @@ function Signup() {
     navigate("/Login");
   };
 
+  console.log(userWritePassword, writePwdCheck);
+
   const clickSignupBtn = () => {
     let addData = {
-      userName: userWriteName,
       userEmail: userWriteEmail,
-      userPassword: userWritePassword,
+      password: userWritePassword,
+      userName: userWriteName,
     };
 
     if (
@@ -45,14 +47,38 @@ function Signup() {
       setnickCheck(true);
       setWriteEmailCheck(true);
       setWritePwdCheck(true);
-    } else if (!nickNameCheck(userWriteEmail)) {
+    } else {
+      setnickCheck(false);
+      setWriteEmailCheck(false);
+      setWritePwdCheck(false);
+    }
+    if (!nickNameCheck(userWriteName)) {
       setnickCheck(true);
-    } else if (!emaileCheck(userWriteEmail)) {
+    } else {
+      setnickCheck(false);
+    }
+    if (!emaileCheck(userWriteEmail)) {
       setWriteEmailCheck(true);
-    } else if (!pwdCheck(userWritePassword)) {
+    } else {
+      setWriteEmailCheck(false);
+    }
+    if (!pwdCheck(userWritePassword)) {
+      console.log(11);
       setWritePwdCheck(true);
     } else {
-      dispatch(signupUser(addData));
+      console.log(22);
+      setWritePwdCheck(false);
+    }
+    if (
+      nickCheck === false &&
+      writeEmailCheck === false &&
+      writePwdCheck === false &&
+      userWriteName !== "" &&
+      userWriteEmail !== "" &&
+      userWritePassword !== ""
+    ) {
+      console.log(33);
+      dispatch(signUser(addData));
     }
   };
 
@@ -132,11 +158,11 @@ function Signup() {
               </SocialLogWrapper>
               <SignupBox>
                 <div>
-                  <TextContents>Display name</TextContents>
+                  <TextContents isCheck={nickCheck}>Display name</TextContents>
                   <InputBox onChange={userName} />
-                  <TextContents>Email</TextContents>
+                  <TextContents isCheck={writeEmailCheck}>Email</TextContents>
                   <InputBox onChange={userEmail} />
-                  <TextContents>Password</TextContents>
+                  <TextContents isCheck={writePwdCheck}>Password</TextContents>
                   <InputBox onChange={userPassword} />
                 </div>
                 <Message>
@@ -306,6 +332,7 @@ const BtnText = styled.div`
 `;
 
 const TextContents = styled.div`
+  background-color: ${(props) => (props.isCheck ? "red" : "blue")};
   font-weight: 550;
   margin: 6px 1px;
   color: hsl(210deg 8% 25%);

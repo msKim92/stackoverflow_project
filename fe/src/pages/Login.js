@@ -24,14 +24,14 @@ function Login() {
   };
 
   const clickLoginBtn = () => {
-    let addData = {
+    let loginData = {
       userEmail: userWriteEmail,
-      PasswardForm: userWritePassword,
+      password: userWritePassword,
     };
-    dispatch(loginUser(addData));
+    dispatch(loginUser(loginData));
   };
 
-  const userEmail = (e) => {
+  const usersEmail = (e) => {
     setUserWriteEmail(e.target.value);
   };
 
@@ -70,11 +70,11 @@ function Login() {
               <LoginForm>
                 <EmailForm>
                   <Text>Email</Text>
-                  <TextInput type="email" onChange={userEmail} />
+                  <TextInput type="email" onChange={usersEmail} />
                 </EmailForm>
                 <PasswardForm>
                   <Text>Passward</Text>
-                  <TextInput type="password" onChange={userPassWord} />
+                  <TextInput onChange={userPassWord} />
                 </PasswardForm>
                 <LoginBtn onClick={clickLoginBtn}>Log in</LoginBtn>
               </LoginForm>

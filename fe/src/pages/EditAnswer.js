@@ -44,7 +44,6 @@ function EditAnswer() {
     };
     dispatch(updateAnswer({ id, upData }));
   };
-
   return (
     <>
       <Header />
