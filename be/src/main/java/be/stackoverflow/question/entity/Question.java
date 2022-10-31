@@ -49,4 +49,7 @@ public class Question extends WriterAudit {
         user.getQuestions().add(this);
     }
 
+    public Question(Long questionId) {
+        this.questionId = questionId;
+    }
 }

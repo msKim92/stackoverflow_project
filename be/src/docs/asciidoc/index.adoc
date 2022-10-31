@@ -1,0 +1,104 @@
+= 스택오버플로우 애플리케이션
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+Min Sub Kim <mins402kim@gmail.com>, Yu Hyun Kim <dbgys1127@gmail.com>
+
+v1.0.0, 2022.10.31
+
+***
+== UserController
+=== 회원 등록
+.curl-request
+include::{snippets}/post-user/curl-request.adoc[]
+
+.http-request
+include::{snippets}/post-user/http-request.adoc[]
+
+.request-fields
+include::{snippets}/post-user/request-fields.adoc[]
+
+.http-response
+include::{snippets}/post-user/http-response.adoc[]
+
+.response-fields
+include::{snippets}/post-user/response-fields.adoc[]
+
+=== 특정 회원 정보 조회
+.curl-request
+include::{snippets}/get-user/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-user/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/get-user/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-user/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-user/response-fields.adoc[]
+
+=== 회원 전체 조회
+.curl-request
+include::{snippets}/get-users/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-users/http-request.adoc[]
+
+.request-parameters
+include::{snippets}/get-users/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-users/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-users/response-fields.adoc[]
+
+***
+== AnswerController
+=== 댓글 전체 조회
+.curl-request
+include::{snippets}/get-answers/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-answers/http-request.adoc[]
+
+.request-parameters
+include::{snippets}/get-answers/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-answers/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-answers/response-fields.adoc[]
+
+=== 댓글 삭제
+.curl-request
+include::{snippets}/delete-answer/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-answer/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/delete-answer/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/delete-answer/http-response.adoc[]
+
+=== 댓글 전체 삭제
+.curl-request
+include::{snippets}/delete-answers/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-answers/http-request.adoc[]
+
+
+.http-response
+include::{snippets}/delete-answers/http-response.adoc[]
+***
+image::https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg[spring]
