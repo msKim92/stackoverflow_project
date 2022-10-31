@@ -9,6 +9,8 @@ import {
   AiFillCaretDown,
   AiOutlineHistory,
 } from "react-icons/ai";
+import ReadAnswer from "../components/ReadAnswer";
+import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark } from "react-icons/fa";
 import ReadAnswer from "../components/ReadAnswer";
 import AddAnswer from "../components/AddAnswer";
@@ -88,7 +90,7 @@ function DetailQuestion() {
                       </QuestionWrapper>
                     </ContentWrapper>
                   </Flex>
-                  <ReadAnswer />
+                   <ReadAnswer />
                   <AddAnswer />
                 </div>
               </div>

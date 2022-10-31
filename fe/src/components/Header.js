@@ -6,9 +6,12 @@ import stackLogo from "../img/stackOverflowLogo.png";
 import { GoInbox } from "react-icons/go";
 import { FaQuestionCircle, FaStackExchange } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
+
 function Header() {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
+  const [isModal, setIsModal] = useState(false);
 
   const loginBtn = () => {
     setIsLogin(true);
@@ -27,7 +30,11 @@ function Header() {
     navigate("/");
   };
 
-  return (
+  const openModal = () => {
+    setIsModal(!isModal);
+  }
+
+  return (  
     <Wraper>
       {isLogin ? (
         <HeaderWraper>
@@ -55,9 +62,10 @@ function Header() {
               <FaQuestionCircle />
             </HeaderIcon>
             <HeaderIcon isLogin={isLogin}>
-              <FaStackExchange />
+              <FaStackExchange onClick={openModal}/>
             </HeaderIcon>
           </BtnSpace>
+          { isModal ? <Modal /> : null}
         </HeaderWraper>
       ) : (
         <HeaderWraper>
