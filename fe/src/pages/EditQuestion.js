@@ -29,131 +29,67 @@ function EditQuestion() {
       <header>
         <Header />
       </header>
-      <SecondWrapper style={{ border: "5px solid red" }}>
+      <SecondWrapper>
         <ThirdWrapper>
           <LeftWrapper>
             <LeftNvi />
           </LeftWrapper>
-          <Question style={{ border: "5px solid blue" }}>
-            <Text style={{ border: "5px solid green" }}>
-              <div className="w80" style={{ border: "5px solid orange" }}>
-                <div style={{ margin: "1% 0" }}>
-                  <div style={{ fontWeight: "bold" }}>Rev</div>
-                  <select
-                    style={{ marginTop: "0.8%", width: "100%" }}
-                    onChange={ChangeSelect}
-                    value={Selected}
-                  >
+          <Question>
+            <Text>
+              <div className="w80">
+                <div className="margin">
+                  <div className="bold">Rev</div>
+                  <Select onChange={ChangeSelect} value={Selected}>
                     {selectList.map((item) => (
                       <option value={item} key={item}>
                         {item}
                       </option>
                     ))}
-                  </select>
+                  </Select>
                 </div>
                 <div>
-                  <div style={{ fontWeight: "bold" }}>Titile</div>
-                  <input style={{ marginTop: "0.8%", width: "99%" }}></input>
+                  <Bold>Titile</Bold>
+                  <input></input>
                 </div>
                 <div>
-                  <div
-                    style={{
-                      marginTop: "2%",
-                      fontWeight: "bold",
-                      marginBottom: "0.8%",
-                    }}
-                  >
-                    Body
-                  </div>
+                  <Body>Body</Body>
                   <Editor
                     initialEditType="" // 초기 입력모드 설정
                     previewStyle="vertical" // 미리보기 스타일 지정
                     height="300px" // 에디터 창 높이
                   ></Editor>
                 </div>
-                <div style={{ marginTop: "1.3%" }}>
+                <MarginTop>
                   How can I filter this object, only for specific keys
+                </MarginTop>
+                <div>
+                  <Tag>Tags</Tag>
+                  <input></input>
                 </div>
                 <div>
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      marginTop: "3%",
-                      marginBottom: "1%",
-                    }}
-                  >
-                    Tags
-                  </div>
-                  <input style={{ width: "99%" }}></input>
+                  <MarginBottom>Edit Summary</MarginBottom>
+                  <input></input>
                 </div>
                 <div>
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      marginTop: "3%",
-                      marginBottom: "1%",
-                    }}
-                  >
-                    Edit Summary
-                  </div>
-                  <input style={{ width: "99%" }}></input>
-                </div>
-                <div>
-                  <div
-                    style={{
-                      marginTop: "5%",
-                      marginBottom: "1%",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Submit for review
-                  </div>
-                  <div style={{ display: "flex" }}>
+                  <Submit>Submit for review</Submit>
+                  <div>
                     <input type="checkbox" name="*" value="*" />
                     <div>
                       This edit resolves the original close reason and the
                       question should be considered for reopening.
                     </div>
                   </div>
-                  <div>
-                    <button
-                      style={{
-                        backgroundColor: "#0A95FF",
-                        border: "1px solid #0A95FF",
-                        marginTop: "4%",
-                        padding: "1.2%",
-                        color: "#FFFFFF",
-                        marginRight: "2%",
-                      }}
-                    >
-                      Save edits
-                    </button>
-                    <button
-                      style={{
-                        border: "1px solid #FFFFFF",
-                        backgroundColor: "#FFFFFF",
-                        marginTop: "4%",
-                        padding: "1.2%",
-                        color: "#0A95FF",
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                  <Buttons>
+                    <button className="saveEdit">Save edits</button>
+                    <button className="cancel">Cancel</button>
+                  </Buttons>
                 </div>
               </div>
 
-              <div
-                style={{
-                  border: "1px solid #F1E5BC",
-                  width: "30%",
-                  margin: "1% 0",
-                  height: "50%",
-                }}
-              >
+              <Nav>
                 <Subject>How to Edit</Subject>
                 <Content>{listItems}</Content>
-              </div>
+              </Nav>
             </Text>
           </Question>
         </ThirdWrapper>
@@ -201,6 +137,12 @@ const Text = styled.div`
     width: 60%;
     margin: 0.7%;
   }
+  & > .w80 .margin {
+    margin: 1% 0;
+  }
+  & > .w80 .margin .bold {
+    font-weight: bold;
+  }
 `;
 
 const Subject = styled.div`
@@ -222,4 +164,74 @@ const Content = styled.div`
   }
 `;
 
+const Select = styled.select`
+  margintop: 0.8%;
+  width: 100%;
+`;
+
+const Bold = styled.div`
+  font-weight: bold;
+  & + input {
+    margin-top: 0.8%;
+    width: 99%;
+  }
+`;
+
+const Body = styled.div`
+  margin-top: 2%;
+  font-weight: bold;
+  margin-bottom: 0.8%;
+`;
+
+const MarginTop = styled.div`
+  margin-top: 1.3%;
+`;
+
+const Tag = styled.div`
+  font-weight: bold;
+  margin-bottom: 1%;
+  & + input {
+    width: 99%;
+  }
+`;
+
+const MarginBottom = styled.div`
+  font-weight: bold;
+  margin-bottom: 1%;
+  & + input {
+    width: 99%;
+  }
+`;
+
+const Submit = styled.div`
+  margin-bottom: 1%;
+  font-weight: bold;
+  & + div {
+    display: flex;
+  }
+`;
+
+const Buttons = styled.div`
+  padding-top: 5%;
+  & > .saveEdit {
+    background-color: #0a95ff;
+    border: 1px solid #0a95ff;
+    padding: 1.2%;
+    color: #ffffff;
+    marign-right: 2%;
+  }
+  & > .cancel {
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+    padding: 1.2%;
+    color: #0a95ff;
+  }
+`;
+
+const Nav = styled.div`
+  border: 1px solid #f1e5bc;
+  width: 30%;
+  margin: 1% 0;
+  height: 50%;
+`;
 export default EditQuestion;
