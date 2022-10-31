@@ -4,7 +4,9 @@
       "id": 1,
       "questionTitle": "제목1",
       "questionBody": "게시글 내용 첫번째입니다",
-      "tags": ["react"],
+      "tags": [
+        "react"
+      ],
       "questionViewCount": 0,
       "questionstatus": null,
       "createdAt": "2022-10-24T14:09:04.6402551",
@@ -37,7 +39,9 @@
       "id": 2,
       "questionTitle": "제목2",
       "questionBody": "게시글 내용 두번째 입니다",
-      "tags": ["springboot"],
+      "tags": [
+        "springboot"
+      ],
       "questionViewCount": 0,
       "questionstatus": null,
       "createdAt": "2022-10-24T14:09:04.6402551",
@@ -61,7 +65,9 @@
       "id": 3,
       "questionTitle": "제목3",
       "questionBody": "게시글 내용 세번째입니다",
-      "tags": ["javascript"],
+      "tags": [
+        "javascript"
+      ],
       "questionViewCount": 0,
       "questionstatus": null,
       "createdAt": "2022-10-24T14:09:04.6402551",
@@ -86,7 +92,9 @@
       "id": 4,
       "questionTitle": "제목4",
       "questionBody": "게시글 내용 네번째입니다",
-      "tags": ["java"],
+      "tags": [
+        "java"
+      ],
       "questionViewCount": 0,
       "questionstatus": null,
       "createdAt": "2022-10-24T14:09:04.6401551",
@@ -171,22 +179,87 @@
       "userEmail": "1111",
       "userPassword": "2222",
       "id": 5
+    },
+    {
+      "userName": "asd",
+      "userEmail": "",
+      "userPassword": "",
+      "id": 6
+    },
+    {
+      "userName": "asd1",
+      "userEmail": "",
+      "userPassword": "",
+      "id": 7
+    },
+    {
+      "userName": "asd12",
+      "userEmail": "",
+      "userPassword": "",
+      "id": 8
+    },
+    {
+      "userName": "",
+      "userEmail": "AAAA@naver.com",
+      "userPassword": "",
+      "id": 9
+    },
+    {
+      "userName": "",
+      "userEmail": "asd@naver.com",
+      "userPassword": "",
+      "id": 10
+    },
+    {
+      "userName": "asd1",
+      "userEmail": "asd@naver.com",
+      "userPassword": "",
+      "id": 11
+    },
+    {
+      "userName": "asd1",
+      "userEmail": "",
+      "userPassword": "",
+      "id": 12
+    },
+    {
+      "userName": "",
+      "userEmail": "",
+      "userPassword": "",
+      "id": 13
+    },
+    {
+      "userName": "asdf1",
+      "userEmail": "asdf@naver.com",
+      "userPassword": "asd",
+      "id": 14
+    },
+    {
+      "userName": "asd1",
+      "userEmail": "rkdhfh@naver.com",
+      "userPassword": "1234AAaa!",
+      "id": 15
+    },
+    {
+      "userName": "asd1",
+      "userEmail": "asd@naver.com",
+      "userPassword": "asd!@AS12",
+      "id": 16
     }
   ],
   "answer": [
     {
       "id": 1,
       "votes": 1,
-      "contentbody": "콘텐츠3입니다",
+      "contentbody": "test3입니다!",
       "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
     },
     {
       "id": 2,
       "votes": 2,
-      "contentbody": "콘텐츠3입니다",
+      "contentbody": "테스트입니다",
       "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
     },
-
     {
       "id": 3,
       "votes": 3,
@@ -194,27 +267,27 @@
       "contentcode": "for (let x = 0;x< comment.length; x++{ return comment[x] })"
     },
     {
-      "votes": 0,
-      "contentsbody": "zxc",
-      "contentscode": "",
+      "votes": 4,
+      "contentbody": "zxc",
+      "contentcode": "12",
       "id": 4
     },
     {
-      "votes": 0,
-      "contentsbody": "테스트입니다!",
-      "contentscode": "",
+      "votes": 5,
+      "contentbody": "테스트입니다!",
+      "contentcode": "123",
       "id": 5
     },
     {
-      "votes": 0,
-      "contentsbody": "테스트입니다2",
-      "contentscode": "",
+      "votes": 6,
+      "contentbody": "테스트입니다2",
+      "contentcode": "1234",
       "id": 6
     },
     {
-      "votes": 0,
-      "contentsbody": "테스트입니다3",
-      "contentscode": "테스트입니다3",
+      "votes": 7,
+      "contentbody": "테스트입니다3",
+      "contentcode": "테스트입니다3",
       "id": 7
     }
   ]

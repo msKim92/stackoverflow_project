@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
@@ -7,11 +7,13 @@ import Header from "../components/Header";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { ImPriceTags, ImTrophy } from "react-icons/im";
-import { useDispatch } from 'react-redux';
-import { signupUser } from '../reduxStore/slices/userSlice'
-import { nickNameCheck, emaileCheck, pwdCheck } from '../components/effectivenessCheck'
-
-
+import { useDispatch } from "react-redux";
+import { signUser } from "../reduxStore/slices/userSlice";
+import {
+  nickNameCheck,
+  emaileCheck,
+  pwdCheck,
+} from "../components/effectivenessCheck";
 
 function Signup() {
   const navigate = useNavigate();
@@ -24,31 +26,60 @@ function Signup() {
   const [writeEmailCheck, setWriteEmailCheck] = useState(false);
   const [writePwdCheck, setWritePwdCheck] = useState(false);
 
-
   const clickLogin = () => {
     navigate("/Login");
   };
 
+  console.log(userWritePassword, writePwdCheck);
+
   const clickSignupBtn = () => {
     let addData = {
-      userName: userWriteName,
       userEmail: userWriteEmail,
-      userPassword: userWritePassword
+      password: userWritePassword,
+      userName: userWriteName,
     };
 
-    if(userWriteName === '' || userWriteEmail === '' || userWritePassword === ''){
+    if (
+      userWriteName === "" ||
+      userWriteEmail === "" ||
+      userWritePassword === ""
+    ) {
       setnickCheck(true);
       setWriteEmailCheck(true);
       setWritePwdCheck(true);
-    } else if(!nickNameCheck(userWriteEmail)){
+    } else {
+      setnickCheck(false);
+      setWriteEmailCheck(false);
+      setWritePwdCheck(false);
+    }
+    if (!nickNameCheck(userWriteName)) {
       setnickCheck(true);
-    } else if(!emaileCheck(userWriteEmail)){
+    } else {
+      setnickCheck(false);
+    }
+    if (!emaileCheck(userWriteEmail)) {
       setWriteEmailCheck(true);
-    } else if(!pwdCheck(userWritePassword)){
+    } else {
+      setWriteEmailCheck(false);
+    }
+    if (!pwdCheck(userWritePassword)) {
+      console.log(11);
       setWritePwdCheck(true);
-    } else{
-      dispatch(signupUser(addData));
-    };
+    } else {
+      console.log(22);
+      setWritePwdCheck(false);
+    }
+    if (
+      nickCheck === false &&
+      writeEmailCheck === false &&
+      writePwdCheck === false &&
+      userWriteName !== "" &&
+      userWriteEmail !== "" &&
+      userWritePassword !== ""
+    ) {
+      console.log(33);
+      dispatch(signUser(addData));
+    }
   };
 
   const userName = (e) => {
@@ -63,175 +94,189 @@ function Signup() {
     setUserWritePassword(e.target.value);
   };
 
-
   return (
     <>
-    <Header />
-    <Display>
-      <DisplayWrapper>
-        <Main>
-          <TextBox>
-            <MainText>Join the Stack Overflow community</MainText>
-            <FlexItem>
-              <Icon><RiQuestionnaireFill/></Icon>
-              <Text>Get unstuck — ask a question</Text>
-            </FlexItem>
-            <FlexItem>
-              <Icon><TiArrowUnsorted/></Icon>
-              <Text>Unlock new privileges like voting and commenting</Text>
-            </FlexItem>
-            <FlexItem>
-              <Icon><ImPriceTags/></Icon>
-              <Text>Save your favorite tags, filters, and jobs</Text>
-            </FlexItem>
-            <FlexItem>
-              <Icon><ImTrophy/></Icon>
-              <Text>Earn reputation and badges</Text>
-            </FlexItem>
-            <SmallText>
-              <SmallText>Collaborate and share knowledge with a private group for FREE.</SmallText>
-              <SmallTextBlue>Get Stack Overflow for Teams free for up to 50 users.</SmallTextBlue>
-            </SmallText>
-          </TextBox>
-          <MainBox>
-            <SocialLogWrapper>
-              <SocialLogBtn>
-                <SocialIcon><FcGoogle/></SocialIcon>
-                <BtnText>Sign up with Google</BtnText>
-              </SocialLogBtn>
-              <SocialLogBtn>
-              <SocialIcon><AiFillGithub/></SocialIcon>
-              <BtnText>Sign up with GitHub</BtnText>
-              </SocialLogBtn>
-              <SocialLogBtn>
-              <SocialIcon><AiFillFacebook/></SocialIcon>
-              <BtnText>Sign up with Facebook</BtnText>
-              </SocialLogBtn>
-            </SocialLogWrapper>
-            <SignupBox>
+      <Header />
+      <Display>
+        <DisplayWrapper>
+          <Main>
+            <TextBox>
+              <MainText>Join the Stack Overflow community</MainText>
+              <FlexItem>
+                <Icon>
+                  <RiQuestionnaireFill />
+                </Icon>
+                <Text>Get unstuck — ask a question</Text>
+              </FlexItem>
+              <FlexItem>
+                <Icon>
+                  <TiArrowUnsorted />
+                </Icon>
+                <Text>Unlock new privileges like voting and commenting</Text>
+              </FlexItem>
+              <FlexItem>
+                <Icon>
+                  <ImPriceTags />
+                </Icon>
+                <Text>Save your favorite tags, filters, and jobs</Text>
+              </FlexItem>
+              <FlexItem>
+                <Icon>
+                  <ImTrophy />
+                </Icon>
+                <Text>Earn reputation and badges</Text>
+              </FlexItem>
+              <SmallText>
+                <SmallText>
+                  Collaborate and share knowledge with a private group for FREE.
+                </SmallText>
+                <SmallTextBlue>
+                  Get Stack Overflow for Teams free for up to 50 users.
+                </SmallTextBlue>
+              </SmallText>
+            </TextBox>
+            <MainBox>
+              <SocialLogWrapper>
+                <SocialLogBtn>
+                  <SocialIcon>
+                    <FcGoogle />
+                  </SocialIcon>
+                  <BtnText>Sign up with Google</BtnText>
+                </SocialLogBtn>
+                <SocialLogBtn>
+                  <SocialIcon>
+                    <AiFillGithub />
+                  </SocialIcon>
+                  <BtnText>Sign up with GitHub</BtnText>
+                </SocialLogBtn>
+                <SocialLogBtn>
+                  <SocialIcon>
+                    <AiFillFacebook />
+                  </SocialIcon>
+                  <BtnText>Sign up with Facebook</BtnText>
+                </SocialLogBtn>
+              </SocialLogWrapper>
+              <SignupBox>
                 <div>
-                 <TextContents>Display name</TextContents>
-                 <InputBox onChange={userName}/>
-                 <TextContents>Email</TextContents>
-                 <InputBox onChange={userEmail}/>
-                 <TextContents>Password</TextContents>
-                 <InputBox onChange={userPassword}/>
+                  <TextContents isCheck={nickCheck}>Display name</TextContents>
+                  <InputBox onChange={userName} />
+                  <TextContents isCheck={writeEmailCheck}>Email</TextContents>
+                  <InputBox onChange={userEmail} />
+                  <TextContents isCheck={writePwdCheck}>Password</TextContents>
+                  <InputBox onChange={userPassword} />
                 </div>
-                 <Message>
-                   Passwords must contain at least eight characters, 
-                   including at least 1 letter and 1 number.
-                 </Message>
-                 <RobotBox>
-                   로봇
-                 </RobotBox>
-                 <CheckBox>
-                   <Check />
-                   <Message>
-                   Opt-in to receive occasional product 
-                   updates, user research invitations, company 
-                   announcements, and digests.
-                   </Message>
-                 </CheckBox>
-                 <SignupBtn onClick={clickSignupBtn}>Sign up</SignupBtn>
+                <Message>
+                  Passwords must contain at least eight characters, including at
+                  least 1 letter and 1 number.
+                </Message>
+                <RobotBox>로봇</RobotBox>
+                <CheckBox>
+                  <Check />
+                  <Message>
+                    Opt-in to receive occasional product updates, user research
+                    invitations, company announcements, and digests.
+                  </Message>
+                </CheckBox>
+                <SignupBtn onClick={clickSignupBtn}>Sign up</SignupBtn>
                 <Form>
-                 <MessageBlack>
-                   By clicking “Sign up”, you agree to our
-                 </MessageBlack>
-                 <MessageBlue>
-                   terms of service, privacy policy and cookie policy
-                 </MessageBlue>
-                </Form> 
-             </SignupBox>
-             <Space>
-             <SignUpBox>
-               <MsgForm>Don’t have an account?</MsgForm>
-               <MsgButton onClick={clickLogin}>Log in</MsgButton>
-              </SignUpBox>
-              <SignUpBox>
-                <MsgForm>Are you an employer?</MsgForm>
-                <MsgButton>Sign up on Talent</MsgButton>
-              </SignUpBox>
+                  <MessageBlack>
+                    By clicking “Sign up”, you agree to our
+                  </MessageBlack>
+                  <MessageBlue>
+                    terms of service, privacy policy and cookie policy
+                  </MessageBlue>
+                </Form>
+              </SignupBox>
+              <Space>
+                <SignUpBox>
+                  <MsgForm>Don’t have an account?</MsgForm>
+                  <MsgButton onClick={clickLogin}>Log in</MsgButton>
+                </SignUpBox>
+                <SignUpBox>
+                  <MsgForm>Are you an employer?</MsgForm>
+                  <MsgButton>Sign up on Talent</MsgButton>
+                </SignUpBox>
               </Space>
-          </MainBox>
-        </Main>
-      </DisplayWrapper>
-    </Display>
+            </MainBox>
+          </Main>
+        </DisplayWrapper>
+      </Display>
     </>
-  )
+  );
 }
 
-const Display = styled.div` 
+const Display = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 52px;
   display: flex;
   justify-content: center;
   background-color: #f1f2f3;
-`
+`;
 
-const DisplayWrapper = styled.div` 
+const DisplayWrapper = styled.div`
   width: 75vw;
   height: 900px;
   padding: 8px 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
-const Main = styled.div` 
+const Main = styled.div`
   width: 790px;
   height: 900px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const TextBox = styled.div`
   margin: 0px 10px 100px 0px;
   height: 300px;
   padding-right: 22px;
-`
+`;
 
 const MainText = styled.div`
   font-size: 1.6em;
   margin-bottom: 35px;
-`
+`;
 
 const Icon = styled.div`
   font-size: 28px;
-  color:hsl(206deg 85% 57%);
-`
+  color: hsl(206deg 85% 57%);
+`;
 
 const FlexItem = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-`
+`;
 
 const Text = styled.div`
   font-size: 15px;
   margin-left: 5px;
-`
+`;
 
 const SmallText = styled.div`
   font-size: 13px;
-`
+`;
 
 const SmallTextBlue = styled.div`
   font-size: 13px;
   color: hsl(206deg 100% 40%);
-`
+`;
 const InputBox = styled.input`
   width: 264px;
   height: 28px;
   border: 1px solid hsl(210deg 8% 75%);
   border-radius: 5px;
-`
+`;
 
 const MainBox = styled.div`
   width: 316px;
   height: 900px;
-`
+`;
 
 const SignupBox = styled.div`
   width: 266px;
@@ -243,7 +288,7 @@ const SignupBox = styled.div`
   background-color: white;
   display: flex;
   align-items: center;
-`
+`;
 
 const SocialLogWrapper = styled.div`
   display: flex;
@@ -257,7 +302,7 @@ const SocialLogBtn = styled.button`
   height: 37px;
   margin: 4px;
   border-radius: 5px;
-  border: 1px solid #D6D9DC;
+  border: 1px solid #d6d9dc;
   font-size: 13px;
   display: flex;
   justify-content: center;
@@ -265,14 +310,14 @@ const SocialLogBtn = styled.button`
   cursor: pointer;
   &:first-child {
     background-color: #fff;
-    color:#232629
+    color: #232629;
   }
-  &:nth-child(2){
+  &:nth-child(2) {
     background-color: #232629;
     color: white;
   }
-  &:nth-child(3){
-    background-color: #314A86;
+  &:nth-child(3) {
+    background-color: #314a86;
     color: white;
   }
 `;
@@ -287,12 +332,12 @@ const BtnText = styled.div`
 `;
 
 const TextContents = styled.div`
+  background-color: ${(props) => (props.isCheck ? "red" : "blue")};
   font-weight: 550;
   margin: 6px 1px;
   color: hsl(210deg 8% 25%);
   margin-bottom: 15px;
 `;
-
 
 const Message = styled.div`
   font-size: 11.5px;
@@ -310,24 +355,24 @@ const RobotBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const CheckBox = styled.div`
   display: flex;
   align-items: baseline;
-`
+`;
 
 const Check = styled.input`
   width: 5px;
   height: 7px;
-`
+`;
 
 const SignupBtn = styled.button`
-  width:268px;
+  width: 268px;
   height: 37px;
   margin-top: 8px;
   background-color: hsl(206deg 100% 52%);
-  color:white;
+  color: white;
   border: 1px solid white;
   border: none;
   border-radius: 3px;
@@ -354,7 +399,7 @@ const MsgForm = styled.span`
 const MsgButton = styled.button`
   border: none;
   margin-left: 1px;
-  font-size:  14px;
+  font-size: 14px;
   color: hsl(206deg 100% 40%);
   cursor: pointer;
 `;
@@ -372,6 +417,6 @@ const MessageBlue = styled.span`
 
 const Form = styled.div`
   margin-top: 40px;
-`
+`;
 
 export default Signup;

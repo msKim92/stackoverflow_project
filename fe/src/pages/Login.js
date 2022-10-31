@@ -5,40 +5,39 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillFacebook } from "react-icons/ai";
 import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
-import axios from 'axios';
-import { loginUser } from "../reduxStore/slices/userSlice"
-import { useDispatch } from 'react-redux';
-
+import axios from "axios";
+import { loginUser } from "../reduxStore/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const [userWriteEmail, setUserWriteEmail] = useState("");
   const [userWritePassword, setUserWritepassword] = useState("");
 
   const signupBtn = () => {
-    navigate("/Signup")
+    navigate("/Signup");
   };
   const homeNav = () => {
-    navigate("/")
+    navigate("/");
   };
 
   const clickLoginBtn = () => {
-    let addData = {
+    let loginData = {
       userEmail: userWriteEmail,
-      PasswardForm: userWritePassword
+      password: userWritePassword,
     };
-    dispatch(loginUser(addData));
+    dispatch(loginUser(loginData));
   };
 
-  const userEmail = (e) => {
+  const usersEmail = (e) => {
     setUserWriteEmail(e.target.value);
-  }
+  };
 
   const userPassWord = (e) => {
     setUserWritepassword(e.target.value);
-  }
+  };
 
   return (
     <>
@@ -49,27 +48,33 @@ function Login() {
             <Logo src={StackOverflowIcon} onClick={homeNav}></Logo>
             <SocialLogWrapper>
               <SocialLogBtn>
-                <SocialIcon><FcGoogle/></SocialIcon>
+                <SocialIcon>
+                  <FcGoogle />
+                </SocialIcon>
                 <BtnText>Log in with Google</BtnText>
               </SocialLogBtn>
               <SocialLogBtn>
-              <SocialIcon><AiFillGithub/></SocialIcon>
-              <BtnText>Log in with GitHub</BtnText>
+                <SocialIcon>
+                  <AiFillGithub />
+                </SocialIcon>
+                <BtnText>Log in with GitHub</BtnText>
               </SocialLogBtn>
               <SocialLogBtn>
-              <SocialIcon><AiFillFacebook/></SocialIcon>
-              <BtnText>Log in with Facebook</BtnText>
+                <SocialIcon>
+                  <AiFillFacebook />
+                </SocialIcon>
+                <BtnText>Log in with Facebook</BtnText>
               </SocialLogBtn>
             </SocialLogWrapper>
             <LoginBox>
               <LoginForm>
                 <EmailForm>
                   <Text>Email</Text>
-                  <TextInput type="email" onChange={userEmail}/>
+                  <TextInput type="email" onChange={usersEmail} />
                 </EmailForm>
                 <PasswardForm>
                   <Text>Passward</Text>
-                  <TextInput type="password" onChange={userPassWord}/>
+                  <TextInput onChange={userPassWord} />
                 </PasswardForm>
                 <LoginBtn onClick={clickLoginBtn}>Log in</LoginBtn>
               </LoginForm>
@@ -90,7 +95,6 @@ function Login() {
     </>
   );
 }
-
 
 const Display = styled.div`
   width: 100%;

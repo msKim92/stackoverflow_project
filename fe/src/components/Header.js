@@ -17,10 +17,10 @@ function Header() {
     setIsLogin(true);
     navigate("/Login");
   };
-  
+
   const signupBtn = () => {
-    navigate("/Signup")
-  }
+    navigate("/Signup");
+  };
 
   const logoutBtn = () => {
     setIsLogin(false);

@@ -12,7 +12,7 @@ export const fetchAnswer = createAsyncThunk(
 );
 
 export const addAnswer = createAsyncThunk(
-  "questions/addAnswer",
+  "answers/addAnswer",
   async (answerData) => {
     return axios
       .post(`http://localhost:3001/answer/`, answerData)
@@ -21,8 +21,18 @@ export const addAnswer = createAsyncThunk(
   }
 );
 
+export const updateAnswer = createAsyncThunk(
+  "answers/updateAnswer",
+  async (oj) => {
+    return axios
+      .patch(`http://localhost:3001/answer/${oj.id}`, oj.upData)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+);
+
 export const deleteAnswer = createAsyncThunk(
-  "questions/deleteAnswer",
+  "answers/deleteAnswer",
   async (id) => {
     return axios
       .delete(`http://localhost:3001/answer/${id}`)
@@ -32,7 +42,7 @@ export const deleteAnswer = createAsyncThunk(
 );
 
 const answerSlice = createSlice({
-  name: "questions",
+  name: "answers",
   initialState: {
     answers: [],
     loading: false,
@@ -76,13 +86,6 @@ const answerSlice = createSlice({
       state.error = "";
     },
     [deleteAnswer.fulfilled]: (state, action) => {
-      const id = action.meta.arg;
-      // console.log(id);
-      if (id) {
-        // console.log(state.answers);
-        // state.answer = state.answer.filter((item) => item._id !== id);
-        // state.answer = state.answer.filter((item) => item._id !== id);
-      }
       state.answers = [action.payload];
       state.loading = false;
       state.error = "";
@@ -90,6 +93,20 @@ const answerSlice = createSlice({
     [deleteAnswer.rejected]: (state, action) => {
       console.log(action.payload);
       state.answers = [];
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [updateAnswer.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateAnswer.fulfilled]: (state, action) => {
+      const {
+        arg: { id },
+      } = action.meta;
+      state.loading = false;
+      state.answers = [action.payload];
+    },
+    [updateAnswer.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },

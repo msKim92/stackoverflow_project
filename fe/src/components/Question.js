@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../reduxStore/slices/userSlice";
 import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 import { fetchAnswer } from "../reduxStore/slices/answerSlice";
+import { useNavigate } from "react-router-dom";
 
 function Question() {
-  const questions = useSelector((state) => state.questions.questions);
+  const navigate = useNavigate();
+  const questions = useSelector((state) => state.questions.questions.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (questions.length === 0) {
+    if (!questions) {
       dispatch(fetchQuestion());
     }
   }, [dispatch]);
@@ -80,6 +82,10 @@ function Question() {
     }
     return <QuestionerDetailInformation>{result}</QuestionerDetailInformation>;
   };
+
+  const clickDetail = () => {
+    navigate();
+  };
   return (
     <>
       {questions?.map((data) => (
@@ -90,9 +96,7 @@ function Question() {
               <div> votes</div>
             </QuestionerSuggestionCount>
             <QuestionerSuggestionCount>
-              <QuestionerCountChange>
-                {data.answer.length}
-              </QuestionerCountChange>
+              <QuestionerCountChange></QuestionerCountChange>
               <div>answer</div>
             </QuestionerSuggestionCount>
             <QuestionerSuggestionCount>
@@ -103,7 +107,7 @@ function Question() {
             </QuestionerSuggestionCount>
           </QuestionerSuggestionInFormation>
           <QuestionerContents>
-            <QuestionerContentsTitle>
+            <QuestionerContentsTitle onClick={clickDetail}>
               {data.questionTitle}
             </QuestionerContentsTitle>
             <QuestionerContentsTag>{data.tags}</QuestionerContentsTag>
