@@ -36,7 +36,7 @@ public interface questionMapper {
         questionFrontResponse.setQuestionId(question.getQuestionId());
         questionFrontResponse.setQuestionTitle(question.getQuestionTitle());
         questionFrontResponse.setQuestionViewCount(question.getQuestionViewCount());
-        questionFrontResponse.setQuestionstatus(question.getQuestionStatus());
+        questionFrontResponse.setQuestionStatus(question.getQuestionStatus());
         questionFrontResponse.setQuestionVote(question.getQuestionVote());
         questionFrontResponse.setCreated_at(question.getCreated_at());
         questionFrontResponse.setUpdated_at(question.getUpdated_at());

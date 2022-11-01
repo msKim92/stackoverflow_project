@@ -56,7 +56,7 @@ public class questionController {
         List<Question> allQuestions = pageInformation.getContent();
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation) , HttpStatus.CREATED);
+                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation) , HttpStatus.OK);
     }
 
     /*
@@ -82,7 +82,7 @@ public class questionController {
         Question FoundQuestion = questionService.findQuestion(questionId);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.questionToDetailResponse(FoundQuestion)), HttpStatus.CREATED);
+                new SingleResponseDto<>(mapper.questionToDetailResponse(FoundQuestion)), HttpStatus.OK);
     }
 
 

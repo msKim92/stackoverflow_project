@@ -1,6 +1,7 @@
 package be.stackoverflow.user.dto;
 
 import be.stackoverflow.user.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserDto {
 
     @Getter
+    @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "이름 입력란을 채워주세요.")
         @Pattern(regexp = "^[a-z0-9]{4,20}$", message = "아이디는 영어 소문자와 숫자만 사용하여 4~20자리여야 합니다.")
@@ -35,6 +37,7 @@ public class UserDto {
     }
 
     @Getter
+    @AllArgsConstructor
     public static class Patch {
 
         @Email(message = "이메일 형식이 올바르지 않습니다.")
@@ -45,6 +48,7 @@ public class UserDto {
     }
 
     @Builder
+    @AllArgsConstructor
     @Getter
     public static class Response {
         private long userId;
@@ -62,7 +66,6 @@ public class UserDto {
 
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
-        private String create_by;
-        private String updated_by;
+
     }
 }

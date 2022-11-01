@@ -3,10 +3,7 @@ package be.stackoverflow.question.dto;
 import be.stackoverflow.answer.dto.AnswerDto;
 import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.user.entity.User;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -17,6 +14,8 @@ public class questionDto {
 
     @Getter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class questionPost {
 
         @NotBlank(message = "제목을 기입하기 바랍니다.")
@@ -26,6 +25,10 @@ public class questionDto {
 
         private String tags; // tag CRUD 기능 완료시 구현 예정
 
+        public questionPost(String questionTitle, String questionBody) {
+            this.questionTitle = questionTitle;
+            this.questionBody = questionBody;
+        }
     }
 
     @Getter
@@ -39,29 +42,34 @@ public class questionDto {
 
         private String tags; // tag CRUD 기능 완료시 구현 예정
 
+
+
     }
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class questionFrontResponse {
 
         private Long questionId;
         private String questionTitle;
         private String tags; // tag CRUD 기능 완료시 구현 예정
         private int questionViewCount;
-        private Boolean questionstatus;
+        private Boolean questionStatus;
         private int questionVote;
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
         // 로그인 기능 추가 후 구현 예정
         private String create_by_user;
         private String updated_by_user;
-        private List<Answer> answers;
 
     }
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class questionDetailResponse {
 
         private Long questionId;
@@ -82,6 +90,8 @@ public class questionDto {
 
     @Builder
     @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class QuestionAnswerResponseDto {
         private Long answerId;
         private String answerBody;
