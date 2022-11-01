@@ -89,6 +89,7 @@ function DetailQuestion() {
                     </ContentWrapper>
                   </Flex>
                   <ReadAnswer />
+                  <AddAnswer />
                 </div>
               </div>
               <div

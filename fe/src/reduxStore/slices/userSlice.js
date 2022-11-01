@@ -39,7 +39,7 @@ export const loginUser = createAsyncThunk(
         .then((res) => {
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
-          localStorage.setItem("Authorization", jwtToken);
+          localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
           return res.data;
         })
@@ -47,7 +47,6 @@ export const loginUser = createAsyncThunk(
     );
   }
 );
-
 const userSlice = createSlice({
   name: "users",
   initialState: {

@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-let jwtToken = localStorage.getItem("Authorization");
-console.log(jwtToken);
+let jwtToken = localStorage.getItem("access_token");
+let token = jwtToken.split(" ").pop();
+console.log(token);
 
 export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
@@ -24,7 +25,7 @@ export const addAnswer = createAsyncThunk(
   async (answerData) => {
     return axios
       .post(`/v1/answer/`, answerData, {
-        headers: { Authorization: `${jwtToken}` },
+        headers: { Authorization: `${token}` },
       })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -36,7 +37,7 @@ export const updateAnswer = createAsyncThunk(
   async (oj) => {
     return axios
       .patch(`/v1/answer/${oj.id}`, oj.upData, {
-        headers: { Authorization: `${jwtToken}` },
+        headers: { Authorization: `${token}` },
       })
       .then((res) => res.data)
       .catch((err) => console.log(err));
@@ -48,7 +49,7 @@ export const deleteAnswer = createAsyncThunk(
   async (id) => {
     return axios
       .delete(`/v1/answer/${id}`, {
-        headers: { Authorization: `${jwtToken}` },
+        headers: { Authorization: `${token}` },
       })
       .then((res) => res.data)
       .catch((err) => console.log(err));

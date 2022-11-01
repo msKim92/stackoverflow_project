@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 function Question({ clickHere }) {
   const navigate = useNavigate();
-  const questions = useSelector((state) => state.questions.questions.data);
+  const questions = useSelector((state) => state.questions.questions?.data);
   const dispatch = useDispatch();
   useEffect(() => {
     if (!questions || clickHere === 1) {
@@ -23,6 +23,8 @@ function Question({ clickHere }) {
     } else if (!questions || clickHere === 3) {
       dispatch(fetchQuestion3());
       window.scrollTo(0, 0);
+    } else {
+      dispatch(fetchQuestion1());
     }
   }, [clickHere]);
 
@@ -93,13 +95,13 @@ function Question({ clickHere }) {
     return <QuestionerDetailInformation>{result}</QuestionerDetailInformation>;
   };
 
-  const clickDetail = () => {
-    navigate();
+  const clickDetail = (id) => {
+    navigate(`/${id}`);
   };
   return (
     <>
       {questions?.map((data) => (
-        <QuestionSpace key={data.id}>
+        <QuestionSpace key={data.questionId}>
           <QuestionerSuggestionInFormation>
             <QuestionerSuggestionCount>
               <QuestionerCountChange>{data.questionVote}</QuestionerCountChange>
@@ -117,7 +119,9 @@ function Question({ clickHere }) {
             </QuestionerSuggestionCount>
           </QuestionerSuggestionInFormation>
           <QuestionerContents>
-            <QuestionerContentsTitle onClick={clickDetail}>
+            <QuestionerContentsTitle
+              onClick={() => clickDetail(data.questionId)}
+            >
               {data.questionTitle}
             </QuestionerContentsTitle>
             <QuestionerContentsTag>{data.tags}</QuestionerContentsTag>
