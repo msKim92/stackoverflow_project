@@ -116,6 +116,7 @@ public class QuestionControllerTest {
                 .andDo(
                         document("get-question",
                                 preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
                                 pathParameters(
                                         Arrays.asList(parameterWithName("questionId").description("질문 식별자 ID"))
                                 ),

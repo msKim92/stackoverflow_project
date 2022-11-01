@@ -562,8 +562,8 @@ Content-Length: 285
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-11-01T09:54:05.927945",
-    "updated_at" : "2022-11-01T09:54:05.927955"
+    "created_at" : "2022-11-01T10:21:23.801267",
+    "updated_at" : "2022-11-01T10:21:23.801279"
   }
 }</code></pre>
 </div>
@@ -672,7 +672,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 284
+Content-Length: 285
 
 {
   "data" : {
@@ -682,8 +682,8 @@ Content-Length: 284
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-11-01T09:54:05.98901",
-    "updated_at" : "2022-11-01T09:54:05.989022"
+    "created_at" : "2022-11-01T10:21:23.860261",
+    "updated_at" : "2022-11-01T10:21:23.860273"
   }
 }</code></pre>
 </div>
@@ -796,7 +796,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 666
+Content-Length: 665
 
 {
   "data" : [ {
@@ -806,8 +806,8 @@ Content-Length: 666
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-11-01T09:54:05.976949",
-    "updated_at" : "2022-11-01T09:54:05.976959"
+    "created_at" : "2022-11-01T10:21:23.847355",
+    "updated_at" : "2022-11-01T10:21:23.847366"
   }, {
     "userId" : 2,
     "userName" : "userName2",
@@ -815,8 +815,8 @@ Content-Length: 666
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-11-01T09:54:05.976963",
-    "updated_at" : "2022-11-01T09:54:05.976966"
+    "created_at" : "2022-11-01T10:21:23.84737",
+    "updated_at" : "2022-11-01T10:21:23.847372"
   } ],
   "pageInfo" : {
     "page" : 1,
@@ -973,16 +973,16 @@ Content-Length: 616
     "answerId" : 1,
     "answerBody" : "답변1",
     "answerVote" : 0,
-    "created_at" : "2022-11-01T09:54:05.161354",
-    "updated_at" : "2022-11-01T09:54:05.161366",
+    "created_at" : "2022-11-01T10:21:23.017577",
+    "updated_at" : "2022-11-01T10:21:23.017589",
     "create_by_user" : "userName1",
     "updated_by_user" : "userName1"
   }, {
     "answerId" : 2,
     "answerBody" : "답변2",
     "answerVote" : 0,
-    "created_at" : "2022-11-01T09:54:05.161375",
-    "updated_at" : "2022-11-01T09:54:05.161378",
+    "created_at" : "2022-11-01T10:21:23.017598",
+    "updated_at" : "2022-11-01T10:21:23.017602",
     "create_by_user" : "userName2",
     "updated_by_user" : "userName2"
   } ],
@@ -1187,9 +1187,42 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 748
+Content-Length: 998
 
-{"data":{"questionId":1,"questionTitle":"질문1","questionBody":"질문1 해결해주실분?","tags":"tags","questionViewCount":0,"questionStatus":true,"questionVote":0,"created_at":"2022-11-01T09:54:05.661339","updated_at":"2022-11-01T09:54:05.661342","create_by_user":"userName1","updated_by_user":"userName2","answers":[{"answerId":1,"answerBody":"답변1","answerVote":0,"created_at":"2022-11-01T09:54:05.661277","updated_at":"2022-11-01T09:54:05.661289","create_by_user":"userName3","updated_by_user":"userName4","answerSize":2},{"answerId":2,"answerBody":"답변2","answerVote":0,"created_at":"2022-11-01T09:54:05.661299","updated_at":"2022-11-01T09:54:05.661302","create_by_user":"userName5","updated_by_user":"userName6","answerSize":2}]}}</code></pre>
+{
+  "data" : {
+    "questionId" : 1,
+    "questionTitle" : "질문1",
+    "questionBody" : "질문1 해결해주실분?",
+    "tags" : "tags",
+    "questionViewCount" : 0,
+    "questionStatus" : true,
+    "questionVote" : 0,
+    "created_at" : "2022-11-01T10:21:23.549172",
+    "updated_at" : "2022-11-01T10:21:23.549175",
+    "create_by_user" : "userName1",
+    "updated_by_user" : "userName2",
+    "answers" : [ {
+      "answerId" : 1,
+      "answerBody" : "답변1",
+      "answerVote" : 0,
+      "created_at" : "2022-11-01T10:21:23.549107",
+      "updated_at" : "2022-11-01T10:21:23.549118",
+      "create_by_user" : "userName3",
+      "updated_by_user" : "userName4",
+      "answerSize" : 2
+    }, {
+      "answerId" : 2,
+      "answerBody" : "답변2",
+      "answerVote" : 0,
+      "created_at" : "2022-11-01T10:21:23.549132",
+      "updated_at" : "2022-11-01T10:21:23.549134",
+      "create_by_user" : "userName5",
+      "updated_by_user" : "userName6",
+      "answerSize" : 2
+    } ]
+  }
+}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1360,7 +1393,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 789
+Content-Length: 790
 
 {
   "data" : [ {
@@ -1370,8 +1403,8 @@ Content-Length: 789
     "questionViewCount" : 0,
     "questionStatus" : true,
     "questionVote" : 0,
-    "created_at" : "2022-11-01T09:54:05.632906",
-    "updated_at" : "2022-11-01T09:54:05.632916",
+    "created_at" : "2022-11-01T10:21:23.520119",
+    "updated_at" : "2022-11-01T10:21:23.520128",
     "create_by_user" : "username1",
     "updated_by_user" : "username1"
   }, {
@@ -1381,8 +1414,8 @@ Content-Length: 789
     "questionViewCount" : 0,
     "questionStatus" : true,
     "questionVote" : 0,
-    "created_at" : "2022-11-01T09:54:05.632928",
-    "updated_at" : "2022-11-01T09:54:05.63293",
+    "created_at" : "2022-11-01T10:21:23.520141",
+    "updated_at" : "2022-11-01T10:21:23.520143",
     "create_by_user" : "username2",
     "updated_by_user" : "username2"
   } ],
