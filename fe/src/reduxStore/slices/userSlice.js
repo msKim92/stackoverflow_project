@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-  return axios
-    .get("http://localhost:3000/user/")
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
 export const signUser = createAsyncThunk("user/addUser", async (addData) => {
   return axios
     .post(`/v1/sign/`, addData, {
@@ -62,23 +56,9 @@ const userSlice = createSlice({
     loading: false,
     error: "",
   },
+
   reducers: {},
   extraReducers: {
-    [fetchUser.pending]: (state) => {
-      state.users = [];
-      state.loading = true;
-      state.error = "";
-    },
-    [fetchUser.fulfilled]: (state, action) => {
-      state.users = action.payload;
-      state.loading = false;
-      state.error = "";
-    },
-    [fetchUser.rejected]: (state, action) => {
-      state.users = [];
-      state.loading = false;
-      state.error = action.payload;
-    },
     [signUser.pending]: (state) => {
       state.users = [];
       state.loading = true;

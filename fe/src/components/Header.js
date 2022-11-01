@@ -32,9 +32,9 @@ function Header() {
 
   const openModal = () => {
     setIsModal(!isModal);
-  }
+  };
 
-  return (  
+  return (
     <Wraper>
       {isLogin ? (
         <HeaderWraper>
@@ -62,10 +62,10 @@ function Header() {
               <FaQuestionCircle />
             </HeaderIcon>
             <HeaderIcon isLogin={isLogin}>
-              <FaStackExchange onClick={openModal}/>
+              <FaStackExchange onClick={openModal} />
             </HeaderIcon>
           </BtnSpace>
-          { isModal ? <Modal /> : null}
+          {isModal ? <Modal /> : null}
         </HeaderWraper>
       ) : (
         <HeaderWraper>
@@ -107,6 +107,7 @@ const Wraper = styled.div`
   margin-right: auto;
   position: fixed;
   background-color: white;
+  z-index: 99;
 `;
 const HeaderWraper = styled.div`
   height: 50px;

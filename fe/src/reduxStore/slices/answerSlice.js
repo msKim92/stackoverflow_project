@@ -1,11 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+let jwtToken = localStorage.getItem("Authorization");
+console.log(jwtToken);
+
 export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
   async () => {
     return axios
-      .get("http://localhost:3001/answer/")
+      .get("/v1/answer/", {
+        headers: {
+          // "Content-Length": 0,
+          "ngrok-skip-browser-warning": "111",
+        },
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
@@ -15,7 +23,7 @@ export const addAnswer = createAsyncThunk(
   "answers/addAnswer",
   async (answerData) => {
     return axios
-      .post(`http://localhost:3001/answer/`, answerData)
+      .post(`/v1/answer/`, answerData)
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
@@ -25,7 +33,7 @@ export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
   async (oj) => {
     return axios
-      .patch(`http://localhost:3001/answer/${oj.id}`, oj.upData)
+      .patch(`/v1/answer/${oj.id}`, oj.upData)
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
@@ -35,7 +43,7 @@ export const deleteAnswer = createAsyncThunk(
   "answers/deleteAnswer",
   async (id) => {
     return axios
-      .delete(`http://localhost:3001/answer/${id}`)
+      .delete(`/v1/answer/${id}`)
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }

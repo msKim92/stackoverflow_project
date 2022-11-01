@@ -2,24 +2,38 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../reduxStore/slices/userSlice";
-import { fetchQuestion } from "../reduxStore/slices/questionSlice";
+import {
+  fetchQuestion1,
+  fetchQuestion2,
+  fetchQuestion3,
+} from "../reduxStore/slices/questionSlice";
 import { fetchAnswer } from "../reduxStore/slices/answerSlice";
 import { useNavigate } from "react-router-dom";
 
-function Question() {
+function Question({ clickHere }) {
+  console.log(clickHere);
+  console.log(localStorage.getItem("Authorization"));
   const navigate = useNavigate();
   const questions = useSelector((state) => state.questions.questions.data);
+  console.log(questions);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!questions) {
-      dispatch(fetchQuestion());
+    if (!questions || clickHere === 1) {
+      dispatch(fetchQuestion1());
+      window.scrollTo(0, 0);
+    } else if (!questions || clickHere === 2) {
+      dispatch(fetchQuestion2());
+      window.scrollTo(0, 0);
+    } else if (!questions || clickHere === 3) {
+      dispatch(fetchQuestion3());
+      window.scrollTo(0, 0);
     }
-  }, [dispatch]);
+  }, [clickHere]);
 
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
-    let creatTime = new Date(createTime);
-    let modifieTime = new Date(modifiedTime);
+    let creatTime = new Date(String(createTime));
+    let modifieTime = new Date(String(modifiedTime));
 
     let crYear = creatTime.getFullYear();
     let crMonth = creatTime.getMonth() + 1;
@@ -116,11 +130,8 @@ function Question() {
             <QuestionerDetailInformation>
               {data.author}
             </QuestionerDetailInformation>
-            <QuestionerDetailInformation>
-              {data.reputation}
-            </QuestionerDetailInformation>
             {modifiedCheck(data.modifiedAt)}
-            {renderTime(data.createdAt, data.modifiedAt)}
+            {renderTime(data.created_at, data.modified_at)}
           </QuestionerInformation>
         </QuestionSpace>
       ))}

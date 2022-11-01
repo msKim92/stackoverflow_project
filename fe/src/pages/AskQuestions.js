@@ -133,7 +133,7 @@ const Description = styled.div`
     margin-top: 0.7%;
   }
   & > .steps {
-    font-size= 14px;
+    font-size: 14px;
     margin-top: 1.5%;
     font-weight: bold;
   }
@@ -203,10 +203,10 @@ const Tags = styled.div`
 const ReviewButton = styled.button`
   background-color: #0a95ff;
   border: 1px solid #0a95ff;
-  marign-top: 4%;
+  margin-top: 4%;
   padding: 1.2%;
   color: #ffffff;
-  marign-right: 2%;
+  margin-right: 2%;
 `;
 
 const DiscardButton = styled.button`

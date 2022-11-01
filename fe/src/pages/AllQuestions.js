@@ -6,10 +6,13 @@ import RightNavi from "../components/RightNavi";
 import Footer from "../components/Footer";
 import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
-import AddAnswer from "../components/AddAnswer";
-import ReadAnswer from "../components/ReadAnswer";
 function AllQuestions() {
+  const [clickHere, setClickHere] = useState(1);
   const navigate = useNavigate();
+
+  const clickNewQuestion = (number) => {
+    setClickHere(number);
+  };
 
   const clickAddQuetion = () => {
     navigate("/askquestions");
@@ -39,7 +42,7 @@ function AllQuestions() {
               <AllQuestionsMenuBtn>Month</AllQuestionsMenuBtn>
             </AllQuestionsBottom>
           </AllQuestionsMenu>
-          <Question />
+          <Question clickHere={clickHere} />
           <AllQuestionsInformation>
             <div>
               Looking for more? Browse the
@@ -48,8 +51,26 @@ function AllQuestions() {
             </div>
             <InformationDiv>unanswered questions.</InformationDiv>
           </AllQuestionsInformation>
-          <AddAnswer />
-          <ReadAnswer />
+          <PageNationSpace>
+            <PageNationBtn1
+              isClick={clickHere}
+              onClick={() => clickNewQuestion(1)}
+            >
+              1
+            </PageNationBtn1>
+            <PageNationBtn2
+              isClick={clickHere}
+              onClick={() => clickNewQuestion(2)}
+            >
+              2
+            </PageNationBtn2>
+            <PageNationBtn3
+              isClick={clickHere}
+              onClick={() => clickNewQuestion(3)}
+            >
+              3
+            </PageNationBtn3>
+          </PageNationSpace>
         </QuestionList>
         <RightNavi />
       </Wraper>
@@ -183,6 +204,35 @@ const InformationDiv = styled.div`
   &:hover {
     color: #0995ff;
   }
+`;
+const PageNationSpace = styled.div`
+  width: 99%;
+  height: 35px;
+  border: 2px solid red;
+  display: flex;
+  align-items: center;
+`;
+
+const PageNationBtn1 = styled.button`
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  margin: 0px 5px;
+  background-color: ${(props) => (props.isClick === 1 ? "orange" : "#d0e2f0")};
+`;
+const PageNationBtn2 = styled.button`
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  margin: 0px 5px;
+  background-color: ${(props) => (props.isClick === 2 ? "orange" : "#d0e2f0")};
+`;
+const PageNationBtn3 = styled.button`
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  margin: 0px 5px;
+  background-color: ${(props) => (props.isClick === 3 ? "orange" : "#d0e2f0")};
 `;
 
 export default AllQuestions;
