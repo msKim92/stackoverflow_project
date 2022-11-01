@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
           {
             headers: {
               // "Content-Type": "*/*",
-              "Content-Length": 0,
+              // "Content-Length": 0,
               "ngrok-skip-browser-warning": "111",
             },
           }
@@ -37,12 +37,11 @@ export const loginUser = createAsyncThunk(
         //   body: JSON.stringify(loginData),
         // })
         .then((res) => {
-          console.log(res.headers);
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
           localStorage.setItem("Authorization", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
-          return res.json();
+          return res.data;
         })
         .catch((err) => console.log(err))
     );

@@ -23,8 +23,10 @@ export const addAnswer = createAsyncThunk(
   "answers/addAnswer",
   async (answerData) => {
     return axios
-      .post(`/v1/answer/`, answerData)
-      .then((res) => res.data)
+      .post(`/v1/answer/`, answerData, {
+        headers: { Authorization: `${jwtToken}` },
+      })
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
 );
@@ -33,17 +35,21 @@ export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
   async (oj) => {
     return axios
-      .patch(`/v1/answer/${oj.id}`, oj.upData)
+      .patch(`/v1/answer/${oj.id}`, oj.upData, {
+        headers: { Authorization: `${jwtToken}` },
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
 );
-
+// 성공
 export const deleteAnswer = createAsyncThunk(
   "answers/deleteAnswer",
   async (id) => {
     return axios
-      .delete(`/v1/answer/${id}`)
+      .delete(`/v1/answer/${id}`, {
+        headers: { Authorization: `${jwtToken}` },
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
@@ -99,7 +105,6 @@ const answerSlice = createSlice({
       state.error = "";
     },
     [deleteAnswer.rejected]: (state, action) => {
-      console.log(action.payload);
       state.answers = [];
       state.loading = false;
       state.error = action.payload.message;

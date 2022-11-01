@@ -12,8 +12,8 @@ function ReadAnswer() {
   const answers = useSelector(
     (state) => state?.questions.questions.data?.answers
   );
+  const aaa = useSelector((state) => state?.questions);
   const parmas = useParams();
-  console.log(answers);
   const [clickSelect, setClickSelect] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -81,8 +81,8 @@ function ReadAnswer() {
 
     return <UserElapsedTime>answered {result}</UserElapsedTime>;
   };
-  const clickEditAnswer = () => {
-    navigate("/edit/:id");
+  const clickEditAnswer = (id) => {
+    navigate(`/edit/${id}`);
   };
 
   const selectOption = [
@@ -96,8 +96,7 @@ function ReadAnswer() {
   };
 
   const deleteClick = (id) => {
-    console.log(id);
-    dispatch(deleteAnswer(id));
+    dispatch(deleteAnswer(Number(parmas.id)));
   };
   return (
     <>
@@ -121,7 +120,7 @@ function ReadAnswer() {
           </TitleAnswerRight>
         </AnswerTitleSpace>
         {answers?.map((data) => (
-          <AnswerContentsSpace>
+          <AnswerContentsSpace key={data.answerId}>
             <AnswerContentsSpaceLeft>
               <AnswerIconUpDownBtn>
                 <AiFillCaretUp />
@@ -143,7 +142,9 @@ function ReadAnswer() {
                 <AnswerRightBottomSpace>
                   <AnswerRightBottomUpSpace>
                     <ContentDetailBtn>Share</ContentDetailBtn>
-                    <ContentDetailBtn onClick={clickEditAnswer}>
+                    <ContentDetailBtn
+                      onClick={() => clickEditAnswer(data.answerId)}
+                    >
                       Edit
                     </ContentDetailBtn>
                     <ContentDetailBtn

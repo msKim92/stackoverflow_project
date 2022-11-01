@@ -7,15 +7,11 @@ import {
   fetchQuestion2,
   fetchQuestion3,
 } from "../reduxStore/slices/questionSlice";
-import { fetchAnswer } from "../reduxStore/slices/answerSlice";
 import { useNavigate } from "react-router-dom";
 
 function Question({ clickHere }) {
-  console.log(clickHere);
-  console.log(localStorage.getItem("Authorization"));
   const navigate = useNavigate();
   const questions = useSelector((state) => state.questions.questions.data);
-  console.log(questions);
   const dispatch = useDispatch();
   useEffect(() => {
     if (!questions || clickHere === 1) {

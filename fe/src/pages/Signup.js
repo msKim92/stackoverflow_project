@@ -30,8 +30,6 @@ function Signup() {
     navigate("/Login");
   };
 
-  console.log(userWritePassword, writePwdCheck);
-
   const clickSignupBtn = () => {
     let addData = {
       userEmail: userWriteEmail,
@@ -63,10 +61,8 @@ function Signup() {
       setWriteEmailCheck(false);
     }
     if (!pwdCheck(userWritePassword)) {
-      console.log(11);
       setWritePwdCheck(true);
     } else {
-      console.log(22);
       setWritePwdCheck(false);
     }
     if (
@@ -77,7 +73,6 @@ function Signup() {
       userWriteEmail !== "" &&
       userWritePassword !== ""
     ) {
-      console.log(33);
       dispatch(signUser(addData));
     }
   };

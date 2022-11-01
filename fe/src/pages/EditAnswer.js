@@ -21,7 +21,9 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useParams } from "react-router-dom";
 
 function EditAnswer() {
-  const answer = useSelector((state) => state.answers.answers);
+  const answer = useSelector(
+    (state) => state.questions.questions.data?.answers
+  );
   const [write, setWrite] = useState(" ");
   const dispatch = useDispatch();
   const params = useParams();
