@@ -60,6 +60,10 @@ dependencies {
 tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
+
+	processResources{
+		duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+	}
 }
 
 tasks.named('asciidoctor') {
@@ -83,5 +87,14 @@ bootJar {
 	dependsOn copyDocument
 	from ("${asciidoctor.outputDir}") {
 		into 'src/main/resources/static/docs'
+	}
+}
+
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'server' : profile
+sourceSets {
+	main{
+		resources {
+			srcDirs "src/main/resources", "src/main/resources-${profile}"
+		}
 	}
 }

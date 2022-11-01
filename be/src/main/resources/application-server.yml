@@ -11,3 +11,12 @@ Spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 config:
   domain: [aws s3 Endpoint]
+
+mail:
+  address:
+    admin: test@gmail.com
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY} #256bit 이상안하면 tokenizer에서 거절함.
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
