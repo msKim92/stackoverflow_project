@@ -29,7 +29,6 @@ server:
       force-response: true
       charset: utf-8
       force: true
-  port: 3000
 
 #JWT 관련 spec
 mail:

@@ -25,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.security.Principal;
 import java.util.Arrays;
@@ -64,7 +65,7 @@ public class questionController {
      *  USER 정보로 Question을 저장함.
      */
     @PostMapping("/createQuestion")
-    public ResponseEntity postQuestion(@Validated @RequestBody questionDto.questionPost postdata, HttpServletRequest request) {
+    public ResponseEntity postQuestion(@Valid @RequestBody questionDto.questionPost postdata, HttpServletRequest request) {
         String emailWithToken = jwtTokenizer.getEmailWithToken(request);
         User user = userService.findIdByEmail(emailWithToken);
 

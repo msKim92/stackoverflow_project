@@ -33,6 +33,9 @@ public class Question extends WriterAudit {
     @Column(nullable = false)
     private int questionViewCount = 0;
 
+    @Column(nullable = true)
+    private String tags;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -50,12 +53,13 @@ public class Question extends WriterAudit {
         this.questionId = questionId;
     }
 
-    public Question(Long questionId, String questionTitle, String questionBody, int questionVote, Boolean questionStatus, int questionViewCount) {
+    public Question(Long questionId, String questionTitle, String questionBody, int questionVote, Boolean questionStatus, int questionViewCount, String tags) {
         this.questionId = questionId;
         this.questionTitle = questionTitle;
         this.questionBody = questionBody;
         this.questionVote = questionVote;
         this.questionStatus = questionStatus;
         this.questionViewCount = questionViewCount;
+        this.tags = tags;
     }
 }
