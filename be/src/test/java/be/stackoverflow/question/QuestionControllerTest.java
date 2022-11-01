@@ -76,78 +76,6 @@ public class QuestionControllerTest {
     private JwtTokenizer jwtTokenizer;
 
 
-    /* 주소 : POST v1/questions/createQuestion
-     * Feature : 로그인된 사용자가 질문을 등록하면, 기입내용을 데이터베이스에 저장하는 기능이다.
-     * Scenario : HttpServletRequest 객체를 받으면, 객체네 사용자 정보로 사용자 객체를 찾고, 그 값이 작성자가 되며, 작성자가 기입한 json 데이터를 데이터베이스에 저장한다.
-     * Given : questionPost 객체, HttpServletRequest 객체
-     * When : HttpServletRequest 객체를 받으면, 객체네 사용자 정보로 사용자 객체를 찾고, 그 값이 작성자가 되며, 작성자가 기입한 json 데이터를 데이터베이스에 저장한다.
-     * Then : 작성 내용이 데이터베이스에 저장된다.
-     */
-    @Test
-    void postQuestionTest() throws Exception {
-        //given
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setParameter("Authorization","Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJFbWFpbCI6ImRiZ3lzMTFAZ21haWwuY29tIiwic3ViIjoiZGJneXMxMUBnbWFpbC5jb20iLCJpYXQiOjE2NjcyMTUwOTEsImV4cCI6MTY2NzIxNjg5MX0.WmmSi-ptwSaCZuoRb8HozxY345txF_dJjghP_waYq-mWdalcGbqymkm2CzYawo79");
-
-        questionDto.questionPost post = new questionDto.questionPost("질문1", "질문1 해결주실분?", "tags");
-
-        String content = gson.toJson(post);
-
-        questionDto.questionFrontResponse response = new questionDto.questionFrontResponse(1L, "질문1", "tags1", 0, true,
-                0, LocalDateTime.now(), LocalDateTime.now(),
-                "dbgys11", "dbgys11");
-
-        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
-        User user = new User();
-        user.setUserEmail(emailWithToken);
-
-        //Stubbing by Mockito
-        given(mapper.questionPostToQuestion(Mockito.any(questionDto.questionPost.class))).willReturn(new Question());
-        given(questionService.createQuestion(Mockito.any(Question.class), Mockito.any(User.class))).willReturn(new Question());
-        given(mapper.questionToFrontResponse(Mockito.any(Question.class))).willReturn(response);
-
-        //when
-        ResultActions actions =
-                mockMvc.perform(
-                        RestDocumentationRequestBuilders.post("/v1/questions/createQuestion")
-                                .accept(MediaType.APPLICATION_JSON)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(content));
-
-        //then
-        actions
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.data.create_by_user").value(response.getCreate_by_user()))
-                .andDo(document("post-question",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        requestFields(
-                                List.of(
-                                        fieldWithPath("questionTitle").type(JsonFieldType.STRING).description("질문 제목"),
-                                        fieldWithPath("questionBody").type(JsonFieldType.STRING).description("질문 내용")
-                                )
-                        ),
-                        responseFields(
-                                List.of(
-                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터").optional(),
-                                        fieldWithPath("data.questionId").type(JsonFieldType.NUMBER).description("질문 식별자"),
-                                        fieldWithPath("data.questionTitle").type(JsonFieldType.STRING).description("질문 제목"),
-                                        fieldWithPath("data.tags").type(JsonFieldType.STRING).description("태그"),
-                                        fieldWithPath("data.questionViewCount").type(JsonFieldType.NUMBER).description("질문 조회수"),
-                                        fieldWithPath("data.questionStatus").type(JsonFieldType.BOOLEAN).description("질문 상태"),
-                                        fieldWithPath("data.questionVote").type(JsonFieldType.NUMBER).description("질문 좋아요 수"),
-                                        fieldWithPath("data.created_at").type(JsonFieldType.STRING).description("생성 시간"),
-                                        fieldWithPath("data.updated_at").type(JsonFieldType.STRING).description("수정 시간"),
-                                        fieldWithPath("data.create_by_user").type(JsonFieldType.STRING).description("생성자"),
-                                        fieldWithPath("data.updated_by_user").type(JsonFieldType.STRING).description("수정자")
-                                )
-                        )
-                ));
-
-
-
-    }
-
     /* 주소 : GET v1/questions/{questionId}
      * Feature : 리스트에 있는 질문 클릭시 질문 내용 및 답변들이 있는 상세 페이지가 나타난다.
      * Scenario : 원하는 질문 식별자를 파라미터로 전달하면 해당 질문에 상세 페이지가 반환 된다.
@@ -285,7 +213,7 @@ public class QuestionControllerTest {
                                                         fieldWithPath("data[].questionTitle").type(JsonFieldType.STRING).description("질문 제목"),
                                                         fieldWithPath("data[].tags").type(JsonFieldType.STRING).description("추가된 태그"),
                                                         fieldWithPath("data[].questionViewCount").type(JsonFieldType.NUMBER).description("조회 수"),
-                                                        fieldWithPath("data[].questionstatus").type(JsonFieldType.BOOLEAN).description("질문 상태"),
+                                                        fieldWithPath("data[].questionStatus").type(JsonFieldType.BOOLEAN).description("질문 상태"),
                                                         fieldWithPath("data[].questionVote").type(JsonFieldType.NUMBER).description("질문 좋아요 개수"),
                                                         fieldWithPath("data[].created_at").type(JsonFieldType.STRING).description("생성 시간"),
                                                         fieldWithPath("data[].updated_at").type(JsonFieldType.STRING).description("수정 시간"),
@@ -304,36 +232,36 @@ public class QuestionControllerTest {
         assertThat(list.size()).isEqualTo(2);
     }
 
-//    /*
-//     * 주소 : DELETE v1/question/{questionId}
-//     * Feature : 작성자가 자신의 질문을 지우고 싶을때 사용하는 요청
-//     * Scenario : 원하는 questionId를 입력시 해당 질문을 데이터베이스에서 지운다.
-//     * Given : questionId
-//     * When : 원하는 questionId가 주어질떄,
-//     * Then : questionId의 댓글이 삭제 된다.
-//     */
-//    @Test
-//    void deleteQuestionTest() throws Exception{
-//        //given
-//        long questionId = 1L;
-//        doNothing().when(questionService).deleteAnswer(Mockito.anyLong());
-//
-//        //when
-//        ResultActions actions = mockMvc.perform(
-//                RestDocumentationRequestBuilders
-//                        .delete("/v1/answer/{answerId}", answerId));
-//
-//        //then
-//        actions.andExpect(status().isNoContent())
-//                .andDo(
-//                        document(
-//                                "delete-answer",
-//                                preprocessRequest(prettyPrint()),
-//                                preprocessResponse(prettyPrint()),
-//                                pathParameters(
-//                                        Arrays.asList(parameterWithName("answerId").description("댓글 식별자 ID"))
-//                                )
-//                        )
-//                );
-//    }
+    /*
+     * 주소 : DELETE v1/question/{questionId}
+     * Feature : 작성자가 자신의 질문을 지우고 싶을때 사용하는 요청
+     * Scenario : 원하는 questionId를 입력시 해당 질문을 데이터베이스에서 지운다.
+     * Given : questionId
+     * When : 원하는 questionId가 주어질떄,
+     * Then : questionId의 댓글이 삭제 된다.
+     */
+    @Test
+    void deleteQuestionTest() throws Exception{
+        //given
+        long questionId = 1L;
+        doNothing().when(questionService).deleteQuestion(Mockito.anyLong());
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                RestDocumentationRequestBuilders
+                        .delete("/v1/questions/{questionId}", questionId));
+
+        //then
+        actions.andExpect(status().isNoContent())
+                .andDo(
+                        document(
+                                "delete-question",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                pathParameters(
+                                        Arrays.asList(parameterWithName("questionId").description("질문 식별자 ID"))
+                                )
+                        )
+                );
+    }
 }

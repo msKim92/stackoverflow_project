@@ -25,6 +25,10 @@ public class questionDto {
 
         private String tags; // tag CRUD 기능 완료시 구현 예정
 
+        public questionPost(String questionTitle, String questionBody) {
+            this.questionTitle = questionTitle;
+            this.questionBody = questionBody;
+        }
     }
 
     @Getter
@@ -37,6 +41,8 @@ public class questionDto {
         private String questionBody;
 
         private String tags; // tag CRUD 기능 완료시 구현 예정
+
+
 
     }
 

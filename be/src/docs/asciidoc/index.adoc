@@ -101,6 +101,7 @@ include::{snippets}/delete-answers/http-request.adoc[]
 include::{snippets}/delete-answers/http-response.adoc[]
 
 == QuestionController
+
 === 특정 질문 상세 조회
 .curl-request
 include::{snippets}/get-question/curl-request.adoc[]
@@ -132,6 +133,19 @@ include::{snippets}/get-questions/http-response.adoc[]
 
 .response-fields
 include::{snippets}/get-questions/response-fields.adoc[]
+
+=== 질문 삭제
+.curl-request
+include::{snippets}/delete-question/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-question/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/delete-question/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/delete-question/http-response.adoc[]
 ***
 image::https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg[spring]
 

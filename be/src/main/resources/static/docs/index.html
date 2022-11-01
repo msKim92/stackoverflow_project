@@ -463,6 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_특정_질문_상세_조회">3.1. 특정 질문 상세 조회</a></li>
 <li><a href="#_질문_전체_조회">3.2. 질문 전체 조회</a></li>
+<li><a href="#_질문_삭제">3.3. 질문 삭제</a></li>
 </ul>
 </li>
 </ul>
@@ -561,8 +562,8 @@ Content-Length: 285
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-10-31T21:57:07.209177",
-    "updated_at" : "2022-10-31T21:57:07.209188"
+    "created_at" : "2022-11-01T09:54:05.927945",
+    "updated_at" : "2022-11-01T09:54:05.927955"
   }
 }</code></pre>
 </div>
@@ -671,7 +672,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 285
+Content-Length: 284
 
 {
   "data" : {
@@ -681,8 +682,8 @@ Content-Length: 285
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-10-31T21:57:07.265407",
-    "updated_at" : "2022-10-31T21:57:07.265418"
+    "created_at" : "2022-11-01T09:54:05.98901",
+    "updated_at" : "2022-11-01T09:54:05.989022"
   }
 }</code></pre>
 </div>
@@ -805,8 +806,8 @@ Content-Length: 666
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-10-31T21:57:07.253126",
-    "updated_at" : "2022-10-31T21:57:07.253137"
+    "created_at" : "2022-11-01T09:54:05.976949",
+    "updated_at" : "2022-11-01T09:54:05.976959"
   }, {
     "userId" : 2,
     "userName" : "userName2",
@@ -814,8 +815,8 @@ Content-Length: 666
     "password" : "123456k*",
     "userStatus" : true,
     "roles" : [ "USER" ],
-    "created_at" : "2022-10-31T21:57:07.253141",
-    "updated_at" : "2022-10-31T21:57:07.253144"
+    "created_at" : "2022-11-01T09:54:05.976963",
+    "updated_at" : "2022-11-01T09:54:05.976966"
   } ],
   "pageInfo" : {
     "page" : 1,
@@ -972,16 +973,16 @@ Content-Length: 616
     "answerId" : 1,
     "answerBody" : "답변1",
     "answerVote" : 0,
-    "created_at" : "2022-10-31T21:57:06.451095",
-    "updated_at" : "2022-10-31T21:57:06.451109",
+    "created_at" : "2022-11-01T09:54:05.161354",
+    "updated_at" : "2022-11-01T09:54:05.161366",
     "create_by_user" : "userName1",
     "updated_by_user" : "userName1"
   }, {
     "answerId" : 2,
     "answerBody" : "답변2",
     "answerVote" : 0,
-    "created_at" : "2022-10-31T21:57:06.451118",
-    "updated_at" : "2022-10-31T21:57:06.451122",
+    "created_at" : "2022-11-01T09:54:05.161375",
+    "updated_at" : "2022-11-01T09:54:05.161378",
     "create_by_user" : "userName2",
     "updated_by_user" : "userName2"
   } ],
@@ -1188,7 +1189,7 @@ Host: localhost:8080</code></pre>
 Content-Type: application/json
 Content-Length: 748
 
-{"data":{"questionId":1,"questionTitle":"질문1","questionBody":"질문1 해결해주실분?","tags":"tags","questionViewCount":0,"questionStatus":true,"questionVote":0,"created_at":"2022-10-31T21:57:06.936661","updated_at":"2022-10-31T21:57:06.936664","create_by_user":"userName1","updated_by_user":"userName2","answers":[{"answerId":1,"answerBody":"답변1","answerVote":0,"created_at":"2022-10-31T21:57:06.936592","updated_at":"2022-10-31T21:57:06.936604","create_by_user":"userName3","updated_by_user":"userName4","answerSize":2},{"answerId":2,"answerBody":"답변2","answerVote":0,"created_at":"2022-10-31T21:57:06.936619","updated_at":"2022-10-31T21:57:06.936621","create_by_user":"userName5","updated_by_user":"userName6","answerSize":2}]}}</code></pre>
+{"data":{"questionId":1,"questionTitle":"질문1","questionBody":"질문1 해결해주실분?","tags":"tags","questionViewCount":0,"questionStatus":true,"questionVote":0,"created_at":"2022-11-01T09:54:05.661339","updated_at":"2022-11-01T09:54:05.661342","create_by_user":"userName1","updated_by_user":"userName2","answers":[{"answerId":1,"answerBody":"답변1","answerVote":0,"created_at":"2022-11-01T09:54:05.661277","updated_at":"2022-11-01T09:54:05.661289","create_by_user":"userName3","updated_by_user":"userName4","answerSize":2},{"answerId":2,"answerBody":"답변2","answerVote":0,"created_at":"2022-11-01T09:54:05.661299","updated_at":"2022-11-01T09:54:05.661302","create_by_user":"userName5","updated_by_user":"userName6","answerSize":2}]}}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1359,7 +1360,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 790
+Content-Length: 789
 
 {
   "data" : [ {
@@ -1367,10 +1368,10 @@ Content-Length: 790
     "questionTitle" : "질문1",
     "tags" : "tags1",
     "questionViewCount" : 0,
-    "questionstatus" : true,
+    "questionStatus" : true,
     "questionVote" : 0,
-    "created_at" : "2022-10-31T21:57:06.914491",
-    "updated_at" : "2022-10-31T21:57:06.914501",
+    "created_at" : "2022-11-01T09:54:05.632906",
+    "updated_at" : "2022-11-01T09:54:05.632916",
     "create_by_user" : "username1",
     "updated_by_user" : "username1"
   }, {
@@ -1378,10 +1379,10 @@ Content-Length: 790
     "questionTitle" : "질문2",
     "tags" : "tags2",
     "questionViewCount" : 0,
-    "questionstatus" : true,
+    "questionStatus" : true,
     "questionVote" : 0,
-    "created_at" : "2022-10-31T21:57:06.914515",
-    "updated_at" : "2022-10-31T21:57:06.914517",
+    "created_at" : "2022-11-01T09:54:05.632928",
+    "updated_at" : "2022-11-01T09:54:05.63293",
     "create_by_user" : "username2",
     "updated_by_user" : "username2"
   } ],
@@ -1435,7 +1436,7 @@ Content-Length: 790
 <td class="tableblock halign-left valign-top"><p class="tableblock">조회 수</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].questionstatus</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].questionStatus</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 상태</p></td>
 </tr>
@@ -1491,6 +1492,47 @@ Content-Length: 790
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_질문_삭제">3.3. 질문 삭제</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/v1/questions/1' -i -X DELETE</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /v1/questions/1 HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. /v1/questions/{questionId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>questionId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content</code></pre>
+</div>
+</div>
 <hr>
 <div class="imageblock">
 <div class="content">
@@ -1504,7 +1546,7 @@ Content-Length: 790
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-10-31 21:54:06 +0900
+Last updated 2022-11-01 09:54:02 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
