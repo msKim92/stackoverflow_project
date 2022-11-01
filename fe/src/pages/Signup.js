@@ -14,6 +14,8 @@ import {
   emaileCheck,
   pwdCheck,
 } from "../components/effectivenessCheck";
+import capcha from "../img/recaptchaImg.png"
+
 
 function Signup() {
   const navigate = useNavigate();
@@ -26,11 +28,19 @@ function Signup() {
   const [writeEmailCheck, setWriteEmailCheck] = useState(false);
   const [writePwdCheck, setWritePwdCheck] = useState(false);
 
+  const [robotCkeck, setrobotCheck] = useState(false)
+
+  console.log(robotCkeck);
+
   const clickLogin = () => {
     navigate("/Login");
   };
 
   console.log(userWritePassword, writePwdCheck);
+
+  const clickCheckBtn = () => {
+    setrobotCheck(!robotCkeck)
+  }
 
   const clickSignupBtn = () => {
     let addData = {
@@ -42,7 +52,8 @@ function Signup() {
     if (
       userWriteName === "" ||
       userWriteEmail === "" ||
-      userWritePassword === ""
+      userWritePassword === "" ||
+      robotCkeck === false
     ) {
       setnickCheck(true);
       setWriteEmailCheck(true);
@@ -69,6 +80,7 @@ function Signup() {
       console.log(22);
       setWritePwdCheck(false);
     }
+    
     if (
       nickCheck === false &&
       writeEmailCheck === false &&
@@ -158,18 +170,27 @@ function Signup() {
               </SocialLogWrapper>
               <SignupBox>
                 <div>
-                  <TextContents isCheck={nickCheck}>Display name</TextContents>
-                  <InputBox onChange={userName} />
-                  <TextContents isCheck={writeEmailCheck}>Email</TextContents>
-                  <InputBox onChange={userEmail} />
-                  <TextContents isCheck={writePwdCheck}>Password</TextContents>
-                  <InputBox onChange={userPassword} />
+                  <TextContents>Display name</TextContents>
+                  <InputBox onChange={userName} isCheck={nickCheck}/>
+                  <TextContents>Email</TextContents>
+                  <InputBox onChange={userEmail}  isCheck={writeEmailCheck}/>
+                  <TextContents>Password</TextContents>
+                  <InputBox type="password" onChange={userPassword}  isCheck={writePwdCheck}/>
                 </div>
                 <Message>
                   Passwords must contain at least eight characters, including at
                   least 1 letter and 1 number.
                 </Message>
-                <RobotBox>로봇</RobotBox>
+                <RobotBox>                  
+                  <MainRobotBox>
+                    {robotCkeck ? null : <Warning> CAPTCHA response required. </Warning>}
+                    <CheckForm>
+                      <RobotCheck type="checkbox" onClick={clickCheckBtn}></RobotCheck>
+                      <RobotText>I'm not a robot</RobotText>
+                    </CheckForm>
+                    <ImgRecapcha src={capcha}></ImgRecapcha>
+                  </MainRobotBox>
+                </RobotBox>
                 <CheckBox>
                   <Check type="checkbox"/>
                   <Message>
@@ -271,6 +292,7 @@ const InputBox = styled.input`
   height: 28px;
   border: 1px solid hsl(210deg 8% 75%);
   border-radius: 5px;
+  border-color: ${(props) => (props.isCheck ? "red" : "hsl(210deg 8% 75%)")};
 `;
 
 const MainBox = styled.div`
@@ -332,7 +354,6 @@ const BtnText = styled.div`
 `;
 
 const TextContents = styled.div`
-  background-color: ${(props) => (props.isCheck ? "red" : "blue")};
   font-weight: 550;
   margin: 6px 1px;
   color: hsl(210deg 8% 25%);
@@ -347,15 +368,57 @@ const Message = styled.div`
 `;
 
 const RobotBox = styled.div`
-  border: 1px solid red;
+  background-color: hsl(210deg 8% 95%);
+  border: 1px solid hsl(210deg 8% 90%);
+  border-radius: 3px;
   width: 260px;
-  height: 156px;
+  height: 150px;
   margin-top: 12px;
   margin-bottom: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => (props.isCheck ? "red" : null)};
 `;
+
+const MainRobotBox = styled.div`
+  border: 1px solid #d3d3d3;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  width: 150px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 4px 1px rgb(0 0 0 / 8%);
+`
+const CheckForm = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 23px;
+`
+
+const RobotCheck = styled.input`
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`
+
+const RobotText = styled.div`
+  font-size: 13px;
+  font-weight: 550;
+  margin-left: 4px;
+  color: #606060;
+`
+
+const ImgRecapcha = styled.img`
+  width: 84px;
+  height: 38px;
+  margin-bottom: 10px;
+`
 
 const CheckBox = styled.div`
   display: flex;
@@ -365,6 +428,13 @@ const CheckBox = styled.div`
 const Check = styled.input`
   width: 14px;
   height: 14px;
+  cursor: pointer;
+`;
+
+const Warning = styled.div`
+  margin-top: 5px;
+  font-size: 11.3px;
+  color: red;
 `;
 
 const SignupBtn = styled.button`
