@@ -171,7 +171,7 @@ function Signup() {
                 </Message>
                 <RobotBox>로봇</RobotBox>
                 <CheckBox>
-                  <Check />
+                  <Check type="checkbox"/>
                   <Message>
                     Opt-in to receive occasional product updates, user research
                     invitations, company announcements, and digests.
@@ -363,8 +363,8 @@ const CheckBox = styled.div`
 `;
 
 const Check = styled.input`
-  width: 5px;
-  height: 7px;
+  width: 14px;
+  height: 14px;
 `;
 
 const SignupBtn = styled.button`
