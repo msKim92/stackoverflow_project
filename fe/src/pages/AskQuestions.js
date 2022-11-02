@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { askQuestion } from ".../reduxStore/slices/";
+// import { useDispatch } from "react-redux";
+// import { askQuestion } from ".../reduxStore/slices/";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -16,7 +16,7 @@ const list = [
   "Review your question and post it to the site.",
 ];
 
-const dispatch = useDispatch();
+// const dispatch = useDispatch();
 
 const listItems = list.map((el) => <li key={el.toString()}>{el}</li>);
 
@@ -38,7 +38,7 @@ function AskQuestions() {
   };
 
   const submitQuestion = () => {
-    dispatch(askQuestion(body));
+    // dispatch(askQuestion(body));
   };
 
   return (
