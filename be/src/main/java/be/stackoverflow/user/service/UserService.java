@@ -61,7 +61,11 @@ public class UserService implements UserDetailsService {
     }
 
     public User findUser(Long userId) {
-        return findVerifiedUser(userId);
+        return findVerifiedUserById(userId);
+    }
+
+    public User findUserByUserName(String userName) {
+        return findVerifiedUserByName(userName);
     }
 
     public Page<User> findUserAll(int page, int size) {
@@ -80,13 +84,18 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(Long memberId) {
-        User chosenUser = findVerifiedUser(memberId);
+        User chosenUser = findVerifiedUserById(memberId);
 
         userRepository.delete(chosenUser);
     }
 
-    public User findVerifiedUser(Long userId) {
+    public User findVerifiedUserById(Long userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
+        User findUser = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        return findUser;
+    }
+    public User findVerifiedUserByName(String userName) {
+        Optional<User> optionalUser = userRepository.findByUserName(userName);
         User findUser = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return findUser;
     }
@@ -105,7 +114,7 @@ public class UserService implements UserDetailsService {
 
     /**
      * 민섭: 이메일을 통해 올바른 접근인지 확인
-     * @param username the username identifying the user whose data is required.
+     * @param emailWithToken the username identifying the user whose data is required.
      * @return
      * @throws UsernameNotFoundException
      */
@@ -116,7 +125,6 @@ public class UserService implements UserDetailsService {
         User user = findUser(userId);
 
         return user;
-
     }
 
     @Override
@@ -125,7 +133,6 @@ public class UserService implements UserDetailsService {
         User findUser = byUserEmail.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return new Details(findUser);
     }
-
 
 
     private class Details extends User implements UserDetails {

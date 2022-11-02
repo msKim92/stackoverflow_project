@@ -77,20 +77,23 @@ public class QuestionControllerTest {
     private JwtTokenizer jwtTokenizer;
 
 
-    */
-/* 주소 : GET v1/questions/{questionId}
+*/
+/*
+ 주소 : GET v1/questions/{questionId}
      * Feature : 리스트에 있는 질문 클릭시 질문 내용 및 답변들이 있는 상세 페이지가 나타난다.
      * Scenario : 원하는 질문 식별자를 파라미터로 전달하면 해당 질문에 상세 페이지가 반환 된다.
      * Given : questionDto.questionDetailResponse, questionDto.QuestionAnswerResponseDto, 질문식별자 파라미터로 전달, question 객체, user객체
      * When : 원하는 질문 식별자를 기입하면
      * Then : 식별자에 해당하는 질문에 대한 데이터가 반환된다.
-     *//*
+
+*//*
+
 
     @Test
     void getQuestionTest() throws Exception {
         // given
         long questionId = 1L;
-
+        List<String> tags = tagsStub();
         List<questionDto.QuestionAnswerResponseDto> answers = new ArrayList<>();
         answers.add(new questionDto.QuestionAnswerResponseDto(1L,"답변1",0,
                 LocalDateTime.now(),LocalDateTime.now(),"userName3","userName4",2));
@@ -152,6 +155,10 @@ public class QuestionControllerTest {
 
     }
 
+    private List<String> tagsStub() {
+
+    }
+
     */
 /* 주소 : GET v1/questions
      * Feature : 메인 페이지에서 볼수 있는 질문에 전체 리스트가 나온다.
@@ -160,6 +167,7 @@ public class QuestionControllerTest {
      * When : 원하는 page, size를 기입할때,
      * Then : 범위 내에 질문이 모두 조회되어야 한다.
      *//*
+
 
 
     @Test
@@ -238,15 +246,15 @@ public class QuestionControllerTest {
         assertThat(list.size()).isEqualTo(2);
     }
 
-    */
-/*
-     * 주소 : DELETE v1/question/{questionId}
+*/
+/*     * 주소 : DELETE v1/question/{questionId}
      * Feature : 작성자가 자신의 질문을 지우고 싶을때 사용하는 요청
      * Scenario : 원하는 questionId를 입력시 해당 질문을 데이터베이스에서 지운다.
      * Given : questionId
      * When : 원하는 questionId가 주어질떄,
      * Then : questionId의 댓글이 삭제 된다.
      *//*
+
 
     @Test
     void deleteQuestionTest() throws Exception{
