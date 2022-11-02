@@ -70,7 +70,6 @@ const LeftNaviWrapper = styled.div`
   width: 168px;
   height: 100vh;
   border: none;
-  margin-right: 5px;
 `;
 
 const Wrapper = styled.div`
@@ -102,7 +101,7 @@ const MainMenu = styled.div`
 const TeamMainMenu = styled.div`
   height: 284px;
   margin: 12px 0px;
-  border: 2px solid (60, 60, 60);
+  border: 1px solid (60, 60, 60);
 `;
 
 const PublicMenu = styled.div`

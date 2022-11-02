@@ -34,6 +34,10 @@ function Header() {
     setIsModal(!isModal);
   };
 
+  const clickUserpage = () => {
+    navigate("/MyPage");
+  };
+
   return (
     <Wraper>
       {isLogin ? (
@@ -50,7 +54,7 @@ function Header() {
             </SearchIcons>
             <SearchInput placeholder="Search..." isLogin={isLogin} />
           </SearchSpace>
-          <UserProfile>사용자</UserProfile>
+          <UserProfile onClick={clickUserpage}>사용자</UserProfile>
           <BtnSpace isLogin={isLogin}>
             <HeaderIcon isLogin={isLogin}>
               <GoInbox />
