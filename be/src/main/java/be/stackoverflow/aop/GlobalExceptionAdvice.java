@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
 
 /*
 *  예외처리할떄 try-catch를 일일히 사용하기 귀찮고 가독성이 떨어져서 추가
@@ -121,10 +122,13 @@ public class GlobalExceptionAdvice {
     * */
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse etcException(Exception e) {
+    public ErrorResponse etcException(Exception e) throws IOException {
         log.error("# ETC Error ", e);
         //실시간 관제가 어렵다, 실시간 관제할 서버같은 역할을 할 디스코드 webhook으로 보내기
-        System.out.println(e.getMessage());
+        DiscordWebhook webhook = new DiscordWebhook();
+        webhook.setTts(true);
+        webhook.setContent(e.getMessage());
+        webhook.execute();
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
         return response;
