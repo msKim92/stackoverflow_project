@@ -86,8 +86,6 @@ public class questionController {
                 new SingleResponseDto<>(mapper.questionToDetailResponse(FoundQuestion)), HttpStatus.OK);
     }
 
-
-
     //UPDATE (수정)
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id")@Positive long questionId,

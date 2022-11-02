@@ -9,7 +9,8 @@
     - AnswerMapper
 
 ### 질문
-
+- Question, Answer 좋아요 기능
+-> 자신이 속한 Question, Answer id를 받아와서 그 id의 vote수를 증가 시킨다.
 - 질문 전체 화면
     - 검색 기능 추가  expired 11월 2일
         - 질문 제목 기준 검색 
