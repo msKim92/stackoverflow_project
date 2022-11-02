@@ -11,7 +11,7 @@
 ### 질문
 
 - 질문 전체 화면
-    - 검색 기능 추가  expired 11월 1일
+    - 검색 기능 추가  expired 11월 2일
         - 질문 제목 기준 검색 
         - repository -> findbyTitle
         - service

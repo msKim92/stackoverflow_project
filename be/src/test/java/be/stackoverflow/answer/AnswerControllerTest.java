@@ -1,3 +1,4 @@
+/*
 package be.stackoverflow.answer;
 
 import be.stackoverflow.answer.controller.AnswerController;
@@ -78,15 +79,15 @@ public class AnswerControllerTest {
     @MockBean
     private AnswerMapper mapper;
 
-    /*
-     * 주소 : GET v1/answer
-     * Feature : 질문이나 user 쪽에서 조회가 아니라 관리자 입장에서 조회하는 기능이다.
-     * Scenario : 원하는 page, size를 요청파라미터로 전달시 page와 size에 맞게 최신 질문 등록 순으로 조회된다.
-     * Given : AnswerDto.Response, page, size, 회원 객체들
-     * Mockito로 Answer객체, getAnswer, AnswerResponseDto stubbing
-     * When : 원하는 page, size를 기입할때,
-     * Then : 범위 내에 질문이 모두 조회되어야 한다.
-     */
+//     * 주소 : GET v1/answer
+//     * Feature : 질문이나 user 쪽에서 조회가 아니라 관리자 입장에서 조회하는 기능이다.
+//     * Scenario : 원하는 page, size를 요청파라미터로 전달시 page와 size에 맞게 최신 질문 등록 순으로 조회된다.
+//     * Given : AnswerDto.Response, page, size, 회원 객체들
+//     * Mockito로 Answer객체, getAnswer, AnswerResponseDto stubbing
+//     * When : 원하는 page, size를 기입할때,
+//     * Then : 범위 내에 질문이 모두 조회되어야 한다.
+
+
 
     @Test
     void getAnswersTest() throws Exception {
@@ -156,14 +157,14 @@ public class AnswerControllerTest {
         List list = JsonPath.parse(result.getResponse().getContentAsString()).read("$.data");
         assertThat(list.size()).isEqualTo(2);
     }
-    /*
-     * 주소 : DELETE v1/answer/{answerId}
-     * Feature : 작성자가 자신의 댓글을 지우고 싶을때 사용하는 요청
-     * Scenario : 원하는 answerId 입력시 해당 댓글을 데이터베이스에서 지운다.
-     * Given : AnswerDto.Response, answerId
-     * When : 원하는 answerId가 주어질떄,
-     * Then : answerId의 댓글이 삭제 된다.
-     */
+//     * 주소 : DELETE v1/answer/{answerId}
+//     * Feature : 작성자가 자신의 댓글을 지우고 싶을때 사용하는 요청
+//     * Scenario : 원하는 answerId 입력시 해당 댓글을 데이터베이스에서 지운다.
+//     * Given : AnswerDto.Response, answerId
+//     * When : 원하는 answerId가 주어질떄,
+//     * Then : answerId의 댓글이 삭제 된다.
+
+
     @Test
     void deleteAnswerTest() throws Exception{
         //given
@@ -188,14 +189,14 @@ public class AnswerControllerTest {
                         )
                 );
     }
-    /*
-     * 주소 : DELETE v1/answer/
-     * Feature : 종속하고 있는 질문이 지워지면 속해있는 댓글을 모두 지운다.
-     * Scenario : 종속하고 있는 질문이 지워지면 속해있는 댓글을 모두 지운다.
-     * Given : AnswerDto.Response
-     * When : 모든 데이터 삭제 요청
-     * Then : 댓글이 삭제 된다.
-     */
+//     * 주소 : DELETE v1/answer/
+//     * Feature : 종속하고 있는 질문이 지워지면 속해있는 댓글을 모두 지운다.
+//     * Scenario : 종속하고 있는 질문이 지워지면 속해있는 댓글을 모두 지운다.
+//     * Given : AnswerDto.Response
+//     * When : 모든 데이터 삭제 요청
+//     * Then : 댓글이 삭제 된다.
+
+
     @Test
     void deleteAnswersTest() throws Exception{
         //given
@@ -218,3 +219,4 @@ public class AnswerControllerTest {
                 );
     }
 }
+*/

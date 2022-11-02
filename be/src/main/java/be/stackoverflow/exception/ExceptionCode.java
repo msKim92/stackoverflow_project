@@ -14,9 +14,10 @@ public enum ExceptionCode {
 
     //User 부분 예외 ==============끝
     QUESTION_NOT_FOUND(404, "Question not exists"),
-
+    QUESTION_DELETE_ONLY_AUTHOR(404,"Question delete only author"),
     //Answer 부분 예외 ==============시작
-    ANSWER_NOT_FOUND(404, "Answer not exists");
+    ANSWER_NOT_FOUND(404, "Answer not exists"),
+    ANSWER_DELETE_ONLY_AUTHOR(404,"Answer delete only author");
     //Answer 부분 예외 ==============끝
     /* 위에다가 추가 하세요 */
     

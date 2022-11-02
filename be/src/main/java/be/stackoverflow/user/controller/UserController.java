@@ -43,12 +43,13 @@ public class UserController {
                 new SingleResponseDto<>(userMapper.userToUserResponse(createdUser)),HttpStatus.CREATED);
     }
 
+
     /**
      * 이 부분은 테스트시 사용자 조회용으로 사용될 예정 / 상태: undo
      */
-    @GetMapping("/{userId}")
-    public ResponseEntity getUser(@PathVariable("userId") Long userId) {
-        User chosenUser = userService.findUser(userId);
+    @GetMapping("/{userName}")
+    public ResponseEntity getUserByUserName(@PathVariable("userName") String userName) {
+        User chosenUser = userService.findUserByUserName(userName);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(userMapper.userToUserResponse(chosenUser)), HttpStatus.OK);
