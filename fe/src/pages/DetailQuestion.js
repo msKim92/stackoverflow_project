@@ -12,8 +12,6 @@ import {
 import ReadAnswer from "../components/ReadAnswer";
 import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark } from "react-icons/fa";
-import ReadAnswer from "../components/ReadAnswer";
-import AddAnswer from "../components/AddAnswer";
 
 function DetailQuestion() {
   return (
