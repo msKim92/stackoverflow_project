@@ -1,11 +1,16 @@
 import React,{ useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { SiAskubuntu, SiServerfault, SiStackexchange, SiSuperuser, SiStackoverflow } from "react-icons/si";
+import {
+  SiAskubuntu,
+  SiServerfault,
+  SiStackexchange,
+  SiSuperuser,
+  SiStackoverflow,
+} from "react-icons/si";
 import { MdSettings } from "react-icons/md";
-import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png"
+import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
-
 
 function Logout() {
   const navigate = useNavigate();
@@ -17,18 +22,20 @@ function Logout() {
 
   return (
     <>
-    <Header />
+      <Header />
       <Display>
         <DisplayBox>
           <Wraper>
             <Text>
-              Clicking “Log out” will log you 
-              out of the following domains on this device:
+              Clicking “Log out” will log you out of the following domains on
+              this device:
             </Text>
             <MainBox>
               <BtnWraper>
                 <Button>
-                  <Icon><SiAskubuntu/></Icon>
+                  <Icon>
+                    <SiAskubuntu />
+                  </Icon>
                   <Link>askubuntu.com</Link>
                 </Button>
                 <Button>
@@ -36,23 +43,33 @@ function Logout() {
                   <Link>mathoverflow.net</Link>
                 </Button>
                 <Button>
-                  <Icon><SiServerfault/></Icon>
+                  <Icon>
+                    <SiServerfault />
+                  </Icon>
                   <Link>serverfault.com</Link>
                 </Button>
                 <Button>
-                  <Icon><MdSettings/></Icon>
+                  <Icon>
+                    <MdSettings />
+                  </Icon>
                   <Link>stackapps.com</Link>
                 </Button>
                 <Button>
-                  <Icon><SiStackexchange/></Icon>
+                  <Icon>
+                    <SiStackexchange />
+                  </Icon>
                   <Link>stackexchange.com</Link>
                 </Button>
                 <Button>
-                  <Icon><SiStackoverflow/></Icon>
+                  <Icon>
+                    <SiStackoverflow />
+                  </Icon>
                   <Link>stackoverflow.com</Link>
                 </Button>
                 <Button>
-                  <Icon><SiSuperuser/></Icon>
+                  <Icon>
+                    <SiSuperuser />
+                  </Icon>
                   <Link>superuser.com</Link>
                 </Button>
               </BtnWraper>
@@ -63,20 +80,18 @@ function Logout() {
               <LogoutBox>
                 <LogoutBtn onClick={clickLogoutBtn}>Log out</LogoutBtn>
                 <CancelBtn>Cancel</CancelBtn>
-              </LogoutBox> 
+              </LogoutBox>
               <Message>
-              If you’re on a shared computer, remember to log out of 
-              your Open ID provider (Facebook, Google, 
-              Stack Exchange, etc.) as well.
+                If you’re on a shared computer, remember to log out of your Open
+                ID provider (Facebook, Google, Stack Exchange, etc.) as well.
               </Message>
             </MainBox>
           </Wraper>
         </DisplayBox>
-      </Display>  
+      </Display>
     </>
-  )
+  );
 }
-
 
 const Display = styled.div`
   background-color: #f1f2f3;
@@ -117,15 +132,16 @@ const MainBox = styled.div`
   width: 278px;
   height: 378px;
   border-radius: 7px;
-  background-color:white;
+  background-color: white;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
+    0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
 `;
 
 const BtnWraper = styled.div`
-  border-bottom: 1px solid #D6D9DC;
+  border-bottom: 1px solid #d6d9dc;
   height: 206px;
   display: flex;
   justify-content: left;
@@ -169,7 +185,7 @@ const LogoutBtn = styled.button`
   width: 67px;
   height: 37px;
   background-color: hsl(206deg 100% 52%);
-  color:white;
+  color: white;
   border: 1px solid white;
   border: none;
   box-shadow: inset 0 2px 0 0 hsl(0deg 0% 100% / 40%);
@@ -202,7 +218,7 @@ const CkeckMsg = styled.div`
 const Message = styled.div`
   margin-top: 37px;
   font-size: 12px;
-  color:hsl(210deg 8% 45%);
+  color: hsl(210deg 8% 45%);
 `;
 
 export default Logout;

@@ -1,19 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-  return axios
-    .get("http://localhost:3000/user/")
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
+const BASEURL = "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com";
+
 export const signUser = createAsyncThunk("user/addUser", async (addData) => {
   return axios
-    .post(`/v1/sign/`, addData, {
-      headers: {
-        "ngrok-skip-browser-warning": "111",
-      },
-    })
+    .post(`${BASEURL}v1/sign/`, addData, {})
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
@@ -23,17 +15,7 @@ export const loginUser = createAsyncThunk(
   async (loginData) => {
     return (
       axios
-        .post(
-          "v1/login",
-          { ...loginData },
-          {
-            headers: {
-              // "Content-Type": "*/*",
-              "Content-Length": 0,
-              "ngrok-skip-browser-warning": "111",
-            },
-          }
-        )
+        .post(`${BASEURL}v1/login`, { ...loginData })
         // return fetch("/v1/login", {
         //   method: "POST",
         //   headers: {
@@ -43,18 +25,16 @@ export const loginUser = createAsyncThunk(
         //   body: JSON.stringify(loginData),
         // })
         .then((res) => {
-          console.log(res.headers);
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
-          localStorage.setItem("Authorization", jwtToken);
+          localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
-          return res.json();
+          return res.data;
         })
         .catch((err) => console.log(err))
     );
   }
 );
-
 const userSlice = createSlice({
   name: "users",
   initialState: {
@@ -62,23 +42,9 @@ const userSlice = createSlice({
     loading: false,
     error: "",
   },
+
   reducers: {},
   extraReducers: {
-    [fetchUser.pending]: (state) => {
-      state.users = [];
-      state.loading = true;
-      state.error = "";
-    },
-    [fetchUser.fulfilled]: (state, action) => {
-      state.users = action.payload;
-      state.loading = false;
-      state.error = "";
-    },
-    [fetchUser.rejected]: (state, action) => {
-      state.users = [];
-      state.loading = false;
-      state.error = action.payload;
-    },
     [signUser.pending]: (state) => {
       state.users = [];
       state.loading = true;

@@ -36,8 +36,6 @@ function Signup() {
     navigate("/Login");
   };
 
-  console.log(userWritePassword, writePwdCheck);
-
   const clickCheckBtn = () => {
     setrobotCheck(!robotCkeck)
   }
@@ -74,10 +72,8 @@ function Signup() {
       setWriteEmailCheck(false);
     }
     if (!pwdCheck(userWritePassword)) {
-      console.log(11);
       setWritePwdCheck(true);
     } else {
-      console.log(22);
       setWritePwdCheck(false);
     }
     
@@ -89,7 +85,6 @@ function Signup() {
       userWriteEmail !== "" &&
       userWritePassword !== ""
     ) {
-      console.log(33);
       dispatch(signUser(addData));
     }
   };

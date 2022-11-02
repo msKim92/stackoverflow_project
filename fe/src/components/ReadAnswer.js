@@ -4,31 +4,19 @@ import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FaRegBookmark, FaHistory } from "react-icons/fa";
 import userImg from "../img/user.png";
-import { useNavigate } from "react-router-dom";
-import { fetchQuestion } from "../reduxStore/slices/questionSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 import { deleteAnswer, fetchAnswer } from "../reduxStore/slices/answerSlice";
 
 function ReadAnswer() {
-  const questions = useSelector((state) => state.questions.questions);
-  const answers = useSelector((state) => state.answers.answers);
+  const answers = useSelector((state) => state.questions.selectQuestions?.data);
+  const parmas = useParams();
   const [clickSelect, setClickSelect] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if (questions.length === 0) {
-      dispatch(fetchQuestion());
-      dispatch(fetchAnswer());
-    }
-  }, []);
-  const filterAnswerId = answers[0]?.id;
-  const filterAnswerLength = questions[0]?.answer.length;
-  const filterAnswerVotes = questions[0]?.answer[2].votes;
-  const filterAnswerContentBody = answers[0]?.contentbody;
-  const filterAnswerContentCode = answers[0]?.contentcode;
-  const filterCreate = questions[0]?.createdAt;
-  const filterModified = questions[0]?.modifiedAt;
-  const filterReputation = questions[0]?.reputation;
-  const filterAuthor = questions[0]?.author;
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, [dispatch]);
 
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
@@ -88,8 +76,8 @@ function ReadAnswer() {
 
     return <UserElapsedTime>answered {result}</UserElapsedTime>;
   };
-  const clickEditAnswer = () => {
-    navigate("/edit/:id");
+  const clickEditAnswer = (id) => {
+    navigate(`/edit/${id}`);
   };
 
   const selectOption = [
@@ -103,90 +91,91 @@ function ReadAnswer() {
   };
 
   const deleteClick = (id) => {
-    console.log(id);
-    dispatch(deleteAnswer(id));
+    dispatch(deleteAnswer(Number(parmas.id)));
   };
   return (
-    <AnswerWrapper>
-      <AnswerTitleSpace>
-        <TitleAnswerLeft>
-          <AnswerTextSpace>{filterAnswerLength}</AnswerTextSpace>
-          <AnswerTextSpace>Answer</AnswerTextSpace>
-        </TitleAnswerLeft>
-        <TitleAnswerRight>
-          <AsnwerTitleSelectExplanation>
-            Sorted by :
-          </AsnwerTitleSelectExplanation>
-          <AnswerTitleSelect onChange={changeClickSelect} value={clickSelect}>
-            {selectOption.map((option) => (
-              <AswerTitleOption key={option.id} value={option.value}>
-                {option.value}
-              </AswerTitleOption>
-            ))}
-          </AnswerTitleSelect>
-        </TitleAnswerRight>
-      </AnswerTitleSpace>
-      <AnswerContentsSpace>
-        <AnswerContentsSpaceLeft>
-          <AnswerIconUpDownBtn>
-            <AiFillCaretUp />
-          </AnswerIconUpDownBtn>
-          <AnswerTextSpace>{filterAnswerVotes}</AnswerTextSpace>
-          <AnswerIconUpDownBtn>
-            <AiFillCaretDown />
-          </AnswerIconUpDownBtn>
-          <AnswerIcon>
-            <FaRegBookmark />
-          </AnswerIcon>
-          <AnswerIcon>
-            <FaHistory />
-          </AnswerIcon>
-        </AnswerContentsSpaceLeft>
-        <AnswerContentsSpaceRight>
-          <AnswerRightContentsTop>
-            {filterAnswerContentBody}
-          </AnswerRightContentsTop>
-          <AnswerRightContentsTop>
-            {filterAnswerContentCode}
-          </AnswerRightContentsTop>
-          <AnswerRightContentsBottom>
-            <AnswerRightBottomSpace>
-              <AnswerRightBottomUpSpace>
-                <ContentDetailBtn>Share</ContentDetailBtn>
-                <ContentDetailBtn onClick={clickEditAnswer}>
-                  Edit
-                </ContentDetailBtn>
-                <ContentDetailBtn onClick={() => deleteClick(filterAnswerId)}>
-                  Delete
-                </ContentDetailBtn>
-                <ContentDetailBtn>Follow</ContentDetailBtn>
-              </AnswerRightBottomUpSpace>
-              <ContentsAddBtn>Add a comment</ContentsAddBtn>
-            </AnswerRightBottomSpace>
-            <ContentsUserInformationSpace>
-              {renderTime(filterCreate, filterModified)}
-              <ContentsUserSpace>
-                <ContentsUserImg src={userImg} />
-                <UserSpace>
-                  <UserName>{filterAuthor}</UserName>
-                  <div>{filterReputation} K</div>
-                </UserSpace>
-              </ContentsUserSpace>
-            </ContentsUserInformationSpace>
-          </AnswerRightContentsBottom>
-        </AnswerContentsSpaceRight>
-      </AnswerContentsSpace>
-    </AnswerWrapper>
+    <>
+      <AnswerWrapper>
+        <AnswerTitleSpace>
+          <TitleAnswerLeft>
+            <AnswerTextSpace>{answers?.answers?.length}</AnswerTextSpace>
+            <AnswerTextSpace>Answer</AnswerTextSpace>
+          </TitleAnswerLeft>
+          <TitleAnswerRight>
+            <AsnwerTitleSelectExplanation>
+              Sorted by :
+            </AsnwerTitleSelectExplanation>
+            <AnswerTitleSelect onChange={changeClickSelect} value={clickSelect}>
+              {selectOption.map((option) => (
+                <AswerTitleOption key={option.id} value={option.value}>
+                  {option.value}
+                </AswerTitleOption>
+              ))}
+            </AnswerTitleSelect>
+          </TitleAnswerRight>
+        </AnswerTitleSpace>
+        {answers?.answers.map((data) => (
+          <AnswerContentsSpace key={data.answerId}>
+            <AnswerContentsSpaceLeft>
+              <AnswerIconUpDownBtn>
+                <AiFillCaretUp />
+              </AnswerIconUpDownBtn>
+              <AnswerTextSpace>{data.answerVote}</AnswerTextSpace>
+              <AnswerIconUpDownBtn>
+                <AiFillCaretDown />
+              </AnswerIconUpDownBtn>
+              <AnswerIcon>
+                <FaRegBookmark />
+              </AnswerIcon>
+              <AnswerIcon>
+                <FaHistory />
+              </AnswerIcon>
+            </AnswerContentsSpaceLeft>
+            <AnswerContentsSpaceRight>
+              <AnswerRightContentsTop>{data.answerBody}</AnswerRightContentsTop>
+              <AnswerRightContentsBottom>
+                <AnswerRightBottomSpace>
+                  <AnswerRightBottomUpSpace>
+                    <ContentDetailBtn>Share</ContentDetailBtn>
+                    <ContentDetailBtn
+                      onClick={() => clickEditAnswer(data.answerId)}
+                    >
+                      Edit
+                    </ContentDetailBtn>
+                    <ContentDetailBtn
+                      onClick={() => deleteClick(data.filterAnswerId)}
+                    >
+                      Delete
+                    </ContentDetailBtn>
+                    <ContentDetailBtn>Follow</ContentDetailBtn>
+                  </AnswerRightBottomUpSpace>
+                  <ContentsAddBtn>Add a comment</ContentsAddBtn>
+                </AnswerRightBottomSpace>
+                <ContentsUserInformationSpace>
+                  {renderTime(data.created_at, data.updated_at)}
+                  <ContentsUserSpace>
+                    <ContentsUserImg src={userImg} />
+                    <UserSpace>
+                      <UserName>{data.create_by_user}</UserName>
+                    </UserSpace>
+                  </ContentsUserSpace>
+                </ContentsUserInformationSpace>
+              </AnswerRightContentsBottom>
+            </AnswerContentsSpaceRight>
+          </AnswerContentsSpace>
+        ))}
+      </AnswerWrapper>
+      ;
+    </>
   );
 }
 const AnswerWrapper = styled.div`
   width: 94%;
-  height: 570px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
   border: none;
-  border-bottom: 1px solid #9ea6ac;
 `;
 const AnswerTitleSpace = styled.div`
   width: 98%;
@@ -244,6 +233,7 @@ const AnswerContentsSpace = styled.div`
   height: 400px;
   display: flex;
   margin-top: 20px;
+  border: 1px solid #9ea6ac;
 `;
 const AnswerContentsSpaceLeft = styled.div`
   width: 50px;

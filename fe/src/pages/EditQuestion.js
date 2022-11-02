@@ -165,7 +165,7 @@ const Content = styled.div`
 `;
 
 const Select = styled.select`
-  margintop: 0.8%;
+  margin-top: 0.8%;
   width: 100%;
 `;
 
@@ -218,7 +218,7 @@ const Buttons = styled.div`
     border: 1px solid #0a95ff;
     padding: 1.2%;
     color: #ffffff;
-    marign-right: 2%;
+    margin-right: 2%;
   }
   & > .cancel {
     border: 1px solid #ffffff;

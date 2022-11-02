@@ -1,11 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+let jwtToken = localStorage.getItem("access_token");
+let token = "";
+
+if (jwtToken) {
+  token = jwtToken.split(" ").pop();
+}
+
+const BASEURL =
+  "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
 
 export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
   async () => {
     return axios
-      .get("http://localhost:3001/answer/")
+      .get(`${BASEURL}v1/answer/`)
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
@@ -15,8 +24,10 @@ export const addAnswer = createAsyncThunk(
   "answers/addAnswer",
   async (answerData) => {
     return axios
-      .post(`http://localhost:3001/answer/`, answerData)
-      .then((res) => res.data)
+      .post(`${BASEURL}v1/answer/`, answerData, {
+        headers: { Authorization: `${token}` },
+      })
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
 );
@@ -25,17 +36,21 @@ export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
   async (oj) => {
     return axios
-      .patch(`http://localhost:3001/answer/${oj.id}`, oj.upData)
+      .patch(`${BASEURL}v1/answer/${oj.id}`, oj.upData, {
+        headers: { Authorization: `${token}` },
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
 );
-
+// 성공
 export const deleteAnswer = createAsyncThunk(
   "answers/deleteAnswer",
   async (id) => {
     return axios
-      .delete(`http://localhost:3001/answer/${id}`)
+      .delete(`${BASEURL}v1/answer/${id}`, {
+        headers: { Authorization: `${token}` },
+      })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
@@ -91,7 +106,6 @@ const answerSlice = createSlice({
       state.error = "";
     },
     [deleteAnswer.rejected]: (state, action) => {
-      console.log(action.payload);
       state.answers = [];
       state.loading = false;
       state.error = action.payload.message;
