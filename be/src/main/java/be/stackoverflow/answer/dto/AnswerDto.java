@@ -24,7 +24,7 @@ public class AnswerDto {
     @Getter
     @Builder
     public static class Patch {
-        
+
         private Long questionId;
 
         @NotBlank(message = "내용을 기입하기 바랍니다.")

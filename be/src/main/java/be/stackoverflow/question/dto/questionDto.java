@@ -63,6 +63,8 @@ public class questionDto {
         // 로그인 기능 추가 후 구현 예정
         private String create_by_user;
         private String updated_by_user;
+        // 댓글 수 표시
+        private int answerSize;
 
     }
 
@@ -85,6 +87,8 @@ public class questionDto {
         private String create_by_user;
         private String updated_by_user;
         private List<QuestionAnswerResponseDto> answers;
+        // 댓글 수 표시
+        private int answerSize;
 
     }
 
@@ -101,7 +105,6 @@ public class questionDto {
         private LocalDateTime updated_at;
         private String create_by_user;
         private String updated_by_user;
-        private long answerSize;
     }
 
 
