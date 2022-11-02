@@ -95,9 +95,6 @@ public interface questionMapper {
                         .answerSize(answers.size())
                         .build())
                 .collect(Collectors.toList());
-
-
-
     }
 
 
