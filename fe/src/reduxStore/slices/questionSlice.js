@@ -31,6 +31,19 @@ export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
     .catch((err) => console.log(err));
 });
 
+// export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
+//   return await axios
+//     .post(
+//       "https://5c0b-14-52-189-10.jp.ngrok.io/v1/questions/createQuestion",
+//       body,
+//       {
+//         headers: { "ngrok-skip-browser-warning": "111" },
+//       }
+//     )
+//     .then((res) => console.log("success:", res))
+//     .catch((err) => console.error("error:", err));
+// });
+
 const questionsSlice = createSlice({
   name: "questions",
   initialState: {

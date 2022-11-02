@@ -1,4 +1,5 @@
-import React from "react";
+import React,{ useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   SiAskubuntu,
@@ -12,6 +13,13 @@ import StackOverflowIcon from "../img/64px-Stack_Overflow_icon.svg.png";
 import Header from "../components/Header";
 
 function Logout() {
+  const navigate = useNavigate();
+
+  const clickLogoutBtn = () => {
+    localStorage.clear();
+    navigate("/")
+  };
+
   return (
     <>
       <Header />
@@ -66,11 +74,11 @@ function Logout() {
                 </Button>
               </BtnWraper>
               <CheckBox>
-                <Check></Check>
+                <Check type="checkbox"/>
                 <CkeckMsg>Log out on all devices</CkeckMsg>
               </CheckBox>
               <LogoutBox>
-                <LogoutBtn>Log out</LogoutBtn>
+                <LogoutBtn onClick={clickLogoutBtn}>Log out</LogoutBtn>
                 <CancelBtn>Cancel</CancelBtn>
               </LogoutBox>
               <Message>
@@ -167,7 +175,6 @@ const CheckBox = styled.div`
   display: flex;
   align-items: center;
   margin-top: 18px;
-  cursor: pointer;
 `;
 
 const LogoutBox = styled.div`
@@ -198,8 +205,9 @@ const CancelBtn = styled.button`
 `;
 
 const Check = styled.input`
-  width: 5px;
-  height: 7px;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
 `;
 
 const CkeckMsg = styled.div`
