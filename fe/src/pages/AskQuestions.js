@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+// import { useDispatch } from "react-redux";
+// import { askQuestion } from ".../reduxStore/slices/";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -14,9 +16,31 @@ const list = [
   "Review your question and post it to the site.",
 ];
 
+// const dispatch = useDispatch();
+
 const listItems = list.map((el) => <li key={el.toString()}>{el}</li>);
 
 function AskQuestions() {
+  const [title, setTitle] = useState("");
+  const [question, setQuestion] = useState("");
+  const [tag, setTag] = useState("");
+
+  const editoerRef = useRef();
+
+  const onChange = () => {
+    const data = editoerRef.current.getInstance().getHTML();
+    setQuestion(data);
+  };
+
+  const body = {
+    questionTitle: title,
+    questionBody: question,
+  };
+
+  const submitQuestion = () => {
+    // dispatch(askQuestion(body));
+  };
+
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -47,7 +71,10 @@ function AskQuestions() {
               Be specific and imagine you’re asking a question to another
               person.
             </div>
-            <input></input>
+            <input
+              type="text"
+              onChange={(event) => setTitle(event.target.value)}
+            ></input>
           </Title>
 
           <QuestionWrapper>
@@ -57,10 +84,14 @@ function AskQuestions() {
               Minimum 20 characters.
             </div>
             <Editor
-              initialEditType="" // 초기 입력모드 설정
+              hideModeSwitch="false"
+              language="ko-KR"
+              initialEditType="wysiwyg" // 초기 입력모드 설정
               previewStyle="vertical" // 미리보기 스타일 지정
               height="300px" // 에디터 창 높이
-            ></Editor>
+              ref={editoerRef}
+              onChange={onChange}
+            />
           </QuestionWrapper>
 
           <Tags>
@@ -69,11 +100,16 @@ function AskQuestions() {
               Add up to 5 tags to describe what your question is about. Start
               typing to see suggestions.
             </div>
-            <input></input>
-            <button>Next</button>
+            <input
+              type="text"
+              onChange={(event) => setTag(event.target.value)}
+            ></input>
+            {/* <button>Next</button> */}
           </Tags>
 
-          <ReviewButton>Review your question</ReviewButton>
+          <ReviewButton onClick={() => submitQuestion()}>
+            Review your question
+          </ReviewButton>
           <DiscardButton>Discard draft</DiscardButton>
         </W67>
       </ContentWrapper>
