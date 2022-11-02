@@ -5,21 +5,21 @@ import { IoEarthSharp, IoStarOutline } from "react-icons/io5";
 import sideImage from "../img/sideImg.png";
 
 function LeftNvi() {
-  const [clickElement, setClickElement] = useState(false);
   const navigate = useNavigate();
 
-  const clickHere = () => {
-    setClickElement(!clickElement);
-  };
   const clickQuestion = () => {
     navigate("/")
+  }
+
+  const userNavClick = () => {
+    navigate("/MyPage")
   }
 
 
   return (
     <LeftNaviWrapper>
       <Wrapper>
-        <HomeMenu click={clickElement} onClick={() => clickHere()}>
+        <HomeMenu onClick={clickQuestion}>
           Home
         </HomeMenu>
         <MainMenu>
@@ -30,17 +30,17 @@ function LeftNvi() {
             </EarthIcon>
             <QuestionsMenu>Questions</QuestionsMenu>
           </QuestionsContents>
-          <Menu click={clickElement} onClick={() => clickHere()}>
+          <Menu>
             Tags
           </Menu>
-          <Menu click={clickElement} onClick={() => clickHere()}>
+          <Menu onClick={userNavClick}>
             Users
           </Menu>
-          <Menu click={clickElement} onClick={() => clickHere()}>
+          <Menu>
             Companies
           </Menu>
           <Collectives>COLLECTIVES</Collectives>
-          <CollectivesContents click={clickElement} onClick={() => clickHere()}>
+          <CollectivesContents>
             <StarIcon>
               <IoStarOutline />
             </StarIcon>
@@ -55,7 +55,7 @@ function LeftNvi() {
               organizational knowledge.
             </DisplayText>
             <SideImage src={sideImage}></SideImage>
-            <CreateBtn click={clickElement} onClick={() => clickHere()}>
+            <CreateBtn>
               Create a free Team
             </CreateBtn>
             <TeamsMsg>Why Teams?</TeamsMsg>

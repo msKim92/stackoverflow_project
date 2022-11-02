@@ -31,7 +31,6 @@ function MyPage() {
 
 
 const Wraper = styled.div`
-  border: 1px solid green;
   width: 100%;
   height: 100%;
   display: flex;
@@ -41,6 +40,7 @@ const Wraper = styled.div`
 const MainForm = styled.div`
   margin-top: 52px;
   border: 1px solid red;
+  border: none;
   width: 900px;
   height: 1648.77px;
   padding: 24px;

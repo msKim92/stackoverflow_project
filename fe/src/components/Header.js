@@ -128,6 +128,7 @@ const HeaderIcon = styled.button`
   padding: 10px 15px 0px 15px;
   border: none;
   background-color: white;
+  cursor: pointer;
   &:hover {
     height: 54px;
     border-top: 4px solid orange;
@@ -149,7 +150,9 @@ const LogoImg = styled.img`
   width: 180px;
   height: 30px;
   padding: 5px 12px;
+  cursor: pointer;
 `;
+
 const LinkBtnSpace = styled.div`
   width: ${(props) => (props.isLogin ? "100px" : "400px")};
   display: flex;
@@ -164,6 +167,7 @@ const LinkBtn = styled.button`
   height: 100%;
   background-color: white;
   border: none;
+  cursor: pointer;
   &:hover {
     height: 35px;
     background-color: rgb(226, 230, 232);
@@ -224,6 +228,7 @@ const MemberBtn = styled.button`
   color: rgb(44, 88, 119);
   border: 1px solid rgb(121, 167, 199);
   border-radius: 5px;
+  cursor: pointer;
 
   &:nth-child(2) {
     background-color: rgb(20, 148, 245);
@@ -238,6 +243,7 @@ const UserProfile = styled.button`
   background-color: white;
   border: none;
   min-width: 80px;
+  cursor: pointer;
   &:hover {
     background-color: rgb(226, 230, 232);
     margin-bottom: 2px;
