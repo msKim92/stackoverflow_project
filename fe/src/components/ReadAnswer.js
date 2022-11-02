@@ -9,19 +9,14 @@ import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 import { deleteAnswer, fetchAnswer } from "../reduxStore/slices/answerSlice";
 
 function ReadAnswer() {
-  const answers = useSelector(
-    (state) => state?.questions.questions.data?.answers
-  );
-  const aaa = useSelector((state) => state?.questions);
+  const answers = useSelector((state) => state.questions.selectQuestions?.data);
   const parmas = useParams();
   const [clickSelect, setClickSelect] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if (!answers) {
-      dispatch(filterFetchQuestion(Number(parmas.id)));
-    }
-  }, []);
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, [dispatch]);
 
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
@@ -103,7 +98,7 @@ function ReadAnswer() {
       <AnswerWrapper>
         <AnswerTitleSpace>
           <TitleAnswerLeft>
-            <AnswerTextSpace>{answers?.length}</AnswerTextSpace>
+            <AnswerTextSpace>{answers?.answers?.length}</AnswerTextSpace>
             <AnswerTextSpace>Answer</AnswerTextSpace>
           </TitleAnswerLeft>
           <TitleAnswerRight>
@@ -119,7 +114,7 @@ function ReadAnswer() {
             </AnswerTitleSelect>
           </TitleAnswerRight>
         </AnswerTitleSpace>
-        {answers?.map((data) => (
+        {answers?.answers.map((data) => (
           <AnswerContentsSpace key={data.answerId}>
             <AnswerContentsSpaceLeft>
               <AnswerIconUpDownBtn>
@@ -176,7 +171,7 @@ function ReadAnswer() {
 }
 const AnswerWrapper = styled.div`
   width: 94%;
-  height: 570px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;

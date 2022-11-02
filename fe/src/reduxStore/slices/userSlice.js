@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BASEURL = "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com";
+
 export const signUser = createAsyncThunk("user/addUser", async (addData) => {
   return axios
-    .post(`/v1/sign/`, addData, {
-      headers: {
-        "ngrok-skip-browser-warning": "111",
-      },
-    })
+    .post(`${BASEURL}v1/sign/`, addData, {})
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
@@ -17,17 +15,7 @@ export const loginUser = createAsyncThunk(
   async (loginData) => {
     return (
       axios
-        .post(
-          "v1/login",
-          { ...loginData },
-          {
-            headers: {
-              // "Content-Type": "*/*",
-              // "Content-Length": 0,
-              "ngrok-skip-browser-warning": "111",
-            },
-          }
-        )
+        .post(`${BASEURL}v1/login`, { ...loginData })
         // return fetch("/v1/login", {
         //   method: "POST",
         //   headers: {
