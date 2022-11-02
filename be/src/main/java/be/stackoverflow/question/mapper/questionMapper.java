@@ -7,6 +7,8 @@ import be.stackoverflow.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,7 @@ public interface questionMapper {
         Question question = new Question();
         question.setQuestionTitle(postDataToEntity.getQuestionTitle());
         question.setQuestionBody(postDataToEntity.getQuestionBody());
+        question.setTags(postDataToEntity.getTags());
 
         return question;
     }
@@ -42,6 +45,13 @@ public interface questionMapper {
         questionFrontResponse.setUpdated_at(question.getUpdated_at());
         questionFrontResponse.setCreate_by_user(question.getCreate_by_user());
         questionFrontResponse.setUpdated_by_user(question.getUpdated_by_user());
+        String [] tags = question.getTags().split("@");
+        List<String> newTags = new ArrayList<>();
+        for (String tag : tags) {
+            newTags.add(tag.replaceAll("[\\s,./]",""));
+        }
+        questionFrontResponse.setTags(newTags);
+
 
         return questionFrontResponse;
     }//게시판 처음에 쏴줄 데이터들 변환
@@ -60,6 +70,12 @@ public interface questionMapper {
         questionDetailResponse.setCreate_by_user(question.getCreate_by_user());
         questionDetailResponse.setUpdated_by_user(question.getUpdated_by_user());
         questionDetailResponse.setAnswers(answerToAnswerResponseDto(question.getAnswers()));
+        String [] tags = question.getTags().split("@");
+        List<String> newTags = new ArrayList<>();
+        for (String tag : tags) {
+            newTags.add(tag.replace("[\\s,./]",""));
+        }
+        questionDetailResponse.setTags(newTags);
 
         return questionDetailResponse;
     } //상세 게시글에 쏴줄 데이터로 변환
