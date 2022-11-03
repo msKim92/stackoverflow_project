@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-let jwtToken = localStorage.getItem("Authorization");
+let jwtToken = localStorage.getItem("access_token");
 let token = "";
 
 if (jwtToken) {
   token = jwtToken.split(" ").pop();
 }
+console.log(jwtToken);
 
 const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
@@ -41,8 +42,8 @@ export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
 
 export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
   return await axios
-    .post(`${BASEURL}v1/questions/createQuestion`, body, {
-      headers: { Authorization: `${token}` },
+    .post(`v1/questions/createQuestion`, body, {
+      headers: { Authorization: `${jwtToken}` },
     })
     .then((res) => console.log("success:", res))
     .catch((err) => console.error("error:", err));
