@@ -16,8 +16,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -34,6 +36,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final AuthenticationManager authenticationManager; //인증도우미
     private final JwtTokenizer jwtTokenizer; //jwt토큰 생성규칙
 
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        String refreshToken = request.getHeader("Refresh"); //리프레쉬 토큰을 가져오고
+
+        if (!refreshToken.isEmpty()) {
+            jwtTokenizer.verifySignature(refreshToken);
+        }
+
+      super.unsuccessfulAuthentication(request, response, failed);
+    }
 
     /**
      * 로그인을 시도할떄 서블릿으로부터 값을 전해받음

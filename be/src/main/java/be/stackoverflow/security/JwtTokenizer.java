@@ -92,8 +92,9 @@ public class JwtTokenizer {
     /**
      * jwt 검증 메서드
      */
-    public void verifySignature(String jws, String base64EncodedSecretKey) {
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+    public void verifySignature(String jws) {
+
+        Key key = getKeyFromBase64EncodedKey(makingSecretKey(secretKey));
 
         Jwts.parserBuilder()
                 .setSigningKey(key)
