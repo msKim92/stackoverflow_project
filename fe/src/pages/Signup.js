@@ -14,8 +14,7 @@ import {
   emaileCheck,
   pwdCheck,
 } from "../components/effectivenessCheck";
-import capcha from "../img/recaptchaImg.png"
-
+import capcha from "../img/recaptchaImg.png";
 
 function Signup() {
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ function Signup() {
   const [writeEmailCheck, setWriteEmailCheck] = useState(false);
   const [writePwdCheck, setWritePwdCheck] = useState(false);
 
-  const [robotCkeck, setrobotCheck] = useState(false)
+  const [robotCkeck, setrobotCheck] = useState(false);
 
   console.log(robotCkeck);
 
@@ -37,8 +36,8 @@ function Signup() {
   };
 
   const clickCheckBtn = () => {
-    setrobotCheck(!robotCkeck)
-  }
+    setrobotCheck(!robotCkeck);
+  };
 
   const clickSignupBtn = () => {
     let addData = {
@@ -76,7 +75,7 @@ function Signup() {
     } else {
       setWritePwdCheck(false);
     }
-    
+
     if (
       nickCheck === false &&
       writeEmailCheck === false &&
@@ -166,28 +165,33 @@ function Signup() {
               <SignupBox>
                 <div>
                   <TextContents>Display name</TextContents>
-                  <InputBox onChange={userName} isCheck={nickCheck}/>
+                  <InputBox onChange={userName} isCheck={nickCheck} />
                   <TextContents>Email</TextContents>
-                  <InputBox onChange={userEmail}  isCheck={writeEmailCheck}/>
+                  <InputBox onChange={userEmail} isCheck={writeEmailCheck} />
                   <TextContents>Password</TextContents>
-                  <InputBox type="password" onChange={userPassword}  isCheck={writePwdCheck}/>
+                  <InputBox onChange={userPassword} isCheck={writePwdCheck} />
                 </div>
                 <Message>
                   Passwords must contain at least eight characters, including at
                   least 1 letter and 1 number.
                 </Message>
-                <RobotBox>                  
+                <RobotBox>
                   <MainRobotBox>
-                    {robotCkeck ? null : <Warning> CAPTCHA response required. </Warning>}
+                    {robotCkeck ? null : (
+                      <Warning> CAPTCHA response required. </Warning>
+                    )}
                     <CheckForm>
-                      <RobotCheck type="checkbox" onClick={clickCheckBtn}></RobotCheck>
+                      <RobotCheck
+                        type="checkbox"
+                        onClick={clickCheckBtn}
+                      ></RobotCheck>
                       <RobotText>I'm not a robot</RobotText>
                     </CheckForm>
                     <ImgRecapcha src={capcha}></ImgRecapcha>
                   </MainRobotBox>
                 </RobotBox>
                 <CheckBox>
-                  <Check type="checkbox"/>
+                  <Check type="checkbox" />
                   <Message>
                     Opt-in to receive occasional product updates, user research
                     invitations, company announcements, and digests.
@@ -387,33 +391,33 @@ const MainRobotBox = styled.div`
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 0 4px 1px rgb(0 0 0 / 8%);
-`
+`;
 const CheckForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
   margin-top: 23px;
-`
+`;
 
 const RobotCheck = styled.input`
   width: 25px;
   height: 25px;
   cursor: pointer;
-`
+`;
 
 const RobotText = styled.div`
   font-size: 13px;
   font-weight: 550;
   margin-left: 4px;
   color: #606060;
-`
+`;
 
 const ImgRecapcha = styled.img`
   width: 84px;
   height: 38px;
   margin-bottom: 10px;
-`
+`;
 
 const CheckBox = styled.div`
   display: flex;

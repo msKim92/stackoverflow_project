@@ -25,8 +25,12 @@ function App() {
           <Route path="/askquestions" element={<AskQuestions />}></Route>
           <Route path="/editquestion" element={<EditQuestion />}></Route>
           <Route path="/:id" element={<DetailQuestion />}></Route>
+<<<<<<< HEAD
           <Route path="/edit/:id" element={<EditAnswer />}></Route>
           <Route path="/MyPage" element={<MyPage />}></Route>
+=======
+          <Route path="/v1/:id" element={<EditAnswer />}></Route>
+>>>>>>> 058e82b19036d36dd19c3df8617fbab67ca1373f
         </Routes>
       </Suspense>
     </BrowserRouter>

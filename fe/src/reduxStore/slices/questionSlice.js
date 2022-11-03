@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 let jwtToken = localStorage.getItem("Authorization");
+let token = "";
+
+if (jwtToken) {
+  token = jwtToken.split(" ").pop();
+}
 
 const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
@@ -11,12 +16,14 @@ export const fetchQuestion1 = createAsyncThunk("questions/", async () => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
+
 export const fetchQuestion2 = createAsyncThunk("questions/", async () => {
   return await axios
     .get(`${BASEURL}v1/questions?page=2&size=10`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
+
 export const fetchQuestion3 = createAsyncThunk("questions/", async () => {
   return await axios
     .get(`${BASEURL}v1/questions?page=3&size=10`)
@@ -25,24 +32,21 @@ export const fetchQuestion3 = createAsyncThunk("questions/", async () => {
 });
 
 export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
+  console.log(id);
   return axios
-    .get(`${BASEURL}v1/questions/${id}`)
+    .get(`v1/questions/${id}`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
 
-// export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
-//   return await axios
-//     .post(
-//       "https://5c0b-14-52-189-10.jp.ngrok.io/v1/questions/createQuestion",
-//       body,
-//       {
-//         headers: { "ngrok-skip-browser-warning": "111" },
-//       }
-//     )
-//     .then((res) => console.log("success:", res))
-//     .catch((err) => console.error("error:", err));
-// });
+export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
+  return await axios
+    .post(`${BASEURL}v1/questions/createQuestion`, body, {
+      headers: { Authorization: `${token}` },
+    })
+    .then((res) => console.log("success:", res))
+    .catch((err) => console.error("error:", err));
+});
 
 const questionsSlice = createSlice({
   name: "questions",
@@ -121,6 +125,24 @@ const questionsSlice = createSlice({
       state.error = "";
     },
     [filterFetchQuestion.rejected]: (state, action) => {
+      state.questions = [];
+      state.selectQuestions = [];
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [askQuestion.pending]: (state) => {
+      state.questions = [];
+      state.selectQuestions = [];
+      state.loading = true;
+      state.error = "";
+    },
+    [askQuestion.fulfilled]: (state, action) => {
+      state.questions = [];
+      state.selectQuestions = action.payload;
+      state.loading = false;
+      state.error = "";
+    },
+    [askQuestion.rejected]: (state, action) => {
       state.questions = [];
       state.selectQuestions = [];
       state.loading = false;

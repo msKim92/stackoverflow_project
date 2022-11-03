@@ -14,16 +14,17 @@ import {
   MdOutlineFormatItalic,
   MdOutlineFormatBold,
 } from "react-icons/md";
+import { useParams } from "react-router-dom";
 import { CgUndo, CgRedo } from "react-icons/cg";
 import { BiCodeCurly } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addAnswer } from "../reduxStore/slices/answerSlice";
 
 function AddAnswer() {
+  const parmas = useParams();
   const [openQe, setOpenQe] = useState(false);
   const [openCode, setOpenCode] = useState(false);
   const [answerWrite, setAnswerWrite] = useState("");
-  const [answerCodeWrite, setAnswerCodeWrite] = useState("");
   const dispatch = useDispatch();
 
   const clickOpenQuestion = () => {
@@ -37,26 +38,13 @@ function AddAnswer() {
   const userWriteAnswer = (e) => {
     setAnswerWrite(e.target.value);
   };
-  const userWriteAnswerCode = (e) => {
-    setAnswerCodeWrite(e.target.value);
-  };
 
   const clickAddAnswer = () => {
     let addData = {};
-    if (answerCodeWrite) {
-      addData = {
-        votes: 0,
-        contentsbody: answerWrite,
-        contentscode: answerCodeWrite,
-      };
-    } else {
-      addData = {
-        votes: 0,
-        contentsbody: answerWrite,
-        contentscode: "",
-      };
-    }
-
+    addData = {
+      questionId: Number(parmas.id),
+      answerBody: answerWrite,
+    };
     dispatch(addAnswer(addData));
   };
 
@@ -146,12 +134,7 @@ function AddAnswer() {
           ) : null}
 
           <UserWriteTextareaBox isOpen={openCode} onChange={userWriteAnswer} />
-          {openCode ? (
-            <UserWriteTextareaBox
-              isOpen={openCode}
-              onChange={userWriteAnswerCode}
-            />
-          ) : null}
+          {openCode ? <UserWriteTextareaBox isOpen={openCode} /> : null}
           <UserWriteBoxBtn>
             <RiKeyboardLine />
           </UserWriteBoxBtn>
