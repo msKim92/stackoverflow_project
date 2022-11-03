@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "ANSWER")
+@Table(name = "Answer_Table")
 public class Answer extends WriterAudit {
 
     @Id
