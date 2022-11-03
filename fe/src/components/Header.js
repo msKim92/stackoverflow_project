@@ -35,7 +35,7 @@ function Header() {
   };
 
   const clickUserpage = () => {
-    navigate("/MyPage");
+    navigate("/MyPage/:id");
   };
 
   return (
