@@ -1,6 +1,6 @@
-package be.stackoverflow.question.repository;
+package be.stackoverflow.audit.question.repository;
 
-import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.audit.question.entity.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

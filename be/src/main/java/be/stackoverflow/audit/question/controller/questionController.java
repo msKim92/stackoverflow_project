@@ -1,36 +1,26 @@
-package be.stackoverflow.question.controller;
+package be.stackoverflow.audit.question.controller;
 
 import be.stackoverflow.dto.MultiResponseDto;
 import be.stackoverflow.dto.SingleResponseDto;
-import be.stackoverflow.question.dto.questionDto;
-import be.stackoverflow.question.entity.Question;
-import be.stackoverflow.question.mapper.questionMapper;
-import be.stackoverflow.question.service.questionService;
+import be.stackoverflow.audit.question.dto.questionDto;
+import be.stackoverflow.audit.question.entity.Question;
+import be.stackoverflow.audit.question.mapper.questionMapper;
+import be.stackoverflow.audit.question.service.questionService;
 import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.user.entity.User;
 import be.stackoverflow.user.service.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -113,7 +103,7 @@ public class questionController {
     }
     /**
      *
-     * @param answerId Question에 Answer 마다 있는 Like 버튼 클릭시 Answer 식별을 위한 값
+     * @param questionId Question에 Answer 마다 있는 Like 버튼 클릭시 Answer 식별을 위한 값
      * @param isLike like 버튼에서 위를 가리키는 화살표 클릭시 true 아래를 가리키는 화살표 클릭시 false
      */
     @PostMapping("/{question-id}")

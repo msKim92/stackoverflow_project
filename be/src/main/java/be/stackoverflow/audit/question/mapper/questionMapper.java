@@ -1,14 +1,12 @@
-package be.stackoverflow.question.mapper;
+package be.stackoverflow.audit.question.mapper;
 
-import be.stackoverflow.answer.dto.AnswerDto;
 import be.stackoverflow.answer.entity.Answer;
-import be.stackoverflow.question.dto.questionDto;
-import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.audit.question.dto.questionDto;
+import be.stackoverflow.audit.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,4 +1,4 @@
-package be.stackoverflow.question.entity;
+package be.stackoverflow.audit.question.entity;
 
 import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.audit.WriterAudit;

@@ -4,7 +4,7 @@ import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.answer.repository.AnswerRepository;
 import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
-import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.audit.question.entity.Question;
 import be.stackoverflow.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

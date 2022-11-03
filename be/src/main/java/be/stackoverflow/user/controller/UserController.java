@@ -3,7 +3,6 @@ package be.stackoverflow.user.controller;
 
 import be.stackoverflow.dto.MultiResponseDto;
 import be.stackoverflow.dto.SingleResponseDto;
-import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.user.dto.UserDto;
 import be.stackoverflow.user.entity.User;
 //import be.stackoverflow.user.mapper.UserMapper;

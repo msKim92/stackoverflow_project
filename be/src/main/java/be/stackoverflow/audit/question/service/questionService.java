@@ -1,12 +1,9 @@
-package be.stackoverflow.question.service;
+package be.stackoverflow.audit.question.service;
 
-import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
-import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.audit.question.entity.Question;
 import be.stackoverflow.user.entity.User;
-import be.stackoverflow.user.repository.UserRepository;
-import be.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,8 +14,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -27,7 +22,7 @@ import java.util.Optional;
 @Slf4j
 public class questionService {
 
-    private final be.stackoverflow.question.repository.questionRepository questionRepository;
+    private final be.stackoverflow.audit.question.repository.questionRepository questionRepository;
 
     //전체 질문 조회 페이지
     public Page<Question> findAllQuestion(int page, int size) {

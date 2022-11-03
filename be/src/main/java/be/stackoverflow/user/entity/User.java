@@ -2,7 +2,7 @@ package be.stackoverflow.user.entity;
 
 import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.audit.TimeAudit;
-import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.audit.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

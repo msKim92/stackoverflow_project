@@ -1,7 +1,7 @@
 package be.stackoverflow.answer.entity;
 
 import be.stackoverflow.audit.WriterAudit;
-import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.audit.question.entity.Question;
 import be.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
