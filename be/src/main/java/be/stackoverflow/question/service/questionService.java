@@ -1,5 +1,6 @@
 package be.stackoverflow.question.service;
 
+import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
@@ -106,4 +107,21 @@ public class questionService {
         }
     }
 
+    public void votePlusMinus(long questionId, boolean isLike) {
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        Question chosenQuestion = optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        int vote = chosenQuestion.getQuestionVote();
+        if (isLike) {
+            vote++;
+        } else {
+            if (vote > 0) {
+                vote--;
+            } else {
+                vote=0;
+            }
+        }
+        chosenQuestion.setQuestionVote(vote);
+        questionRepository.save(chosenQuestion);
+    }
 }

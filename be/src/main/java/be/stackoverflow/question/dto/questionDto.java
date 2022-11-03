@@ -24,8 +24,8 @@ public class questionDto {
         @NotBlank(message = "내용을 기입하기 바랍니다.")
         private String questionBody;
 
-        @Pattern(regexp = "^[@a-zA-Z-+\\s]{0,100}$", message = "태그를 적을때는 각태그 앞에 @로 입력하고, 여러 태그 입력시, 태그와 @사이에 공백만 쓰세요.")
-        private String tags; // tag CRUD 기능 완료시 구현 예정
+        @Pattern(regexp = "^[@a-zA-Z-+\\s]{0,100}$", message = "태그 기입시 영어로 기입 해주세요. 여러 태그 입력시, 각 태그 앞에 @로 입력하고, 태그와 @사이에 공백만 쓰세요.")
+        private String tags;
 
         public questionPost(String questionTitle, String questionBody) {
             this.questionTitle = questionTitle;
@@ -42,8 +42,8 @@ public class questionDto {
         @NotBlank(message = "내용을 기입하기 바랍니다.")
         private String questionBody;
 
-        @Pattern(regexp = "^[@a-zA-Z-+\\s]{0,100}$", message = "태그를 적을때는 각태그 앞에 @로 입력하고, 여러 태그 입력시, 태그와 @사이에 공백만 쓰세요.")
-        private String tags; // tag CRUD 기능 완료시 구현 예정
+        @Pattern(regexp = "^[@a-zA-Z-+\\s]{0,100}$", message = "태그 기입시 영어로 기입 해주세요. 여러 태그 입력시, 각 태그 앞에 @로 입력하고, 태그와 @사이에 공백만 쓰세요.")
+        private String tags;
     }
 
     @Getter

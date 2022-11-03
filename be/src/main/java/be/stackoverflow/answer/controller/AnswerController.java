@@ -96,4 +96,15 @@ public class AnswerController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+    /**
+     *
+     * @param answerId Question에 Answer 마다 있는 Like 버튼 클릭시 Answer 식별을 위한 값
+     * @param isLike like 버튼에서 위를 가리키는 화살표 클릭시 true 아래를 가리키는 화살표 클릭시 false
+     */
+    @PostMapping("/{answerId}")
+    public void postVote(@Valid @PathVariable("answerId")@Positive long answerId,
+                              @RequestParam("isLike") boolean isLike) {
+        answerService.votePlusMinus(answerId, isLike);
+    }
 }
