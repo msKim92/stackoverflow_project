@@ -26,7 +26,6 @@ public class AnswerService  {
         answer.setCreate_by_user(user.getUserName());
         answer.setUpdated_by_user(user.getUserName());
         answer.setUser(user);
-
         answer.setQuestion(question);
 
         return answerRepository.save(answer);
@@ -80,5 +79,21 @@ public class AnswerService  {
         if (answer.getUser().getUserEmail() != user.getUserEmail()) {
             throw new BusinessLogicException(ExceptionCode.ANSWER_DELETE_ONLY_AUTHOR);
         }
+    }
+
+    public void votePlusMinus(long answerId, boolean isLike) {
+        Answer chosenAnswer = this.findAnswer(answerId);
+        int vote = chosenAnswer.getAnswerVote();
+        if (isLike) {
+            vote++;
+        } else {
+            if (vote > 0) {
+                vote--;
+            } else {
+                vote=0;
+            }
+        }
+        chosenAnswer.setAnswerVote(vote);
+        answerRepository.save(chosenAnswer);
     }
 }

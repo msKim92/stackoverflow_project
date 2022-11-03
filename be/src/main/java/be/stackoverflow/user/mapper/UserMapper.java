@@ -1,7 +1,6 @@
 package be.stackoverflow.user.mapper;
 
 import be.stackoverflow.answer.entity.Answer;
-import be.stackoverflow.question.dto.questionDto;
 import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.user.dto.UserDto;
 import be.stackoverflow.user.entity.User;

@@ -1,6 +1,7 @@
 package be.stackoverflow.question.controller;
 
 import be.stackoverflow.dto.MultiResponseDto;
+import be.stackoverflow.dto.PageInfo;
 import be.stackoverflow.dto.SingleResponseDto;
 import be.stackoverflow.question.dto.questionDto;
 import be.stackoverflow.question.entity.Question;
@@ -9,28 +10,19 @@ import be.stackoverflow.question.service.questionService;
 import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.user.entity.User;
 import be.stackoverflow.user.service.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
+import com.querydsl.core.QueryResults;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -61,6 +53,21 @@ public class questionController {
                 new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation) , HttpStatus.OK);
     }
 
+    /**
+     * 폼 형태로 검색바에 입력된 내용을 쿼리 파라미터에 v1/questions?title="검색어"로 받아서 검색된 질문들을 반환한다.
+     * 페이지네이션도 적용
+     */
+    @GetMapping("/search")
+    public ResponseEntity getSearchQuestions(@RequestParam("title") String title,
+                                             @Positive @RequestParam int page,
+                                             @Positive @RequestParam int size) {
+        Page<Question> pageInformation = questionService.searchQuestion(title,page-1,size);
+        List<Question> allQuestions = pageInformation.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation), HttpStatus.OK);
+    }
+
     /*
      * create (게시글 생성) 로그인정보로 부터 아이디를 받아온 뒤에 그 아이디를 기반으로 USER 정보를 가져오고
      *  USER 정보로 Question을 저장함.
@@ -87,8 +94,6 @@ public class questionController {
                 new SingleResponseDto<>(mapper.questionToDetailResponse(FoundQuestion)), HttpStatus.OK);
     }
 
-
-
     //UPDATE (수정)
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id")@Positive long questionId,
@@ -114,6 +119,15 @@ public class questionController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    /**
+     *
+     * @param questionId Question에 Answer 마다 있는 Like 버튼 클릭시 Answer 식별을 위한 값
+     * @param isLike like 버튼에서 위를 가리키는 화살표 클릭시 true 아래를 가리키는 화살표 클릭시 false
+     */
+    @PostMapping("/{question-id}")
+    public void postVote(@Valid @PathVariable("question-id")@Positive long questionId,
+                         @RequestParam("isLike") boolean isLike) {
+        questionService.votePlusMinus(questionId, isLike);
+    }
 
 }

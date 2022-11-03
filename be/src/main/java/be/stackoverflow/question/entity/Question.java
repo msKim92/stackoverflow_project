@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "QUESTIONS")
+@Table(name = "Question_Table")
 public class Question extends WriterAudit {
 
     @Id
