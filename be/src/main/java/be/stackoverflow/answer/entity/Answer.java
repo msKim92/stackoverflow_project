@@ -44,6 +44,10 @@ public class Answer extends WriterAudit {
         question.getAnswers().add(this);
     }
 
+    public Answer(Long answerId) {
+        this.answerId = answerId;
+    }
+
     public Answer(Long answerId, String answerBody, int answerVote) {
         this.answerId = answerId;
         this.answerBody = answerBody;

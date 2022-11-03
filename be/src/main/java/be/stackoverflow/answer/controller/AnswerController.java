@@ -80,9 +80,11 @@ public class AnswerController {
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponse(answer)),HttpStatus.OK);
     }
     @DeleteMapping("/{answerId}")
-    public ResponseEntity deleteAnswer(@PathVariable("answerId") @Positive long answerId) {
+    public ResponseEntity deleteAnswer(@PathVariable("answerId") @Positive long answerId,HttpServletRequest request) {
+        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
+        User user = userService.findIdByEmail(emailWithToken);
 
-        answerService.deleteAnswer(answerId);
+        answerService.deleteAnswer(answerId,user);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

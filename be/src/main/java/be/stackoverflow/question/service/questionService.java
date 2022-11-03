@@ -101,13 +101,12 @@ public class questionService {
 
     }
 
-
     //D: 질문 삭제
-    public void deleteQuestion(long questionId){
+    public void deleteQuestion(long questionId, User user){
         Question verifiedQuestion = verifyQuestionUsingID(questionId);//삭제하기전에 해당아이디에 데이터가 있는지 확인한다.
+        isSameQuestionAuthor(verifiedQuestion,user);
         questionRepository.delete(verifiedQuestion);
     }
-
 
     //질문이 있는지 없는지 확인
     private Question verifyQuestionUsingID(Long questionId){
@@ -116,6 +115,17 @@ public class questionService {
                 new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return question;
+    }
+
+    /**
+     *
+     * @param question 의 사용자 이메일과
+     * @param user 의 이메일이 일치 하지 않으면 삭제 하지 못하게 한다
+     */
+    public void isSameQuestionAuthor(Question question,User user) {
+        if (question.getUser().getUserEmail() != user.getUserEmail()) {
+            throw new BusinessLogicException(ExceptionCode.QUESTION_DELETE_ONLY_AUTHOR);
+        }
     }
 
 }

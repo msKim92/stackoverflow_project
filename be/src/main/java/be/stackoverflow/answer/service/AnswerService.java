@@ -38,10 +38,10 @@ public class AnswerService  {
                 Sort.by("answerId").descending()));
     }
 
-    public void deleteAnswer(long answerId) {
+    public void deleteAnswer(long answerId,User user) {
         Answer verifiedAnswer = verifyAnswer(answerId);
+        isSameAnswerAuthor(verifiedAnswer,user);
         answerRepository.delete(verifiedAnswer);
-
     }
 
     public void deleteAllAnswer() {
@@ -70,5 +70,15 @@ public class AnswerService  {
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
 
         return answer;
+    }
+    /**
+     *
+     * @param answer 의 사용자 이메일과
+     * @param user 의 이메일이 일치 하지 않으면 삭제 하지 못하게 한다
+     */
+    public void isSameAnswerAuthor(Answer answer,User user) {
+        if (answer.getUser().getUserEmail() != user.getUserEmail()) {
+            throw new BusinessLogicException(ExceptionCode.ANSWER_DELETE_ONLY_AUTHOR);
+        }
     }
 }

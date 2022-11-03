@@ -106,10 +106,11 @@ public class questionController {
 
     //Delete(삭제)
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@PathVariable("question-id")@Positive long questionId) {
-        // Stauts를 false로 바꾸고 자료는 남길지?
-        questionService.deleteQuestion(questionId);
+    public ResponseEntity deleteQuestion(@PathVariable("question-id")@Positive long questionId,HttpServletRequest request) {
+        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
+        User user = userService.findIdByEmail(emailWithToken);
 
+        questionService.deleteQuestion(questionId,user);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

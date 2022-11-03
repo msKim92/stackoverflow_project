@@ -1,9 +1,9 @@
 package be.stackoverflow.user.dto;
 
+import be.stackoverflow.answer.entity.Answer;
+import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.user.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
@@ -48,24 +48,46 @@ public class UserDto {
     }
 
     @Builder
+    @NoArgsConstructor
     @AllArgsConstructor
     @Getter
+    @Setter
     public static class Response {
         private long userId;
         private String userName;
         private String userEmail;
         private String password;
         private boolean userStatus;
-
         private List<String> roles;
-
-        /**
-         * 유현 : Audit 기능 추가
-         * 코드리뷰 후 적용 예정 부분
-         */
-
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
 
+        /**
+         * User 개인 페이지 조회시 User가 작성한 Questions와 Answers를 보여주는 필드
+         */
+        private List<UserQuestionResponseDto> questions;
+        private List<UserAnswerResponseDto> answers;
+
+    }
+
+    /**
+     * Question과 User에 무한 호출을 풀기 위해서 Response 클래스를 새로 만들어야한다.
+     */
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UserQuestionResponseDto {
+        private Long questionId;
+        private String questionTitle;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UserAnswerResponseDto {
+        private Long answerId;
+        private String answerBody;
     }
 }
