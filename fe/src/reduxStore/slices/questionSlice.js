@@ -16,12 +16,14 @@ export const fetchQuestion1 = createAsyncThunk("questions/", async () => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
+
 export const fetchQuestion2 = createAsyncThunk("questions/", async () => {
   return await axios
     .get(`${BASEURL}v1/questions?page=2&size=10`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
+
 export const fetchQuestion3 = createAsyncThunk("questions/", async () => {
   return await axios
     .get(`${BASEURL}v1/questions?page=3&size=10`)
@@ -30,8 +32,9 @@ export const fetchQuestion3 = createAsyncThunk("questions/", async () => {
 });
 
 export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
+  console.log(id);
   return axios
-    .get(`${BASEURL}v1/questions/${id}`)
+    .get(`v1/questions/${id}`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });

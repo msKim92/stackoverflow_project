@@ -14,8 +14,10 @@ export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
   async () => {
     return axios
-      .get(`${BASEURL}v1/answer/`)
-      .then((res) => res.data)
+      .get(`/v1/answer/`, {
+        headers: { Authorization: `${jwtToken}` },
+      })
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
 );
@@ -24,10 +26,10 @@ export const addAnswer = createAsyncThunk(
   "answers/addAnswer",
   async (answerData) => {
     return axios
-      .post(`${BASEURL}v1/answer/`, answerData, {
-        headers: { Authorization: `${token}` },
+      .post(`/v1/answer`, answerData, {
+        headers: { Authorization: `${jwtToken}` },
       })
-      .then((res) => console.log(res))
+      .then((res) => res.data)
       .catch((err) => console.log(err));
   }
 );
@@ -35,21 +37,23 @@ export const addAnswer = createAsyncThunk(
 export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
   async (oj) => {
+    console.log(oj);
     return axios
-      .patch(`${BASEURL}v1/answer/${oj.id}`, oj.upData, {
-        headers: { Authorization: `${token}` },
+      .patch(`/v1/answer/${oj.id}`, oj.upData, {
+        headers: { Authorization: `${jwtToken}` },
       })
       .then((res) => res.data)
       .catch((err) => console.log(err));
   }
 );
+
 // 성공
 export const deleteAnswer = createAsyncThunk(
   "answers/deleteAnswer",
   async (id) => {
     return axios
       .delete(`${BASEURL}v1/answer/${id}`, {
-        headers: { Authorization: `${token}` },
+        headers: { Authorization: `${jwtToken}` },
       })
       .then((res) => res.data)
       .catch((err) => console.log(err));

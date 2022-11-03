@@ -77,7 +77,7 @@ function ReadAnswer() {
     return <UserElapsedTime>answered {result}</UserElapsedTime>;
   };
   const clickEditAnswer = (id) => {
-    navigate(`/edit/${id}`);
+    navigate(`/v1/${id}`);
   };
 
   const selectOption = [
@@ -143,7 +143,7 @@ function ReadAnswer() {
                       Edit
                     </ContentDetailBtn>
                     <ContentDetailBtn
-                      onClick={() => deleteClick(data.filterAnswerId)}
+                      onClick={() => deleteClick(data.answerId)}
                     >
                       Delete
                     </ContentDetailBtn>

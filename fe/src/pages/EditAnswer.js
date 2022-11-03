@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import RightNavi from "../components/RightNavi";
 import { useDispatch, useSelector } from "react-redux";
+import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 import { fetchAnswer, updateAnswer } from "../reduxStore/slices/answerSlice";
 import { BsCheckSquare, BsTable, BsCodeSlash } from "react-icons/bs";
 import { RiKeyboardLine } from "react-icons/ri";
@@ -21,28 +22,26 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useParams } from "react-router-dom";
 
 function EditAnswer() {
-  const answer = useSelector(
-    (state) => state.questions.questions.data?.answers
+  const filteranswer = useSelector(
+    (state) => state.questions.selectQuestions?.data
   );
+  console.log(filteranswer);
   const [write, setWrite] = useState(" ");
   const dispatch = useDispatch();
-  const params = useParams();
-  const filterAnswer = answer?.filter((data) => data.id === Number(params.id));
-  useEffect(() => {
-    dispatch(fetchAnswer());
-  }, []);
-
+  const parmas = useParams();
+  console.log(parmas);
   const userWriteContents = (e) => {
     setWrite(e.target.value);
   };
+  useEffect(() => {
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, [dispatch]);
 
   const clickUpdateAnswer = () => {
-    let id = Number(params.id);
+    let id = Number(parmas.id);
+    console.log(id);
     const upData = {
-      id: filterAnswer[0]?.id,
-      votes: filterAnswer[0]?.votes,
-      contentbody: write,
-      contentcode: filterAnswer[0]?.contentcode,
+      answerBody: write,
     };
     dispatch(updateAnswer({ id, upData }));
   };
