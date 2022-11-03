@@ -39,6 +39,7 @@ public class AnswerDto {
     public static class Response {
 
         private Long answerId;
+        private Long questionId;
         private String answerBody;
         private int answerVote;
         //댓글 작성자 확인

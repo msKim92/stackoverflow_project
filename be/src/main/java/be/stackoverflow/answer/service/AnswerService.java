@@ -26,7 +26,6 @@ public class AnswerService  {
         answer.setCreate_by_user(user.getUserName());
         answer.setUpdated_by_user(user.getUserName());
         answer.setUser(user);
-
         answer.setQuestion(question);
 
         return answerRepository.save(answer);
