@@ -17,9 +17,10 @@ public class UserAuthenticationEntryPoint implements org.springframework.securit
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Exception exception = (Exception) request.getAttribute("exception");
         errorSender(response, HttpStatus.UNAUTHORIZED);
-
         sendErrorToDiscord(authException, exception);
     }
+
+
 
     private static void sendErrorToDiscord(AuthenticationException authException, Exception exception) throws IOException {
         String message = exception != null ? exception.getMessage() : authException.getMessage();

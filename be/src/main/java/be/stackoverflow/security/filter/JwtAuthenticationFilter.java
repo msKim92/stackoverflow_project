@@ -5,7 +5,8 @@ import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.security.dto.LoginDto;
 import be.stackoverflow.user.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -36,16 +37,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final AuthenticationManager authenticationManager; //인증도우미
     private final JwtTokenizer jwtTokenizer; //jwt토큰 생성규칙
 
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        String refreshToken = request.getHeader("Refresh"); //리프레쉬 토큰을 가져오고
-
-        if (!refreshToken.isEmpty()) {
-            jwtTokenizer.verifySignature(refreshToken);
-        }
-
-      super.unsuccessfulAuthentication(request, response, failed);
-    }
 
     /**
      * 로그인을 시도할떄 서블릿으로부터 값을 전해받음
@@ -73,9 +64,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     }
 
+    /**
+     * 인증 성공시
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                            FilterChain chain, Authentication authResult) {
+                                            FilterChain chain, Authentication authResult) throws IOException {
         // 1. 인증된 결과를 받아와서 USER entity가 설정한 원칙에 맞게 저장한다.
         User user = (User) authResult.getPrincipal();
 
@@ -86,10 +80,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //3. jwt의 요구한 구조에 맞게 헤더를 변경한다.
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+
+        JsonBodyMessage(response, "로그인 성공");
     }
 
-    
-    
+    /*
+     * 인증 실패시 비번을 틀리거나 아이디가 틀렸을떄...
+     */
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        JsonBodyMessage(response, failed.getMessage());
+    }
+
+
+
+
     private String makeRefreshToken(User user) {
         //1. 검증수단을 확인
         String subject = user.getUserEmail();
@@ -108,8 +113,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      * @param user
      * @return
      */
-
-
     private String makeAccessToken(User user) {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("userEmail", user.getUserEmail());
@@ -125,4 +128,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return accessToken;
     }
+
+    private static void JsonBodyMessage(HttpServletResponse response, String content) throws IOException {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("message", content);
+
+        String json = new Gson().toJson(jsonObject);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
+
 }

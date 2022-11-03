@@ -86,7 +86,7 @@ public class SecurityConfiguration {
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
             builder.addFilter(jwtAuthenticationFilter)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class); //시큐러티 필터 체인에 더하기.
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);//시큐러티 필터 체인에 더하기.
 
         }
     }

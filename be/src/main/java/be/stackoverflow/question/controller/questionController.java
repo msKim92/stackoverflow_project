@@ -51,9 +51,10 @@ public class questionController {
     //R: 모든 질문페이지 요청하기
     @GetMapping
     public ResponseEntity getAllQuestions(@Positive @RequestParam int page,
-                                          @Positive @RequestParam int size) {
+                                          @Positive @RequestParam int size,
+                                          @RequestParam(defaultValue = "questionId") String sort) {
 
-        Page<Question> pageInformation = questionService.findAllQuestion(page-1, size);
+        Page<Question> pageInformation = questionService.findAllQuestion(page-1, size, sort);
         List<Question> allQuestions = pageInformation.getContent();
 
         return new ResponseEntity<>(
