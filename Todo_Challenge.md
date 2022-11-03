@@ -9,7 +9,8 @@
     - AnswerMapper
 
 ### 질문
-
+- Question, Answer 좋아요 기능
+-> 자신이 속한 Question, Answer id를 받아와서 그 id의 vote수를 증가 시킨다.
 - 질문 전체 화면
     - 검색 기능 추가  expired 11월 2일
         - 질문 제목 기준 검색 
@@ -36,18 +37,17 @@
 - 사용자 상세페이지
 
     - UserDto.Response에 변경될 내용
-        - 클래스명 변경 필요(UserDto.Response->UserDto.DetailResponse)
- 
-       - Questions(리스트,작성 시간 기준으로 페이지네이션) - go
+        
+       - Questions(리스트,작성 시간 기준으로 페이지네이션) - complete
             - Question 제목,
             - 작성시간
-       - Answers(리스트,작성 시간 기준으로 페이지네이션) - go
+       - Answers(리스트,작성 시간 기준으로 페이지네이션) - complete
             - Question 제목,
             - 작성시간
 
-    - 사용자 상세페이지 접근 가능 방법 - go
-        - question 상세페이지에서 클릭 - go
-        - question 전체페이지에서 클릭 - 구현 됨
+    - 사용자 상세페이지 접근 가능 방법 - complete
+        - question 상세페이지에서 클릭 - complete
+        - question 전체페이지에서 클릭 - complete
 
 
 ### 태그 -> complete

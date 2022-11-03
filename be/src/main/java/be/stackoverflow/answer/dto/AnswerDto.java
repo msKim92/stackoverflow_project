@@ -24,7 +24,7 @@ public class AnswerDto {
     @Getter
     @Builder
     public static class Patch {
-        
+
         private Long questionId;
 
         @NotBlank(message = "내용을 기입하기 바랍니다.")
@@ -39,6 +39,7 @@ public class AnswerDto {
     public static class Response {
 
         private Long answerId;
+        private Long questionId;
         private String answerBody;
         private int answerVote;
         //댓글 작성자 확인

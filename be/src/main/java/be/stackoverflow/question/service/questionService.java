@@ -4,19 +4,15 @@ import be.stackoverflow.exception.BusinessLogicException;
 import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.user.entity.User;
-import be.stackoverflow.user.repository.UserRepository;
-import be.stackoverflow.user.service.UserService;
+import com.querydsl.core.QueryResults;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +52,16 @@ public class questionService {
         return found_question;
     }
 
+    /**
+     * 질문 검색 기능
+     */
+    public Page<Question> searchQuestion(String title, int page, int size) {
+        Pageable pageable = PageRequest.of(page,size,Sort.by("questionId").ascending());
+        List<Question> searchedQuestion=questionRepository.findByTitle(title);
+        int start = (int)pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), searchedQuestion.size());
+        return new PageImpl<>(searchedQuestion.subList(start, end),pageable, searchedQuestion.size());
+    }
 
     //U: 질문 수정페이지
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
@@ -104,6 +110,24 @@ public class questionService {
         if (question.getUser().getUserEmail() != user.getUserEmail()) {
             throw new BusinessLogicException(ExceptionCode.QUESTION_DELETE_ONLY_AUTHOR);
         }
+    }
+
+    public void votePlusMinus(long questionId, boolean isLike) {
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        Question chosenQuestion = optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        int vote = chosenQuestion.getQuestionVote();
+        if (isLike) {
+            vote++;
+        } else {
+            if (vote > 0) {
+                vote--;
+            } else {
+                vote=0;
+            }
+        }
+        chosenQuestion.setQuestionVote(vote);
+        questionRepository.save(chosenQuestion);
     }
 
 }

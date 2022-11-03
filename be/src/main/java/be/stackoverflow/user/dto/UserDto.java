@@ -1,13 +1,7 @@
 package be.stackoverflow.user.dto;
 
-import be.stackoverflow.answer.entity.Answer;
-import be.stackoverflow.question.entity.Question;
-import be.stackoverflow.user.entity.User;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

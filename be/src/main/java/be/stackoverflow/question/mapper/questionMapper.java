@@ -1,14 +1,13 @@
 package be.stackoverflow.question.mapper;
 
-import be.stackoverflow.answer.dto.AnswerDto;
 import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.question.dto.questionDto;
 import be.stackoverflow.question.entity.Question;
+import com.querydsl.core.QueryResults;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +51,9 @@ public interface questionMapper {
         }
         questionFrontResponse.setTags(newTags);
 
+        //댓글 개수 추가
+        questionFrontResponse.setAnswerSize(answerToAnswerResponseDto(question.getAnswers()).size());
+
 
         return questionFrontResponse;
     }//게시판 처음에 쏴줄 데이터들 변환
@@ -76,7 +78,8 @@ public interface questionMapper {
             newTags.add(tag.replace("[\\s,./]",""));
         }
         questionDetailResponse.setTags(newTags);
-
+        //댓글 개수 추가
+        questionDetailResponse.setAnswerSize(answerToAnswerResponseDto(question.getAnswers()).size());
         return questionDetailResponse;
     } //상세 게시글에 쏴줄 데이터로 변환
 
@@ -92,7 +95,6 @@ public interface questionMapper {
                         .updated_at(answer.getUpdated_at())
                         .create_by_user(answer.getCreate_by_user())
                         .updated_by_user(answer.getUpdated_by_user())
-                        .answerSize(answers.size())
                         .build())
                 .collect(Collectors.toList());
     }
