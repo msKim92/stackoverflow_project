@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +25,29 @@ public class questionService {
 
     private final be.stackoverflow.question.repository.questionRepository questionRepository;
 
-    //전체 질문 조회 페이지
-    public Page<Question> findAllQuestion(int page, int size) {
-        return questionRepository.findAll(PageRequest.of(page, size,
-                Sort.by("questionId").descending())); //최신순으로 나중에 좋아요 정렬까지 필요하면 questionId를 변수받을 예정
+    /**
+     *                (디폴트값)
+     *  view, like , questionId(작성순)
+     *
+     * @param page 페이지수
+     * @param size 페이지 최대 몇개
+     * @param sort sort 기준 string 값
+     */
+    public Page<Question> findAllQuestion(int page, int size, String sort ) {
+        Sort standard;
+        //
+        switch (sort) {
+            case "view" :
+                sort = "questionViewCount";
+                break;
+            case "like" :
+                sort = "questionVote";
+                break;
+            default: sort = "questionId";
+                break;
+        }
+
+        return questionRepository.findAll(PageRequest.of(page, size, Sort.by(sort).descending()));
     }
 
     //C: 질문 추가 페이지

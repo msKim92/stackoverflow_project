@@ -1,18 +1,19 @@
 package be.stackoverflow.security;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.DurationDeserializer;
+import be.stackoverflow.user.entity.User;
+import be.stackoverflow.user.service.UserService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.io.Deserializer;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Calendar;
@@ -22,6 +23,7 @@ import java.util.Map;
  * jwt 토큰을 사용하기 위한 메서드
  */
 @Component
+@RequiredArgsConstructor
 public class JwtTokenizer {
     //해당 정보들은 yml파일에 저장하기 JWT의 기본정보 엑세스토큰과 리프레쉬토큰
     @Getter
@@ -35,6 +37,7 @@ public class JwtTokenizer {
     @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshToken;          // 리프레쉬 토큰
+
 
     /*
      * 보안키 비번을 암호화
@@ -92,13 +95,15 @@ public class JwtTokenizer {
     /**
      * jwt 검증 메서드
      */
-    public void verifySignature(String jws, String base64EncodedSecretKey) {
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+    public Jws<Claims> verifySignature(String jws) {
 
-        Jwts.parserBuilder()
+        Key key = getKeyFromBase64EncodedKey(makingSecretKey(secretKey));
+
+        Jws<Claims> claimsJws = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(jws);
+        return claimsJws;
     }
 
     /*
@@ -137,4 +142,6 @@ public class JwtTokenizer {
             throw e;
         }
     }
+
+
 }
