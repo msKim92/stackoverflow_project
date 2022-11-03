@@ -1,14 +1,16 @@
-package be.stackoverflow.audit.question.controller;
+package be.stackoverflow.question.controller;
 
 import be.stackoverflow.dto.MultiResponseDto;
+import be.stackoverflow.dto.PageInfo;
 import be.stackoverflow.dto.SingleResponseDto;
-import be.stackoverflow.audit.question.dto.questionDto;
-import be.stackoverflow.audit.question.entity.Question;
-import be.stackoverflow.audit.question.mapper.questionMapper;
-import be.stackoverflow.audit.question.service.questionService;
+import be.stackoverflow.question.dto.questionDto;
+import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.question.mapper.questionMapper;
+import be.stackoverflow.question.service.questionService;
 import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.user.entity.User;
 import be.stackoverflow.user.service.UserService;
+import com.querydsl.core.QueryResults;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -48,6 +50,21 @@ public class questionController {
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation) , HttpStatus.OK);
+    }
+
+    /**
+     * 폼 형태로 검색바에 입력된 내용을 쿼리 파라미터에 v1/questions?title="검색어"로 받아서 검색된 질문들을 반환한다.
+     * 페이지네이션도 적용
+     */
+    @GetMapping("/search")
+    public ResponseEntity getSearchQuestions(@RequestParam("title") String title,
+                                             @Positive @RequestParam int page,
+                                             @Positive @RequestParam int size) {
+        Page<Question> pageInformation = questionService.searchQuestion(title,page-1,size);
+        List<Question> allQuestions = pageInformation.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.questionListResponse(allQuestions),pageInformation), HttpStatus.OK);
     }
 
     /*

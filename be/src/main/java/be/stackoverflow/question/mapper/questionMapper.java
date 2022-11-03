@@ -1,8 +1,9 @@
-package be.stackoverflow.audit.question.mapper;
+package be.stackoverflow.question.mapper;
 
 import be.stackoverflow.answer.entity.Answer;
-import be.stackoverflow.audit.question.dto.questionDto;
-import be.stackoverflow.audit.question.entity.Question;
+import be.stackoverflow.question.dto.questionDto;
+import be.stackoverflow.question.entity.Question;
+import com.querydsl.core.QueryResults;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

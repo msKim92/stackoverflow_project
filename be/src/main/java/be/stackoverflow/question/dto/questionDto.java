@@ -1,4 +1,4 @@
-package be.stackoverflow.audit.question.dto;
+package be.stackoverflow.question.dto;
 
 import be.stackoverflow.answer.dto.AnswerDto;
 import be.stackoverflow.answer.entity.Answer;
