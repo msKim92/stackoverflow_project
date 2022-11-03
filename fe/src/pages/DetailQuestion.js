@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -13,16 +13,41 @@ import ReadAnswer from "../components/ReadAnswer";
 import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
+import { useParams } from "react-router-dom";
 
 function DetailQuestion() {
+  // const [time, setTime] = useState("");
+
   const questionData = useSelector(
-    (state) => state.questions.selectQuestions.data
+    (state) => state.questions.selectQuestions?.data
   );
   console.log(">>>>>>>", questionData);
+
+  const dispatch = useDispatch();
+  const parmas = useParams();
+  useEffect(() => {
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, []);
 
   const tags = questionData?.tags;
   const tagList =
     tags && tags.map((el) => <button key={el.toString()}>{el}</button>);
+
+  // const createdAt = questionData?.created_at;
+  //2022-11-02T13:39:43
+  // const createdSplit = (questionData?.created_at).split("T");
+  // console.log(createdSplit); //'2022-11-02', '13:39:43'
+
+  // const daySplit = createdSplit[0].split("-");
+  // console.log(daySplit); //'2022', '11', '02'
+  // const year = daysplit[0];
+  // const month = daysplit[1];
+  // const day = daysplit[2];
+
+  // const timeSplit = createdSplit[1].split(":");
+  // console.log(timeSplit);
+
   return (
     <Wrapper>
       <header>
@@ -41,7 +66,7 @@ function DetailQuestion() {
               </Titile>
               <TimeLine>
                 <div className="subject">Asked</div>
-                <div className="content">{questionData?.created_at}</div>
+                <div className="content">{questionData?.updated_at}</div>
 
                 <div className="subject">Modified</div>
                 <div className="content">{questionData?.updated_at}</div>
@@ -142,6 +167,8 @@ const LeftWrapper = styled.div`
 
 const Question = styled.div`
   width: 100%;
+  // border: 1px solid red;
+  margin: 1%;
 `;
 
 const Text = styled.div`
