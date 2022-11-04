@@ -60,7 +60,7 @@ public class questionDto {
 
         private int questionViewCount;
         private Boolean questionStatus;
-        private int questionVote;
+        private int questionVote=0;
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
         // 로그인 기능 추가 후 구현 예정
@@ -86,7 +86,7 @@ public class questionDto {
 
         private int questionViewCount;
         private Boolean questionStatus;
-        private int questionVote;
+        private int questionVote=0;
         private LocalDateTime created_at;
         private LocalDateTime updated_at;
         private String create_by_user;
@@ -104,7 +104,7 @@ public class questionDto {
     public static class QuestionAnswerResponseDto {
         private Long answerId;
         private String answerBody;
-        private int answerVote;
+        private int answerVote=0;
         //댓글 작성자 확인
         private LocalDateTime created_at;
         private LocalDateTime updated_at;

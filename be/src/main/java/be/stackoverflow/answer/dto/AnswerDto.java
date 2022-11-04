@@ -41,7 +41,7 @@ public class AnswerDto {
         private Long answerId;
         private Long questionId;
         private String answerBody;
-        private int answerVote;
+        private int answerVote=0;
         //댓글 작성자 확인
         private LocalDateTime created_at;
         private LocalDateTime updated_at;

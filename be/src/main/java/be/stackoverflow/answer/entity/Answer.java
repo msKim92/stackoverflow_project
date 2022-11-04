@@ -3,11 +3,14 @@ package be.stackoverflow.answer.entity;
 import be.stackoverflow.audit.WriterAudit;
 import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.user.entity.User;
+import be.stackoverflow.vote.entity.Vote;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -33,6 +36,10 @@ public class Answer extends WriterAudit {
     @JoinColumn(name = "question_id")
     private Question question;
 
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.PERSIST)
+    Set<Vote> votes = new HashSet<>();
+    @Column(nullable = false)
+    private int voteCount=0;
     //양방향 연관관계 편의 메서드
     public void setUser(User user) {
         this.user = user;

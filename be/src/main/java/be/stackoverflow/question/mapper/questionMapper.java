@@ -3,12 +3,14 @@ package be.stackoverflow.question.mapper;
 import be.stackoverflow.answer.entity.Answer;
 import be.stackoverflow.question.dto.questionDto;
 import be.stackoverflow.question.entity.Question;
+import be.stackoverflow.vote.entity.Vote;
 import com.querydsl.core.QueryResults;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -39,21 +41,23 @@ public interface questionMapper {
         questionFrontResponse.setQuestionTitle(question.getQuestionTitle());
         questionFrontResponse.setQuestionViewCount(question.getQuestionViewCount());
         questionFrontResponse.setQuestionStatus(question.getQuestionStatus());
-        questionFrontResponse.setQuestionVote(question.getQuestionVote());
         questionFrontResponse.setCreated_at(question.getCreated_at());
         questionFrontResponse.setUpdated_at(question.getUpdated_at());
         questionFrontResponse.setCreate_by_user(question.getCreate_by_user());
         questionFrontResponse.setUpdated_by_user(question.getUpdated_by_user());
+        questionFrontResponse.setQuestionVote(question.getVoteCount());
+
+        //댓글 개수 추가
+        questionFrontResponse.setAnswerSize(answerToAnswerResponseDto(question.getAnswers()).size());
+
+        //String을 쪼게서 리스트로 바꾸는 로직==============시작
         String [] tags = question.getTags().split("@");
         List<String> newTags = new ArrayList<>();
         for (String tag : tags) {
             newTags.add(tag.replaceAll("[\\s,./]",""));
         }
         questionFrontResponse.setTags(newTags);
-
-        //댓글 개수 추가
-        questionFrontResponse.setAnswerSize(answerToAnswerResponseDto(question.getAnswers()).size());
-
+        //String을 쪼게서 리스트로 바꾸는 로직==============끝
 
         return questionFrontResponse;
     }//게시판 처음에 쏴줄 데이터들 변환
@@ -66,20 +70,25 @@ public interface questionMapper {
         questionDetailResponse.setQuestionBody(question.getQuestionBody());
         questionDetailResponse.setQuestionViewCount(question.getQuestionViewCount());
         questionDetailResponse.setQuestionStatus(question.getQuestionStatus());
-        questionDetailResponse.setQuestionVote(question.getQuestionVote());
         questionDetailResponse.setCreated_at(question.getCreated_at());
         questionDetailResponse.setUpdated_at(question.getUpdated_at());
         questionDetailResponse.setCreate_by_user(question.getCreate_by_user());
         questionDetailResponse.setUpdated_by_user(question.getUpdated_by_user());
         questionDetailResponse.setAnswers(answerToAnswerResponseDto(question.getAnswers()));
+        questionDetailResponse.setQuestionVote(question.getVoteCount());
+
+        //댓글 개수 추가
+        questionDetailResponse.setAnswerSize(answerToAnswerResponseDto(question.getAnswers()).size());
+
+        //String을 쪼게서 리스트로 바꾸는 로직==============시작
         String [] tags = question.getTags().split("@");
         List<String> newTags = new ArrayList<>();
         for (String tag : tags) {
             newTags.add(tag.replace("[\\s,./]",""));
         }
         questionDetailResponse.setTags(newTags);
-        //댓글 개수 추가
-        questionDetailResponse.setAnswerSize(answerToAnswerResponseDto(question.getAnswers()).size());
+        //String을 쪼게서 리스트로 바꾸는 로직==============끝
+
         return questionDetailResponse;
     } //상세 게시글에 쏴줄 데이터로 변환
 
@@ -95,6 +104,7 @@ public interface questionMapper {
                         .updated_at(answer.getUpdated_at())
                         .create_by_user(answer.getCreate_by_user())
                         .updated_by_user(answer.getUpdated_by_user())
+                        .answerVote(answer.getVoteCount())
                         .build())
                 .collect(Collectors.toList());
     }

@@ -119,19 +119,5 @@ public class questionController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    /**
-     *
-     * @param questionId Question에 Answer 마다 있는 Like 버튼 클릭시 Answer 식별을 위한 값
-     * @param isLike like 버튼에서 위를 가리키는 화살표 클릭시 true 아래를 가리키는 화살표 클릭시 false
-     */
-    @PostMapping("/{question-id}")
-    public void postVote(@Valid @PathVariable("question-id")@Positive long questionId,
-                         @RequestParam("isLike") boolean isLike,
-                         HttpServletRequest request) {
-        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
-        User user = userService.findIdByEmail(emailWithToken);
-
-        questionService.votePlusMinus(questionId, isLike, user);
-    }
 
 }
