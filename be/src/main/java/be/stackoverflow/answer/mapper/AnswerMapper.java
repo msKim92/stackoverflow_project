@@ -27,7 +27,7 @@ public interface AnswerMapper {
     default AnswerDto.Response answerToAnswerResponse(Answer answer) {
         AnswerDto.Response answerResponse = new AnswerDto.Response();
 
-        answerResponse.setAnswerId(answer.getQuestion().getQuestionId());
+        answerResponse.setAnswerId(answer.getAnswerId());
         answerResponse.setQuestionId(answer.getQuestion().getQuestionId());
         answerResponse.setAnswerBody(answer.getAnswerBody());
         answerResponse.setAnswerVote(answer.getAnswerVote());

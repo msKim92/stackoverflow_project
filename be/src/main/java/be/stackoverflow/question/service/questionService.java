@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,13 +63,8 @@ public class questionService {
         return savedQuestion;
     }
 
-    //R: 질문 상세 페이지
-    public Question findQuestion(long questionId){
-
+    public Question findQuestion(long questionId) {
         Question found_question = verifyQuestionUsingID(questionId);
-        found_question.setQuestionViewCount(found_question.getQuestionViewCount()+1); // 조회할때마다 상승...? 인간당으로 바꿔야하나? 고민필요
-        questionRepository.save(found_question);
-
         return found_question;
     }
 
@@ -132,22 +128,65 @@ public class questionService {
         }
     }
 
-    public void votePlusMinus(long questionId, boolean isLike) {
+    public void votePlusMinus(long questionId, boolean isLike, User user) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+
         Question chosenQuestion = optionalQuestion.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         int vote = chosenQuestion.getQuestionVote();
-        if (isLike) {
-            vote++;
-        } else {
-            if (vote > 0) {
-                vote--;
+        HashMap<String,Integer> voteList =chosenQuestion.getVoteList();
+        log.info("voteList size = {}",voteList.size());
+        if (!voteList.containsKey(user.getUserEmail())) {
+            if (isLike) {
+                voteList.put(user.getUserEmail(), 1);
+                vote++;
             } else {
-                vote=0;
+                if (vote > 0) {
+                    voteList.put(user.getUserEmail(), 0);
+                    vote--;
+                } else {
+                    vote = 0;
+                }
+            }
+        } else {
+            if (isLike) {
+                // 좋아요를 한번 누른 상태에서 또 누르면
+                if (voteList.get(user.getUserEmail()) == 1) {
+                    if (vote > 0) {
+                        vote--; // vote가 0보다 크면, vote를 하나 감소
+                    }
+                    voteList.remove(user.getUserEmail()); // 투표권을 포기한 것이므로 취소가 된다.
+                } else {
+                    //싫어요를 누른 상태에서 좋아요를 누르면, 저번에 투표해서 안된다는 오류 메시지 보냄
+                    throw new BusinessLogicException(ExceptionCode.OVERLAP_VOTE);
+                }
+            } else {
+                // 싫어요를 한번 누른 상태에서 또 누르면
+                if (voteList.get(user.getUserEmail()) == 0) {
+                    vote++; // vote가 하나 증가
+                    voteList.remove(user.getUserEmail()); // 투표권을 포기한 것이므로 취소가 된다.
+                } else {
+                    //좋아요를 누른 상태에서 싫어요를 누르면, 저번에 투표해서 안된다는 오류 메시지 보냄
+                    throw new BusinessLogicException(ExceptionCode.OVERLAP_VOTE);
+                }
             }
         }
+
         chosenQuestion.setQuestionVote(vote);
+        chosenQuestion.setVoteList(voteList);
         questionRepository.save(chosenQuestion);
     }
 
+    /**
+     * 질문 상세페이지 접근마다 viewCount가 증가하는 메소드
+     * 댓글 등록시에도 Question을 찾는 로직이 필요한데 분리를 하지않으면, 댓글 등록마다 viewCount가 증가하므로 분리한다.
+     */
+    public Question increaseViewCount(long questionId){
+
+        Question found_question = findQuestion(questionId);
+        found_question.setQuestionViewCount(found_question.getQuestionViewCount()+1); // 조회할때마다 상승...? 인간당으로 바꿔야하나? 고민필요
+        questionRepository.save(found_question);
+
+        return found_question;
+    }
 }
