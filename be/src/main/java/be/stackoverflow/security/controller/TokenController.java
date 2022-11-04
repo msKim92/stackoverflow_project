@@ -1,8 +1,11 @@
 package be.stackoverflow.security.controller;
+import be.stackoverflow.exception.BusinessLogicException;
+import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.user.entity.User;
 import be.stackoverflow.user.service.UserService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +49,7 @@ public class TokenController {
             refreshToken = makeRefreshToken(user);
         } else {
             //리프레쉬 토큰도 만료되었다는 메시지 개발예정.
+            new BusinessLogicException(ExceptionCode.REFRESHTOKEN_EXPIRED);
         }
 
         return ResponseEntity.accepted()

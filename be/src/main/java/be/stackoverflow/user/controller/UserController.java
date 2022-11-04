@@ -3,6 +3,7 @@ package be.stackoverflow.user.controller;
 
 import be.stackoverflow.dto.MultiResponseDto;
 import be.stackoverflow.dto.SingleResponseDto;
+import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.user.dto.UserDto;
 import be.stackoverflow.user.entity.User;
 //import be.stackoverflow.user.mapper.UserMapper;
@@ -16,9 +17,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Slf4j
 @RestController
@@ -28,7 +34,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-
+    private final JwtTokenizer jwtTokenizer;
     private final UserMapper userMapper;
 
     @PostMapping("/sign")
@@ -45,14 +51,28 @@ public class UserController {
 
     /**
      * 이 부분은 테스트시 사용자 조회용으로 사용될 예정 / 상태: undo
+     * header에서 알아온다음에 추가하면될꺼같다?
      */
+    @RequestMapping(value = "/userFinder", method = GET)
+    @ResponseBody
+    public void userNameFinder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User authorizedUser = userService.findIdByEmail(jwtTokenizer.getEmailWithToken(request));
+        String userName = authorizedUser.getUserName();
+        response.sendRedirect("/v1/"+ userName);
+
+    }
+
     @GetMapping("/{userName}")
     public ResponseEntity getUserByUserName(@PathVariable("userName") String userName) {
+
         User chosenUser = userService.findUserByUserName(userName);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(userMapper.userToUserResponse(chosenUser)), HttpStatus.OK);
     }
+
+
+
 
     /**
      * 이 부분은 사용자 전체 조회 및 페이지네이션 용도로 사용될 예정 / 상태: undo
