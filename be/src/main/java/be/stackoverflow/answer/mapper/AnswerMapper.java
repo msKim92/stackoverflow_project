@@ -35,6 +35,7 @@ public interface AnswerMapper {
         answerResponse.setUpdated_at(answer.getUpdated_at());
         answerResponse.setCreate_by_user(answer.getCreate_by_user());
         answerResponse.setUpdated_by_user(answer.getUpdated_by_user());
+        answerResponse.setAnswerVote(answer.getVoteCount());
 
         return answerResponse;
     }
