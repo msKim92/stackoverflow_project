@@ -96,4 +96,5 @@ public class AnswerService  {
         chosenAnswer.setAnswerVote(vote);
         answerRepository.save(chosenAnswer);
     }
+
 }

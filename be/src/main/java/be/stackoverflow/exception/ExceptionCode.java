@@ -19,9 +19,15 @@ public enum ExceptionCode {
     ANSWER_NOT_FOUND(404, "Answer not exists"),
     ANSWER_DELETE_ONLY_AUTHOR(404,"Answer delete only author"),
     //Answer 부분 예외 ==============끝
-    //vote 부분 =========
-    OVERLAP_VOTE(404,"You can one time vote for one post");
+    //vote 부분 =========시작
+    OVERLAP_VOTE(404,"You can one time vote for one post"),
+    //vote부분==============끝
 
+    // 리프레쉬 토큰 예외 ================시작
+     REFRESHTOKEN_EXPIRED(404, "refresh token also got expired" ),
+    // 리프레쉬 토큰 예외 ================끝
+    //삭제권한, 접근권한이 없다
+    NOT_AUTHORIZED(404,"You do not have the right to delete a post" );
     /* 위에다가 추가 하세요 */
     
     @Getter
