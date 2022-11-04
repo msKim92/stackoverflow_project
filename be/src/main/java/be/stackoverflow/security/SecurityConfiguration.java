@@ -110,8 +110,10 @@ public class SecurityConfiguration {
         configuration.setAllowedOrigins(Arrays.asList("*"));
 
         //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
-
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE","OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Origin,Accept","X-Requested-With","Content-Type","Access-Control-Request-Method",
+                "Access-Control-Request-Headers","Authorization","Refresh"));
+        configuration.setMaxAge(4600l);
         //터페이스의 구현 클래스인 UrlBasedCorsConfigurationSource 클래스의 객체를 생성
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
