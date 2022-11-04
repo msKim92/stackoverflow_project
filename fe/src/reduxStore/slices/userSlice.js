@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 import Apis from "../../api/api";
 const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
@@ -23,6 +24,10 @@ export const signUser = createAsyncThunk(
       .catch((err) => console.log(err));
   }
 );
+
+let token = localStorage.getItem("userEmail");
+
+let usertoken = token.split('"');
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
@@ -48,9 +53,12 @@ export const loginUser = createAsyncThunk(
         //   body: JSON.stringify(loginData),
         // })
         .then((res) => {
-          // console.log(res);
+          console.log(res.config.data);
+          let userId = res.config.data;
+          let usertoken = userId.split('"')[3];
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
+          localStorage.setItem("userEmail", usertoken);
           localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
           navigate("/");

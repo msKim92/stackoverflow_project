@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import Apis from "../../api/api";
+let jwtToken = localStorage.getItem("access_token");
+let token = "";
 
-let jwtToken = localStorage.getItem("Authorization");
+if (jwtToken) {
+  token = jwtToken.split(" ").pop();
+}
+console.log(jwtToken);
 
 const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
@@ -46,18 +50,14 @@ export const filterFetchAnswer = createAsyncThunk("filterqe/", async (id) => {
     .catch((err) => console.log(err));
 });
 
-// export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
-//   return await axios
-//     .post(
-//       "https://5c0b-14-52-189-10.jp.ngrok.io/v1/questions/createQuestion",
-//       body,
-//       {
-//         headers: { "ngrok-skip-browser-warning": "111" },
-//       }
-//     )
-//     .then((res) => console.log("success:", res))
-//     .catch((err) => console.error("error:", err));
-// });
+export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
+  return await axios
+    .post(`v1/questions/createQuestion`, body, {
+      headers: { Authorization: `${jwtToken}` },
+    })
+    .then((res) => console.log("success:", res))
+    .catch((err) => console.error("error:", err));
+});
 
 const questionsSlice = createSlice({
   name: "questions",
@@ -141,19 +141,19 @@ const questionsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    [filterFetchAnswer.pending]: (state) => {
+    [askQuestion.pending]: (state) => {
       state.questions = [];
       state.selectQuestions = [];
       state.loading = true;
       state.error = "";
     },
-    [filterFetchAnswer.fulfilled]: (state, action) => {
+    [askQuestion.fulfilled]: (state, action) => {
       state.questions = [];
       state.selectQuestions = action.payload;
       state.loading = false;
       state.error = "";
     },
-    [filterFetchAnswer.rejected]: (state, action) => {
+    [askQuestion.rejected]: (state, action) => {
       state.questions = [];
       state.selectQuestions = [];
       state.loading = false;

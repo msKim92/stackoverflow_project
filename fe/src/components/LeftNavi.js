@@ -5,22 +5,20 @@ import { IoEarthSharp, IoStarOutline } from "react-icons/io5";
 import sideImage from "../img/sideImg.png";
 
 function LeftNvi() {
-  const [clickElement, setClickElement] = useState(false);
   const navigate = useNavigate();
 
-  const clickHere = () => {
-    setClickElement(!clickElement);
-  };
   const clickQuestion = () => {
     navigate("/");
+  };
+
+  const userNavClick = () => {
+    navigate("/MyPage");
   };
 
   return (
     <LeftNaviWrapper>
       <Wrapper>
-        <HomeMenu click={clickElement} onClick={() => clickHere()}>
-          Home
-        </HomeMenu>
+        <HomeMenu onClick={clickQuestion}>Home</HomeMenu>
         <MainMenu>
           <PublicMenu>PUBLIC</PublicMenu>
           <QuestionsContents onClick={clickQuestion}>
@@ -29,17 +27,11 @@ function LeftNvi() {
             </EarthIcon>
             <QuestionsMenu>Questions</QuestionsMenu>
           </QuestionsContents>
-          <Menu click={clickElement} onClick={() => clickHere()}>
-            Tags
-          </Menu>
-          <Menu click={clickElement} onClick={() => clickHere()}>
-            Users
-          </Menu>
-          <Menu click={clickElement} onClick={() => clickHere()}>
-            Companies
-          </Menu>
+          <Menu>Tags</Menu>
+          <Menu onClick={userNavClick}>Users</Menu>
+          <Menu>Companies</Menu>
           <Collectives>COLLECTIVES</Collectives>
-          <CollectivesContents click={clickElement} onClick={() => clickHere()}>
+          <CollectivesContents>
             <StarIcon>
               <IoStarOutline />
             </StarIcon>
@@ -54,9 +46,7 @@ function LeftNvi() {
               organizational knowledge.
             </DisplayText>
             <SideImage src={sideImage}></SideImage>
-            <CreateBtn click={clickElement} onClick={() => clickHere()}>
-              Create a free Team
-            </CreateBtn>
+            <CreateBtn>Create a free Team</CreateBtn>
             <TeamsMsg>Why Teams?</TeamsMsg>
           </TeamsContents>
         </TeamMainMenu>
@@ -69,7 +59,6 @@ const LeftNaviWrapper = styled.div`
   width: 168px;
   height: 100vh;
   border: none;
-  margin-right: 5px;
 `;
 
 const Wrapper = styled.div`
@@ -101,7 +90,7 @@ const MainMenu = styled.div`
 const TeamMainMenu = styled.div`
   height: 284px;
   margin: 12px 0px;
-  border: 2px solid (60, 60, 60);
+  border: 1px solid (60, 60, 60);
 `;
 
 const PublicMenu = styled.div`

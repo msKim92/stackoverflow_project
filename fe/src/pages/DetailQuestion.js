@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -12,8 +12,42 @@ import {
 import ReadAnswer from "../components/ReadAnswer";
 import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
+import { useParams } from "react-router-dom";
 
 function DetailQuestion() {
+  // const [time, setTime] = useState("");
+
+  const questionData = useSelector(
+    (state) => state.questions.selectQuestions?.data
+  );
+  console.log(">>>>>>>", questionData);
+
+  const dispatch = useDispatch();
+  const parmas = useParams();
+  useEffect(() => {
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, []);
+
+  const tags = questionData?.tags;
+  const tagList =
+    tags && tags.map((el) => <button key={el.toString()}>{el}</button>);
+
+  // const createdAt = questionData?.created_at;
+  //2022-11-02T13:39:43
+  // const createdSplit = (questionData?.created_at).split("T");
+  // console.log(createdSplit); //'2022-11-02', '13:39:43'
+
+  // const daySplit = createdSplit[0].split("-");
+  // console.log(daySplit); //'2022', '11', '02'
+  // const year = daysplit[0];
+  // const month = daysplit[1];
+  // const day = daysplit[2];
+
+  // const timeSplit = createdSplit[1].split(":");
+  // console.log(timeSplit);
+
   return (
     <Wrapper>
       <header>
@@ -27,20 +61,18 @@ function DetailQuestion() {
           <Question>
             <div>
               <Titile>
-                <div className="title">
-                  why title_img is undefined ? and the other are working?
-                </div>
+                <div className="title">{questionData?.questionTitle}</div>
                 <button>Ask Question</button>
               </Titile>
               <TimeLine>
                 <div className="subject">Asked</div>
-                <div className="content">today</div>
+                <div className="content">{questionData?.updated_at}</div>
 
                 <div className="subject">Modified</div>
-                <div className="content">today</div>
+                <div className="content">{questionData?.updated_at}</div>
 
                 <div className="subject">Viewed</div>
-                <div className="content">18 times</div>
+                <div className="content">{questionData?.updated_at}</div>
               </TimeLine>
               <Border></Border>
             </div>
@@ -58,13 +90,9 @@ function DetailQuestion() {
                       </IconWrapper>
                       <QuestionWrapper>
                         <div style={{ border: "1px solid blue" }}>
-                          I have a upload btn named title_ img and upload btn
-                          for multiple images.
+                          {questionData?.questionBody}
                         </div>
-                        <ButtonWrapper>
-                          <button>javascript</button>
-                          <button>php</button>
-                        </ButtonWrapper>
+                        <ButtonWrapper>{tagList}</ButtonWrapper>
                         <InfoWrapper>
                           <ShareWrapper>
                             <div>Share</div>
@@ -76,7 +104,7 @@ function DetailQuestion() {
                               <div>asked 3hours ago</div>
                               <div>ID</div>
                               <div>
-                                <div>395</div>
+                                <div>{questionData?.create_by_user}</div>
                                 <div>icon</div>
                                 <div>1</div>
                                 <div>icon</div>
@@ -139,6 +167,8 @@ const LeftWrapper = styled.div`
 
 const Question = styled.div`
   width: 100%;
+  // border: 1px solid red;
+  margin: 1%;
 `;
 
 const Text = styled.div`
