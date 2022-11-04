@@ -20,7 +20,7 @@ import java.util.List;
 public class Question extends WriterAudit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
 
     @Column(nullable = false)

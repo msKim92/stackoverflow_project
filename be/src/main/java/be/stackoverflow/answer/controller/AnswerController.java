@@ -55,6 +55,21 @@ public class AnswerController {
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponse(savedAnswer)),HttpStatus.OK);
     }
 
+    /*
+     answer 단건조회 (프론트 요청사항)
+     */
+    @GetMapping("/{answer-Id}")
+    public ResponseEntity getAnswer(@PathVariable("answer-Id") @Positive long answerId) {
+        Answer answer = answerService.findAnswer(answerId);
+
+        return new ResponseEntity(
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponse(answer)), HttpStatus.OK
+        );
+
+    }
+
+
+
     @GetMapping
     public ResponseEntity getAnswers(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
@@ -64,6 +79,7 @@ public class AnswerController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(answerMapper.answersToAnswerReponses(allAnswers), pageInformation), HttpStatus.OK);
     }
+
     @PatchMapping("/{answer-Id}")
     public ResponseEntity patchAnswer(@Valid @RequestBody AnswerDto.Patch patchData,@PathVariable("answer-Id") @Positive long answerId,
                                       HttpServletRequest request

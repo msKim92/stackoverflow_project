@@ -59,7 +59,7 @@ public class AnswerService  {
         return answerRepository.save(chosenAnswer);
     }
 
-    private Answer findAnswer(long answerId) {
+    public Answer findAnswer(long answerId) {
         return verifyAnswer(answerId);
     }
 
