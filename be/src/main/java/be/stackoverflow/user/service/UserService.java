@@ -146,7 +146,7 @@ public class UserService implements UserDetailsService {
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorityUtils.createRoleDependsRole(this.getRoles());
+            return authorityUtils.DependsRole(this.getRoles());
         }
 
         @Override

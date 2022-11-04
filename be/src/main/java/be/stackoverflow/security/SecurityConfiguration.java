@@ -1,16 +1,19 @@
 package be.stackoverflow.security;
 
 import be.stackoverflow.security.filter.JwtAuthenticationFilter;
+import be.stackoverflow.security.filter.JwtVerificationFilter;
+import be.stackoverflow.security.handler.UserAccessDeniedHandler;
+import be.stackoverflow.security.filter.UserAuthenticationEntryPoint;
 import be.stackoverflow.security.handler.UserAuthenticationFailureHandler;
 import be.stackoverflow.security.handler.UserAuthenticationSuccessHandler;
 import be.stackoverflow.security.utils.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -44,16 +47,34 @@ public class SecurityConfiguration {
 
                 .formLogin().disable() //기본으로 제공하는 form 로그인 인증 기능 안쓰겠다.
                 .httpBasic().disable()
-                /*추가예정-----예외처리 엔트리포인트ㅡ요청거절 포인트------*/
-                .apply(new CustomFilterConfig());
-                 /*추가예정-----인가 가능한곳 설정------*/
+
+                .exceptionHandling()
+                .authenticationEntryPoint(new UserAuthenticationEntryPoint())
+                .accessDeniedHandler(new UserAccessDeniedHandler())
+                .and()
+
+                .apply(new CustomFilterConfig())
+                .and()
+                 /*11.03-----인가 가능한곳 설정---.hasRole 관리자페이지가 따로 없기에 삭제함---*/
+                .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST, "/*/questions/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.PATCH, "/*/questions/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.DELETE, "/*/questions/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.POST, "/*/user/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.PATCH, "/*/user/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.DELETE, "/*/user/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.POST, "/*/answer/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.PATCH, "/*/answer/**").hasAnyRole("ADMIN","USER")
+                        .antMatchers(HttpMethod.DELETE, "/*/answer/**").hasAnyRole("ADMIN","USER")
+                        .anyRequest().permitAll() //그외 get 요청은 전부다 가능하도록
+                );
 
         return http.build();
     }
 
     public class CustomFilterConfig extends AbstractHttpConfigurer<CustomFilterConfig, HttpSecurity> {
         @Override
-        public void configure(HttpSecurity builder) throws Exception {
+        public void configure(HttpSecurity builder) {
             //인증도우미 호출!
             AuthenticationManager manager = builder.getSharedObject(AuthenticationManager.class);
             //DI
@@ -62,7 +83,11 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler()); //로그인 성공시 log 출력
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler()); //로그인 실패시 header에 메시지 담아보내기
             /*-----인증끝난뒤에 인가 시작해야함 -----*/
-            builder.addFilter(jwtAuthenticationFilter); //시큐러티 필터 체인에 더하기.
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+
+            builder.addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);//시큐러티 필터 체인에 더하기.
+
         }
     }
 
