@@ -87,7 +87,7 @@ public class questionController {
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id")@Positive long questionId) throws Exception {
 
-        Question FoundQuestion = questionService.findQuestion(questionId);
+        Question FoundQuestion = questionService.increaseViewCount(questionId);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToDetailResponse(FoundQuestion)), HttpStatus.OK);
@@ -125,8 +125,12 @@ public class questionController {
      */
     @PostMapping("/{question-id}")
     public void postVote(@Valid @PathVariable("question-id")@Positive long questionId,
-                         @RequestParam("isLike") boolean isLike) {
-        questionService.votePlusMinus(questionId, isLike);
+                         @RequestParam("isLike") boolean isLike,
+                         HttpServletRequest request) {
+        String emailWithToken = jwtTokenizer.getEmailWithToken(request);
+        User user = userService.findIdByEmail(emailWithToken);
+
+        questionService.votePlusMinus(questionId, isLike, user);
     }
 
 }

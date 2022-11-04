@@ -17,8 +17,11 @@ public enum ExceptionCode {
     QUESTION_DELETE_ONLY_AUTHOR(404,"Question delete only author"),
     //Answer 부분 예외 ==============시작
     ANSWER_NOT_FOUND(404, "Answer not exists"),
-    ANSWER_DELETE_ONLY_AUTHOR(404,"Answer delete only author");
+    ANSWER_DELETE_ONLY_AUTHOR(404,"Answer delete only author"),
     //Answer 부분 예외 ==============끝
+    //vote 부분 =========
+    OVERLAP_VOTE(404,"You can one time vote for one post");
+
     /* 위에다가 추가 하세요 */
     
     @Getter

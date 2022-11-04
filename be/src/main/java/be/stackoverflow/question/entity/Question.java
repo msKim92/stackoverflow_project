@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @NoArgsConstructor
@@ -35,6 +36,9 @@ public class Question extends WriterAudit {
 
     @Column(nullable = true)
     private String tags;
+
+    @Transient
+    private HashMap<String,Integer> voteList=new HashMap<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
