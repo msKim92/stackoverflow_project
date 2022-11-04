@@ -2,11 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 let token = localStorage.getItem("userEmail");
 
-let usertoken = token.split('\"');
-
-
-console.log(token, usertoken);
-
 const BASEURL = "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com";
 
 export const signUser = createAsyncThunk("user/addUser", async (addData) => {
