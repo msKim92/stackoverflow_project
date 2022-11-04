@@ -6,6 +6,8 @@ import be.stackoverflow.answer.mapper.AnswerMapper;
 import be.stackoverflow.answer.service.AnswerService;
 import be.stackoverflow.dto.MultiResponseDto;
 import be.stackoverflow.dto.SingleResponseDto;
+import be.stackoverflow.exception.BusinessLogicException;
+import be.stackoverflow.exception.ExceptionCode;
 import be.stackoverflow.question.entity.Question;
 import be.stackoverflow.question.service.questionService;
 import be.stackoverflow.security.JwtTokenizer;
@@ -55,6 +57,18 @@ public class AnswerController {
                 new SingleResponseDto<>(answerMapper.answerToAnswerResponse(savedAnswer)),HttpStatus.OK);
     }
 
+    /*
+     answer 단건조회 (프론트 요청사항) 댓글주인이 아니면 수정못하도록 수정.
+     */
+    @GetMapping("/{answer-Id}")
+    public ResponseEntity getAnswer(@PathVariable("answer-Id") @Positive long answerId, HttpServletRequest request) {
+        String emailWithToken = jwtTokenizer.getEmailWithToken(request); //jwt token으로부터 이메일을 가져오고
+
+        Answer answer = answerService.findAnswer(answerId); //댓글의 정보를 가져온후
+        return NotAuthorizedEdit(emailWithToken, answer);
+
+    }
+
     @GetMapping
     public ResponseEntity getAnswers(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size) {
@@ -64,6 +78,7 @@ public class AnswerController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(answerMapper.answersToAnswerReponses(allAnswers), pageInformation), HttpStatus.OK);
     }
+
     @PatchMapping("/{answer-Id}")
     public ResponseEntity patchAnswer(@Valid @RequestBody AnswerDto.Patch patchData,@PathVariable("answer-Id") @Positive long answerId,
                                       HttpServletRequest request
@@ -71,14 +86,11 @@ public class AnswerController {
 
         String emailWithToken = jwtTokenizer.getEmailWithToken(request);
         User user = userService.findIdByEmail(emailWithToken);
-
         Answer answer = answerService.updateAnswer(answerId, answerMapper.answerPatchToAnswer(patchData),user);
-            log.info("answerId={}",answerId);
-            log.info("username = {}",user.getUserName());
 
-        return new ResponseEntity(
-                new SingleResponseDto<>(answerMapper.answerToAnswerResponse(answer)),HttpStatus.OK);
+        return NotAuthorizedEdit(emailWithToken, answer);
     }
+
     @DeleteMapping("/{answerId}")
     public ResponseEntity deleteAnswer(@PathVariable("answerId") @Positive long answerId,HttpServletRequest request) {
         String emailWithToken = jwtTokenizer.getEmailWithToken(request);
@@ -106,5 +118,17 @@ public class AnswerController {
     public void postVote(@Valid @PathVariable("answerId")@Positive long answerId,
                               @RequestParam("isLike") boolean isLike) {
         answerService.votePlusMinus(answerId, isLike);
+    }
+
+    // 댓글쓴사람이 아닌 다른사람이 쓸경우 접근권한없다고 하고 상관없으면 그대로 반환.
+    private ResponseEntity NotAuthorizedEdit(String emailWithToken, Answer answer) {
+        String answerFromEmail = answer.getUser().getUserEmail(); //이메일을 추출하고
+        if (!answerFromEmail.equals(emailWithToken)) { // 댓글작성자와 jwtToken 소유자랑 다르면 에러메시지 던지기
+            BusinessLogicException exception = new BusinessLogicException(ExceptionCode.NOT_AUTHORIZED);
+            throw exception;
+        }
+
+        return new ResponseEntity(
+                new SingleResponseDto<>(answerMapper.answerToAnswerResponse(answer)), HttpStatus.OK);
     }
 }
