@@ -12,9 +12,8 @@ function LeftNvi() {
     setClickElement(!clickElement);
   };
   const clickQuestion = () => {
-    navigate("/")
-  }
-
+    navigate("/");
+  };
 
   return (
     <LeftNaviWrapper>

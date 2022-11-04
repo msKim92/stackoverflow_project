@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import RightNavi from "../components/RightNavi";
 import { useDispatch, useSelector } from "react-redux";
-import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
+import { filterFetchAnswer } from "../reduxStore/slices/questionSlice";
 import { fetchAnswer, updateAnswer } from "../reduxStore/slices/answerSlice";
 import { BsCheckSquare, BsTable, BsCodeSlash } from "react-icons/bs";
 import { RiKeyboardLine } from "react-icons/ri";
@@ -19,31 +19,29 @@ import { CgBorderStyleSolid } from "react-icons/cg";
 import { TfiQuoteLeft } from "react-icons/tfi";
 import { FaIndent } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function EditAnswer() {
-  const filteranswer = useSelector(
-    (state) => state.questions.selectQuestions?.data
-  );
+  const filteranswer = useSelector((state) => state);
   console.log(filteranswer);
   const [write, setWrite] = useState(" ");
   const dispatch = useDispatch();
   const parmas = useParams();
-  console.log(parmas);
+  const navigate = useNavigate();
   const userWriteContents = (e) => {
     setWrite(e.target.value);
   };
+  console.log(Number(parmas.id));
   useEffect(() => {
-    dispatch(filterFetchQuestion(Number(parmas.id)));
+    dispatch(filterFetchAnswer(25));
   }, [dispatch]);
 
-  const clickUpdateAnswer = () => {
-    let id = Number(parmas.id);
-    console.log(id);
+  const clickUpdateAnswer = (id) => {
     const upData = {
+      questionId: id,
       answerBody: write,
     };
-    dispatch(updateAnswer({ id, upData }));
+    dispatch(updateAnswer({ upData, navigate }));
   };
   return (
     <>
@@ -136,7 +134,9 @@ function EditAnswer() {
               </UserWriteSpace>
             </AsnwerEditMiddle>
             <UserClickBtnSpace>
-              <UserClickBtn onClick={clickUpdateAnswer}>
+              <UserClickBtn
+                onClick={() => clickUpdateAnswer(Number(parmas.id))}
+              >
                 Save Edits
               </UserClickBtn>
               <UserClickBtn>Cancel</UserClickBtn>

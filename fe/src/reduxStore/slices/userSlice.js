@@ -1,22 +1,44 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import Apis from "../../api/api";
 const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
 
-export const signUser = createAsyncThunk("user/addUser", async (addData) => {
-  return axios
-    .post(`/v1/sign/`, addData, {})
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
+export const signUser = createAsyncThunk(
+  "user/addUser",
+  async ({ addData, navigate }) => {
+    return Apis.post(
+      `https://cors-anywhere.herokuapp.com/${BASEURL}v1/sign/`,
+      addData,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    )
+      .then((res) => {
+        navigate("/login");
+        return res.data;
+      })
+      .catch((err) => console.log(err));
+  }
+);
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (loginData) => {
+  async ({ loginData, navigate }) => {
+    console.log({ loginData, navigate });
     return (
       axios
-        .post(`/v1/login`, { ...loginData })
+        .post(
+          `https://cors-anywhere.herokuapp.com/${BASEURL}v1/login`,
+          { ...loginData },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
         // return fetch("/v1/login", {
         //   method: "POST",
         //   headers: {
@@ -26,10 +48,12 @@ export const loginUser = createAsyncThunk(
         //   body: JSON.stringify(loginData),
         // })
         .then((res) => {
+          // console.log(res);
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
           localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
+          navigate("/");
           return res.data;
         })
         .catch((err) => console.log(err))
