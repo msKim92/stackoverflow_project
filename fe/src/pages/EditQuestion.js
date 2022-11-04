@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
+import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function EditQuestion() {
+  const parmas = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, [dispatch]);
+
+  const questionData = useSelector(
+    (state) => state.questions.selectQuestions?.data
+  );
+  console.log("questionData>>>>>>tionData>>>>>>", questionData);
   const selectList = ["mplungjan - 18 hours ago", "user20305 - 18 hours ago"];
   const [Selected, setSelected] = useState("");
 
@@ -119,7 +132,7 @@ const SecondWrapper = styled.div`
 
 const ThirdWrapper = styled.div`
   display: flex;
-  margin-top: 4%;
+  margin-top: 3.5%;
   height: 100%;
 `;
 
@@ -133,6 +146,7 @@ const Question = styled.div`
 
 const Text = styled.div`
   display: flex;
+  margin: 1.7%;
   & > .w80 {
     width: 60%;
     margin: 0.7%;

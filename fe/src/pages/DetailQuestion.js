@@ -11,14 +11,12 @@ import {
 } from "react-icons/ai";
 import ReadAnswer from "../components/ReadAnswer";
 import AddAnswer from "../components/AddAnswer";
-import { FaRegBookmark } from "react-icons/fa";
+import { FaRegBookmark, FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function DetailQuestion() {
-  // const [time, setTime] = useState("");
-
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
@@ -32,11 +30,16 @@ function DetailQuestion() {
 
   const tags = questionData?.tags;
   const tagList =
-    tags && tags.map((el) => <button key={el.toString()}>{el}</button>);
+    tags &&
+    tags.map((el) => {
+      if (el !== "") {
+        return <button key={el.toString()}>{el}</button>;
+      }
+    });
 
-  // const createdAt = questionData?.created_at;
+  const createdAt = questionData?.created_at;
   //2022-11-02T13:39:43
-  // const createdSplit = (questionData?.created_at).split("T");
+  // const createdSplit = createdAt.split("T");
   // console.log(createdSplit); //'2022-11-02', '13:39:43'
 
   // const daySplit = createdSplit[0].split("-");
@@ -47,6 +50,20 @@ function DetailQuestion() {
 
   // const timeSplit = createdSplit[1].split(":");
   // console.log(timeSplit);
+  const navigate = useNavigate();
+  const clickAddQuetion = () => {
+    navigate("/askquestions");
+  };
+
+  const markup = () => {
+    return { __html: `${questionData?.questionBody}` };
+  };
+
+  const editQuestion = (e, id) => {
+    console.log("id>>>>>>>>>>>>>>>", id);
+    e.preventDefault();
+    navigate(`/editquestion/${id}`);
+  };
 
   return (
     <Wrapper>
@@ -62,7 +79,9 @@ function DetailQuestion() {
             <div>
               <Titile>
                 <div className="title">{questionData?.questionTitle}</div>
-                <button>Ask Question</button>
+                <ButtonStyle onClick={clickAddQuetion}>
+                  Ask Question
+                </ButtonStyle>
               </Titile>
               <TimeLine>
                 <div className="subject">Asked</div>
@@ -72,7 +91,7 @@ function DetailQuestion() {
                 <div className="content">{questionData?.updated_at}</div>
 
                 <div className="subject">Viewed</div>
-                <div className="content">{questionData?.updated_at}</div>
+                <div className="content">{questionData?.questionViewCount}</div>
               </TimeLine>
               <Border></Border>
             </div>
@@ -89,26 +108,45 @@ function DetailQuestion() {
                         <HistoryIcon />
                       </IconWrapper>
                       <QuestionWrapper>
-                        <div style={{ border: "1px solid blue" }}>
-                          {questionData?.questionBody}
-                        </div>
+                        <div dangerouslySetInnerHTML={markup()}></div>
                         <ButtonWrapper>{tagList}</ButtonWrapper>
                         <InfoWrapper>
                           <ShareWrapper>
                             <div>Share</div>
-                            <div>Edit</div>
+                            <div
+                              onClick={editQuestion(questionData?.questionId)}
+                            >
+                              Edit
+                            </div>
                             <div>Follow</div>
                           </ShareWrapper>
-                          <div>
+                          <div
+                            style={{
+                              border: "1px solid #D9EAF7",
+                              backgroundColor: "#D9EAF7",
+                              padding: "0.7%",
+                              borderRadius: "3%",
+                              fontSize: "13px",
+                              color: "#6a737c",
+                              width: "23%",
+                            }}
+                          >
                             <div>
                               <div>asked 3hours ago</div>
-                              <div>ID</div>
-                              <div>
-                                <div>{questionData?.create_by_user}</div>
-                                <div>icon</div>
-                                <div>1</div>
-                                <div>icon</div>
-                                <div>15</div>
+                              <div style={{ display: "flex" }}>
+                                <div style={{ margin: "3% 3% 0 0" }}>
+                                  <FaRegUserCircle
+                                    style={{ fontSize: "35px" }}
+                                  />
+                                </div>
+                                <div
+                                  style={{
+                                    margin: "7% 7% 0 0",
+                                    color: "#608fb1",
+                                  }}
+                                >
+                                  {questionData?.create_by_user}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -122,7 +160,6 @@ function DetailQuestion() {
               </div>
               <div
                 style={{
-                  border: "2px solid green",
                   width: "30%",
                   height: "100%",
                 }}
@@ -137,6 +174,16 @@ function DetailQuestion() {
     </Wrapper>
   );
 }
+
+const ButtonStyle = styled.button`
+  padding: 1%;
+  font-size: 14px;
+  background-color: #0a95ff;
+  border-radius: 8%;
+  color: white;
+  border: 1px solid #0a95ff;
+  box-shadow: 0 1px 0 #6cbfff inset;
+`;
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -232,19 +279,21 @@ const IconWrapper = styled.div`
 
 const QuestionWrapper = styled.div`
   margin-left: 2%;
+  margin-top: 1%;
   width: 88%;
-  border: 1px solid red;
+  // border: 1px solid red;
 `;
 
 const ButtonWrapper = styled.div`
-  border: 1px solid green;
-  margin-top: 3%;
+  // border: 1px solid green;
+  margin-top: 5%;
   & > button {
     background-color: #e1ecf4;
     border: 1px solid #e1ecf4;
-    padding: 1%;
+    padding: 0.5% 1%;
     color: #608fb1;
     margin-right: 1%;
+    border-radius: 10%;
   }
 `;
 
@@ -254,18 +303,21 @@ const Num = styled.div`
 `;
 
 const InfoWrapper = styled.div`
-  border: 1px solid blue;
+  // border: 1px solid blue;
   margin-top: 5%;
   display: flex;
 `;
 
 const ShareWrapper = styled.div`
-  border: 1px solid red;
+  // border: 1px solid red;
   display: flex;
   margin-right: auto;
   color: #6a737c;
-  font-size: 14px;
+  font-size: 13px;
   & > div {
+    margin-right: 8%;
+  }
+  & > button {
     margin-right: 8%;
   }
 `;
