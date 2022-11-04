@@ -22,7 +22,7 @@ function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
-  console.log(">>>>>>>", questionData);
+  // console.log(">>>>>>>", questionData);
 
   const dispatch = useDispatch();
   const parmas = useParams();

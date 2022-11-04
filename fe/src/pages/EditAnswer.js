@@ -22,8 +22,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useParams, useNavigate } from "react-router-dom";
 
 function EditAnswer() {
-  const filteranswer = useSelector((state) => state);
-  console.log(filteranswer);
+  const filterAnswer = useSelector((state) => state.answers.filterAnswer.data);
   const [write, setWrite] = useState(" ");
   const dispatch = useDispatch();
   const parmas = useParams();
@@ -31,9 +30,9 @@ function EditAnswer() {
   const userWriteContents = (e) => {
     setWrite(e.target.value);
   };
-  console.log(Number(parmas.id));
+  console.log(111);
   useEffect(() => {
-    dispatch(filterFetchAnswer(25));
+    dispatch(fetchAnswer(Number(parmas.id)));
   }, [dispatch]);
 
   const clickUpdateAnswer = (id) => {
@@ -127,7 +126,9 @@ function EditAnswer() {
                     </UserWriteBtns>
                   </UserWriteBtnRight>
                 </UserWriteBtnSpace>
-                <UserWriteTextareaBox onChange={userWriteContents} />
+                <UserWriteTextareaBox onChange={userWriteContents}>
+                  {filterAnswer?.answerBody}
+                </UserWriteTextareaBox>
                 <UserWriteBoxBtn>
                   <RiKeyboardLine />
                 </UserWriteBoxBtn>

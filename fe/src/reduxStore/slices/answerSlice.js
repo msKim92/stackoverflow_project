@@ -14,11 +14,11 @@ const BASEURL =
 
 export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
-  async () => {
-    return Apis.get(`v1/answer/`, {
+  async (id) => {
+    return Apis.get(`v1/answer/${id}`, {
       headers: { Authorization: `${jwtToken}` },
     })
-      .then((res) => console.log(res))
+      .then((res) => res.data)
       .catch((err) => console.log(err));
   }
 );
@@ -75,6 +75,7 @@ const answerSlice = createSlice({
   name: "answers",
   initialState: {
     answers: [],
+    filterAnswer: [],
     loading: false,
     error: "",
   },
@@ -82,62 +83,74 @@ const answerSlice = createSlice({
   extraReducers: {
     [fetchAnswer.pending]: (state) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = true;
       state.error = "";
     },
     [fetchAnswer.fulfilled]: (state, action) => {
-      state.answers = action.payload;
+      state.answers = [];
+      state.filterAnswer = action.payload;
       state.loading = false;
       state.error = "";
     },
     [fetchAnswer.rejected]: (state, action) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = false;
       state.error = action.payload;
     },
     [addAnswer.pending]: (state) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = true;
       state.error = "";
     },
     [addAnswer.fulfilled]: (state, action) => {
       state.answers = [action.payload];
+      state.filterAnswer = [];
       state.loading = false;
       state.error = "";
     },
     [addAnswer.rejected]: (state, action) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = false;
       state.error = action.payload.message;
     },
     [addVoteAnswer.pending]: (state) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = true;
       state.error = "";
     },
     [addVoteAnswer.fulfilled]: (state, action) => {
       state.answers = [action.payload];
+      state.filterAnswer = [];
       state.loading = false;
       state.error = "";
     },
     [addVoteAnswer.rejected]: (state, action) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = false;
       state.error = action.payload.message;
     },
     [deleteAnswer.pending]: (state) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = true;
       state.error = "";
     },
 
     [deleteAnswer.fulfilled]: (state, action) => {
       state.answers = [action.payload];
+      state.filterAnswer = [];
       state.loading = false;
       state.error = "";
     },
     [deleteAnswer.rejected]: (state, action) => {
       state.answers = [];
+      state.filterAnswer = [];
       state.loading = false;
       state.error = action.payload.message;
     },
@@ -149,6 +162,7 @@ const answerSlice = createSlice({
       const {
         arg: { id },
       } = action.meta;
+      state.filterAnswer = [];
       state.loading = false;
       state.answers = [action.payload];
     },

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Apis from "../../api/api";
 let jwtToken = localStorage.getItem("access_token");
 let token = "";
 
@@ -12,34 +13,26 @@ const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
 
 export const fetchQuestion1 = createAsyncThunk("questions/", async () => {
-  return await Apis.get(
-    `https://cors-anywhere.herokuapp.com/${BASEURL}v1/questions?page=1&size=10`
-  )
+  return await Apis.get(`${BASEURL}v1/questions?page=1&size=10`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
 
 export const fetchQuestion2 = createAsyncThunk("questions/", async () => {
-  return await Apis.get(
-    `https://cors-anywhere.herokuapp.com/${BASEURL}v1/questions?page=2&size=10`
-  )
+  return await Apis.get(`${BASEURL}v1/questions?page=2&size=10`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
 
 export const fetchQuestion3 = createAsyncThunk("questions/", async () => {
-  return await Apis.get(
-    `https://cors-anywhere.herokuapp.com/${BASEURL}v1/questions?page=3&size=10`
-  )
+  return await Apis.get(`${BASEURL}v1/questions?page=3&size=10`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });
 
 export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
   console.log(id);
-  return Apis.get(
-    `https://cors-anywhere.herokuapp.com/${BASEURL}v1/questions/${id}`
-  )
+  return Apis.get(`${BASEURL}v1/questions/${id}`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 });

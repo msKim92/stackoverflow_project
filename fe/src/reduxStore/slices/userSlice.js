@@ -25,10 +25,6 @@ export const signUser = createAsyncThunk(
   }
 );
 
-let token = localStorage.getItem("userEmail");
-
-let usertoken = token.split('"');
-
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async ({ loginData, navigate }) => {
