@@ -28,7 +28,7 @@ function Login() {
       userEmail: userWriteEmail,
       password: userWritePassword,
     };
-    dispatch(loginUser(loginData));
+    dispatch(loginUser({ loginData, navigate }));
   };
 
   const usersEmail = (e) => {

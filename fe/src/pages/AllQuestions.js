@@ -6,9 +6,13 @@ import RightNavi from "../components/RightNavi";
 import Footer from "../components/Footer";
 import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 function AllQuestions() {
   const [clickHere, setClickHere] = useState(1);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [clickSearchCheck, setClickSearchCheck] = useState(false);
+  const [changeSearch, setChangeSearch] = useState("");
 
   const clickNewQuestion = (number) => {
     setClickHere(number);
@@ -18,9 +22,28 @@ function AllQuestions() {
     navigate("/askquestions");
   };
 
+  const clickSearch = () => {
+    if (changeSearch) {
+      console.log(1);
+      setClickHere(99);
+      setClickSearchCheck(true);
+    } else {
+      console.log(2);
+      setClickSearchCheck(false);
+    }
+  };
+  const userSearch = (e) => {
+    setChangeSearch(e.target.value);
+  };
+
   return (
     <>
-      <Header />
+      <Header
+        changeSearch={changeSearch}
+        setChangeSearch={setChangeSearch}
+        userSearch={userSearch}
+        clickSearch={clickSearch}
+      />
       <Wraper>
         <LeftNvi />
         <QuestionList>
@@ -42,7 +65,11 @@ function AllQuestions() {
               <AllQuestionsMenuBtn>Month</AllQuestionsMenuBtn>
             </AllQuestionsBottom>
           </AllQuestionsMenu>
-          <Question clickHere={clickHere} />
+          <Question
+            clickHere={clickHere}
+            clickSearchCheck={clickSearchCheck}
+            changeSearch={changeSearch}
+          />
           <AllQuestionsInformation>
             <div>
               Looking for more? Browse the

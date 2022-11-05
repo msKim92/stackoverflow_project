@@ -19,6 +19,7 @@ import { CgUndo, CgRedo } from "react-icons/cg";
 import { BiCodeCurly } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { addAnswer } from "../reduxStore/slices/answerSlice";
+import { useNavigate } from "react-router-dom";
 
 function AddAnswer() {
   const parmas = useParams();
@@ -26,6 +27,7 @@ function AddAnswer() {
   const [openCode, setOpenCode] = useState(false);
   const [answerWrite, setAnswerWrite] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const clickOpenQuestion = () => {
     setOpenQe(!openQe);
@@ -40,11 +42,8 @@ function AddAnswer() {
   };
 
   const clickAddAnswer = () => {
-    let addData = {};
-    addData = {
-      questionId: Number(parmas.id),
-      answerBody: answerWrite,
-    };
+    let addData = { questionId: Number(parmas.id), answerBody: answerWrite };
+
     dispatch(addAnswer(addData));
   };
 
