@@ -3,11 +3,6 @@ import axios from "axios";
 import Apis from "../../api/api";
 let jwtToken = localStorage.getItem("access_token");
 console.log(jwtToken);
-let token = "";
-
-if (jwtToken) {
-  token = jwtToken.split(" ").pop();
-}
 
 const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
@@ -16,7 +11,10 @@ export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
   async (id) => {
     return Apis.get(`v1/answer/${id}`, {
-      headers: { Authorization: `${jwtToken}` },
+      headers: {
+        Authorization: `${jwtToken}`,
+        "ngrok-skip-browser-warning": "111",
+      },
     })
       .then((res) => res.data)
       .catch((err) => console.log(err));
@@ -26,8 +24,12 @@ export const fetchAnswer = createAsyncThunk(
 export const addAnswer = createAsyncThunk(
   "answers/addAnswer",
   async (answerData) => {
+    console.log(123, jwtToken);
     return Apis.post(`v1/answer`, answerData, {
-      headers: { Authorization: `${jwtToken}` },
+      headers: {
+        Authorization: `${jwtToken}`,
+        "ngrok-skip-browser-warning": "111",
+      },
     })
       .then((res) => res.data)
       .catch((err) => console.log(err));
@@ -49,7 +51,10 @@ export const updateAnswer = createAsyncThunk(
   async ({ upData, navigate }) => {
     console.log({ upData, navigate });
     return Apis.patch(`v1/answer/${upData.id}`, upData.answerBody, {
-      headers: { Authorization: `${jwtToken}` },
+      headers: {
+        Authorization: `${jwtToken}`,
+        "ngrok-skip-browser-warning": "111",
+      },
     })
       .then((res) => {
         // navigate(`/${upData.id}`);
@@ -81,64 +86,24 @@ const answerSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [fetchAnswer.pending]: (state) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = true;
-      state.error = "";
-    },
     [fetchAnswer.fulfilled]: (state, action) => {
       state.answers = [];
       state.filterAnswer = action.payload;
       state.loading = false;
       state.error = "";
     },
-    [fetchAnswer.rejected]: (state, action) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = false;
-      state.error = action.payload;
-    },
-    [addAnswer.pending]: (state) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = true;
-      state.error = "";
-    },
+
     [addAnswer.fulfilled]: (state, action) => {
       state.answers = [action.payload];
       state.filterAnswer = [];
       state.loading = false;
       state.error = "";
     },
-    [addAnswer.rejected]: (state, action) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = false;
-      state.error = action.payload.message;
-    },
-    [addVoteAnswer.pending]: (state) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = true;
-      state.error = "";
-    },
+
     [addVoteAnswer.fulfilled]: (state, action) => {
       state.answers = [action.payload];
       state.filterAnswer = [];
       state.loading = false;
-      state.error = "";
-    },
-    [addVoteAnswer.rejected]: (state, action) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = false;
-      state.error = action.payload.message;
-    },
-    [deleteAnswer.pending]: (state) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = true;
       state.error = "";
     },
 
@@ -148,16 +113,7 @@ const answerSlice = createSlice({
       state.loading = false;
       state.error = "";
     },
-    [deleteAnswer.rejected]: (state, action) => {
-      state.answers = [];
-      state.filterAnswer = [];
-      state.loading = false;
-      state.error = action.payload.message;
-    },
 
-    [updateAnswer.pending]: (state) => {
-      state.loading = true;
-    },
     [updateAnswer.fulfilled]: (state, action) => {
       const {
         arg: { id },
@@ -165,10 +121,6 @@ const answerSlice = createSlice({
       state.filterAnswer = [];
       state.loading = false;
       state.answers = [action.payload];
-    },
-    [updateAnswer.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
     },
   },
 });

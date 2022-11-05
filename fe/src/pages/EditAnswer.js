@@ -33,7 +33,7 @@ function EditAnswer() {
   console.log(111);
   useEffect(() => {
     dispatch(fetchAnswer(Number(parmas.id)));
-  }, [dispatch]);
+  }, []);
 
   const clickUpdateAnswer = (id) => {
     const upData = {

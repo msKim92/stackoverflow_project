@@ -16,7 +16,7 @@ function ReadAnswer() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(filterFetchQuestion(Number(parmas.id)));
-  }, [dispatch]);
+  }, []);
 
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
@@ -89,9 +89,7 @@ function ReadAnswer() {
   const changeClickSelect = (e) => {
     setClickSelect(e.target.value);
   };
-  // const clickVotes = () =>{
 
-  // }
   const deleteClick = (id) => {
     dispatch(deleteAnswer(Number(parmas.id)));
   };
