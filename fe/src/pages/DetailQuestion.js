@@ -24,6 +24,7 @@ function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
+  console.log(questionData);
 
   const dispatch = useDispatch();
   const parmas = useParams();
@@ -58,8 +59,12 @@ function DetailQuestion() {
     navigate("/askquestions");
   };
 
-  const clickUpBtn = () => {};
-  const clickDownBtn = () => {};
+  const clickUpBtn = () => {
+    dispatch(voteUpQuestion(questionData.questionId));
+  };
+  const clickDownBtn = () => {
+    dispatch(voteDownQuestion(questionData.questionId));
+  };
   const markup = () => {
     return { __html: `${questionData?.questionBody}` };
   };
@@ -104,9 +109,13 @@ function DetailQuestion() {
                   <Flex>
                     <ContentWrapper>
                       <IconWrapper>
-                        <CaretUpIcon onClick={clickUpBtn} />
+                        <ClickButtonStyle onClick={clickUpBtn}>
+                          <CaretUpIcon />
+                        </ClickButtonStyle>
                         <Num>0</Num>
-                        <CaretDownIcon onClick={clickDownBtn} />
+                        <ClickButtonStyle onClick={clickDownBtn}>
+                          <CaretDownIcon />
+                        </ClickButtonStyle>
                         <BookmarkIcon />
                         <HistoryIcon />
                       </IconWrapper>
@@ -187,6 +196,12 @@ const ButtonStyle = styled.button`
   border: 1px solid #0a95ff;
   box-shadow: 0 1px 0 #6cbfff inset;
 `;
+const ClickButtonStyle = styled.button`
+  font-size: 14px;
+  color: white;
+  border: none;
+  background-color: white;
+`;
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -200,7 +215,7 @@ const Wrapper = styled.div`
 `;
 
 const SecondWrapper = styled.div`
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
   height: 100%;
 `;

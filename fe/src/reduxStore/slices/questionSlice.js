@@ -70,12 +70,16 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
     .catch((err) => console.error("error:", err));
 });
 export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
-  return await Apis.post(`v1/vote/like/question/${qeId}`, {
-    headers: {
-      Authorization: `${jwtToken}`,
-      "ngrok-skip-browser-warning": "111",
-    },
-  })
+  return await Apis.post(
+    `v1/vote/like/question/${qeId}`,
+    {},
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "ngrok-skip-browser-warning": "111",
+      },
+    }
+  )
     .then((res) => console.log("success:", res))
     .catch((err) => console.error("error:", err));
 });
