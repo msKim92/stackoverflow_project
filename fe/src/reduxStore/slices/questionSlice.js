@@ -8,9 +8,6 @@ if (jwtToken) {
   token = jwtToken.split(" ").pop();
 }
 
-const BASEURL =
-  "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
-
 export const fetchQuestion = createAsyncThunk(
   "questions/",
   async (clickNumber) => {
@@ -66,7 +63,7 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
       "ngrok-skip-browser-warning": "111",
     },
   })
-    .then((res) => console.log("success:", res))
+    .then((res) => window.location.reload())
     .catch((err) => console.error("error:", err));
 });
 export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
@@ -80,19 +77,23 @@ export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
       },
     }
   )
-    .then((res) => console.log("success:", res))
+    .then((res) => window.location.reload())
     .catch((err) => console.error("error:", err));
 });
 export const voteDownQuestion = createAsyncThunk(
   "askQuestion",
   async (qeId) => {
-    return await Apis.post(`v1/vote/like/question/${qeId}`, {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
-      },
-    })
-      .then((res) => console.log("success:", res))
+    return await Apis.post(
+      `v1/vote/dislike/question/${qeId}`,
+      {},
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+          "ngrok-skip-browser-warning": "111",
+        },
+      }
+    )
+      .then((res) => window.location.reload())
       .catch((err) => console.error("error:", err));
   }
 );
@@ -131,20 +132,6 @@ const questionsSlice = createSlice({
       state.error = "";
     },
 
-    [askQuestion.fulfilled]: (state, action) => {
-      state.questions = [];
-      state.selectQuestions = action.payload;
-      state.searchQuestions = [];
-      state.loading = false;
-      state.error = "";
-    },
-    [askQuestion.fulfilled]: (state, action) => {
-      state.questions = [];
-      state.selectQuestions = action.payload;
-      state.searchQuestions = [];
-      state.loading = false;
-      state.error = "";
-    },
     [askQuestion.fulfilled]: (state, action) => {
       state.questions = [];
       state.selectQuestions = action.payload;

@@ -18,6 +18,7 @@ export const signUser = createAsyncThunk(
     })
       .then((res) => {
         navigate("/login");
+        window.location.reload();
         return res.data;
       })
       .catch((err) => console.log(err));
@@ -55,6 +56,7 @@ export const loginUser = createAsyncThunk(
           localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
           navigate("/");
+          window.location.reload();
           return res.data;
         })
         .catch((err) => console.log(err))

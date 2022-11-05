@@ -24,7 +24,6 @@ function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
-  console.log(questionData);
 
   const dispatch = useDispatch();
   const parmas = useParams();
@@ -109,11 +108,19 @@ function DetailQuestion() {
                   <Flex>
                     <ContentWrapper>
                       <IconWrapper>
-                        <ClickButtonStyle onClick={clickUpBtn}>
+                        <ClickButtonStyle
+                          onClick={() => {
+                            clickUpBtn();
+                          }}
+                        >
                           <CaretUpIcon />
                         </ClickButtonStyle>
-                        <Num>0</Num>
-                        <ClickButtonStyle onClick={clickDownBtn}>
+                        <Num>{questionData?.questionVote}</Num>
+                        <ClickButtonStyle
+                          onClick={() => {
+                            clickDownBtn();
+                          }}
+                        >
                           <CaretDownIcon />
                         </ClickButtonStyle>
                         <BookmarkIcon />
