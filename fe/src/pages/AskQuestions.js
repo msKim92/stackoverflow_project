@@ -39,12 +39,10 @@ function AskQuestions() {
 
   const tagAllowed = () => {
     setTagAllow(true);
-    console.log(tagAllow);
   };
 
   const submitAllow = () => {
     setSubmit(true);
-    console.log(tagAllow);
   };
 
   const body = {

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const Apis = axios.create({
   baseURL:
-    "https://cors-anywhere.herokuapp.com/https://2e44-203-130-71-252.jp.ngrok.io/",
+    "https://cors-anywhere.herokuapp.com/https://4452-203-130-71-252.jp.ngrok.io",
 });
 // const BASEURL =
 //   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";

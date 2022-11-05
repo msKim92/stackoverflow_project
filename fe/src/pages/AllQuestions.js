@@ -8,15 +8,11 @@ import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 function AllQuestions() {
-  const [clickHere, setClickHere] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [clickSearchCheck, setClickSearchCheck] = useState(false);
   const [changeSearch, setChangeSearch] = useState("");
-
-  const clickNewQuestion = (number) => {
-    setClickHere(number);
-  };
+  const [clickHere, setClickHere] = useState(1);
 
   const clickAddQuetion = () => {
     navigate("/askquestions");
@@ -24,11 +20,8 @@ function AllQuestions() {
 
   const clickSearch = () => {
     if (changeSearch) {
-      console.log(1);
-      setClickHere(99);
       setClickSearchCheck(true);
     } else {
-      console.log(2);
       setClickSearchCheck(false);
     }
   };
@@ -69,35 +62,8 @@ function AllQuestions() {
             clickHere={clickHere}
             clickSearchCheck={clickSearchCheck}
             changeSearch={changeSearch}
+            setClickHere={setClickHere}
           />
-          <AllQuestionsInformation>
-            <div>
-              Looking for more? Browse the
-              <InformationSpan> complete list of questions</InformationSpan>, or
-              <InformationSpan>popular tags</InformationSpan>. Help us answer
-            </div>
-            <InformationDiv>unanswered questions.</InformationDiv>
-          </AllQuestionsInformation>
-          <PageNationSpace>
-            <PageNationBtn1
-              isClick={clickHere}
-              onClick={() => clickNewQuestion(1)}
-            >
-              1
-            </PageNationBtn1>
-            <PageNationBtn2
-              isClick={clickHere}
-              onClick={() => clickNewQuestion(2)}
-            >
-              2
-            </PageNationBtn2>
-            <PageNationBtn3
-              isClick={clickHere}
-              onClick={() => clickNewQuestion(3)}
-            >
-              3
-            </PageNationBtn3>
-          </PageNationSpace>
         </QuestionList>
         <RightNavi />
       </Wraper>
@@ -203,63 +169,6 @@ const AllQuestionsMenuBtn = styled.button`
   &:focus {
     background-color: #e3e6e8;
   }
-`;
-const AllQuestionsInformation = styled.div`
-  width: 96%;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 20px;
-  font-size: 18px;
-`;
-
-const InformationSpan = styled.span`
-  color: #0074cc;
-  cursor: pointer;
-  &:hover {
-    color: #0995ff;
-  }
-  &:nth-child(2) {
-    margin-left: 5px;
-  }
-`;
-const InformationDiv = styled.div`
-  color: #0074cc;
-  cursor: pointer;
-  margin-top: 10px;
-  &:hover {
-    color: #0995ff;
-  }
-`;
-const PageNationSpace = styled.div`
-  width: 99%;
-  height: 35px;
-  border: 2px solid red;
-  display: flex;
-  align-items: center;
-`;
-
-const PageNationBtn1 = styled.button`
-  width: 30px;
-  height: 30px;
-  border: 1px solid gray;
-  margin: 0px 5px;
-  background-color: ${(props) => (props.isClick === 1 ? "orange" : "#d0e2f0")};
-`;
-const PageNationBtn2 = styled.button`
-  width: 30px;
-  height: 30px;
-  border: 1px solid gray;
-  margin: 0px 5px;
-  background-color: ${(props) => (props.isClick === 2 ? "orange" : "#d0e2f0")};
-`;
-const PageNationBtn3 = styled.button`
-  width: 30px;
-  height: 30px;
-  border: 1px solid gray;
-  margin: 0px 5px;
-  background-color: ${(props) => (props.isClick === 3 ? "orange" : "#d0e2f0")};
 `;
 
 export default AllQuestions;

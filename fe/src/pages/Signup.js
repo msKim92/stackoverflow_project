@@ -29,8 +29,6 @@ function Signup() {
 
   const [robotCkeck, setrobotCheck] = useState(false);
 
-  console.log(robotCkeck);
-
   const clickLogin = () => {
     navigate("/Login");
   };

@@ -30,7 +30,6 @@ function EditAnswer() {
   const userWriteContents = (e) => {
     setWrite(e.target.value);
   };
-  console.log(111);
   useEffect(() => {
     dispatch(fetchAnswer(Number(parmas.id)));
   }, []);

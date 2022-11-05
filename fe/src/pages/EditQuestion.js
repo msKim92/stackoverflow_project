@@ -19,7 +19,6 @@ function EditQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
-  console.log("questionData>>>>>>tionData>>>>>>", questionData);
   const selectList = ["mplungjan - 18 hours ago", "user20305 - 18 hours ago"];
   const [Selected, setSelected] = useState("");
 

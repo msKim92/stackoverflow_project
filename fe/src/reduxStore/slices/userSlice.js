@@ -27,7 +27,6 @@ export const signUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async ({ loginData, navigate }) => {
-    console.log({ loginData, navigate });
     return (
       Apis.post(
         `v1/login`,
@@ -48,7 +47,6 @@ export const loginUser = createAsyncThunk(
         //   body: JSON.stringify(loginData),
         // })
         .then((res) => {
-          console.log(res);
           let userId = res.config.data;
           let usertoken = userId.split('"')[3];
           let jwtToken = res.headers.get("Authorization");

@@ -13,14 +13,17 @@ import ReadAnswer from "../components/ReadAnswer";
 import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark, FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
+import {
+  filterFetchQuestion,
+  voteUpQuestion,
+  voteDownQuestion,
+} from "../reduxStore/slices/questionSlice";
 import { useParams, useNavigate } from "react-router-dom";
 
 function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
-  // console.log(">>>>>>>", questionData);
 
   const dispatch = useDispatch();
   const parmas = useParams();
@@ -55,6 +58,8 @@ function DetailQuestion() {
     navigate("/askquestions");
   };
 
+  const clickUpBtn = () => {};
+  const clickDownBtn = () => {};
   const markup = () => {
     return { __html: `${questionData?.questionBody}` };
   };
@@ -99,9 +104,9 @@ function DetailQuestion() {
                   <Flex>
                     <ContentWrapper>
                       <IconWrapper>
-                        <CaretUpIcon />
+                        <CaretUpIcon onClick={clickUpBtn} />
                         <Num>0</Num>
-                        <CaretDownIcon />
+                        <CaretDownIcon onClick={clickDownBtn} />
                         <BookmarkIcon />
                         <HistoryIcon />
                       </IconWrapper>

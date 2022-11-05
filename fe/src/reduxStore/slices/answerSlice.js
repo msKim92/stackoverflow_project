@@ -49,7 +49,6 @@ export const addVoteAnswer = createAsyncThunk(
 export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
   async ({ upData, navigate }) => {
-    console.log({ upData, navigate });
     return Apis.patch(`v1/answer/${upData.id}`, upData.answerBody, {
       headers: {
         Authorization: `${jwtToken}`,
