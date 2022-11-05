@@ -20,7 +20,7 @@ function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
-  console.log(">>>>>>>", questionData);
+  // console.log(">>>>>>>", questionData);
 
   const dispatch = useDispatch();
   const parmas = useParams();
@@ -59,9 +59,7 @@ function DetailQuestion() {
     return { __html: `${questionData?.questionBody}` };
   };
 
-  const editQuestion = (e, id) => {
-    console.log("id>>>>>>>>>>>>>>>", id);
-    e.preventDefault();
+  const editQuestion = (id) => {
     navigate(`/editquestion/${id}`);
   };
 
@@ -114,7 +112,7 @@ function DetailQuestion() {
                           <ShareWrapper>
                             <div>Share</div>
                             <div
-                              onClick={editQuestion(questionData?.questionId)}
+                            // onClick={editQuestion(questionData?.questionId)}
                             >
                               Edit
                             </div>

@@ -14,7 +14,7 @@ function EditQuestion() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(filterFetchQuestion(Number(parmas.id)));
-  }, [dispatch]);
+  }, []);
 
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data

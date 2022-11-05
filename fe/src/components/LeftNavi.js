@@ -8,20 +8,17 @@ function LeftNvi() {
   const navigate = useNavigate();
 
   const clickQuestion = () => {
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   const userNavClick = () => {
-    navigate("/MyPage")
-  }
-
+    navigate("/MyPage");
+  };
 
   return (
     <LeftNaviWrapper>
       <Wrapper>
-        <HomeMenu onClick={clickQuestion}>
-          Home
-        </HomeMenu>
+        <HomeMenu onClick={clickQuestion}>Home</HomeMenu>
         <MainMenu>
           <PublicMenu>PUBLIC</PublicMenu>
           <QuestionsContents onClick={clickQuestion}>
@@ -30,15 +27,9 @@ function LeftNvi() {
             </EarthIcon>
             <QuestionsMenu>Questions</QuestionsMenu>
           </QuestionsContents>
-          <Menu>
-            Tags
-          </Menu>
-          <Menu onClick={userNavClick}>
-            Users
-          </Menu>
-          <Menu>
-            Companies
-          </Menu>
+          <Menu>Tags</Menu>
+          <Menu onClick={userNavClick}>Users</Menu>
+          <Menu>Companies</Menu>
           <Collectives>COLLECTIVES</Collectives>
           <CollectivesContents>
             <StarIcon>
@@ -55,9 +46,7 @@ function LeftNvi() {
               organizational knowledge.
             </DisplayText>
             <SideImage src={sideImage}></SideImage>
-            <CreateBtn>
-              Create a free Team
-            </CreateBtn>
+            <CreateBtn>Create a free Team</CreateBtn>
             <TeamsMsg>Why Teams?</TeamsMsg>
           </TeamsContents>
         </TeamMainMenu>
