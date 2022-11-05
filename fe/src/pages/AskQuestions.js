@@ -50,7 +50,7 @@ function AskQuestions() {
   const body = {
     questionTitle: title,
     questionBody: question,
-    tags: "@java",
+    tags: "",
   };
 
   const dispatch = useDispatch();
