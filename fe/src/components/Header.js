@@ -8,7 +8,7 @@ import { FaQuestionCircle, FaStackExchange } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 
-function Header() {
+function Header({ userSearch, clickSearch }) {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
@@ -49,10 +49,14 @@ function Header() {
             <LinkBtn>Products</LinkBtn>
           </LinkBtnSpace>
           <SearchSpace isLogin={isLogin}>
-            <SearchIcons>
+            <SearchIcons onClick={clickSearch}>
               <AiOutlineSearch />
             </SearchIcons>
-            <SearchInput placeholder="Search..." isLogin={isLogin} />
+            <SearchInput
+              placeholder="Search..."
+              onChange={userSearch}
+              isLogin={isLogin}
+            />
           </SearchSpace>
           <UserProfile onClick={clickUserpage}>사용자</UserProfile>
           <BtnSpace isLogin={isLogin}>
@@ -85,10 +89,14 @@ function Header() {
             <LinkBtn>For Teams</LinkBtn>
           </LinkBtnSpace>
           <SearchSpace isLogin={isLogin}>
-            <SearchIcons>
+            <SearchIcons onClick={clickSearch}>
               <AiOutlineSearch />
             </SearchIcons>
-            <SearchInput placeholder="Search..." isLogin={isLogin} />
+            <SearchInput
+              placeholder="Search..."
+              onChange={userSearch}
+              isLogin={isLogin}
+            />
           </SearchSpace>
           <BtnSpace isLogin={isLogin}>
             <MemberBtn onClick={loginBtn}>Log in</MemberBtn>

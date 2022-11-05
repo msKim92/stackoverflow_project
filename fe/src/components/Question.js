@@ -8,12 +8,21 @@ import {
   fetchQuestion3,
 } from "../reduxStore/slices/questionSlice";
 import { useNavigate } from "react-router-dom";
+import { searchQuestion } from "../reduxStore/slices/questionSlice";
 
-function Question({ clickHere }) {
+function Question({ clickHere, clickSearchCheck, changeSearch }) {
+  console.log(clickSearchCheck);
   const navigate = useNavigate();
   const questions = useSelector((state) => state.questions.questions?.data);
+  const filterSearchQuestion = useSelector(
+    (state) => state.questions.searchQuestions?.data
+  );
+  console.log(filterSearchQuestion);
   const dispatch = useDispatch();
   useEffect(() => {
+    if (clickSearchCheck === true || clickHere === 99) {
+      dispatch(searchQuestion(changeSearch));
+    }
     if (!questions || clickHere === 1) {
       dispatch(fetchQuestion1());
       window.scrollTo(0, 0);
@@ -23,8 +32,8 @@ function Question({ clickHere }) {
     } else if (!questions || clickHere === 3) {
       dispatch(fetchQuestion3());
       window.scrollTo(0, 0);
-    } else {
-      dispatch(fetchQuestion1());
+    } else if (clickSearchCheck === true) {
+      // dispatch(searchQuestion())
     }
   }, [clickHere]);
 
@@ -100,41 +109,87 @@ function Question({ clickHere }) {
   };
   return (
     <>
-      {questions?.map((data) => (
-        <QuestionSpace key={data.questionId}>
-          <QuestionerSuggestionInFormation>
-            <QuestionerSuggestionCount>
-              <QuestionerCountChange>{data.questionVote}</QuestionerCountChange>
-              <div> votes</div>
-            </QuestionerSuggestionCount>
-            <QuestionerSuggestionCount>
-              <QuestionerCountChange></QuestionerCountChange>
-              <div>answer</div>
-            </QuestionerSuggestionCount>
-            <QuestionerSuggestionCount>
-              <QuestionerCountChange>
-                {data.questionViewCount}
-              </QuestionerCountChange>
-              <div>views</div>
-            </QuestionerSuggestionCount>
-          </QuestionerSuggestionInFormation>
-          <QuestionerContents>
-            <QuestionerContentsTitle
-              onClick={() => clickDetail(data.questionId)}
-            >
-              {data.questionTitle}
-            </QuestionerContentsTitle>
-            <QuestionerContentsTag>{data.tags}</QuestionerContentsTag>
-          </QuestionerContents>
-          <QuestionerInformation>
-            <QuestionerDetailInformation>
-              {data.author}
-            </QuestionerDetailInformation>
-            {modifiedCheck(data.modifiedAt)}
-            {renderTime(data.created_at, data.modified_at)}
-          </QuestionerInformation>
-        </QuestionSpace>
-      ))}
+      {clickSearchCheck ? (
+        <div>
+          {filterSearchQuestion?.map((data) => (
+            <QuestionSpace key={data.questionId}>
+              <QuestionerSuggestionInFormation>
+                <QuestionerSuggestionCount>
+                  <QuestionerCountChange>
+                    {data.questionVote}
+                  </QuestionerCountChange>
+                  <div> votes</div>
+                </QuestionerSuggestionCount>
+                <QuestionerSuggestionCount>
+                  <QuestionerCountChange></QuestionerCountChange>
+                  <div>answer</div>
+                </QuestionerSuggestionCount>
+                <QuestionerSuggestionCount>
+                  <QuestionerCountChange>
+                    {data.questionViewCount}
+                  </QuestionerCountChange>
+                  <div>views</div>
+                </QuestionerSuggestionCount>
+              </QuestionerSuggestionInFormation>
+              <QuestionerContents>
+                <QuestionerContentsTitle
+                  onClick={() => clickDetail(data.questionId)}
+                >
+                  {data.questionTitle}
+                </QuestionerContentsTitle>
+                <QuestionerContentsTag>{data.tags}</QuestionerContentsTag>
+              </QuestionerContents>
+              <QuestionerInformation>
+                <QuestionerDetailInformation>
+                  {data.author}
+                </QuestionerDetailInformation>
+                {modifiedCheck(data.modifiedAt)}
+                {renderTime(data.created_at, data.modified_at)}
+              </QuestionerInformation>
+            </QuestionSpace>
+          ))}
+        </div>
+      ) : (
+        <div>
+          {questions?.map((data) => (
+            <QuestionSpace key={data.questionId}>
+              <QuestionerSuggestionInFormation>
+                <QuestionerSuggestionCount>
+                  <QuestionerCountChange>
+                    {data.questionVote}
+                  </QuestionerCountChange>
+                  <div> votes</div>
+                </QuestionerSuggestionCount>
+                <QuestionerSuggestionCount>
+                  <QuestionerCountChange></QuestionerCountChange>
+                  <div>answer</div>
+                </QuestionerSuggestionCount>
+                <QuestionerSuggestionCount>
+                  <QuestionerCountChange>
+                    {data.questionViewCount}
+                  </QuestionerCountChange>
+                  <div>views</div>
+                </QuestionerSuggestionCount>
+              </QuestionerSuggestionInFormation>
+              <QuestionerContents>
+                <QuestionerContentsTitle
+                  onClick={() => clickDetail(data.questionId)}
+                >
+                  {data.questionTitle}
+                </QuestionerContentsTitle>
+                <QuestionerContentsTag>{data.tags}</QuestionerContentsTag>
+              </QuestionerContents>
+              <QuestionerInformation>
+                <QuestionerDetailInformation>
+                  {data.author}
+                </QuestionerDetailInformation>
+                {modifiedCheck(data.modifiedAt)}
+                {renderTime(data.created_at, data.modified_at)}
+              </QuestionerInformation>
+            </QuestionSpace>
+          ))}
+        </div>
+      )}
     </>
   );
 }

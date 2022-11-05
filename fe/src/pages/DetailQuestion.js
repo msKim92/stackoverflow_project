@@ -22,6 +22,7 @@ function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
+
   console.log(">>>>>>>", questionData);
   const [body, setBody] = useState(questionData?.questionBody);
 
@@ -95,9 +96,11 @@ function DetailQuestion() {
     navigate("/askquestions");
   };
 
+
   // const markup = () => {
   //   return { __html: `${questionData?.questionBody}` };
   // };
+
   return (
     <Wrapper>
       <header>
@@ -147,6 +150,7 @@ function DetailQuestion() {
                         <InfoWrapper>
                           <ShareWrapper>
                             <div>Share</div>
+
                             <Link
                               to={`/editquestion/${questionData?.questionId}`}
                               state={{ data: questionData }}

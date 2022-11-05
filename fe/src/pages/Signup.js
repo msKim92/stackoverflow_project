@@ -84,7 +84,7 @@ function Signup() {
       userWriteEmail !== "" &&
       userWritePassword !== ""
     ) {
-      dispatch(signUser(addData));
+      dispatch(signUser({ addData, navigate }));
     }
   };
 
