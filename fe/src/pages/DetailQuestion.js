@@ -46,13 +46,9 @@ function DetailQuestion() {
   }
 
   const deleteQuestion = () => {
-    axios
-      .delete(
-        `https://cors-anywhere.herokuapp.com/https://2e44-203-130-71-252.jp.ngrok.io/v1/questions/${questionData?.questionId}`,
-        {
-          headers: { Authorization: `${jwtToken}` },
-        }
-      )
+    Apis.delete(`v1/questions/${questionData?.questionId}`, {
+      headers: { Authorization: `${jwtToken}` },
+    })
       .then((res) => {
         navigate("/");
         console.log("성공");
@@ -101,24 +97,11 @@ function DetailQuestion() {
     navigate("/askquestions");
   };
 
-  const onClickLike = () => {
-    Apis.post(`/vote/like/question/${questionData?.questionId}`, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
-    })
-      .then((res) => console.log("success:", res))
-      .catch((err) => console.error("error:", err));
+  const clickUpBtn = () => {
+    dispatch(voteUpQuestion(questionData.questionId));
   };
-
-  const onClickDislike = () => {
-    Apis.post(`/vote/dislike/question/${questionData?.questionId}`, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
-    })
-      .then((res) => console.log("success:", res))
-      .catch((err) => console.error("error:", err));
+  const clickDownBtn = () => {
+    dispatch(voteDownQuestion(questionData.questionId));
   };
 
   return (
