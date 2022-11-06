@@ -48,11 +48,11 @@ export const loginUser = createAsyncThunk(
         //   body: JSON.stringify(loginData),
         // })
         .then((res) => {
-          let userId = res.config.data;
-          let usertoken = userId.split('"')[3];
+          // let userId = res.config.data;
+          // let usertoken = userId.split('"')[3];
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
-          localStorage.setItem("userEmail", usertoken);
+          // localStorage.setItem("userEmail", usertoken);
           localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
           navigate("/");
