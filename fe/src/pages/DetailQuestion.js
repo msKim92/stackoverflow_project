@@ -251,7 +251,7 @@ const LeftWrapper = styled.div`
 
 const Question = styled.div`
   width: 100%;
-  // border: 1px solid red;
+  border: 1px solid red;
   margin: 1%;
 `;
 

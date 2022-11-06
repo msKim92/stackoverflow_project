@@ -101,7 +101,6 @@ function AllQuestions() {
         </QuestionList>
         <RightNavi />
       </Wraper>
-
       <Footer />
     </>
   );
@@ -235,9 +234,9 @@ const InformationDiv = styled.div`
 const PageNationSpace = styled.div`
   width: 99%;
   height: 35px;
-  border: 2px solid red;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const PageNationBtn1 = styled.button`
