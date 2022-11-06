@@ -7,19 +7,20 @@ import Footer from "../components/Footer";
 import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import useNotification from "../pages/useNotification";
 function AllQuestions() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [clickSearchCheck, setClickSearchCheck] = useState(false);
   const [changeSearch, setChangeSearch] = useState("");
   const [clickHere, setClickHere] = useState(1);
-
+  console.log(changeSearch);
   const clickAddQuetion = () => {
     navigate("/askquestions");
   };
-
   const clickSearch = () => {
     if (changeSearch) {
+      setClickHere(99);
       setClickSearchCheck(true);
     } else {
       setClickSearchCheck(false);
@@ -28,6 +29,13 @@ function AllQuestions() {
   const userSearch = (e) => {
     setChangeSearch(e.target.value);
   };
+
+  let jwtToken = localStorage.getItem("access_token");
+  console.log("jwtToken>>>>", jwtToken);
+
+  const triggerNotif = useNotification("로그인을 해주세요.", {
+    body: "from. stackoverflow",
+  });
 
   return (
     <>
@@ -45,9 +53,15 @@ function AllQuestions() {
           <AllQuestionsMenu>
             <AllQuestionsTop>
               <AllQuestionsTitle>Top Questions</AllQuestionsTitle>
-              <AllQuestionsAddBtn onClick={clickAddQuetion}>
-                Ask Question
-              </AllQuestionsAddBtn>
+              {jwtToken === "" || jwtToken === "undefined" ? (
+                <AllQuestionsAddBtn onClick={triggerNotif}>
+                  Ask Question
+                </AllQuestionsAddBtn>
+              ) : (
+                <AllQuestionsAddBtn onClick={clickAddQuetion}>
+                  Ask Question
+                </AllQuestionsAddBtn>
+              )}
             </AllQuestionsTop>
             <AllQuestionsBottom>
               <AllQuestionsMenuBtn>Interestion</AllQuestionsMenuBtn>

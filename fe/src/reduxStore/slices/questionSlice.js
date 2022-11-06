@@ -8,7 +8,6 @@ if (jwtToken) {
   token = jwtToken.split(" ").pop();
 }
 
-
 export const fetchQuestion = createAsyncThunk(
   "questions/",
   async (clickNumber) => {
@@ -18,7 +17,9 @@ export const fetchQuestion = createAsyncThunk(
         "ngrok-skip-browser-warning": "111",
       },
     })
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data;
+      })
       .catch((err) => console.log(err));
   }
 );
@@ -42,7 +43,9 @@ export const searchQuestion = createAsyncThunk(
         "ngrok-skip-browser-warning": "111",
       },
     })
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data;
+      })
       .catch((err) => console.log(err));
   }
 );
@@ -64,7 +67,7 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
       "ngrok-skip-browser-warning": "111",
     },
   })
-    .then((res) => window.location.reload())
+    .then(() => window.location.replace("/"))
 
     .catch((err) => console.error("error:", err));
 });
