@@ -7,9 +7,9 @@ import LeftNvi from "../components/LeftNavi";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 import axios from "axios";
+import Apis from "../api/api";
 
 function EditQuestion() {
-
   const editoerRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,18 +52,21 @@ function EditQuestion() {
     token = jwtToken.split(" ").pop();
   }
   const handleSubmit = () => {
-    axios
-      .patch(
-        `http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/v1/questions/${data.questionId}`,
-        {
-          questionTitle: title,
-          questionBody: body,
-          tags: "",
+    Apis.patch(
+      `v1/questions/${data.questionId}`,
+      {
+        questionTitle: title,
+        questionBody: body,
+        tags: "",
+      },
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+          "Access-Control-Allow-Origin": "*",
+          "ngrok-skip-browser-warning": "111",
         },
-        {
-          headers: { Authorization: `${jwtToken}` },
-        }
-      )
+      }
+    )
       .then((res) => {
         console.log(res.data);
         navigate("/");

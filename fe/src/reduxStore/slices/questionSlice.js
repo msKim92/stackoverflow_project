@@ -7,7 +7,7 @@ let token = "";
 if (jwtToken) {
   token = jwtToken.split(" ").pop();
 }
-console.log(jwtToken);
+console.log("jwtToken:", jwtToken);
 
 const BASEURL =
   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
@@ -83,11 +83,12 @@ export const filterFetchAnswer = createAsyncThunk("filterqe/", async (id) => {
 });
 
 export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
-  return await axios
-    .post(`v1/questions/createQuestion`, body, {
-      headers: { Authorization: `${jwtToken}` },
+  return await Apis.post(`v1/questions/createQuestion`, body, {
+    headers: {
+      Authorization: `${jwtToken}`,
       "ngrok-skip-browser-warning": "111",
-    })
+    },
+  })
     .then((res) => console.log("success:", res))
     .catch((err) => console.error("error:", err));
 });

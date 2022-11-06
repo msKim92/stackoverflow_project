@@ -96,7 +96,6 @@ function DetailQuestion() {
     navigate("/askquestions");
   };
 
-
   // const markup = () => {
   //   return { __html: `${questionData?.questionBody}` };
   // };
@@ -150,7 +149,6 @@ function DetailQuestion() {
                         <InfoWrapper>
                           <ShareWrapper>
                             <div>Share</div>
-
                             <Link
                               to={`/editquestion/${questionData?.questionId}`}
                               state={{ data: questionData }}
