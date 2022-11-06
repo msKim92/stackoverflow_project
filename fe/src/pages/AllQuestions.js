@@ -14,13 +14,13 @@ function AllQuestions() {
   const [clickSearchCheck, setClickSearchCheck] = useState(false);
   const [changeSearch, setChangeSearch] = useState("");
   const [clickHere, setClickHere] = useState(1);
-
+  console.log(changeSearch);
   const clickAddQuetion = () => {
     navigate("/askquestions");
   };
-
   const clickSearch = () => {
     if (changeSearch) {
+      setClickHere(99);
       setClickSearchCheck(true);
     } else {
       setClickSearchCheck(false);

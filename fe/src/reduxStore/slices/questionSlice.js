@@ -17,7 +17,9 @@ export const fetchQuestion = createAsyncThunk(
         "ngrok-skip-browser-warning": "111",
       },
     })
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data;
+      })
       .catch((err) => console.log(err));
   }
 );
@@ -41,7 +43,9 @@ export const searchQuestion = createAsyncThunk(
         "ngrok-skip-browser-warning": "111",
       },
     })
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data;
+      })
       .catch((err) => console.log(err));
   }
 );
