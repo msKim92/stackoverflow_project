@@ -8,7 +8,6 @@ if (jwtToken) {
   token = jwtToken.split(" ").pop();
 }
 
-
 export const fetchQuestion = createAsyncThunk(
   "questions/",
   async (clickNumber) => {
@@ -64,7 +63,7 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
       "ngrok-skip-browser-warning": "111",
     },
   })
-    .then((res) => window.location.reload())
+    .then((res) => window.location.replace("/"))
 
     .catch((err) => console.error("error:", err));
 });

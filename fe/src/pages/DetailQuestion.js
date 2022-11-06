@@ -4,62 +4,41 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import RightNavi from "../components/RightNavi";
+import ReadAnswer from "../components/ReadAnswer";
+import AddAnswer from "../components/AddAnswer";
+import { FaRegBookmark, FaRegUserCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate, Link } from "react-router-dom";
+// import "@toast-ui/editor/dist/toastui-editor.css";
+// import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
+import { Viewer } from "@toast-ui/react-editor";
+import Apis from "../api/api";
 import {
   AiFillCaretUp,
   AiFillCaretDown,
   AiOutlineHistory,
 } from "react-icons/ai";
-import ReadAnswer from "../components/ReadAnswer";
-import AddAnswer from "../components/AddAnswer";
-import { FaRegBookmark, FaRegUserCircle } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-
 import {
   filterFetchQuestion,
   voteUpQuestion,
   voteDownQuestion,
 } from "../reduxStore/slices/questionSlice";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { Viewer } from "@toast-ui/react-editor";
-import axios from "axios";
-import Apis from "../api/api";
 
 function DetailQuestion() {
+  const dispatch = useDispatch();
+  const parmas = useParams();
+  const navigate = useNavigate();
+
+  //question페이지에서 보낸 질문데이터
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
-
   const [body, setBody] = useState(questionData?.questionBody);
-
-  const dispatch = useDispatch();
-  const parmas = useParams();
-
+  //url parameter가져오기
   useEffect(() => {
     dispatch(filterFetchQuestion(Number(parmas.id)));
   }, []);
-
-  let jwtToken = localStorage.getItem("access_token");
-  let token = "";
-
-  if (jwtToken) {
-    token = jwtToken.split(" ").pop();
-  }
-
-  const deleteQuestion = () => {
-    Apis.delete(`v1/questions/${questionData?.questionId}`, {
-      headers: { Authorization: `${jwtToken}` },
-    })
-      .then((res) => {
-        navigate("/");
-        console.log("성공");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("실패");
-        console.log(err);
-      });
-  };
-
+  //tag 값 정렬
   const tags = questionData?.tags;
   const tagList =
     tags &&
@@ -68,7 +47,7 @@ function DetailQuestion() {
         return <button key={el.toString()}>{el}</button>;
       }
     });
-
+  //날짜 계산
   const createdAt = new Date(questionData?.created_at).toLocaleDateString(
     "en-us",
     {
@@ -91,18 +70,46 @@ function DetailQuestion() {
       minute: "numeric",
     }
   );
-
-  const navigate = useNavigate();
+  //askquestion으로 이동
   const clickAddQuetion = () => {
     navigate("/askquestions");
   };
-
+  //투표 클릭 시 api통신
   const clickUpBtn = () => {
     dispatch(voteUpQuestion(questionData.questionId));
   };
   const clickDownBtn = () => {
     dispatch(voteDownQuestion(questionData.questionId));
   };
+
+  //localStorage token값
+  let jwtToken = localStorage.getItem("access_token");
+  let token = "";
+
+  if (jwtToken) {
+    token = jwtToken.split(" ").pop();
+  }
+
+  const deleteQuestion = () => {
+    Apis.delete(`v1/questions/${questionData?.questionId}`, {
+      headers: { Authorization: `${jwtToken}` },
+    })
+      .then((res) => {
+        navigate("/");
+        console.log("성공");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("실패");
+        console.log(err);
+      });
+  };
+
+  const viewer = new Viewer({
+    el: document.querySelector("#viewer"),
+    height: "600px",
+    initialValue: questionData?.questionBody,
+  });
 
   return (
     <Wrapper>
@@ -160,7 +167,7 @@ function DetailQuestion() {
                         <HistoryIcon />
                       </IconWrapper>
                       <QuestionWrapper>
-                        <Viewer initialValue={body} />
+                        <viewer />
 
                         <ButtonWrapper>{tagList}</ButtonWrapper>
                         <InfoWrapper>
