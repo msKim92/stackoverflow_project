@@ -108,6 +108,12 @@ function EditQuestion() {
                     onChange={onChange}
                   ></Editor> */}
                   <textarea
+                    style={{
+                      height: "300px",
+                      resize: "none",
+                      width: "100%",
+                      border: "1px solid #babfc4",
+                    }}
                     defaultValue={body}
                     onChange={(e) => setBody(e.target.value)}
                   ></textarea>
@@ -247,7 +253,7 @@ const Bold = styled.div`
   margin-top: 2%;
   font-weight: bold;
   font-size: 14px;
-  & + textarea {
+  & + input {
     margin-top: 0.8%;
     width: 98%;
     padding: 1% 0 0 1%;

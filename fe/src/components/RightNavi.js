@@ -174,7 +174,7 @@ function RightNavi() {
 
         <Space></Space>
 
-        <Network>Hot Network Questions</Network>
+        {/* <Network>Hot Network Questions</Network>
 
         <Space></Space>
 
@@ -236,7 +236,7 @@ function RightNavi() {
               Expectations in how to get faster with Vim/Nvim?
             </a>
           </Questions>
-        </QuestionsWrapper>
+        </QuestionsWrapper> */}
       </RightNaviWraper>
     </div>
   );

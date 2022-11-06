@@ -111,7 +111,7 @@ function DetailQuestion() {
       </header>
       <SecondWrapper>
         <ThirdWrapper>
-            <LeftNvi />
+          <LeftNvi />
           <Question>
             <div>
               <Titile>
@@ -160,12 +160,12 @@ function DetailQuestion() {
                         <InfoWrapper>
                           <ShareWrapper>
                             <div>Share</div>
-                            <Link
+                            <Edit
                               to={`/editquestion/${questionData?.questionId}`}
                               state={{ data: questionData }}
                             >
                               Edit
-                            </Link>
+                            </Edit>
                             <div onClick={deleteQuestion}>Delete</div>
                           </ShareWrapper>
                           <div
@@ -261,7 +261,6 @@ const ThirdWrapper = styled.div`
   margin-top: 4%;
   height: 100%;
 `;
-
 
 const Question = styled.div`
   width: 100%;
@@ -370,6 +369,13 @@ const ShareWrapper = styled.div`
   & > button {
     margin-right: 8%;
   }
+`;
+
+const Edit = styled(Link)`
+  margin-right: 8%;
+  color: #6a737c;
+  font-size: 13px;
+  text-decoration: none;
 `;
 
 const CaretUpIcon = styled(AiFillCaretUp)`
