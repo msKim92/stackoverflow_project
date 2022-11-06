@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IoEarthSharp, IoStarOutline } from "react-icons/io5";
+import { IoEarthSharp, IoStarOutline, IoBagSharp } from "react-icons/io5";
 import sideImage from "../img/sideImg.png";
 
 function LeftNvi() {
@@ -43,15 +43,8 @@ function LeftNvi() {
         </MainMenu>
         <TeamsMenu>TEAMS</TeamsMenu>
         <TeamMainMenu>
-          <TeamsContents>
-            <DisplayText>
-              Stack Overflow for Teams – Start collaborating and sharing
-              organizational knowledge.
-            </DisplayText>
-            <SideImage src={sideImage}></SideImage>
-            <CreateBtn>Create a free Team</CreateBtn>
-            <TeamsMsg>Why Teams?</TeamsMsg>
-          </TeamsContents>
+          <TeamsContents><IoBagSharp/></TeamsContents>
+          <TeamsContents>Create free Team</TeamsContents>
         </TeamMainMenu>
         </Position>
       </Wrapper>
@@ -60,8 +53,8 @@ function LeftNvi() {
 }
 
 const LeftNaviWrapper = styled.div`
+  margin-bottom: 300px;
   width: 168px;
-  border: none;
 `;
 
 const Wrapper = styled.div`
@@ -94,9 +87,10 @@ const MainMenu = styled.div`
 `;
 
 const TeamMainMenu = styled.div`
+  display: flex;
+  justify-content: center;
   height: 284px;
-  margin: 12px -1px;
-  border: 1px solid (60, 60, 60);
+  margin: 12px 1px;
 `;
 
 const PublicMenu = styled.div`
@@ -173,51 +167,18 @@ const CollectivesMenu = styled.div`
 `;
 
 const TeamsMenu = styled.div`
+  display: flex;
   color: rgb(106, 115, 124);
   margin-left: 5px;
   margin-top: 28px;
   font-size: 11px;
 `;
 
-const DisplayText = styled.div`
-  margin: 10px;
-  font-size: 13px;
-`;
-
 const TeamsContents = styled.div`
-  height: 290px;
-  width: 163px;
-  border: 1px solid #d6d9dc;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const SideImage = styled.img`
-  margin: 8px;
-  border: 1px solid red;
-  border: none;
-  width: 139px;
-  height: 114px;
-`;
-
-const CreateBtn = styled.button`
-  border-radius: 3px;
-  border: none;
-  background-color: #f48225;
-  color: white;
-  font-size: 11px;
-  width: 138px;
-  height: 30px;
-  cursor: pointer;
-`;
-
-const TeamsMsg = styled.div`
-  margin-top: 10px;
   color: rgb(106, 115, 124);
-  font-size: 11px;
-  display: flex;
-  justify-content: center;
+  margin-left: 8px;
+  margin-top: 5px;
+  font-size: 14px;
 `;
 
 export default LeftNvi;

@@ -166,7 +166,7 @@ function Signup() {
                   <InputBox onChange={userName} isCheck={nickCheck} />
                   <TextContents>Email</TextContents>
                   <InputBox onChange={userEmail} isCheck={writeEmailCheck} />
-                  <TextContents>Password</TextContents>
+                  <TextContents type="password">Password</TextContents>
                   <InputBox onChange={userPassword} isCheck={writePwdCheck} />
                 </div>
                 <Message>
