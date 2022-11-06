@@ -60,9 +60,6 @@ function AllQuestions() {
                   Ask Question
                 </AllQuestionsAddBtn>
               )}
-              {/* <AllQuestionsAddBtn onClick={clickAddQuetion}>
-                Ask Question
-              </AllQuestionsAddBtn> */}
             </AllQuestionsTop>
             <AllQuestionsBottom>
               <AllQuestionsMenuBtn>Interestion</AllQuestionsMenuBtn>

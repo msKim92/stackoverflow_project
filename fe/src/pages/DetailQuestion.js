@@ -90,9 +90,6 @@ function DetailQuestion() {
     token = jwtToken.split(" ").pop();
   }
 
-  const editQuestion = (id) => {
-    navigate(`/editquestion/${id}`);
-  };
   // const markup = () => {
   //   return { __html: `${questionData?.questionBody}` };
   // };
