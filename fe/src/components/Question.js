@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { searchQuestion } from "../reduxStore/slices/questionSlice";
 
 function Question({ clickHere, setClickHere, clickSearchCheck, changeSearch }) {
+  console.log(clickHere, clickSearchCheck, changeSearch);
   const navigate = useNavigate();
   const questions = useSelector((state) => state.questions.questions?.data);
   const allQuestions = useSelector(
@@ -96,13 +97,12 @@ function Question({ clickHere, setClickHere, clickSearchCheck, changeSearch }) {
   };
 
   useEffect(() => {
-    if (clickSearchCheck === true || clickHere === 99) {
-      dispatch(searchQuestion(changeSearch));
-    }
-    if (!questions || clickHere) {
+    if (!questions || clickHere < 10) {
       console.log(clickHere);
       dispatch(fetchQuestion(clickHere));
       window.scrollTo(0, 0);
+    } else if (clickSearchCheck === true || clickHere === 99) {
+      dispatch(searchQuestion(changeSearch));
     }
   }, [clickHere]);
 

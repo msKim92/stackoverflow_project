@@ -7,19 +7,33 @@ import { GoInbox } from "react-icons/go";
 import { FaQuestionCircle, FaStackExchange } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import { useSelector } from "react-redux";
 
 function Header({ userSearch, clickSearch }) {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
+  const jwtToken = localStorage.getItem("userEmail");
+  console.log(isLogin);
+  // const[loginCheck , setLoginCheck] = useState(false);
+  // console.log(jwtToken);
 
   const loginBtn = () => {
-    setIsLogin(true);
-    navigate("/Login");
+    if (jwtToken) {
+      setIsLogin(true);
+    } else if (!jwtToken && isLogin === false) {
+      setIsLogin(true);
+      navigate("/login");
+    }
   };
 
   const signupBtn = () => {
-    navigate("/Signup");
+    if (jwtToken) {
+      setIsLogin(true);
+    } else if (!jwtToken && isLogin === false) {
+      setIsLogin(true);
+      navigate("/signup");
+    }
   };
 
   const logoutBtn = () => {
@@ -40,7 +54,7 @@ function Header({ userSearch, clickSearch }) {
 
   return (
     <Wraper>
-      {isLogin ? (
+      {isLogin || jwtToken ? (
         <HeaderWraper>
           <LogoBtn onClick={clickAllQuestion}>
             <LogoImg src={stackLogo} />
