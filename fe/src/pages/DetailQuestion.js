@@ -84,11 +84,22 @@ function DetailQuestion() {
 
   //localStorage token값
   let jwtToken = localStorage.getItem("access_token");
-  let token = "";
 
-  if (jwtToken) {
-    token = jwtToken.split(" ").pop();
-  }
+  //게시글 삭제api
+  const deleteQuestion = () => {
+    Apis.delete(`v1/questions/${questionData.questionId}`, {
+      headers: {
+        Authorization: `${jwtToken}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   // const markup = () => {
   //   return { __html: `${questionData?.questionBody}` };
