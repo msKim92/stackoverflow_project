@@ -53,7 +53,6 @@ function LeftNvi() {
 }
 
 const LeftNaviWrapper = styled.div`
-  margin-bottom: 300px;
   width: 168px;
 `;
 

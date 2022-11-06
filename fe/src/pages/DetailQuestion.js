@@ -112,9 +112,7 @@ function DetailQuestion() {
       </header>
       <SecondWrapper>
         <ThirdWrapper>
-          <LeftWrapper>
             <LeftNvi />
-          </LeftWrapper>
           <Question>
             <div>
               <Titile>
@@ -264,13 +262,9 @@ const ThirdWrapper = styled.div`
   height: 100%;
 `;
 
-const LeftWrapper = styled.div`
-  width: 13%;
-`;
 
 const Question = styled.div`
   width: 100%;
-  border: 1px solid red;
   margin: 1%;
 `;
 
