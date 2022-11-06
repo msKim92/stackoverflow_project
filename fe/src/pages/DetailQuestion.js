@@ -13,7 +13,12 @@ import ReadAnswer from "../components/ReadAnswer";
 import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark, FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
+
+import {
+  filterFetchQuestion,
+  voteUpQuestion,
+  voteDownQuestion,
+} from "../reduxStore/slices/questionSlice";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Viewer } from "@toast-ui/react-editor";
 import axios from "axios";
@@ -24,7 +29,6 @@ function DetailQuestion() {
     (state) => state.questions.selectQuestions?.data
   );
 
-  console.log(">>>>>>>", questionData);
   const [body, setBody] = useState(questionData?.questionBody);
 
   const dispatch = useDispatch();
@@ -97,25 +101,23 @@ function DetailQuestion() {
     navigate("/askquestions");
   };
 
-  const onClickLike = () => {
-    Apis.post(`/vote/like/question/${questionData?.questionId}`, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
-    })
-      .then((res) => console.log("success:", res))
-      .catch((err) => console.error("error:", err));
+  const clickUpBtn = () => {
+    dispatch(voteUpQuestion(questionData.questionId));
+  };
+  const clickDownBtn = () => {
+    dispatch(voteDownQuestion(questionData.questionId));
+  };
+  const markup = () => {
+    return { __html: `${questionData?.questionBody}` };
   };
 
-  const onClickDislike = () => {
-    Apis.post(`/vote/dislike/question/${questionData?.questionId}`, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
-    })
-      .then((res) => console.log("success:", res))
-      .catch((err) => console.error("error:", err));
+  const editQuestion = (id) => {
+    navigate(`/editquestion/${id}`);
   };
+  // const markup = () => {
+  //   return { __html: `${questionData?.questionBody}` };
+  // };
+
 
   return (
     <Wrapper>
@@ -153,9 +155,23 @@ function DetailQuestion() {
                   <Flex>
                     <ContentWrapper>
                       <IconWrapper>
-                        <CaretUpIcon onClick={onClickLike} />
+
+                        <ClickButtonStyle
+                          onClick={() => {
+                            clickUpBtn();
+                          }}
+                        >
+                          <CaretUpIcon />
+                        </ClickButtonStyle>
                         <Num>{questionData?.questionVote}</Num>
-                        <CaretDownIcon onClick={onClickDislike} />
+                        <ClickButtonStyle
+                          onClick={() => {
+                            clickDownBtn();
+                          }}
+                        >
+                          <CaretDownIcon />
+                        </ClickButtonStyle>
+
                         <BookmarkIcon />
                         <HistoryIcon />
                       </IconWrapper>
@@ -238,6 +254,12 @@ const ButtonStyle = styled.button`
   border: 1px solid #0a95ff;
   box-shadow: 0 1px 0 #6cbfff inset;
 `;
+const ClickButtonStyle = styled.button`
+  font-size: 14px;
+  color: white;
+  border: none;
+  background-color: white;
+`;
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -251,7 +273,7 @@ const Wrapper = styled.div`
 `;
 
 const SecondWrapper = styled.div`
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
   height: 100%;
 `;
@@ -268,7 +290,7 @@ const LeftWrapper = styled.div`
 
 const Question = styled.div`
   width: 100%;
-  // border: 1px solid red;
+  border: 1px solid red;
   margin: 1%;
 `;
 

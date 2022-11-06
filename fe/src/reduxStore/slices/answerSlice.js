@@ -16,7 +16,10 @@ export const fetchAnswer = createAsyncThunk(
         "ngrok-skip-browser-warning": "111",
       },
     })
-      .then((res) => res.data)
+      .then((res) => {
+        window.location.reload();
+        return res.data;
+      })
       .catch((err) => console.log(err));
   }
 );
@@ -31,17 +34,10 @@ export const addAnswer = createAsyncThunk(
         "ngrok-skip-browser-warning": "111",
       },
     })
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
-  }
-);
-export const addVoteAnswer = createAsyncThunk(
-  "answers/addAnswer",
-  async (like) => {
-    return Apis.post(`v1/answer${like}`, {
-      headers: { Authorization: `${jwtToken}` },
-    })
-      .then((res) => res.data)
+      .then((res) => {
+        window.location.reload();
+        return res.data;
+      })
       .catch((err) => console.log(err));
   }
 );
@@ -49,7 +45,6 @@ export const addVoteAnswer = createAsyncThunk(
 export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
   async ({ upData, navigate }) => {
-    console.log({ upData, navigate });
     return Apis.patch(`v1/answer/${upData.id}`, upData.answerBody, {
       headers: {
         Authorization: `${jwtToken}`,
@@ -71,10 +66,42 @@ export const deleteAnswer = createAsyncThunk(
     return Apis.delete(`v1/answer/${id}`, {
       headers: { Authorization: `${jwtToken}` },
     })
-      .then((res) => res.data)
+      .then((res) => {
+        window.location.reload();
+        return res.data;
+      })
       .catch((err) => console.log(err));
   }
 );
+export const voteUpAnswer = createAsyncThunk("askQuestion", async (anId) => {
+  return await Apis.post(
+    `v1/vote/like/answer/${anId}`,
+    {},
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "ngrok-skip-browser-warning": "111",
+      },
+    }
+  )
+    .then((res) => window.location.reload())
+    .catch((err) => console.error("error:", err));
+});
+export const voteDownAnswer = createAsyncThunk("askQuestion", async (anId) => {
+  console.log(anId);
+  return await Apis.post(
+    `v1/vote/dislike/answer/${anId}`,
+    {},
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "ngrok-skip-browser-warning": "111",
+      },
+    }
+  )
+    .then((res) => window.location.reload())
+    .catch((err) => console.error("error:", err));
+});
 
 const answerSlice = createSlice({
   name: "answers",
@@ -94,13 +121,6 @@ const answerSlice = createSlice({
     },
 
     [addAnswer.fulfilled]: (state, action) => {
-      state.answers = [action.payload];
-      state.filterAnswer = [];
-      state.loading = false;
-      state.error = "";
-    },
-
-    [addVoteAnswer.fulfilled]: (state, action) => {
       state.answers = [action.payload];
       state.filterAnswer = [];
       state.loading = false;
