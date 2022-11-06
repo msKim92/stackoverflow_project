@@ -153,19 +153,11 @@ function DetailQuestion() {
                   <Flex>
                     <ContentWrapper>
                       <IconWrapper>
-                        <ClickButtonStyle
-                          onClick={() => {
-                            clickUpBtn();
-                          }}
-                        >
+                        <ClickButtonStyle onClick={clickUpBtn}>
                           <CaretUpIcon />
                         </ClickButtonStyle>
                         <Num>{questionData?.questionVote}</Num>
-                        <ClickButtonStyle
-                          onClick={() => {
-                            clickDownBtn();
-                          }}
-                        >
+                        <ClickButtonStyle onClick={clickDownBtn}>
                           <CaretDownIcon />
                         </ClickButtonStyle>
                         <BookmarkIcon />
