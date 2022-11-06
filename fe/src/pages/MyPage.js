@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import Footer from "../components/Footer";
 import Img from "../img/user.png"
+import { SiDatadog } from "react-icons/si";
 
 function MyPage() {
   return (
@@ -16,7 +17,7 @@ function MyPage() {
                 <UserImg>
                   <Image src={Img} />
                 </UserImg>
-                <UserName> USER 이름 </UserName>
+                <UserName>User</UserName>
             </UserForm>
             <Answers>Answers</Answers>
             <AnswersBox>You have not answered any questions</AnswersBox>

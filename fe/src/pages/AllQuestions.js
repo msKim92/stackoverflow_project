@@ -45,7 +45,9 @@ function AllQuestions() {
         userSearch={userSearch}
         clickSearch={clickSearch}
       />
+      
       <Wraper>
+        <Position>
         <LeftNvi />
         <QuestionList>
           <AllQuestionsMenu>
@@ -80,26 +82,37 @@ function AllQuestions() {
           />
         </QuestionList>
         <RightNavi />
+        </Position>
+        <FooterForm>
+        <Footer />
+        </FooterForm>
       </Wraper>
-      <Footer />
     </>
   );
 }
 
 const Wraper = styled.div`
-  width: 1400px;
+  width: 100%;
   padding-top: 60px;
-  height: 100%;
+  height: 1900px;
   display: flex;
+  align-items: center;
+  flex-direction: column;
   margin-left: auto;
   margin-right: auto;
 `;
+
+const Position = styled.div`
+  display: flex;
+`;
+
 const QuestionList = styled.div`
   width: 750px;
   height: 100%;
   overflow-y: auto;
   margin: 10px 10px 10px 0px;
 `;
+
 const AllQuestionsMenu = styled.div`
   width: 99%;
   height: 120px;
@@ -241,5 +254,11 @@ const PageNationBtn3 = styled.button`
   margin: 0px 5px;
   background-color: ${(props) => (props.isClick === 3 ? "orange" : "#d0e2f0")};
 `;
+
+const FooterForm = styled.div`
+  width: 100%;
+`;
+
+
 
 export default AllQuestions;

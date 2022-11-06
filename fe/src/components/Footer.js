@@ -71,7 +71,7 @@ function Footer() {
 
 const FooterWraper = styled.div`
   width: 100%;
-  height: 400px;
+  height: 360px;
   background-color: #232628;
   display: flex;
   justify-content: center;
@@ -122,7 +122,7 @@ const BigMenu = styled.div`
   color: #dce0e6;
   font-weight: bold;
   margin-bottom: 20px;
-  font-size: 14px;
+  font-size: 15px;
 `;
 
 const SmallMenu = styled.div`
