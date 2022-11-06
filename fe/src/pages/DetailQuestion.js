@@ -9,8 +9,7 @@ import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark, FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
-// import "@toast-ui/editor/dist/toastui-editor.css";
-// import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { Viewer } from "@toast-ui/react-editor";
 import Apis from "../api/api";
 import {
@@ -33,7 +32,7 @@ function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
-  const [body, setBody] = useState(questionData?.questionBody);
+
   //url parameter가져오기
   useEffect(() => {
     dispatch(filterFetchQuestion(Number(parmas.id)));
@@ -100,11 +99,11 @@ function DetailQuestion() {
         console.log(err);
       });
   };
-
-  // const markup = () => {
-  //   return { __html: `${questionData?.questionBody}` };
-  // };
-
+  const markup = () => {
+    return { __html: `${questionData?.questionBody}` };
+  };
+  const body = questionData?.questionBody;
+  console.log("questionData>>>", questionData);
   return (
     <Wrapper>
       <header>
@@ -156,7 +155,8 @@ function DetailQuestion() {
                         <HistoryIcon />
                       </IconWrapper>
                       <QuestionWrapper>
-                        <viewer />
+                        <Viewer initialValue={body} />
+                        <div dangerouslySetInnerHTML={markup()}></div>
 
                         <ButtonWrapper>{tagList}</ButtonWrapper>
                         <InfoWrapper>
@@ -270,7 +270,6 @@ const LeftWrapper = styled.div`
 
 const Question = styled.div`
   width: 100%;
-  border: 1px solid red;
   margin: 1%;
 `;
 
