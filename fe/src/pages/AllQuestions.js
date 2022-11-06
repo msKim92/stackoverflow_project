@@ -67,7 +67,6 @@ function AllQuestions() {
         </QuestionList>
         <RightNavi />
       </Wraper>
-
       <Footer />
     </>
   );
@@ -169,6 +168,64 @@ const AllQuestionsMenuBtn = styled.button`
   &:focus {
     background-color: #e3e6e8;
   }
+`;
+
+const AllQuestionsInformation = styled.div`
+  width: 96%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+  font-size: 18px;
+`;
+
+const InformationSpan = styled.span`
+  color: #0074cc;
+  cursor: pointer;
+  &:hover {
+    color: #0995ff;
+  }
+  &:nth-child(2) {
+    margin-left: 5px;
+  }
+`;
+const InformationDiv = styled.div`
+  color: #0074cc;
+  cursor: pointer;
+  margin-top: 10px;
+  &:hover {
+    color: #0995ff;
+  }
+`;
+const PageNationSpace = styled.div`
+  width: 99%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const PageNationBtn1 = styled.button`
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  margin: 0px 5px;
+  background-color: ${(props) => (props.isClick === 1 ? "orange" : "#d0e2f0")};
+`;
+const PageNationBtn2 = styled.button`
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  margin: 0px 5px;
+  background-color: ${(props) => (props.isClick === 2 ? "orange" : "#d0e2f0")};
+`;
+const PageNationBtn3 = styled.button`
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  margin: 0px 5px;
+  background-color: ${(props) => (props.isClick === 3 ? "orange" : "#d0e2f0")};
 `;
 
 export default AllQuestions;

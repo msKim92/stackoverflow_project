@@ -8,6 +8,7 @@ if (jwtToken) {
   token = jwtToken.split(" ").pop();
 }
 
+
 export const fetchQuestion = createAsyncThunk(
   "questions/",
   async (clickNumber) => {
@@ -64,6 +65,7 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
     },
   })
     .then((res) => window.location.reload())
+
     .catch((err) => console.error("error:", err));
 });
 export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {

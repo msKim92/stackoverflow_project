@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
-import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
+import { Editor, Viewer } from "@toast-ui/react-editor";
+import axios from "axios";
+import Apis from "../api/api";
 
 function EditQuestion() {
   const parmas = useParams();
@@ -19,6 +19,15 @@ function EditQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
+  const editoerRef = useRef();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state.data;
+  console.log("data>??????", data);
+  console.log("location.state.data 확인");
+  const [title, setTitle] = useState(data.questionTitle);
+  const [body, setBody] = useState(data.questionBody);
+
   const selectList = ["mplungjan - 18 hours ago", "user20305 - 18 hours ago"];
   const [Selected, setSelected] = useState("");
 
@@ -35,6 +44,47 @@ function EditQuestion() {
   ];
 
   const listItems = list.map((el) => <li key={el.toString()}>{el}</li>);
+
+  const changeTitle = (e) => {
+    setTitle(e.target.value);
+    console.log("title>>>>>", title);
+  };
+
+  const onChange = () => {
+    const data = editoerRef.current.getInstance().getHTML();
+    setBody(data);
+  };
+
+  let jwtToken = localStorage.getItem("access_token");
+  let token = "";
+
+  if (jwtToken) {
+    token = jwtToken.split(" ").pop();
+  }
+  const handleSubmit = () => {
+    Apis.patch(
+      `v1/questions/${data.questionId}`,
+      {
+        questionTitle: title,
+        questionBody: body,
+        tags: "",
+      },
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+          "Access-Control-Allow-Origin": "*",
+          "ngrok-skip-browser-warning": "111",
+        },
+      }
+    )
+      .then((res) => {
+        console.log(res.data);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Wrapper>
@@ -61,19 +111,30 @@ function EditQuestion() {
                 </div>
                 <div>
                   <Bold>Titile</Bold>
-                  <input></input>
+                  <input
+                    defaultValue={title}
+                    type="text"
+                    onChange={changeTitle}
+                  ></input>
                 </div>
                 <div>
                   <Body>Body</Body>
-                  <Editor
+                  {/* <Editor
+                    initialValue={body}
                     initialEditType="" // 초기 입력모드 설정
                     previewStyle="vertical" // 미리보기 스타일 지정
                     height="300px" // 에디터 창 높이
-                  ></Editor>
+                    ref={editoerRef}
+                    onChange={onChange}
+                  ></Editor> */}
+                  <textarea
+                    defaultValue={body}
+                    onChange={(e) => setBody(e.target.value)}
+                  ></textarea>
                 </div>
-                <MarginTop>
+                {/* <MarginTop>
                   How can I filter this object, only for specific keys
-                </MarginTop>
+                </MarginTop> */}
                 <div>
                   <Tag>Tags</Tag>
                   <input></input>
@@ -92,8 +153,16 @@ function EditQuestion() {
                     </div>
                   </div>
                   <Buttons>
-                    <button className="saveEdit">Save edits</button>
-                    <button className="cancel">Cancel</button>
+                    <ButtonStyle
+                      className="saveEdit"
+                      onClick={(event) => handleSubmit(event)}
+                    >
+                      Save edits
+                    </ButtonStyle>
+                    {/* <button className="cancel">Cancel</button> */}
+                    <Link to={`${data.questionId}`} className="cancel">
+                      Cancel
+                    </Link>
                   </Buttons>
                 </div>
               </div>
@@ -110,6 +179,16 @@ function EditQuestion() {
     </Wrapper>
   );
 }
+
+const ButtonStyle = styled.button`
+  padding: 1%;
+  font-size: 14px;
+  background-color: #0a95ff;
+  border-radius: 8%;
+  color: white;
+  border: 1px solid #0a95ff;
+  box-shadow: 0 1px 0 #6cbfff inset;
+`;
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -160,39 +239,47 @@ const Text = styled.div`
 
 const Subject = styled.div`
   padding: 4% 0 4% 4%;
-  font-size: 13px;
-  font-weight: bold;
-  color: #525960;
+  font-size: 14px;
+  // font-weight: bold;
+  // color: #525960;
   border: 1px solid #f1e5bc;
   background-color: #fbf3d5;
 `;
 
 const Content = styled.div`
-  padding: 4%;
-  font-size: 13px;
+  padding: 4% 4% 0 4%;
+  font-size: 12px;
   background-color: #fdf7e2;
   & > li {
     padding-right: 3%;
-    padding-bottom: 3%;
+    padding-bottom: 5%;
   }
 `;
 
 const Select = styled.select`
-  margin-top: 0.8%;
+  margin-top: 1%;
   width: 100%;
+  border: 1px solid #babfc4;
+  padding: 1%;
 `;
 
 const Bold = styled.div`
+  margin-top: 2%;
   font-weight: bold;
-  & + input {
+  font-size: 14px;
+  & + textarea {
     margin-top: 0.8%;
-    width: 99%;
+    width: 98%;
+    padding: 1% 0 0 1%;
+    border: 1px solid #babfc4;
+    resize: none;
   }
 `;
 
 const Body = styled.div`
   margin-top: 2%;
   font-weight: bold;
+  font-size: 14px;
   margin-bottom: 0.8%;
 `;
 
@@ -202,25 +289,39 @@ const MarginTop = styled.div`
 
 const Tag = styled.div`
   font-weight: bold;
+  margin-top: 3%;
+  font-size: 14px;
   margin-bottom: 1%;
   & + input {
     width: 99%;
+    padding: 1%;
+    border: 1px solid #babfc4;
   }
 `;
 
 const MarginBottom = styled.div`
+  margin-top: 3%;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 1%;
   & + input {
     width: 99%;
+    padding: 1%;
+    border: 1px solid #babfc4;
   }
 `;
 
 const Submit = styled.div`
+  margin-top: 3%;
+  font-size: 14px;
   margin-bottom: 1%;
   font-weight: bold;
   & + div {
     display: flex;
+    font-size: 13px;
+  }
+  & + input {
+    border: 1px solid #babfc4;
   }
 `;
 
@@ -244,7 +345,7 @@ const Buttons = styled.div`
 const Nav = styled.div`
   border: 1px solid #f1e5bc;
   width: 30%;
-  margin: 1% 0;
+  margin: 3% 0 0 1.5%;
   height: 50%;
 `;
 export default EditQuestion;

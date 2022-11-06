@@ -18,7 +18,10 @@ function LeftNvi() {
   return (
     <LeftNaviWrapper>
       <Wrapper>
-        <HomeMenu onClick={clickQuestion}>Home</HomeMenu>
+        <Position>
+        <HomeMenu onClick={clickQuestion}>
+          Home
+        </HomeMenu>
         <MainMenu>
           <PublicMenu>PUBLIC</PublicMenu>
           <QuestionsContents onClick={clickQuestion}>
@@ -50,6 +53,7 @@ function LeftNvi() {
             <TeamsMsg>Why Teams?</TeamsMsg>
           </TeamsContents>
         </TeamMainMenu>
+        </Position>
       </Wrapper>
     </LeftNaviWrapper>
   );
@@ -57,16 +61,18 @@ function LeftNvi() {
 
 const LeftNaviWrapper = styled.div`
   width: 168px;
-  height: 100vh;
   border: none;
 `;
 
 const Wrapper = styled.div`
   width: 163px;
-  height: 100vh;
-  position: fixed;
+  height: 100%;
   font-size: 14px;
-  border-right: 1px solid black;
+  border-right: 1px solid #d6d9dc;
+`;
+
+const Position = styled.div`
+  position: fixed;
 `;
 
 const HomeMenu = styled.button`
@@ -89,7 +95,7 @@ const MainMenu = styled.div`
 
 const TeamMainMenu = styled.div`
   height: 284px;
-  margin: 12px 0px;
+  margin: 12px -1px;
   border: 1px solid (60, 60, 60);
 `;
 

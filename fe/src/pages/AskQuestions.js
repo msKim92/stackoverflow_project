@@ -7,6 +7,8 @@ import Footer from "../components/Footer";
 import Img from "../img/image.jpg";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
+import { View, StyleSheet, Button, Alert } from "react-native";
+import useNotification from "../pages/useNotification";
 
 const list = [
   "Summarize your problem in a one-line title.",
@@ -25,6 +27,7 @@ function AskQuestions() {
   const [allow, setAllow] = useState(false);
   const [tagAllow, setTagAllow] = useState(false);
   const [submit, setSubmit] = useState(false);
+  console.log(question.length);
 
   const editoerRef = useRef();
 
@@ -37,6 +40,14 @@ function AskQuestions() {
     setAllow(true);
   };
 
+  const triggerNotif = useNotification("제목을 입력해주세요.", {
+    body: "from. stackoverflow",
+  });
+
+  const questionNotif = useNotification("내용을 10글자 이상 입력해주세요.", {
+    body: "from. stackoverflow",
+  });
+
   const tagAllowed = () => {
     setTagAllow(true);
   };
@@ -48,7 +59,7 @@ function AskQuestions() {
   const body = {
     questionTitle: title,
     questionBody: question,
-    tags: "@java",
+    tags: tag,
   };
 
   const dispatch = useDispatch();
@@ -92,7 +103,11 @@ function AskQuestions() {
                 type="text"
                 onChange={(event) => setTitle(event.target.value)}
               ></input>
-              <ButtonStyle onClick={questionAllow}>Next</ButtonStyle>
+              {title.length > 0 ? (
+                <ButtonStyle onClick={questionAllow}>Next</ButtonStyle>
+              ) : (
+                <ButtonStyle onClick={triggerNotif}>Next</ButtonStyle>
+              )}
             </Title>
 
             <NotAllow>
@@ -197,9 +212,17 @@ function AskQuestions() {
                 ref={editoerRef}
                 onChange={onChange}
               />
-              <ButtonStyle style={{ marginTop: "1.5%" }} onClick={tagAllowed}>
+              {question.length > 16 ? (
+                <ButtonStyle style={{ marginTop: "1.5%" }} onClick={tagAllowed}>
+                  Next
+                </ButtonStyle>
+              ) : (
+                <ButtonStyle onClick={questionNotif}>Next</ButtonStyle>
+              )}
+
+              {/* <ButtonStyle style={{ marginTop: "1.5%" }} onClick={tagAllowed}>
                 Next
-              </ButtonStyle>
+              </ButtonStyle> */}
             </QuestionWrapper>
 
             <NotAllow>
@@ -297,6 +320,7 @@ function AskQuestions() {
               <input
                 type="text"
                 onChange={(event) => setTag(event.target.value)}
+                placeholder="e.g. java react asp.net"
               ></input>
               <ButtonStyle onClick={submitAllow}>Next</ButtonStyle>
             </Tags>
