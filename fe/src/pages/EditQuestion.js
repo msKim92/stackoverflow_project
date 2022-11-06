@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -8,13 +8,25 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 import axios from "axios";
 import Apis from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function EditQuestion() {
+  const parmas = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, []);
+
+  const questionData = useSelector(
+    (state) => state.questions.selectQuestions?.data
+  );
   const editoerRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state.data;
   console.log("data>??????", data);
+  console.log("location.state.data 확인");
   const [title, setTitle] = useState(data.questionTitle);
   const [body, setBody] = useState(data.questionBody);
 

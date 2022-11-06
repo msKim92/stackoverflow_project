@@ -6,7 +6,11 @@ import { FaRegBookmark, FaHistory } from "react-icons/fa";
 import userImg from "../img/user.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
-import { deleteAnswer, addVoteAnswer } from "../reduxStore/slices/answerSlice";
+import {
+  deleteAnswer,
+  voteUpAnswer,
+  voteDownAnswer,
+} from "../reduxStore/slices/answerSlice";
 
 function ReadAnswer() {
   const answers = useSelector((state) => state.questions.selectQuestions?.data);
@@ -90,8 +94,15 @@ function ReadAnswer() {
     setClickSelect(e.target.value);
   };
 
+  const clickUpBtn = (id) => {
+    dispatch(voteUpAnswer(id));
+  };
+  const clickDownBtn = (id) => {
+    dispatch(voteDownAnswer(id));
+  };
+
   const deleteClick = (id) => {
-    dispatch(deleteAnswer(Number(parmas.id)));
+    dispatch(deleteAnswer(id));
   };
   return (
     <>
@@ -117,11 +128,11 @@ function ReadAnswer() {
         {answers?.answers.map((data) => (
           <AnswerContentsSpace key={data.answerId}>
             <AnswerContentsSpaceLeft>
-              <AnswerIconUpDownBtn>
+              <AnswerIconUpDownBtn onClick={() => clickUpBtn(data.answerId)}>
                 <AiFillCaretUp />
               </AnswerIconUpDownBtn>
               <AnswerTextSpace>{data.answerVote}</AnswerTextSpace>
-              <AnswerIconUpDownBtn>
+              <AnswerIconUpDownBtn onClick={() => clickDownBtn(data.answerId)}>
                 <AiFillCaretDown />
               </AnswerIconUpDownBtn>
               <AnswerIcon>

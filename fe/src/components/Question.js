@@ -2,41 +2,25 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../reduxStore/slices/userSlice";
-import {
-  fetchQuestion1,
-  fetchQuestion2,
-  fetchQuestion3,
-} from "../reduxStore/slices/questionSlice";
+import { fetchQuestion } from "../reduxStore/slices/questionSlice";
 import { useNavigate } from "react-router-dom";
 import { searchQuestion } from "../reduxStore/slices/questionSlice";
 
-function Question({ clickHere, clickSearchCheck, changeSearch }) {
-  console.log(clickSearchCheck);
+function Question({ clickHere, setClickHere, clickSearchCheck, changeSearch }) {
   const navigate = useNavigate();
   const questions = useSelector((state) => state.questions.questions?.data);
+  const allQuestions = useSelector(
+    (state) => state.questions.questions?.pageInfo
+  );
   const filterSearchQuestion = useSelector(
     (state) => state.questions.searchQuestions?.data
   );
-  console.log(filterSearchQuestion);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (clickSearchCheck === true || clickHere === 99) {
-      dispatch(searchQuestion(changeSearch));
-    }
-    if (!questions || clickHere === 1) {
-      dispatch(fetchQuestion1());
-      window.scrollTo(0, 0);
-    } else if (!questions || clickHere === 2) {
-      dispatch(fetchQuestion2());
-      window.scrollTo(0, 0);
-    } else if (!questions || clickHere === 3) {
-      dispatch(fetchQuestion3());
-      window.scrollTo(0, 0);
-    } else if (clickSearchCheck === true) {
-      // dispatch(searchQuestion())
-    }
-  }, [clickHere]);
+  let list = [];
 
+  for (let i = 1; i <= allQuestions?.totalPages; i++) {
+    list.push(<span>{i}</span>);
+  }
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
     let creatTime = new Date(String(createTime));
@@ -94,6 +78,9 @@ function Question({ clickHere, clickSearchCheck, changeSearch }) {
     return <QuestionerDetailInformation>{result}</QuestionerDetailInformation>;
   };
 
+  const clickNewQuestion = (number) => {
+    setClickHere(number);
+  };
   const modifiedCheck = (modifiedAt) => {
     let result = "";
     if (modifiedAt) {
@@ -107,6 +94,18 @@ function Question({ clickHere, clickSearchCheck, changeSearch }) {
   const clickDetail = (id) => {
     navigate(`/${id}`);
   };
+
+  useEffect(() => {
+    if (clickSearchCheck === true || clickHere === 99) {
+      dispatch(searchQuestion(changeSearch));
+    }
+    if (!questions || clickHere) {
+      console.log(clickHere);
+      dispatch(fetchQuestion(clickHere));
+      window.scrollTo(0, 0);
+    }
+  }, [clickHere]);
+
   return (
     <>
       {clickSearchCheck ? (
@@ -188,6 +187,25 @@ function Question({ clickHere, clickSearchCheck, changeSearch }) {
               </QuestionerInformation>
             </QuestionSpace>
           ))}
+          <AllQuestionsInformation>
+            <div>
+              Looking for more? Browse the
+              <InformationSpan> complete list of questions</InformationSpan>, or
+              <InformationSpan>popular tags</InformationSpan>. Help us answer
+            </div>
+            <InformationDiv>unanswered questions.</InformationDiv>
+          </AllQuestionsInformation>
+          <PageNationSpace>
+            {list?.map((data) => (
+              <PageNationBtn1
+                isClick={clickHere}
+                onClick={() => clickNewQuestion(data.props.children)}
+                key={data.props.children}
+              >
+                {data.props.children}
+              </PageNationBtn1>
+            ))}
+          </PageNationSpace>
         </div>
       )}
     </>
@@ -255,6 +273,51 @@ const QuestionerInformation = styled.div`
 `;
 const QuestionerDetailInformation = styled.div`
   margin: 0px 2px;
+`;
+const AllQuestionsInformation = styled.div`
+  width: 96%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+  font-size: 18px;
+`;
+
+const InformationSpan = styled.span`
+  color: #0074cc;
+  cursor: pointer;
+  &:hover {
+    color: #0995ff;
+  }
+  &:nth-child(2) {
+    margin-left: 5px;
+  }
+`;
+const InformationDiv = styled.div`
+  color: #0074cc;
+  cursor: pointer;
+  margin-top: 10px;
+  &:hover {
+    color: #0995ff;
+  }
+`;
+const PageNationSpace = styled.span`
+  width: 98%;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const PageNationBtn1 = styled.button`
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  margin: 0px 5px;
+  background-color: ${(props) => (props.isClick == 1 ? "orange" : "#d0e2f0")};
+  background-color: ${(props) => (props.isClick == 2 ? "orange" : "#d0e2f0")};
+  background-color: ${(props) => (props.isClick == 3 ? "orange" : "#d0e2f0")};
 `;
 
 export default Question;
