@@ -7,46 +7,23 @@ let token = "";
 if (jwtToken) {
   token = jwtToken.split(" ").pop();
 }
-console.log("jwtToken:", jwtToken);
 
-const BASEURL =
-  "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
 
-export const fetchQuestion1 = createAsyncThunk("questions/", async () => {
-  return await Apis.get(`v1/questions?page=1&size=10`, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "ngrok-skip-browser-warning": "111",
-    },
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
-
-export const fetchQuestion2 = createAsyncThunk("questions/", async () => {
-  return await Apis.get(`v1/questions?page=2&size=10`, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "ngrok-skip-browser-warning": "111",
-    },
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
-
-export const fetchQuestion3 = createAsyncThunk("questions/", async () => {
-  return await Apis.get(`v1/questions?page=3&size=10`, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "ngrok-skip-browser-warning": "111",
-    },
-  })
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-});
+export const fetchQuestion = createAsyncThunk(
+  "questions/",
+  async (clickNumber) => {
+    return await Apis.get(`v1/questions?page=${clickNumber}&size=10`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "ngrok-skip-browser-warning": "111",
+      },
+    })
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+);
 
 export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
-  console.log(id);
   return Apis.get(`v1/questions/${id}`, {
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -59,7 +36,6 @@ export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
 export const searchQuestion = createAsyncThunk(
   "searchrqe/",
   async (searchName) => {
-    console.log(searchName);
     return Apis.get(`v1/questions/search?title=${searchName}&page=1&size=10`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -71,7 +47,6 @@ export const searchQuestion = createAsyncThunk(
   }
 );
 export const filterFetchAnswer = createAsyncThunk("filterqe/", async (id) => {
-  console.log(id);
   return Apis.get(`questions/${id}`, {
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -89,9 +64,41 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
       "ngrok-skip-browser-warning": "111",
     },
   })
-    .then((res) => console.log("success:", res))
+    .then((res) => window.location.reload())
+
     .catch((err) => console.error("error:", err));
 });
+export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
+  return await Apis.post(
+    `v1/vote/like/question/${qeId}`,
+    {},
+    {
+      headers: {
+        Authorization: `${jwtToken}`,
+        "ngrok-skip-browser-warning": "111",
+      },
+    }
+  )
+    .then((res) => window.location.reload())
+    .catch((err) => console.error("error:", err));
+});
+export const voteDownQuestion = createAsyncThunk(
+  "askQuestion",
+  async (qeId) => {
+    return await Apis.post(
+      `v1/vote/dislike/question/${qeId}`,
+      {},
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+          "ngrok-skip-browser-warning": "111",
+        },
+      }
+    )
+      .then((res) => window.location.reload())
+      .catch((err) => console.error("error:", err));
+  }
+);
 
 const questionsSlice = createSlice({
   name: "questions",
@@ -104,23 +111,7 @@ const questionsSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [fetchQuestion1.fulfilled]: (state, action) => {
-      state.questions = action.payload;
-      state.selectQuestions = [];
-      state.searchQuestions = [];
-      state.loading = false;
-      state.error = "";
-    },
-
-    [fetchQuestion2.fulfilled]: (state, action) => {
-      state.questions = action.payload;
-      state.selectQuestions = [];
-      state.searchQuestions = [];
-      state.loading = false;
-      state.error = "";
-    },
-
-    [fetchQuestion3.fulfilled]: (state, action) => {
+    [fetchQuestion.fulfilled]: (state, action) => {
       state.questions = action.payload;
       state.selectQuestions = [];
       state.searchQuestions = [];
@@ -136,7 +127,6 @@ const questionsSlice = createSlice({
       state.error = "";
     },
     [searchQuestion.fulfilled]: (state, action) => {
-      console.log(action);
       state.questions = [];
       state.selectQuestions = [];
       state.searchQuestions = action.payload;

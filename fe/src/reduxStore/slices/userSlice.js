@@ -17,6 +17,7 @@ export const signUser = createAsyncThunk(
     })
       .then((res) => {
         navigate("/login");
+        window.location.reload();
         return res.data;
       })
       .catch((err) => console.log(err));
@@ -26,7 +27,6 @@ export const signUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async ({ loginData, navigate }) => {
-    console.log({ loginData, navigate });
     return (
       Apis.post(
         `v1/login`,
@@ -47,15 +47,15 @@ export const loginUser = createAsyncThunk(
         //   body: JSON.stringify(loginData),
         // })
         .then((res) => {
-          console.log(res);
-          let userId = res.config.data;
-          let usertoken = userId.split('"')[3];
+          // let userId = res.config.data;
+          // let usertoken = userId.split('"')[3];
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
-          localStorage.setItem("userEmail", usertoken);
+          // localStorage.setItem("userEmail", usertoken);
           localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
           navigate("/");
+          window.location.reload();
           return res.data;
         })
         .catch((err) => console.log(err))

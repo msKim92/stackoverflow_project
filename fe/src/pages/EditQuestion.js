@@ -10,11 +10,21 @@ import axios from "axios";
 import Apis from "../api/api";
 
 function EditQuestion() {
+  const parmas = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(filterFetchQuestion(Number(parmas.id)));
+  }, []);
+
+  const questionData = useSelector(
+    (state) => state.questions.selectQuestions?.data
+  );
   const editoerRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state.data;
   console.log("data>??????", data);
+  console.log("location.state.data 확인");
   const [title, setTitle] = useState(data.questionTitle);
   const [body, setBody] = useState(data.questionBody);
 
