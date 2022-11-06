@@ -67,7 +67,7 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
       "ngrok-skip-browser-warning": "111",
     },
   })
-    .then((res) => window.location.reload())
+    .then(() => window.location.replace("/"))
 
     .catch((err) => console.error("error:", err));
 });

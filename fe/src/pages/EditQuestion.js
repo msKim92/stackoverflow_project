@@ -1,41 +1,32 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LeftNvi from "../components/LeftNavi";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor, Viewer } from "@toast-ui/react-editor";
-import axios from "axios";
 import Apis from "../api/api";
-import { useDispatch, useSelector } from "react-redux";
-import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function EditQuestion() {
   const parmas = useParams();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(filterFetchQuestion(Number(parmas.id)));
-  }, []);
-
-  const questionData = useSelector(
-    (state) => state.questions.selectQuestions?.data
-  );
-  const editoerRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
+  //detailquestion페이지에서 넘겨준 값
   const data = location.state.data;
-  console.log("data>??????", data);
-  console.log("location.state.data 확인");
+  console.log("data>????????", data);
   const [title, setTitle] = useState(data.questionTitle);
   const [body, setBody] = useState(data.questionBody);
-
-  const selectList = ["mplungjan - 18 hours ago", "user20305 - 18 hours ago"];
   const [Selected, setSelected] = useState("");
 
   const ChangeSelect = (e) => {
     setSelected(e.target.value);
   };
+  //제목입력값 체크
+  const changeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const selectList = ["mplungjan - 18 hours ago", "user20305 - 18 hours ago"];
 
   const list = [
     "Correct minor typos or mistakes",
@@ -47,22 +38,9 @@ function EditQuestion() {
 
   const listItems = list.map((el) => <li key={el.toString()}>{el}</li>);
 
-  const changeTitle = (e) => {
-    setTitle(e.target.value);
-    console.log("title>>>>>", title);
-  };
-
-  const onChange = () => {
-    const data = editoerRef.current.getInstance().getHTML();
-    setBody(data);
-  };
-
+  //localStorage token값가져오기
   let jwtToken = localStorage.getItem("access_token");
-  let token = "";
-
-  if (jwtToken) {
-    token = jwtToken.split(" ").pop();
-  }
+  //게시판 글 작성 api
   const handleSubmit = () => {
     Apis.patch(
       `v1/questions/${data.questionId}`,
