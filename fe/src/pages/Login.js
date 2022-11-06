@@ -73,8 +73,8 @@ function Login() {
                   <TextInput type="email" onChange={usersEmail} />
                 </EmailForm>
                 <PasswardForm>
-                  <Text>Passward</Text>
-                  <TextInput onChange={userPassWord} />
+                  <Text >Passward</Text>
+                  <TextInput type="password" onChange={userPassWord} />
                 </PasswardForm>
                 <LoginBtn onClick={clickLoginBtn}>Log in</LoginBtn>
               </LoginForm>
