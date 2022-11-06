@@ -74,7 +74,7 @@ function DetailQuestion() {
   const clickAddQuetion = () => {
     navigate("/askquestions");
   };
-  //투표 클릭 시 api통신
+
   const clickUpBtn = () => {
     dispatch(voteUpQuestion(questionData.questionId));
   };
@@ -90,26 +90,12 @@ function DetailQuestion() {
     token = jwtToken.split(" ").pop();
   }
 
-  const deleteQuestion = () => {
-    Apis.delete(`v1/questions/${questionData?.questionId}`, {
-      headers: { Authorization: `${jwtToken}` },
-    })
-      .then((res) => {
-        navigate("/");
-        console.log("성공");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("실패");
-        console.log(err);
-      });
+  const editQuestion = (id) => {
+    navigate(`/editquestion/${id}`);
   };
-
-  const viewer = new Viewer({
-    el: document.querySelector("#viewer"),
-    height: "600px",
-    initialValue: questionData?.questionBody,
-  });
+  // const markup = () => {
+  //   return { __html: `${questionData?.questionBody}` };
+  // };
 
   return (
     <Wrapper>
@@ -147,14 +133,17 @@ function DetailQuestion() {
                   <Flex>
                     <ContentWrapper>
                       <IconWrapper>
-                        <ClickButtonStyle onClick={clickUpBtn}>
+                        <ClickButtonStyle
+                          onClick={() => {
+                            clickUpBtn();
+                          }}
+                        >
                           <CaretUpIcon />
                         </ClickButtonStyle>
                         <Num>{questionData?.questionVote}</Num>
                         <ClickButtonStyle onClick={clickDownBtn}>
                           <CaretDownIcon />
                         </ClickButtonStyle>
-
                         <BookmarkIcon />
                         <HistoryIcon />
                       </IconWrapper>
