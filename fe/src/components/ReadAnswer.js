@@ -6,7 +6,7 @@ import { FaRegBookmark, FaHistory } from "react-icons/fa";
 import userImg from "../img/user.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
-import { deleteAnswer, fetchAnswer } from "../reduxStore/slices/answerSlice";
+import { deleteAnswer, addVoteAnswer } from "../reduxStore/slices/answerSlice";
 
 function ReadAnswer() {
   const answers = useSelector((state) => state.questions.selectQuestions?.data);
@@ -16,7 +16,7 @@ function ReadAnswer() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(filterFetchQuestion(Number(parmas.id)));
-  }, [dispatch]);
+  }, []);
 
   const renderTime = (createTime, modifiedTime) => {
     let result = "";

@@ -14,19 +14,50 @@ import AddAnswer from "../components/AddAnswer";
 import { FaRegBookmark, FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Viewer } from "@toast-ui/react-editor";
+import axios from "axios";
 
 function DetailQuestion() {
   const questionData = useSelector(
     (state) => state.questions.selectQuestions?.data
   );
+
   console.log(">>>>>>>", questionData);
+  const [body, setBody] = useState(questionData?.questionBody);
 
   const dispatch = useDispatch();
   const parmas = useParams();
+
   useEffect(() => {
     dispatch(filterFetchQuestion(Number(parmas.id)));
   }, []);
+
+  let jwtToken = localStorage.getItem("access_token");
+  let token = "";
+
+  if (jwtToken) {
+    token = jwtToken.split(" ").pop();
+  }
+
+  const deleteQuestion = () => {
+    axios
+      .delete(
+        `https://cors-anywhere.herokuapp.com/https://2e44-203-130-71-252.jp.ngrok.io/v1/questions/${questionData?.questionId}`,
+        {
+          headers: { Authorization: `${jwtToken}` },
+        }
+      )
+      .then((res) => {
+        navigate("/");
+        console.log("성공");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("실패");
+        console.log(err);
+      });
+  };
 
   const tags = questionData?.tags;
   const tagList =
@@ -37,33 +68,38 @@ function DetailQuestion() {
       }
     });
 
-  const createdAt = questionData?.created_at;
-  //2022-11-02T13:39:43
-  // const createdSplit = createdAt.split("T");
-  // console.log(createdSplit); //'2022-11-02', '13:39:43'
+  const createdAt = new Date(questionData?.created_at).toLocaleDateString(
+    "en-us",
+    {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    }
+  );
+  const updatedAt = new Date(questionData?.updated_at).toLocaleDateString(
+    "en-us",
+    {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    }
+  );
 
-  // const daySplit = createdSplit[0].split("-");
-  // console.log(daySplit); //'2022', '11', '02'
-  // const year = daysplit[0];
-  // const month = daysplit[1];
-  // const day = daysplit[2];
-
-  // const timeSplit = createdSplit[1].split(":");
-  // console.log(timeSplit);
   const navigate = useNavigate();
   const clickAddQuetion = () => {
     navigate("/askquestions");
   };
 
-  const markup = () => {
-    return { __html: `${questionData?.questionBody}` };
-  };
 
-  const editQuestion = (e, id) => {
-    console.log("id>>>>>>>>>>>>>>>", id);
-    e.preventDefault();
-    navigate(`/editquestion/${id}`);
-  };
+  // const markup = () => {
+  //   return { __html: `${questionData?.questionBody}` };
+  // };
 
   return (
     <Wrapper>
@@ -85,10 +121,10 @@ function DetailQuestion() {
               </Titile>
               <TimeLine>
                 <div className="subject">Asked</div>
-                <div className="content">{questionData?.updated_at}</div>
+                <div className="content">{createdAt}</div>
 
                 <div className="subject">Modified</div>
-                <div className="content">{questionData?.updated_at}</div>
+                <div className="content">{updatedAt}</div>
 
                 <div className="subject">Viewed</div>
                 <div className="content">{questionData?.questionViewCount}</div>
@@ -108,17 +144,20 @@ function DetailQuestion() {
                         <HistoryIcon />
                       </IconWrapper>
                       <QuestionWrapper>
-                        <div dangerouslySetInnerHTML={markup()}></div>
+                        <Viewer initialValue={body} />
+
                         <ButtonWrapper>{tagList}</ButtonWrapper>
                         <InfoWrapper>
                           <ShareWrapper>
                             <div>Share</div>
-                            <div
-                              onClick={editQuestion(questionData?.questionId)}
+
+                            <Link
+                              to={`/editquestion/${questionData?.questionId}`}
+                              state={{ data: questionData }}
                             >
                               Edit
-                            </div>
-                            <div>Follow</div>
+                            </Link>
+                            <div onClick={deleteQuestion}>Delete</div>
                           </ShareWrapper>
                           <div
                             style={{
@@ -214,7 +253,7 @@ const LeftWrapper = styled.div`
 
 const Question = styled.div`
   width: 100%;
-  // border: 1px solid red;
+  border: 1px solid red;
   margin: 1%;
 `;
 
