@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -8,6 +8,8 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 import axios from "axios";
 import Apis from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 
 function EditQuestion() {
   const parmas = useParams();

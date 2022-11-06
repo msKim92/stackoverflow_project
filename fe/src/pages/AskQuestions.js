@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 import Img from "../img/image.jpg";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
-import { View, StyleSheet, Button, Alert } from "react-native";
 import useNotification from "../pages/useNotification";
 
 const list = [
