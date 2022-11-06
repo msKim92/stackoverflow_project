@@ -17,6 +17,7 @@ import { filterFetchQuestion } from "../reduxStore/slices/questionSlice";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Viewer } from "@toast-ui/react-editor";
 import axios from "axios";
+import Apis from "../api/api";
 
 function DetailQuestion() {
   const questionData = useSelector(
@@ -96,9 +97,25 @@ function DetailQuestion() {
     navigate("/askquestions");
   };
 
-  // const markup = () => {
-  //   return { __html: `${questionData?.questionBody}` };
-  // };
+  const onClickLike = () => {
+    Apis.post(`/vote/like/question/${questionData?.questionId}`, {
+      headers: {
+        Authorization: `${jwtToken}`,
+      },
+    })
+      .then((res) => console.log("success:", res))
+      .catch((err) => console.error("error:", err));
+  };
+
+  const onClickDislike = () => {
+    Apis.post(`/vote/dislike/question/${questionData?.questionId}`, {
+      headers: {
+        Authorization: `${jwtToken}`,
+      },
+    })
+      .then((res) => console.log("success:", res))
+      .catch((err) => console.error("error:", err));
+  };
 
   return (
     <Wrapper>
@@ -136,9 +153,9 @@ function DetailQuestion() {
                   <Flex>
                     <ContentWrapper>
                       <IconWrapper>
-                        <CaretUpIcon />
-                        <Num>0</Num>
-                        <CaretDownIcon />
+                        <CaretUpIcon onClick={onClickLike} />
+                        <Num>{questionData?.questionVote}</Num>
+                        <CaretDownIcon onClick={onClickDislike} />
                         <BookmarkIcon />
                         <HistoryIcon />
                       </IconWrapper>
