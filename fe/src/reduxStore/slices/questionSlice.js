@@ -1,35 +1,105 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Apis from "../../api/api";
+let jwtToken = localStorage.getItem("access_token");
+let token = "";
 
-export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-  return axios
-    .get("http://localhost:3001/memo/")
-    .then((res) => console.log(res).catch((err) => console.log(err)));
+if (jwtToken) {
+  token = jwtToken.split(" ").pop();
+}
+
+export const fetchQuestion = createAsyncThunk(
+  "questions/",
+  async (clickNumber) => {
+    return await Apis.get(`v1/questions?page=${clickNumber}&size=10`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => console.log(err));
+  }
+);
+
+export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
+  return Apis.get(`v1/questions/${id}`, {})
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 });
+export const searchQuestion = createAsyncThunk(
+  "searchrqe/",
+  async (searchName) => {
+    return Apis.get(`v1/questions/search?title=${searchName}&page=1&size=10`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => console.log(err));
+  }
+);
+export const filterFetchAnswer = createAsyncThunk("filterqe/", async (id) => {
+  return Apis.get(`questions/${id}`)
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+});
+
+export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
+  return await Apis.post(`v1/questions/createQuestion`, body)
+    .then(() => window.location.replace("/"))
+
+    .catch((err) => console.error("error:", err));
+});
+export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
+  return await Apis.post(`v1/vote/like/question/${qeId}`)
+    .then((res) => window.location.reload())
+    .catch((err) => console.error("error:", err));
+});
+export const voteDownQuestion = createAsyncThunk(
+  "askQuestion",
+  async (qeId) => {
+    return await Apis.post(`v1/vote/dislike/question/${qeId}`)
+      .then((res) => window.location.reload())
+      .catch((err) => console.error("error:", err));
+  }
+);
 
 const questionsSlice = createSlice({
   name: "questions",
   initialState: {
     questions: [],
+    selectQuestions: [],
+    searchQuestions: [],
     loading: false,
     error: "",
   },
   reducers: {},
   extraReducers: {
-    [fetchUser.pending]: (state) => {
-      state.questions = [];
-      state.loading = true;
-      state.error = "";
-    },
-    [fetchUser.fulfilled]: (state, action) => {
+    [fetchQuestion.fulfilled]: (state, action) => {
       state.questions = action.payload;
+      state.selectQuestions = [];
+      state.searchQuestions = [];
       state.loading = false;
       state.error = "";
     },
-    [fetchUser.rejected]: (state, action) => {
+
+    [filterFetchQuestion.fulfilled]: (state, action) => {
       state.questions = [];
+      state.selectQuestions = action.payload;
+      state.searchQuestions = [];
       state.loading = false;
-      state.error = action.payload;
+      state.error = "";
+    },
+    [searchQuestion.fulfilled]: (state, action) => {
+      state.questions = [];
+      state.selectQuestions = [];
+      state.searchQuestions = action.payload;
+      state.loading = false;
+      state.error = "";
+    },
+
+    [askQuestion.fulfilled]: (state, action) => {
+      state.questions = [];
+      state.selectQuestions = action.payload;
+      state.searchQuestions = [];
+      state.loading = false;
+      state.error = "";
     },
   },
 });

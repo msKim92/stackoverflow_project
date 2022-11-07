@@ -17,283 +17,236 @@ import { RiBracesFill } from "react-icons/ri";
 
 function RightNavi() {
   return (
-    <RightNaviWraper>
-      <Wrapper>
-        <Subject>The Overflow Blog</Subject>
-        <Content>
-          <div style={{ paddingRight: "3%" }}>
-            <FaPen />
-          </div>
-          <div>Introducing the Overflow Offline project</div>
-        </Content>
+    <div>
+      <RightNaviWraper>
+        <Wrapper>
+          <Subject>The Overflow Blog</Subject>
+          <Content>
+            <div>
+              <FaPen />
+            </div>
+            <div>Introducing the Overflow Offline project</div>
+          </Content>
 
-        <Content>
-          <div style={{ paddingRight: "3%" }}>
-            <FaPen />
-          </div>
+          <Content>
+            <div>
+              <FaPen />
+            </div>
+            <div>
+              He helped build .NET and VS Code — Now’s he working on Web3 (Ep.
+              499)
+            </div>
+          </Content>
+
+          <Subject>Featured on Meta</Subject>
+          <Content>
+            <div>
+              <MessageIcon />
+            </div>
+            <div>The 2022 Community-a-thon has begun!</div>
+          </Content>
+          <Content>
+            <div>
+              <MessageIcon />
+            </div>
+            <div>Mobile app infrastructure being decommissioned</div>
+          </Content>
+          <Content>
+            <div>
+              <FaStackOverflow />
+            </div>
+            <div>
+              Collectives Update: Recognized Members, Articles, and GitLab
+            </div>
+          </Content>
+          <Content>
+            <div>
+              <FaStackOverflow />
+            </div>
+            <div>Staging Ground Workflow: Canned Comments</div>
+          </Content>
+          <Content>
+            <div>
+              <FaStackOverflow />
+            </div>
+            <div>The [script] tag is being burninated</div>
+          </Content>
+
+          <Subject>Hot Meta Posts</Subject>
+          <Content>
+            <div>23 Burninate [self-hosting]</div>
+          </Content>
+        </Wrapper>
+
+        <Space></Space>
+
+        <SecondWrapper>
+          <SecondSubject>Custom Filters</SecondSubject>
           <div>
-            He helped build .NET and VS Code — Now’s he working on Web3 (Ep.
-            499)
+            <SecondContent as="a" href="*">
+              Create a custom filter
+            </SecondContent>
           </div>
-        </Content>
+        </SecondWrapper>
 
-        <Subject>Featured on Meta</Subject>
-        <Content>
-          <div style={{ paddingRight: "3%", color: "#46A2D9" }}>
-            <FaRegCommentAlt />
+        <Space></Space>
+
+        <SecondWrapper>
+          <SecondSubject>Watched Tags</SecondSubject>
+          <div className="watch_tag">
+            <SearchIcon />
           </div>
-          <div>The 2022 Community-a-thon has begun!</div>
-        </Content>
-        <Content>
-          <div style={{ paddingRight: "3%", color: "#46A2D9" }}>
-            <FaRegCommentAlt />
-          </div>
-          <div>Mobile app infrastructure being decommissioned</div>
-        </Content>
-        <Content>
-          <div style={{ paddingRight: "3%" }}>
-            <FaStackOverflow />
-          </div>
-          <div>
-            Collectives Update: Recognized Members, Articles, and GitLab
-          </div>
-        </Content>
-        <Content>
-          <div style={{ paddingRight: "3%" }}>
-            <FaStackOverflow />
-          </div>
-          <div>Staging Ground Workflow: Canned Comments</div>
-        </Content>
-        <Content>
-          <div style={{ paddingRight: "3%" }}>
-            <FaStackOverflow />
-          </div>
-          <div>The [script] tag is being burninated</div>
-        </Content>
+          <ThirdContent>Watch tags to curate your list of</ThirdContent>
+          <ThirdContent>questions.</ThirdContent>
 
-        <Subject>Hot Meta Posts</Subject>
-        <Content>
-          <div>23 Burninate [self-hosting]</div>
-        </Content>
-      </Wrapper>
+          <TagWrapper>
+            <button>Watch a tag</button>
+          </TagWrapper>
+        </SecondWrapper>
 
-      <Space></Space>
+        <Space></Space>
 
-      <SecondWrapper>
-        <SecondSubject>Custom Filters</SecondSubject>
-        <div style={{ padding: "4%" }}>
-          <SecondContent as="a" href="*">
-            Create a custom filter
-          </SecondContent>
-        </div>
-      </SecondWrapper>
+        <SecondWrapper>
+          <SecondSubject>Ignored Tags</SecondSubject>
+          <TagWrapper>
+            <button>Add an Ignored tag</button>
+          </TagWrapper>
+        </SecondWrapper>
 
-      <Space></Space>
+        <Space></Space>
 
-      <SecondWrapper>
-        <SecondSubject>Watched Tags</SecondSubject>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <FaSearch
-            style={{ color: "#379FEF", fontSize: "260%", padding: "4%" }}
-          />
-        </div>
-        <ThirdContent>Watch tags to curate your list of</ThirdContent>
-        <ThirdContent>questions.</ThirdContent>
+        <SecondWrapper>
+          <ThirdSubject>
+            <div className="collectives">Collectives</div>
+            <a href="*" className="seeAll">
+              see all
+            </a>
+          </ThirdSubject>
+          <CollectWrapper>
+            <div>
+              <GoogleIcon />
+            </div>
+            <ContentWrapper>
+              <div className="google">Google Cloud</div>
+              <div className="member">30k Members</div>
+            </ContentWrapper>
+            <button>Join</button>
+          </CollectWrapper>
+          <Text>
+            Google Cloud provides organizations with leading infrastructure,
+            platform capabilities...
+          </Text>
 
-        <TagWrapper>
-          <button>Watch a tag</button>
-        </TagWrapper>
-      </SecondWrapper>
+          <Line></Line>
 
-      <Space></Space>
+          <CollectWrapper>
+            <div>
+              <IntelIcon />
+            </div>
+            <ContentWrapper>
+              <div className="google">Intel</div>
+              <div className="member">80k Members</div>
+            </ContentWrapper>
+            <button>Join</button>
+          </CollectWrapper>
+          <Text>
+            A space for developers to collaborate on Intel software tools,
+            libraries, and resources. Share...
+          </Text>
 
-      <SecondWrapper>
-        <SecondSubject>Ignored Tags</SecondSubject>
-        <TagWrapper>
-          <button>Add an Ignored tag</button>
-        </TagWrapper>
-      </SecondWrapper>
+          <Line></Line>
 
-      <Space></Space>
+          <CollectWrapper>
+            <div>
+              <TwilioIcon />
+            </div>
+            <ContentWrapper>
+              <div className="google">Twilio</div>
+              <div className="member">5k Members</div>
+            </ContentWrapper>
+            <button>Join</button>
+          </CollectWrapper>
+          <Text>
+            Twilio has democratized channels like voice, text, chat, video, and
+            email by virtualizing the...
+          </Text>
+        </SecondWrapper>
 
-      <SecondWrapper>
-        <ThirdSubject>
-          <div className="collectives">Collectives</div>
-          <a href="*" className="seeAll">
-            see all
-          </a>
-        </ThirdSubject>
-        <CollectWrapper>
-          <div>
-            <FaGofore
-              style={{ color: "#379FEF", fontSize: "200%", padding: "4%" }}
-            />
-          </div>
-          <ContentWrapper>
-            <div className="google">Google Cloud</div>
-            <div className="member">30k Members</div>
-          </ContentWrapper>
-          <button>Join</button>
-        </CollectWrapper>
-        <Text>
-          Google Cloud provides organizations with leading infrastructure,
-          platform capabilities...
-        </Text>
+        <Space></Space>
 
-        <Line></Line>
+        {/* <Network>Hot Network Questions</Network>
 
-        <CollectWrapper>
-          <div>
-            <FaLinkedin
-              style={{ color: "#0068B5", fontSize: "200%", padding: "4%" }}
-            />
-          </div>
-          <ContentWrapper>
-            <div className="google">Intel</div>
-            <div className="member">80k Members</div>
-          </ContentWrapper>
-          <button>Join</button>
-        </CollectWrapper>
-        <Text>
-          A space for developers to collaborate on Intel software tools,
-          libraries, and resources. Share...
-        </Text>
+        <Space></Space>
 
-        <Line></Line>
+        <QuestionsWrapper>
+          <Questions>
+            <div>
+              <SixCircleIcon />
+            </div>
+            <a href="*" className="text">
+              Can Level 6 Circle of the Moon Druids wild shape into a flying
+              beast?
+            </a>
+          </Questions>
 
-        <CollectWrapper>
-          <div>
-            <SiTwilio
-              style={{ color: "#F22F46", fontSize: "200%", padding: "4%" }}
-            />
-          </div>
-          <ContentWrapper>
-            <div className="google">Twilio</div>
-            <div className="member">5k Members</div>
-          </ContentWrapper>
-          <button>Join</button>
-        </CollectWrapper>
-        <Text>
-          Twilio has democratized channels like voice, text, chat, video, and
-          email by virtualizing the...
-        </Text>
-      </SecondWrapper>
+          <Questions>
+            <div>
+              <GreenIcon />
+            </div>
+            <a href="*" className="text">
+              In what airports do I undergo US exit immigration checks, if I
+              have a connecting flight?
+            </a>
+          </Questions>
 
-      <Space></Space>
+          <Questions>
+            <div>
+              <StackIcon />
+            </div>
+            <a href="*" className="text">
+              Why do root and intermediate levels of NON-unique NON-clustered
+              indexes additionally store row ID?
+            </a>
+          </Questions>
 
-      <div style={{ fontSize: "20px" }}>Hot Network Questions</div>
+          <Questions>
+            <div>
+              <MmsIcon />
+            </div>
+            <a href="*" className="text">
+              Why do root and intermediate levels of NON-unique NON-clustered
+              indexes additionally store row ID?
+            </a>
+          </Questions>
 
-      <Space></Space>
+          <Questions>
+            <div>
+              <BracesFillIcon />
+            </div>
+            <a href="*" className="text">
+              How can I get dashed line in the segment EH?
+            </a>
+          </Questions>
 
-      <QuestionsWrapper>
-        <Questions>
-          <div>
-            <FaConnectdevelop
-              style={{
-                color: "#F22F46",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
-          </div>
-          <a href="*" className="text">
-            Can Level 6 Circle of the Moon Druids wild shape into a flying
-            beast?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <FaCentos
-              style={{
-                color: "#90F097",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
-          </div>
-          <a href="*" className="text">
-            In what airports do I undergo US exit immigration checks, if I have
-            a connecting flight?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <FaBuffer
-              style={{
-                color: "#0068B5",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
-          </div>
-          <a href="*" className="text">
-            Why do root and intermediate levels of NON-unique NON-clustered
-            indexes additionally store row ID?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <FaRegCommentAlt
-              style={{
-                color: "#0068B5",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
-          </div>
-          <a href="*" className="text">
-            Why do root and intermediate levels of NON-unique NON-clustered
-            indexes additionally store row ID?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <RiBracesFill
-              style={{
-                color: "#F22F46",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
-          </div>
-          <a href="*" className="text">
-            How can I get dashed line in the segment EH?
-          </a>
-        </Questions>
-
-        <Questions>
-          <div>
-            <FaRegCommentAlt
-              style={{
-                color: "#0068B5",
-                fontSize: "130%",
-                paddingRight: "10px",
-              }}
-            />
-          </div>
-          <a href="*" className="text">
-            Expectations in how to get faster with Vim/Nvim?
-          </a>
-        </Questions>
-      </QuestionsWrapper>
-    </RightNaviWraper>
+          <Questions>
+            <div>
+              <MmsIcon />
+            </div>
+            <a href="*" className="text">
+              Expectations in how to get faster with Vim/Nvim?
+            </a>
+          </Questions>
+        </QuestionsWrapper> */}
+      </RightNaviWraper>
+    </div>
   );
 }
 
 const RightNaviWraper = styled.div`
   box-sizing: border-box;
   width: 33%;
-  // height: 100vh;
-  border: 5px solid blue;
+  height: 100%;
+  padding-left: 20px;
 `;
 
 const Space = styled.div`
@@ -322,6 +275,9 @@ const Content = styled.div`
   padding: 4%;
   font-size: 13px;
   background-color: #fdf7e2;
+  & > div {
+    padding-right: 3%;
+  }
 `;
 
 const SecondWrapper = styled.div`
@@ -329,6 +285,13 @@ const SecondWrapper = styled.div`
   border: 1px solid #d6d9dc;
   margin-right: auto;
   min-width: 300px;
+  & > div {
+    padding: 3%;
+  }
+  & > .watch_tag {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const SecondSubject = styled.div`
@@ -413,6 +376,13 @@ const Text = styled.div`
   padding: 4%;
 `;
 
+const Network = styled.div`
+  fontsize: 30px;
+  width: 300px;
+  margin-right: auto;
+  min-width: 300px;
+`;
+
 const QuestionsWrapper = styled.div`
   width: 300px;
   margin-right: auto;
@@ -432,4 +402,63 @@ const Questions = styled.div`
     color: #0074cc;
   }
 `;
+
+const MessageIcon = styled(FaRegCommentAlt)`
+  color: #46a2d9;
+`;
+
+const SearchIcon = styled(FaSearch)`
+  color: #46a2d9;
+  font-size: 260%;
+  padding: 4%;
+`;
+
+const GoogleIcon = styled(FaGofore)`
+  color: #46a2d9;
+  font-size: 200%;
+  padding: 4%;
+`;
+
+const IntelIcon = styled(FaLinkedin)`
+  color: #0068b5;
+  font-size: 200%;
+  padding: 4%;
+`;
+
+const TwilioIcon = styled(SiTwilio)`
+  color: #f22f46;
+  font-size: 200%;
+  padding: 4%;
+`;
+
+const SixCircleIcon = styled(FaConnectdevelop)`
+  color: #f22f46;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const GreenIcon = styled(FaCentos)`
+  color: #90f097;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const StackIcon = styled(FaBuffer)`
+  color: #0068b5;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const MmsIcon = styled(FaRegCommentAlt)`
+  color: #46a2d9;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
+const BracesFillIcon = styled(RiBracesFill)`
+  color: #f22f46;
+  font-size: 130%;
+  padding-left: 10px;
+`;
+
 export default RightNavi;

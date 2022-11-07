@@ -5,35 +5,74 @@ import { AiOutlineSearch, AiTwotoneTrophy } from "react-icons/ai";
 import stackLogo from "../img/stackOverflowLogo.png";
 import { GoInbox } from "react-icons/go";
 import { FaQuestionCircle, FaStackExchange } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
+import { useSelector } from "react-redux";
 
-function Header() {
+function Header({ userSearch, clickSearch }) {
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+  const [isModal, setIsModal] = useState(false);
+  let jwtToken = localStorage.getItem("access_token");
   console.log(isLogin);
+  // const[loginCheck , setLoginCheck] = useState(false);
+  // console.log(jwtToken);
 
   const loginBtn = () => {
-    setIsLogin(true);
+    if (jwtToken) {
+      setIsLogin(true);
+    } else if (!jwtToken && isLogin === false) {
+      setIsLogin(true);
+      navigate("/login");
+    }
   };
+
+  const signupBtn = () => {
+    if (jwtToken) {
+      setIsLogin(true);
+    } else if (!jwtToken && isLogin === false) {
+      setIsLogin(true);
+      navigate("/signup");
+    }
+  };
+
   const logoutBtn = () => {
     setIsLogin(false);
   };
 
+  const clickAllQuestion = () => {
+    navigate("/");
+  };
+
+  const openModal = () => {
+    setIsModal(!isModal);
+  };
+
+  const clickUserpage = () => {
+    navigate("/MyPage/:id");
+  };
+
   return (
     <Wraper>
-      {isLogin ? (
+      {jwtToken ? (
         <HeaderWraper>
-          <LogoBtn>
+          <LogoBtn onClick={clickAllQuestion}>
             <LogoImg src={stackLogo} />
           </LogoBtn>
           <LinkBtnSpace isLogin={isLogin}>
             <LinkBtn>Products</LinkBtn>
           </LinkBtnSpace>
           <SearchSpace isLogin={isLogin}>
-            <SearchIcons>
+            <SearchIcons onClick={clickSearch}>
               <AiOutlineSearch />
             </SearchIcons>
-            <SearchInput placeholder="Search..." isLogin={isLogin} />
+            <SearchInput
+              placeholder="Search..."
+              onChange={userSearch}
+              isLogin={isLogin}
+            />
           </SearchSpace>
-          <UserProfile>사용자</UserProfile>
+          <UserProfile onClick={clickUserpage}>사용자</UserProfile>
           <BtnSpace isLogin={isLogin}>
             <HeaderIcon isLogin={isLogin}>
               <GoInbox />
@@ -45,16 +84,17 @@ function Header() {
               <FaQuestionCircle />
             </HeaderIcon>
             <HeaderIcon isLogin={isLogin}>
-              <FaStackExchange />
+              <FaStackExchange onClick={openModal} />
             </HeaderIcon>
           </BtnSpace>
+          {isModal ? <Modal /> : null}
         </HeaderWraper>
       ) : (
         <HeaderWraper>
           <HeaderIcon isLogin={isLogin}>
             <FiMenu />
           </HeaderIcon>
-          <LogoBtn>
+          <LogoBtn onClick={clickAllQuestion}>
             <LogoImg src={stackLogo} />
           </LogoBtn>
           <LinkBtnSpace>
@@ -63,14 +103,18 @@ function Header() {
             <LinkBtn>For Teams</LinkBtn>
           </LinkBtnSpace>
           <SearchSpace isLogin={isLogin}>
-            <SearchIcons>
+            <SearchIcons onClick={clickSearch}>
               <AiOutlineSearch />
             </SearchIcons>
-            <SearchInput placeholder="Search..." isLogin={isLogin} />
+            <SearchInput
+              placeholder="Search..."
+              onChange={userSearch}
+              isLogin={isLogin}
+            />
           </SearchSpace>
           <BtnSpace isLogin={isLogin}>
             <MemberBtn onClick={loginBtn}>Log in</MemberBtn>
-            <MemberBtn onClick={logoutBtn}>Sign up</MemberBtn>
+            <MemberBtn onClick={signupBtn}>Sign up</MemberBtn>
           </BtnSpace>
         </HeaderWraper>
       )}
@@ -89,12 +133,13 @@ const Wraper = styled.div`
   margin-right: auto;
   position: fixed;
   background-color: white;
+  z-index: 99;
 `;
 const HeaderWraper = styled.div`
   height: 50px;
   display: flex;
   align-items: center;
-  width: 1400px;
+  width: 1300px;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -105,6 +150,7 @@ const HeaderIcon = styled.button`
   padding: 10px 15px 0px 15px;
   border: none;
   background-color: white;
+  cursor: pointer;
   &:hover {
     height: 54px;
     border-top: 4px solid orange;
@@ -126,7 +172,9 @@ const LogoImg = styled.img`
   width: 180px;
   height: 30px;
   padding: 5px 12px;
+  cursor: pointer;
 `;
+
 const LinkBtnSpace = styled.div`
   width: ${(props) => (props.isLogin ? "100px" : "400px")};
   display: flex;
@@ -141,6 +189,7 @@ const LinkBtn = styled.button`
   height: 100%;
   background-color: white;
   border: none;
+  cursor: pointer;
   &:hover {
     height: 35px;
     background-color: rgb(226, 230, 232);
@@ -154,7 +203,7 @@ const LinkBtn = styled.button`
   }
 `;
 const SearchSpace = styled.div`
-  width: ${(props) => (props.isLogin ? "54%" : "90%")};
+  width: ${(props) => (props.isLogin ? "54%" : "80%")};
   height: 40px;
   min-width: 30%;
   display: flex;
@@ -162,7 +211,7 @@ const SearchSpace = styled.div`
 `;
 
 const SearchInput = styled.input`
-  width: ${(props) => (props.isLogin ? "100%" : "93%")};
+  width: ${(props) => (props.isLogin ? "80%" : "90%")};
   height: 30px;
   margin: 5px 0px 0px 20px;
   padding-left: 40px;
@@ -175,6 +224,7 @@ const SearchInput = styled.input`
     border: none;
     outline: 0;
   }
+
   margin-left: -35px;
   z-index: 1;
 `;
@@ -200,6 +250,7 @@ const MemberBtn = styled.button`
   color: rgb(44, 88, 119);
   border: 1px solid rgb(121, 167, 199);
   border-radius: 5px;
+  cursor: pointer;
 
   &:nth-child(2) {
     background-color: rgb(20, 148, 245);
@@ -214,6 +265,7 @@ const UserProfile = styled.button`
   background-color: white;
   border: none;
   min-width: 80px;
+  cursor: pointer;
   &:hover {
     background-color: rgb(226, 230, 232);
     margin-bottom: 2px;

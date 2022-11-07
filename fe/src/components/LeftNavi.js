@@ -1,80 +1,64 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IoEarthSharp, IoStarOutline } from "react-icons/io5";
+import { IoEarthSharp, IoStarOutline, IoBagSharp } from "react-icons/io5";
 import sideImage from "../img/sideImg.png";
 
 function LeftNvi() {
-  const [clickElement, setClickElement] = useState(false);
-  console.log(clickElement);
+  const navigate = useNavigate();
 
-  const clickHere = () => {
-    setClickElement(!clickElement);
+  const clickQuestion = () => {
+    navigate("/");
   };
 
   return (
-    <LeftNaviWraper>
-      <Wraper>
-        <HomeMenu click={clickElement} onClick={() => clickHere()}>
-          Home
-        </HomeMenu>
-
-        <MainMenu>
-          <PublicMenu>PUBLIC</PublicMenu>
-          <QuestionsContents click={clickElement} onClick={() => clickHere()}>
-            <EarthIcon>
-              <IoEarthSharp />
-            </EarthIcon>
-            <QuestionsMenu>Questions</QuestionsMenu>
-          </QuestionsContents>
-          <Menu click={clickElement} onClick={() => clickHere()}>
-            Tags
-          </Menu>
-          <Menu click={clickElement} onClick={() => clickHere()}>
-            Users
-          </Menu>
-          <Menu click={clickElement} onClick={() => clickHere()}>
-            Companies
-          </Menu>
-          <Collectives>COLLECTIVES</Collectives>
-          <CollectivesContents click={clickElement} onClick={() => clickHere()}>
-            <StarIcon>
-              <IoStarOutline />
-            </StarIcon>
-            <CollectivesMenu>Explore Collectives</CollectivesMenu>
-          </CollectivesContents>
-        </MainMenu>
-
-        <TeamsMenu>TEAMS</TeamsMenu>
-        <TeamMainMenu>
-          <div>
-            <DisplayText>
-              Stack Overflow for Teams – Start collaborating and sharing
-              organizational knowledge.
-            </DisplayText>
-            <SideImage src={sideImage}></SideImage>
-            <CreateBtn click={clickElement} onClick={() => clickHere()}>
-              Create a free Team
-            </CreateBtn>
-            <TeamsMsg>Why Teams?</TeamsMsg>
-          </div>
-        </TeamMainMenu>
-      </Wraper>
-    </LeftNaviWraper>
+    <LeftNaviWrapper>
+      <Wrapper>
+        <Position>
+          <HomeMenu onClick={clickQuestion}>Home</HomeMenu>
+          <MainMenu>
+            <PublicMenu>PUBLIC</PublicMenu>
+            <QuestionsContents onClick={clickQuestion}>
+              <EarthIcon>
+                <IoEarthSharp />
+              </EarthIcon>
+              <QuestionsMenu>Questions</QuestionsMenu>
+            </QuestionsContents>
+            <Collectives>COLLECTIVES</Collectives>
+            <CollectivesContents>
+              <StarIcon>
+                <IoStarOutline />
+              </StarIcon>
+              <CollectivesMenu>Explore Collectives</CollectivesMenu>
+            </CollectivesContents>
+          </MainMenu>
+          <TeamsMenu>TEAMS</TeamsMenu>
+          <TeamMainMenu>
+            <TeamsContents>
+              <IoBagSharp />
+            </TeamsContents>
+            <TeamsContents>Create free Team</TeamsContents>
+          </TeamMainMenu>
+        </Position>
+      </Wrapper>
+    </LeftNaviWrapper>
   );
 }
 
-const LeftNaviWraper = styled.div`
+const LeftNaviWrapper = styled.div`
+  margin-bottom: 300px;
   width: 168px;
-  height: 100vh;
-  border: 1px solid black;
 `;
 
-const Wraper = styled.div`
+const Wrapper = styled.div`
   width: 163px;
-  height: 100vh;
-  position: fixed;
+  height: 100%;
   font-size: 14px;
+  border-right: 1px solid #d6d9dc;
+`;
+
+const Position = styled.div`
+  position: fixed;
 `;
 
 const HomeMenu = styled.button`
@@ -86,6 +70,7 @@ const HomeMenu = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const MainMenu = styled.div`
@@ -95,9 +80,10 @@ const MainMenu = styled.div`
 `;
 
 const TeamMainMenu = styled.div`
+  display: flex;
+  justify-content: center;
   height: 284px;
-  margin: 12px 0px;
-  border: 2px solid (60, 60, 60);
+  margin: 12px 1px;
 `;
 
 const PublicMenu = styled.div`
@@ -117,6 +103,7 @@ const QuestionsContents = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const EarthIcon = styled.div`
@@ -140,6 +127,7 @@ const Menu = styled.button`
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const Collectives = styled.div`
@@ -154,10 +142,12 @@ const CollectivesContents = styled.button`
   background-color: white;
   margin-top: 13px;
   display: flex;
+  font-size: 13px;
   color: rgb(106, 115, 124);
   &:hover {
     color: black;
   }
+  cursor: pointer;
 `;
 
 const StarIcon = styled.div`
@@ -170,36 +160,18 @@ const CollectivesMenu = styled.div`
 `;
 
 const TeamsMenu = styled.div`
+  display: flex;
+  color: rgb(106, 115, 124);
   margin-left: 5px;
   margin-top: 28px;
   font-size: 11px;
 `;
 
-const DisplayText = styled.div`
-  margin: 10px;
-  font-size: 13px;
-`;
-
-const SideImage = styled.div`
-  width: 139px;
-  height: 114px;
-  background-color: green;
-`;
-
-const CreateBtn = styled.button`
-  border-radius: 3px;
-  border: none;
-  background-color: #f48225;
-  color: white;
-  font-size: 11px;
-  width: 138px;
-  height: 30px;
-`;
-
-const TeamsMsg = styled.div`
-  font-size: 11px;
-  display: flex;
-  justify-content: center;
+const TeamsContents = styled.div`
+  color: rgb(106, 115, 124);
+  margin-left: 8px;
+  margin-top: 5px;
+  font-size: 14px;
 `;
 
 export default LeftNvi;
