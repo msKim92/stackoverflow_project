@@ -12,7 +12,6 @@ export const fetchAnswer = createAsyncThunk(
     return Apis.get(`v1/answer/${id}`, {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     })
       .then((res) => {
@@ -30,7 +29,6 @@ export const addAnswer = createAsyncThunk(
     return Apis.post(`v1/answer`, answerData, {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     })
       .then((res) => {
@@ -47,7 +45,6 @@ export const updateAnswer = createAsyncThunk(
     return Apis.patch(`v1/answer/${upData.id}`, upData.answerBody, {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     })
       .then((res) => {
@@ -79,7 +76,6 @@ export const voteUpAnswer = createAsyncThunk("askQuestion", async (anId) => {
     {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     }
   )
@@ -94,7 +90,6 @@ export const voteDownAnswer = createAsyncThunk("askQuestion", async (anId) => {
     {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     }
   )

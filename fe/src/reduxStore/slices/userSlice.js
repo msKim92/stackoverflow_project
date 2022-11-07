@@ -9,15 +9,9 @@ const NGROKURL = "https://811e-203-130-71-252.jp.ngrok.io/";
 export const signUser = createAsyncThunk(
   "user/addUser",
   async ({ addData, navigate }) => {
-    return Apis.post(`v1/sign/`, addData, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "111",
-      },
-    })
+    return Apis.post(`v1/sign/`, addData)
       .then((res) => {
         navigate("/login");
-        window.location.reload();
         return res.data;
       })
       .catch((err) => console.log(err));
@@ -33,8 +27,7 @@ export const loginUser = createAsyncThunk(
         { ...loginData },
         {
           headers: {
-            "Access-Control-Allow-Origin": "*",
-            "ngrok-skip-browser-warning": "111",
+            withCredentials: true,
           },
         }
       )
@@ -49,23 +42,19 @@ export const loginUser = createAsyncThunk(
         .then((res) => {
           // let userId = res.config.data;
           // let usertoken = userId.split('"')[3];
+          console.log(res);
           let jwtToken = res.headers.get("Authorization");
           let jwtrefreshToken = res.headers.get("refresh");
           // localStorage.setItem("userEmail", usertoken);
           localStorage.setItem("access_token", jwtToken);
           localStorage.setItem("refresh", jwtrefreshToken);
           navigate("/");
-          window.location.reload();
           return res.data;
         })
         .catch((err) => console.log(err))
     );
   }
 );
-
-
-
-
 
 const userSlice = createSlice({
   name: "users",

@@ -37,40 +37,30 @@ function AllQuestions() {
         userSearch={userSearch}
         clickSearch={clickSearch}
       />
-      
+
       <Wraper>
         <Position>
-        <LeftNvi />
-        <QuestionList>
-          <AllQuestionsMenu>
-            <AllQuestionsTop>
-              <AllQuestionsTitle>Top Questions</AllQuestionsTitle>
-              <AllQuestionsAddBtn onClick={clickAddQuetion}>
-                Ask Question
-              </AllQuestionsAddBtn>
-            </AllQuestionsTop>
-            <AllQuestionsBottom>
-              <AllQuestionsMenuBtn>Interestion</AllQuestionsMenuBtn>
-              <AllQuestionsInMenuSpace>
-                <AllQuestionsMenuInBtn>274</AllQuestionsMenuInBtn>
-                <AllQuestionsMenuBtn>Bountied</AllQuestionsMenuBtn>
-              </AllQuestionsInMenuSpace>
-              <AllQuestionsMenuBtn>Hot</AllQuestionsMenuBtn>
-              <AllQuestionsMenuBtn>Week</AllQuestionsMenuBtn>
-              <AllQuestionsMenuBtn>Month</AllQuestionsMenuBtn>
-            </AllQuestionsBottom>
-          </AllQuestionsMenu>
-          <Question
-            clickHere={clickHere}
-            clickSearchCheck={clickSearchCheck}
-            changeSearch={changeSearch}
-            setClickHere={setClickHere}
-          />
-        </QuestionList>
-        <RightNavi />
+          <LeftNvi />
+          <QuestionList>
+            <AllQuestionsMenu>
+              <AllQuestionsTop>
+                <AllQuestionsTitle>Top Questions</AllQuestionsTitle>
+                <AllQuestionsAddBtn onClick={clickAddQuetion}>
+                  Ask Question
+                </AllQuestionsAddBtn>
+              </AllQuestionsTop>
+            </AllQuestionsMenu>
+            <Question
+              clickHere={clickHere}
+              clickSearchCheck={clickSearchCheck}
+              changeSearch={changeSearch}
+              setClickHere={setClickHere}
+            />
+          </QuestionList>
+          <RightNavi />
         </Position>
         <FooterForm>
-        <Footer />
+          <Footer />
         </FooterForm>
       </Wraper>
     </>
