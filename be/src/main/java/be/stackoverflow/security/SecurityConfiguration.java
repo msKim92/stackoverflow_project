@@ -108,7 +108,6 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         //모든 출처(Origin)에 대해 스크립트 기반의 HTTP 통신을 허용하고 추가적으로 운영 서버 환경에서 요구사항에 맞게 변경이 가능
         configuration.setAllowedOrigins(Arrays.asList("*"));
-
         //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE","OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Origin,Accept","X-Requested-With","Content-Type","Access-Control-Request-Method",

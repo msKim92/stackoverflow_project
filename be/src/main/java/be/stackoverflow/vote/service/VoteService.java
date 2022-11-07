@@ -46,7 +46,9 @@ public class VoteService {
             Set<Vote> votes =question.getVotes();
             votes.add(vote);
             int voteCount= question.getVoteCount();
-            voteCount--;
+            if (voteCount > 0) {
+                voteCount--;
+            }
             question.setVotes(votes);
             question.setVoteCount(voteCount);
             questionRepository.save(question);
@@ -80,7 +82,9 @@ public class VoteService {
             Set<Vote> votes =answer.getVotes();
             votes.add(vote);
             int voteCount= answer.getVoteCount();
-            voteCount--;
+            if (voteCount > 0) {
+                voteCount--;
+            }
             answer.setVotes(votes);
             answer.setVoteCount(voteCount);
             answerRepository.save(answer);
