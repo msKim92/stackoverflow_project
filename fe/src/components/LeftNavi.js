@@ -11,41 +11,34 @@ function LeftNvi() {
     navigate("/");
   };
 
-  const userNavClick = () => {
-    navigate("/MyPage");
-  };
-
   return (
     <LeftNaviWrapper>
       <Wrapper>
         <Position>
-        <HomeMenu onClick={clickQuestion}>
-          Home
-        </HomeMenu>
-        <MainMenu>
-          <PublicMenu>PUBLIC</PublicMenu>
-          <QuestionsContents onClick={clickQuestion}>
-            <EarthIcon>
-              <IoEarthSharp />
-            </EarthIcon>
-            <QuestionsMenu>Questions</QuestionsMenu>
-          </QuestionsContents>
-          <Menu>Tags</Menu>
-          <Menu onClick={userNavClick}>Users</Menu>
-          <Menu>Companies</Menu>
-          <Collectives>COLLECTIVES</Collectives>
-          <CollectivesContents>
-            <StarIcon>
-              <IoStarOutline />
-            </StarIcon>
-            <CollectivesMenu>Explore Collectives</CollectivesMenu>
-          </CollectivesContents>
-        </MainMenu>
-        <TeamsMenu>TEAMS</TeamsMenu>
-        <TeamMainMenu>
-          <TeamsContents><IoBagSharp/></TeamsContents>
-          <TeamsContents>Create free Team</TeamsContents>
-        </TeamMainMenu>
+          <HomeMenu onClick={clickQuestion}>Home</HomeMenu>
+          <MainMenu>
+            <PublicMenu>PUBLIC</PublicMenu>
+            <QuestionsContents onClick={clickQuestion}>
+              <EarthIcon>
+                <IoEarthSharp />
+              </EarthIcon>
+              <QuestionsMenu>Questions</QuestionsMenu>
+            </QuestionsContents>
+            <Collectives>COLLECTIVES</Collectives>
+            <CollectivesContents>
+              <StarIcon>
+                <IoStarOutline />
+              </StarIcon>
+              <CollectivesMenu>Explore Collectives</CollectivesMenu>
+            </CollectivesContents>
+          </MainMenu>
+          <TeamsMenu>TEAMS</TeamsMenu>
+          <TeamMainMenu>
+            <TeamsContents>
+              <IoBagSharp />
+            </TeamsContents>
+            <TeamsContents>Create free Team</TeamsContents>
+          </TeamMainMenu>
         </Position>
       </Wrapper>
     </LeftNaviWrapper>

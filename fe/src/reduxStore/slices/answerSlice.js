@@ -1,10 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Apis from "../../api/api";
-let jwtToken = localStorage.getItem("access_token");
-
-const BASEURL =
-  "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
+const jwtToken = localStorage.getItem("Authorization");
+console.log(jwtToken);
 
 export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
@@ -12,7 +10,6 @@ export const fetchAnswer = createAsyncThunk(
     return Apis.get(`v1/answer/${id}`, {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     })
       .then((res) => {
@@ -26,11 +23,9 @@ export const fetchAnswer = createAsyncThunk(
 export const addAnswer = createAsyncThunk(
   "answers/addAnswer",
   async (answerData) => {
-    console.log(123, jwtToken);
     return Apis.post(`v1/answer`, answerData, {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     })
       .then((res) => {
@@ -47,7 +42,6 @@ export const updateAnswer = createAsyncThunk(
     return Apis.patch(`v1/answer/${upData.id}`, upData.answerBody, {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     })
       .then((res) => {
@@ -79,7 +73,6 @@ export const voteUpAnswer = createAsyncThunk("askQuestion", async (anId) => {
     {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     }
   )
@@ -94,7 +87,6 @@ export const voteDownAnswer = createAsyncThunk("askQuestion", async (anId) => {
     {
       headers: {
         Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
       },
     }
   )

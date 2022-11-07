@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Apis from "../../api/api";
-let jwtToken = localStorage.getItem("access_token");
+const jwtToken = localStorage.getItem("Authorization");
 let token = "";
 
 if (jwtToken) {
@@ -11,12 +11,7 @@ if (jwtToken) {
 export const fetchQuestion = createAsyncThunk(
   "questions/",
   async (clickNumber) => {
-    return await Apis.get(`v1/questions?page=${clickNumber}&size=10`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "111",
-      },
-    })
+    return await Apis.get(`v1/questions?page=${clickNumber}&size=10`)
       .then((res) => {
         return res.data;
       })
@@ -27,8 +22,7 @@ export const fetchQuestion = createAsyncThunk(
 export const filterFetchQuestion = createAsyncThunk("filterqe/", async (id) => {
   return Apis.get(`v1/questions/${id}`, {
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      "ngrok-skip-browser-warning": "111",
+      Authorization: `${jwtToken}`,
     },
   })
     .then((res) => res.data)
@@ -39,8 +33,7 @@ export const searchQuestion = createAsyncThunk(
   async (searchName) => {
     return Apis.get(`v1/questions/search?title=${searchName}&page=1&size=10`, {
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "111",
+        Authorization: `${jwtToken}`,
       },
     })
       .then((res) => {
@@ -50,10 +43,9 @@ export const searchQuestion = createAsyncThunk(
   }
 );
 export const filterFetchAnswer = createAsyncThunk("filterqe/", async (id) => {
-  return Apis.get(`questions/${id}`, {
+  return Apis.get(`v1/questions/${id}`, {
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      "ngrok-skip-browser-warning": "111",
+      Authorization: `${jwtToken}`,
     },
   })
     .then((res) => res.data)
@@ -64,7 +56,6 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
   return await Apis.post(`v1/questions/createQuestion`, body, {
     headers: {
       Authorization: `${jwtToken}`,
-      "ngrok-skip-browser-warning": "111",
     },
   })
     .then(() => window.location.replace("/"))
@@ -72,32 +63,22 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
     .catch((err) => console.error("error:", err));
 });
 export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
-  return await Apis.post(
-    `v1/vote/like/question/${qeId}`,
-    {},
-    {
-      headers: {
-        Authorization: `${jwtToken}`,
-        "ngrok-skip-browser-warning": "111",
-      },
-    }
-  )
+  return await Apis.post(`v1/vote/like/question/${qeId}`, {
+    headers: {
+      Authorization: `${jwtToken}`,
+    },
+  })
     .then((res) => window.location.reload())
     .catch((err) => console.error("error:", err));
 });
 export const voteDownQuestion = createAsyncThunk(
   "askQuestion",
   async (qeId) => {
-    return await Apis.post(
-      `v1/vote/dislike/question/${qeId}`,
-      {},
-      {
-        headers: {
-          Authorization: `${jwtToken}`,
-          "ngrok-skip-browser-warning": "111",
-        },
-      }
-    )
+    return await Apis.post(`v1/vote/dislike/question/${qeId}`, {
+      headers: {
+        Authorization: `${jwtToken}`,
+      },
+    })
       .then((res) => window.location.reload())
       .catch((err) => console.error("error:", err));
   }

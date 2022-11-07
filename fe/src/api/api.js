@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const Apis = axios.create({
-  baseURL:
-    "https://cors-anywhere.herokuapp.com/https://a43b-203-130-71-252.jp.ngrok.io/ ",
+  baseURL: "http://ec2-43-200-3-93.ap-northeast-2.compute.amazonaws.com:8080/",
 });
 // const BASEURL =
-//   "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
+//   "http://ec2-43-200-3-93.ap-northeast-2.compute.amazonaws.com";
 
 // axios.interceptors.request.use(
 //   function (config) {
@@ -20,7 +19,7 @@ const Apis = axios.create({
 //   }
 // );
 
-//AccessToken이 만료됐을때 처리
+// AccessToken이 만료됐을때 처리
 
 // Apis.interceptors.response.use(
 //   function (response) {
