@@ -38,7 +38,7 @@ function EditQuestion() {
   const listItems = list.map((el) => <li key={el.toString()}>{el}</li>);
 
   //localStorage token값가져오기
-  let jwtToken = localStorage.getItem("access_token");
+  let jwtToken = localStorage.getItem("Authorization");
   //게시판 글 작성 api
   const handleSubmit = () => {
     Apis.patch(
@@ -51,8 +51,6 @@ function EditQuestion() {
       {
         headers: {
           Authorization: `${jwtToken}`,
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "111",
         },
       }
     )

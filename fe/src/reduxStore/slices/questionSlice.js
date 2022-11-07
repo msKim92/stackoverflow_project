@@ -63,7 +63,7 @@ export const askQuestion = createAsyncThunk("askQuestion", async (body) => {
     .catch((err) => console.error("error:", err));
 });
 export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
-  return await Apis.post(`v1/vote/like/question/${qeId}`, {
+  return await Apis.post(`v1/vote/like/question/${qeId}`, qeId, {
     headers: {
       Authorization: `${jwtToken}`,
     },
@@ -74,7 +74,7 @@ export const voteUpQuestion = createAsyncThunk("askQuestion", async (qeId) => {
 export const voteDownQuestion = createAsyncThunk(
   "askQuestion",
   async (qeId) => {
-    return await Apis.post(`v1/vote/dislike/question/${qeId}`, {
+    return await Apis.post(`v1/vote/dislike/question/${qeId}`, qeId, {
       headers: {
         Authorization: `${jwtToken}`,
       },

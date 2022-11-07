@@ -39,7 +39,7 @@ function EditAnswer() {
       questionId: id,
       answerBody: write,
     };
-    dispatch(updateAnswer({ upData, navigate }));
+    dispatch(updateAnswer({ id, upData, navigate }));
   };
   return (
     <>

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { searchQuestion } from "../reduxStore/slices/questionSlice";
 
 function Question({ clickHere, setClickHere, clickSearchCheck, changeSearch }) {
-  console.log(clickHere, clickSearchCheck, changeSearch);
   const navigate = useNavigate();
   const questions = useSelector((state) => state.questions.questions?.data);
   const allQuestions = useSelector(
@@ -98,14 +97,20 @@ function Question({ clickHere, setClickHere, clickSearchCheck, changeSearch }) {
 
   useEffect(() => {
     if (!questions || clickHere < 10) {
-      console.log(clickHere);
       dispatch(fetchQuestion(clickHere));
       window.scrollTo(0, 0);
     } else if (clickSearchCheck === true || clickHere === 99) {
       dispatch(searchQuestion(changeSearch));
     }
   }, [clickHere]);
-
+  const tags = questions?.tags;
+  const tagList =
+    tags &&
+    tags.map((el) => {
+      if (el !== "") {
+        return <button key={el.toString()}>{el}</button>;
+      }
+    });
   return (
     <>
       {clickSearchCheck ? (
@@ -136,7 +141,7 @@ function Question({ clickHere, setClickHere, clickSearchCheck, changeSearch }) {
                 >
                   {data.questionTitle}
                 </QuestionerContentsTitle>
-                <QuestionerContentsTag>{data.tags}</QuestionerContentsTag>
+                <QuestionerContentsTag>{tagList}</QuestionerContentsTag>
               </QuestionerContents>
               <QuestionerInformation>
                 <QuestionerDetailInformation>
@@ -256,13 +261,18 @@ const QuestionerContentsTitle = styled.div`
     color: #0995ff;
   }
 `;
-const QuestionerContentsTag = styled.span`
-  width: 100%;
-  height: 30px;
-  background-color: #d0e2f0;
-  padding: 3px;
+const QuestionerContentsTag = styled.div`
+  // border: 1px solid green;
+  margin-top: 5%;
+  & > button {
+    background-color: #e1ecf4;
+    border: 1px solid #e1ecf4;
+    padding: 0.5% 1%;
+    color: #608fb1;
+    margin-right: 1%;
+    border-radius: 10%;
+  }
 `;
-
 const QuestionerInformation = styled.div`
   z-index: 2;
   margin-left: -175px;

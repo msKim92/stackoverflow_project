@@ -47,6 +47,63 @@ function DetailQuestion() {
       }
     });
   //날짜 계산
+  const renderTime = (createTime, modifiedTime) => {
+    let result = "";
+    let creatTime = new Date(String(createTime));
+    let modifieTime = new Date(String(modifiedTime));
+
+    let crYear = creatTime.getFullYear();
+    let crMonth = creatTime.getMonth() + 1;
+    let crDay = creatTime.getDate();
+    let createDate = crYear + "/" + crMonth + "/" + crDay;
+    let moYear = creatTime.getFullYear();
+    let moMonth = creatTime.getMonth() + 1;
+    let moDay = creatTime.getDate();
+    let modifiedDate = moYear + "/" + moMonth + "/" + moDay;
+    let elapsedTime = modifieTime - creatTime;
+    let dayTime = Math.floor(elapsedTime / 1000 / 60 / 60 / 24); // 하루계산
+    let hourTime = Math.floor(elapsedTime / 1000 / 60 / 60); // 시간 계산
+    let minuteTime = Math.floor(elapsedTime / 1000 / 60); // 분 계산
+    let secondTime = Math.floor(elapsedTime); // 초 계산
+
+    if (dayTime > 0) {
+      result = modifiedDate;
+    } else if (
+      dayTime === 0 &&
+      hourTime !== 0 &&
+      minuteTime !== 0 &&
+      secondTime !== 0
+    ) {
+      if (hourTime === 24) {
+        result = dayTime + "날짜";
+      } else {
+        result = hourTime + " hours ago";
+      }
+    } else if (
+      dayTime === 0 &&
+      hourTime === 0 &&
+      minuteTime !== 0 &&
+      secondTime !== 0
+    ) {
+      if (minuteTime === 24) {
+        result = hourTime + " hours ago";
+      } else {
+        result = minuteTime + " min ago";
+      }
+    } else if (
+      dayTime === 0 &&
+      hourTime === 0 &&
+      minuteTime === 0 &&
+      secondTime > 0
+    ) {
+      result = secondTime + " secs ago";
+    } else {
+      result = createDate;
+    }
+
+    return <QuestionerDetailInformation>{result}</QuestionerDetailInformation>;
+  };
+
   const createdAt = new Date(questionData?.created_at).toLocaleDateString(
     "en-us",
     {
@@ -82,8 +139,7 @@ function DetailQuestion() {
   };
 
   //localStorage token값
-  let jwtToken = localStorage.getItem("access_token");
-
+  let jwtToken = localStorage.getItem("Authorization");
   //게시글 삭제api
   const deleteQuestion = () => {
     Apis.delete(`v1/questions/${questionData.questionId}`, {
@@ -92,18 +148,14 @@ function DetailQuestion() {
       },
     })
       .then((res) => {
-        console.log(res.data);
         navigate("/");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const markup = () => {
     return { __html: `${questionData?.questionBody}` };
   };
   const body = questionData?.questionBody;
-  console.log("questionData>>>", questionData);
   return (
     <Wrapper>
       <header>
@@ -180,7 +232,10 @@ function DetailQuestion() {
                             }}
                           >
                             <div>
-                              <div>asked 3hours ago</div>
+                              {renderTime(
+                                questionData?.created_at,
+                                questionData?.modified_at
+                              )}
                               <div style={{ display: "flex" }}>
                                 <div style={{ margin: "3% 3% 0 0" }}>
                                   <FaRegUserCircle
@@ -202,7 +257,7 @@ function DetailQuestion() {
                       </QuestionWrapper>
                     </ContentWrapper>
                   </Flex>
-                  <ReadAnswer />
+                  <ReadAnswer questionData={questionData} />
                   <AddAnswer />
                 </div>
               </div>
@@ -222,6 +277,9 @@ function DetailQuestion() {
     </Wrapper>
   );
 }
+const QuestionerDetailInformation = styled.div`
+  margin: 0px 2px;
+`;
 
 const ButtonStyle = styled.button`
   padding: 1%;

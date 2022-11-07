@@ -12,15 +12,16 @@ import {
   voteDownAnswer,
 } from "../reduxStore/slices/answerSlice";
 
-function ReadAnswer() {
-  const answers = useSelector((state) => state.questions.selectQuestions?.data);
+function ReadAnswer({ questionData }) {
+  // const answers = useSelector((state) => state.questions.selectQuestions?.data);
+  console.log(questionData);
   const parmas = useParams();
   const [clickSelect, setClickSelect] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(filterFetchQuestion(Number(parmas.id)));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(filterFetchQuestion(Number(parmas.id)));
+  // }, []);
 
   const renderTime = (createTime, modifiedTime) => {
     let result = "";
@@ -80,8 +81,8 @@ function ReadAnswer() {
 
     return <UserElapsedTime>answered {result}</UserElapsedTime>;
   };
-  const clickEditAnswer = (id) => {
-    navigate(`/v1/${id}`);
+  const clickEditAnswer = () => {
+    navigate(`/v1/${questionData.questionId}`);
   };
 
   const selectOption = [
@@ -109,7 +110,7 @@ function ReadAnswer() {
       <AnswerWrapper>
         <AnswerTitleSpace>
           <TitleAnswerLeft>
-            <AnswerTextSpace>{answers?.answers?.length}</AnswerTextSpace>
+            <AnswerTextSpace>{questionData?.answers?.length}</AnswerTextSpace>
             <AnswerTextSpace>Answer</AnswerTextSpace>
           </TitleAnswerLeft>
           <TitleAnswerRight>
@@ -125,7 +126,7 @@ function ReadAnswer() {
             </AnswerTitleSelect>
           </TitleAnswerRight>
         </AnswerTitleSpace>
-        {answers?.answers.map((data) => (
+        {questionData?.answers.map((data) => (
           <AnswerContentsSpace key={data.answerId}>
             <AnswerContentsSpaceLeft>
               <AnswerIconUpDownBtn onClick={() => clickUpBtn(data.answerId)}>

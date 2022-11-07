@@ -28,7 +28,6 @@ function AskQuestions() {
   const [allow, setAllow] = useState(false);
   const [tagAllow, setTagAllow] = useState(false);
   const [submit, setSubmit] = useState(false);
-  console.log(question.length);
 
   const editoerRef = useRef();
 

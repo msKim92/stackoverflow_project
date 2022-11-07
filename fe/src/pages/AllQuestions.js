@@ -34,7 +34,7 @@ function AllQuestions() {
   };
 
   //localStorage token값가져오기
-  let jwtToken = localStorage.getItem("access_token");
+  let jwtToken = localStorage.getItem("Authorization");
 
   const notify = () => {
     setToastStatus(true);
@@ -67,7 +67,6 @@ function AllQuestions() {
               <AllQuestionsTop>
                 <AllQuestionsTitle>Top Questions</AllQuestionsTitle>
 
-
                 {jwtToken === "" ||
                 jwtToken === null ||
                 jwtToken === undefined ? (
@@ -85,16 +84,6 @@ function AllQuestions() {
                   <UseNotification msg={ToastMsg} />
                 </>
               )}
-              <AllQuestionsBottom>
-                <AllQuestionsMenuBtn>Interestion</AllQuestionsMenuBtn>
-                <AllQuestionsInMenuSpace>
-                  <AllQuestionsMenuInBtn>274</AllQuestionsMenuInBtn>
-                  <AllQuestionsMenuBtn>Bountied</AllQuestionsMenuBtn>
-                </AllQuestionsInMenuSpace>
-                <AllQuestionsMenuBtn>Hot</AllQuestionsMenuBtn>
-                <AllQuestionsMenuBtn>Week</AllQuestionsMenuBtn>
-                <AllQuestionsMenuBtn>Month</AllQuestionsMenuBtn>
-              </AllQuestionsBottom>
             </AllQuestionsMenu>
             <Question
               clickHere={clickHere}
