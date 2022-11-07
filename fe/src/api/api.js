@@ -2,6 +2,7 @@ import axios from "axios";
 
 const Apis = axios.create({
   baseURL: "http://ec2-43-200-3-93.ap-northeast-2.compute.amazonaws.com:8080/",
+
 });
 // const BASEURL =
 //   "http://ec2-43-200-3-93.ap-northeast-2.compute.amazonaws.com";

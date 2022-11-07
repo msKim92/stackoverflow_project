@@ -7,7 +7,11 @@ import Footer from "../components/Footer";
 import Question from "../components/Question";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import UseNotification from "../pages/useNotification";
+
 function AllQuestions() {
+  const [ToastStatus, setToastStatus] = useState(false);
+  const [ToastMsg, setToastMsg] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [clickSearchCheck, setClickSearchCheck] = useState(false);
@@ -29,6 +33,23 @@ function AllQuestions() {
     setChangeSearch(e.target.value);
   };
 
+  //localStorage token값가져오기
+  let jwtToken = localStorage.getItem("access_token");
+
+  const notify = () => {
+    setToastStatus(true);
+    setToastMsg(`로그인을 해주세요.`);
+  };
+
+  useEffect(() => {
+    if (ToastStatus) {
+      setTimeout(() => {
+        setToastStatus(false);
+        setToastMsg("");
+      }, 1000);
+    }
+  }, [ToastStatus]);
+
   return (
     <>
       <Header
@@ -45,10 +66,35 @@ function AllQuestions() {
             <AllQuestionsMenu>
               <AllQuestionsTop>
                 <AllQuestionsTitle>Top Questions</AllQuestionsTitle>
-                <AllQuestionsAddBtn onClick={clickAddQuetion}>
-                  Ask Question
-                </AllQuestionsAddBtn>
+
+
+                {jwtToken === "" ||
+                jwtToken === null ||
+                jwtToken === undefined ? (
+                  <AllQuestionsAddBtn onClick={clickAddQuetion}>
+                    Ask Question
+                  </AllQuestionsAddBtn>
+                ) : (
+                  <AllQuestionsAddBtn onClick={clickAddQuetion}>
+                    Ask Question
+                  </AllQuestionsAddBtn>
+                )}
               </AllQuestionsTop>
+              {ToastStatus && (
+                <>
+                  <UseNotification msg={ToastMsg} />
+                </>
+              )}
+              <AllQuestionsBottom>
+                <AllQuestionsMenuBtn>Interestion</AllQuestionsMenuBtn>
+                <AllQuestionsInMenuSpace>
+                  <AllQuestionsMenuInBtn>274</AllQuestionsMenuInBtn>
+                  <AllQuestionsMenuBtn>Bountied</AllQuestionsMenuBtn>
+                </AllQuestionsInMenuSpace>
+                <AllQuestionsMenuBtn>Hot</AllQuestionsMenuBtn>
+                <AllQuestionsMenuBtn>Week</AllQuestionsMenuBtn>
+                <AllQuestionsMenuBtn>Month</AllQuestionsMenuBtn>
+              </AllQuestionsBottom>
             </AllQuestionsMenu>
             <Question
               clickHere={clickHere}

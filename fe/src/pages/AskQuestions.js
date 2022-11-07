@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import Img from "../img/image.jpg";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
-import useNotification from "../pages/useNotification";
+import UseNotification from "../pages/useNotification";
 
 const list = [
   "Summarize your problem in a one-line title.",
@@ -20,6 +20,8 @@ const list = [
 const listItems = list.map((el) => <li key={el.toString()}>{el}</li>);
 
 function AskQuestions() {
+  const [ToastStatus, setToastStatus] = useState(false);
+  const [ToastMsg, setToastMsg] = useState("");
   const [title, setTitle] = useState("");
   const [question, setQuestion] = useState("");
   const [tag, setTag] = useState("");
@@ -39,14 +41,6 @@ function AskQuestions() {
     setAllow(true);
   };
 
-  const triggerNotif = useNotification("제목을 입력해주세요.", {
-    body: "from. stackoverflow",
-  });
-
-  const questionNotif = useNotification("내용을 10글자 이상 입력해주세요.", {
-    body: "from. stackoverflow",
-  });
-
   const tagAllowed = () => {
     setTagAllow(true);
   };
@@ -65,6 +59,25 @@ function AskQuestions() {
   const submitQuestion = () => {
     dispatch(askQuestion(body));
   };
+
+  const notifyTtile = () => {
+    setToastStatus(true);
+    setToastMsg(`제목을 입력해주세요.`);
+  };
+
+  const notifyContent = () => {
+    setToastStatus(true);
+    setToastMsg(`내용을 10글자이상 입력해주세요.`);
+  };
+
+  useEffect(() => {
+    if (ToastStatus) {
+      setTimeout(() => {
+        setToastStatus(false);
+        setToastMsg("");
+      }, 1000);
+    }
+  }, [ToastStatus]);
 
   if (!allow) {
     return (
@@ -105,9 +118,14 @@ function AskQuestions() {
               {title.length > 0 ? (
                 <ButtonStyle onClick={questionAllow}>Next</ButtonStyle>
               ) : (
-                <ButtonStyle onClick={triggerNotif}>Next</ButtonStyle>
+                <ButtonStyle onClick={notifyTtile}>Next</ButtonStyle>
               )}
             </Title>
+            {ToastStatus && (
+              <>
+                <UseNotification msg={ToastMsg} />
+              </>
+            )}
 
             <NotAllow>
               <QuestionWrapper>
@@ -193,7 +211,11 @@ function AskQuestions() {
                 type="text"
                 onChange={(event) => setTitle(event.target.value)}
               ></input>
-              <ButtonStyle onClick={questionAllow}>Next</ButtonStyle>
+              {title.length > 0 ? (
+                <ButtonStyle onClick={questionAllow}>Next</ButtonStyle>
+              ) : (
+                <ButtonStyle onClick={notifyTtile}>Next</ButtonStyle>
+              )}
             </Title>
 
             <QuestionWrapper>
@@ -216,13 +238,14 @@ function AskQuestions() {
                   Next
                 </ButtonStyle>
               ) : (
-                <ButtonStyle onClick={questionNotif}>Next</ButtonStyle>
+                <ButtonStyle onClick={notifyContent}>Next</ButtonStyle>
               )}
-
-              {/* <ButtonStyle style={{ marginTop: "1.5%" }} onClick={tagAllowed}>
-                Next
-              </ButtonStyle> */}
             </QuestionWrapper>
+            {ToastStatus && (
+              <>
+                <UseNotification msg={ToastMsg} />
+              </>
+            )}
 
             <NotAllow>
               <Tags>
@@ -287,7 +310,11 @@ function AskQuestions() {
                 type="text"
                 onChange={(event) => setTitle(event.target.value)}
               ></input>
-              <ButtonStyle onClick={questionAllow}>Next</ButtonStyle>
+              {title.length > 0 ? (
+                <ButtonStyle onClick={questionAllow}>Next</ButtonStyle>
+              ) : (
+                <ButtonStyle onClick={notifyTtile}>Next</ButtonStyle>
+              )}
             </Title>
 
             <QuestionWrapper>
@@ -305,9 +332,13 @@ function AskQuestions() {
                 ref={editoerRef}
                 onChange={onChange}
               />
-              <ButtonStyle style={{ marginTop: "1.5%" }} onClick={tagAllowed}>
-                Next
-              </ButtonStyle>
+              {question.length > 16 ? (
+                <ButtonStyle style={{ marginTop: "1.5%" }} onClick={tagAllowed}>
+                  Next
+                </ButtonStyle>
+              ) : (
+                <ButtonStyle onClick={notifyContent}>Next</ButtonStyle>
+              )}
             </QuestionWrapper>
 
             <Tags>
