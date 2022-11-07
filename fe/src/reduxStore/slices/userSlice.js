@@ -1,10 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Apis from "../../api/api";
-const BASEURL =
-  "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
-
-const NGROKURL = "https://811e-203-130-71-252.jp.ngrok.io/";
 
 export const signUser = createAsyncThunk(
   "user/addUser",
@@ -27,32 +23,34 @@ export const loginUser = createAsyncThunk(
         { ...loginData },
         {
           headers: {
-            withCredentials: true,
+            "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       )
-        // return fetch("/v1/login", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Length": 0,
-        //     "ngrok-skip-browser-warning": "111",
-        //   },
-        //   body: JSON.stringify(loginData),
-        // })
+        // return fetch.post(
+        //   "http://ec2-43-200-3-93.ap-northeast-2.compute.amazonaws.com:8080/v1/login",
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({ ...loginData }),
+        //   }
         .then((res) => {
           // let userId = res.config.data;
           // let usertoken = userId.split('"')[3];
-          console.log(res);
+
           let jwtToken = res.headers.get("Authorization");
-          let jwtrefreshToken = res.headers.get("refresh");
-          // localStorage.setItem("userEmail", usertoken);
-          localStorage.setItem("access_token", jwtToken);
-          localStorage.setItem("refresh", jwtrefreshToken);
+          let jwtrefreshToken = res.headers.get("Refresh");
+          localStorage.setItem("Authorization", jwtToken);
+          localStorage.setItem("Refresh", jwtrefreshToken);
           navigate("/");
           return res.data;
         })
         .catch((err) => console.log(err))
     );
+    // );
   }
 );
 

@@ -166,8 +166,12 @@ function Signup() {
                   <InputBox onChange={userName} isCheck={nickCheck} />
                   <TextContents>Email</TextContents>
                   <InputBox onChange={userEmail} isCheck={writeEmailCheck} />
-                  <TextContents type="password">Password</TextContents>
-                  <InputBox onChange={userPassword} isCheck={writePwdCheck} />
+                  <TextContents>Password</TextContents>
+                  <InputBox
+                    onChange={userPassword}
+                    type="password"
+                    isCheck={writePwdCheck}
+                  />
                 </div>
                 <Message>
                   Passwords must contain at least eight characters, including at

@@ -1,10 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Apis from "../../api/api";
-let jwtToken = localStorage.getItem("access_token");
-
-const BASEURL =
-  "http://ec2-54-180-147-29.ap-northeast-2.compute.amazonaws.com/";
+const jwtToken = localStorage.getItem("Authorization");
 
 export const fetchAnswer = createAsyncThunk(
   "questions/fetchAnswer",
@@ -15,7 +12,6 @@ export const fetchAnswer = createAsyncThunk(
       },
     })
       .then((res) => {
-        window.location.reload();
         return res.data;
       })
       .catch((err) => console.log(err));
@@ -25,7 +21,7 @@ export const fetchAnswer = createAsyncThunk(
 export const addAnswer = createAsyncThunk(
   "answers/addAnswer",
   async (answerData) => {
-    console.log(123, jwtToken);
+    console.log(answerData);
     return Apis.post(`v1/answer`, answerData, {
       headers: {
         Authorization: `${jwtToken}`,
@@ -41,14 +37,18 @@ export const addAnswer = createAsyncThunk(
 
 export const updateAnswer = createAsyncThunk(
   "answers/updateAnswer",
-  async ({ upData, navigate }) => {
-    return Apis.patch(`v1/answer/${upData.id}`, upData.answerBody, {
-      headers: {
-        Authorization: `${jwtToken}`,
-      },
-    })
+  async ({ id, upData }) => {
+    return Apis.patch(
+      `v1/answer/${id}`,
+      { answerBody: upData.answerBody },
+      {
+        headers: {
+          Authorization: `${jwtToken}`,
+        },
+      }
+    )
       .then((res) => {
-        // navigate(`/${upData.id}`);
+        window.location.replace(`/${id}`);
         return res.data;
       })
       .catch((err) => console.log(err));
@@ -83,7 +83,6 @@ export const voteUpAnswer = createAsyncThunk("askQuestion", async (anId) => {
     .catch((err) => console.error("error:", err));
 });
 export const voteDownAnswer = createAsyncThunk("askQuestion", async (anId) => {
-  console.log(anId);
   return await Apis.post(
     `v1/vote/dislike/answer/${anId}`,
     {},

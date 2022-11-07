@@ -13,10 +13,7 @@ function Header({ userSearch, clickSearch }) {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
-  let jwtToken = localStorage.getItem("access_token");
-  console.log(isLogin);
-  // const[loginCheck , setLoginCheck] = useState(false);
-  // console.log(jwtToken);
+  let jwtToken = localStorage.getItem("Authorization");
 
   const loginBtn = () => {
     if (jwtToken) {
