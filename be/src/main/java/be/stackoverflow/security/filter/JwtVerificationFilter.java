@@ -16,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -30,6 +31,7 @@ import java.util.Map;
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://pre-19.s3-website.ap-northeast-2.amazonaws.com" , exposedHeaders = {"Authorization","Refresh"} )
 public class JwtVerificationFilter extends OncePerRequestFilter { // 동일한 request안에서 한번만 필터링을 할 수 있게 w줌
 
     private final JwtTokenizer jwtTokenizer;

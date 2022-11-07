@@ -29,18 +29,6 @@ public class StackoverflowApplication {
 		return () -> Optional.of(UUID.randomUUID().toString());
 	}
 
-//	@Bean
-//	public WebMvcConfigurer corsConfigurer() {
-//		return new WebMvcConfigurer() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				registry.addMapping("/**")
-//						.allowedOriginPatterns("http://pre-19.s3-website.ap-northeast-2.amazonaws.com")
-//						.allowedMethods("*")
-//						.allowedHeaders("*")
-//						.exposedHeaders("Authorization", "Refresh")
-//						.allowCredentials(true).maxAge(3600);
-//			}
-//		};
+
 
 }

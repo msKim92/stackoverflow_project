@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,6 +31,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
  */
 @Configuration
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://pre-19.s3-website.ap-northeast-2.amazonaws.com" , exposedHeaders = {"Authorization","Refresh"} )
 public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
@@ -116,7 +118,8 @@ public class SecurityConfiguration {
         configuration.setAllowedHeaders(Arrays.asList("Origin", "Accept","X-Requested-With","Content-Type","Access-Control-Request-Method",
                 "Access-Control-Request-Headers","Authorization","Refresh","Connection","Content","Host",
                 "Referer","Access-Control-Allow-Origin"));
-
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Refresh");
         configuration.setMaxAge(4600l);
         //터페이스의 구현 클래스인 UrlBasedCorsConfigurationSource 클래스의 객체를 생성
 

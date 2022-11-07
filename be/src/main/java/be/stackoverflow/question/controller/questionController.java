@@ -28,6 +28,7 @@ import java.util.List;
 @RestController
 @Validated
 @Slf4j
+@CrossOrigin(origins = "http://pre-19.s3-website.ap-northeast-2.amazonaws.com" , exposedHeaders = {"Authorization","Refresh"} )
 @RequestMapping("/v1/questions")
 public class questionController {
 

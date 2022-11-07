@@ -31,6 +31,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @Validated
+@CrossOrigin(origins = "http://pre-19.s3-website.ap-northeast-2.amazonaws.com" , exposedHeaders = {"Authorization","Refresh"} )
 public class UserController {
 
     private final UserService userService;

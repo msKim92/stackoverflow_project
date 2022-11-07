@@ -31,6 +31,7 @@ import java.util.List;
 @RequiredArgsConstructor // 의존성 주입
 @RequestMapping("/v1/answer") // API URL중 상위 부분
 @Validated
+@CrossOrigin(origins = "http://pre-19.s3-website.ap-northeast-2.amazonaws.com" , exposedHeaders = {"Authorization","Refresh"} )
 public class AnswerController {
     //C ( POST ) R ( GET ) U ( PATCH ) D ( DELETE )
 
