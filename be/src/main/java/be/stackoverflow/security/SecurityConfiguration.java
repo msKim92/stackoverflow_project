@@ -106,14 +106,20 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowCredentials(true);
         //모든 출처(Origin)에 대해 스크립트 기반의 HTTP 통신을 허용하고 추가적으로 운영 서버 환경에서 요구사항에 맞게 변경이 가능
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("https://ec2-43-200-3-93.ap-northeast-2.compute.amazonaws.com:8080","http://ec2-43-200-3-93.ap-northeast-2.compute.amazonaws.com:8080",
+        "http://pre-19.s3-website.ap-northeast-2.amazonaws.com"));
         //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE","OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Origin,Accept","X-Requested-With","Content-Type","Access-Control-Request-Method",
-                "Access-Control-Request-Headers","Authorization","Refresh"));
+        configuration.setAllowedHeaders(Arrays.asList("Origin", "Accept","X-Requested-With","Content-Type","Access-Control-Request-Method",
+                "Access-Control-Request-Headers","Authorization","Refresh","Connection","Content","Host",
+                "Referer","Access-Control-Allow-Origin"));
+
         configuration.setMaxAge(4600l);
         //터페이스의 구현 클래스인 UrlBasedCorsConfigurationSource 클래스의 객체를 생성
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         //모든 URL에 해당사항 적용하겠다.
