@@ -13,7 +13,6 @@ function EditQuestion() {
   const location = useLocation();
   //detailquestion페이지에서 넘겨준 값
   const data = location.state.data;
-  console.log("data>????????", data);
   const [title, setTitle] = useState(data.questionTitle);
   const [body, setBody] = useState(data.questionBody);
   const [Selected, setSelected] = useState("");
