@@ -13,7 +13,7 @@ function Header({ userSearch, clickSearch }) {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
-  const jwtToken = localStorage.getItem("userEmail");
+  let jwtToken = localStorage.getItem("access_token");
   console.log(isLogin);
   // const[loginCheck , setLoginCheck] = useState(false);
   // console.log(jwtToken);
@@ -54,7 +54,7 @@ function Header({ userSearch, clickSearch }) {
 
   return (
     <Wraper>
-      {isLogin || jwtToken ? (
+      {jwtToken ? (
         <HeaderWraper>
           <LogoBtn onClick={clickAllQuestion}>
             <LogoImg src={stackLogo} />
@@ -139,7 +139,7 @@ const HeaderWraper = styled.div`
   height: 50px;
   display: flex;
   align-items: center;
-  width: 1400px;
+  width: 1300px;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -203,7 +203,7 @@ const LinkBtn = styled.button`
   }
 `;
 const SearchSpace = styled.div`
-  width: ${(props) => (props.isLogin ? "54%" : "90%")};
+  width: ${(props) => (props.isLogin ? "54%" : "80%")};
   height: 40px;
   min-width: 30%;
   display: flex;
@@ -211,7 +211,7 @@ const SearchSpace = styled.div`
 `;
 
 const SearchInput = styled.input`
-  width: ${(props) => (props.isLogin ? "100%" : "93%")};
+  width: ${(props) => (props.isLogin ? "80%" : "90%")};
   height: 30px;
   margin: 5px 0px 0px 20px;
   padding-left: 40px;
