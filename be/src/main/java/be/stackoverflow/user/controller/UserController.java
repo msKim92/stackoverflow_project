@@ -71,10 +71,8 @@ public class UserController {
                 new SingleResponseDto<>(userMapper.userToUserResponse(chosenUser)), HttpStatus.OK);
     }
 
-
-
-
     /**
+     * 설명"
      * 이 부분은 사용자 전체 조회 및 페이지네이션 용도로 사용될 예정 / 상태: undo
      */
     @GetMapping
