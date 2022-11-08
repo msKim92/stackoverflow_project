@@ -1,15 +1,22 @@
 package be.stackoverflow.user.entity;
 
+import be.stackoverflow.answer.entity.Answer;
+import be.stackoverflow.audit.TimeAudit;
+import be.stackoverflow.question.entity.Question;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@NoArgsConstructor
 @Entity
 @Getter
 @Setter
 @Table(name = "User_Table")
-public class User {
+public class User extends TimeAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,26 +28,29 @@ public class User {
 
     private String password;
 
-    // erd 현재 memberStatus -> userStatus 수정 필요
     private boolean userStatus;
 
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
+    /**
+     * 보안코드상에서 이미 ROLE_USER or ROLE_ADMIN으로 저장됨
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
-    public enum Role{
-        // USER, ADMIN, BASIC 이면 될것 같은데, 차후 협의 필요
-        USER, ADMIN, BASIC;
-    }
 
-    protected User() {
-    }
+    @OneToMany(mappedBy = "user",cascade = CascadeType.PERSIST)
+    private List<Question> questions = new ArrayList<>();
 
-    public User(Long userId, String userName, String userEmail, String password, boolean userStatus, Role role) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private List<Answer> answers = new ArrayList<>();
+
+    public User(Long userId, String userName, String userEmail, String password, boolean userStatus, List<String> roles) {
+
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
         this.password = password;
         this.userStatus = userStatus;
-        this.role = role;
+        this.roles = roles;
+
     }
 }

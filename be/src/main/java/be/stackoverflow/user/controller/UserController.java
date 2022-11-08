@@ -1,6 +1,9 @@
 package be.stackoverflow.user.controller;
 
 
+import be.stackoverflow.dto.MultiResponseDto;
+import be.stackoverflow.dto.SingleResponseDto;
+import be.stackoverflow.security.JwtTokenizer;
 import be.stackoverflow.user.dto.UserDto;
 import be.stackoverflow.user.entity.User;
 //import be.stackoverflow.user.mapper.UserMapper;
@@ -8,29 +11,33 @@ import be.stackoverflow.user.mapper.UserMapper;
 import be.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @Validated
+@CrossOrigin(origins = "http://pre-19.s3-website.ap-northeast-2.amazonaws.com" , exposedHeaders = {"Authorization","Refresh"} )
 public class UserController {
 
     private final UserService userService;
-
+    private final JwtTokenizer jwtTokenizer;
     private final UserMapper userMapper;
 
-    /**
-     * 파라미터에 유효성 적용 예정 : @Valid / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo.
-     */
     @PostMapping("/sign")
     public ResponseEntity postUser(@Valid @RequestBody UserDto.Post request) {
 
@@ -38,46 +45,60 @@ public class UserController {
 
         User createdUser = userService.createUser(user);
 
-        return new ResponseEntity<>(userMapper.userToUserResponse(createdUser),HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(userMapper.userToUserResponse(createdUser)),HttpStatus.CREATED);
     }
 
+
     /**
-     * @GetMapping url 생성후 기입 / 상태: undo
      * 이 부분은 테스트시 사용자 조회용으로 사용될 예정 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * header에서 알아온다음에 추가하면될꺼같다?
      */
-    @GetMapping("/{userId}")
-    public ResponseEntity getUser(@PathVariable("userId") Long userId) {
-        User chosenUser = userService.findUser(userId);
+    @RequestMapping(value = "/userFinder", method = GET)
+    @ResponseBody
+    public void userNameFinder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User authorizedUser = userService.findIdByEmail(jwtTokenizer.getEmailWithToken(request));
+        String userName = authorizedUser.getUserName();
+        response.sendRedirect("/v1/"+ userName);
 
-        return new ResponseEntity<>(userMapper.userToUserResponse(chosenUser), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userName}")
+    public ResponseEntity getUserByUserName(@PathVariable("userName") String userName) {
+
+        User chosenUser = userService.findUserByUserName(userName);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(userMapper.userToUserResponse(chosenUser)), HttpStatus.OK);
     }
 
     /**
-     * @GetMapping url 생성후 기입 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * 설명"
+     * 이 부분은 사용자 전체 조회 및 페이지네이션 용도로 사용될 예정 / 상태: undo
      */
     @GetMapping
-    public ResponseEntity getUsers() {
-        List<User> userAll = userService.findUserAll();
-        return new ResponseEntity<>(userMapper.usersToUserReponses(userAll), HttpStatus.OK);
+    public ResponseEntity getUsers(@Positive @RequestParam int page,
+                                   @Positive @RequestParam int size) {
+        Page<User> pageInformation = userService.findUserAll(page - 1, size);
+        List<User> userAll = pageInformation.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(userMapper.usersToUserReponses(userAll),pageInformation), HttpStatus.OK);
     }
 
     /**
-     * @PatchMapping url 생성후 기입 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * 안쓰게 될 확률이 큰 uri
      */
     @PatchMapping("/{userId}")
     public ResponseEntity patchUser(@PathVariable("userId") Long userId, @RequestBody UserDto.Patch request) {
 
         User user = userService.updateUser(userId,userMapper.userPatchToUser(request));
 
-        return new ResponseEntity<>(userMapper.userToUserResponse(user), HttpStatus.UPGRADE_REQUIRED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(userMapper.userToUserResponse(user)), HttpStatus.UPGRADE_REQUIRED);
     }
 
     /**
-     * @DeleteMapping url 생성후 기입 / 상태: undo
-     * Dto로 갈아끼울 예정 / 상태: undo
+     * 안쓰게 될 확률이 큰 uri
      */
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteOne(@PathVariable("userId") Long userId) {
@@ -86,4 +107,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * 로그아웃기능도 구현 필요
+     */
 }
