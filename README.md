@@ -1,4 +1,4 @@
-## Service Link (11월 9일 free tier 종료일)
+## Service Link (11월 19일 free tier 종료일)
      http://pre-19.s3-website.ap-northeast-2.amazonaws.com/
 #     
 
@@ -45,15 +45,10 @@
     2. Spring framwork 5.3.x
     3. Spring Security 5.7.x
     4. H2 DB
-    5. mysql (RDS)
+    5. MariaDB (RDS)
     6. mapstruct
     7. JWT
 <br><br><br><br>
 
-
-># Infrastructure
-<br>
-<p align="center">
-<img src ="https://ifh.cc/g/9W4RcK.png" width="600" height="600" />
 
 
