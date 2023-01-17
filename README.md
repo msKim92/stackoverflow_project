@@ -2,10 +2,6 @@
      http://pre-19.s3-website.ap-northeast-2.amazonaws.com/
 #     
 
-## Adminstor
-    ID test@gmail.com
-    PW qwer!Q1111
-
 <br><br>
 ># About Service
 - stackoverflow를 베이스로 클론 코딩
@@ -19,7 +15,42 @@
 
    # 
 <br><br>
-     
+    
+># What we used
+
+
+* Frontend
+    1. React
+    2. styled-components
+    3. redux-toolkit 
+    4. JWT
+    
+#
+* Backend
+    1. Spring boot 2.7.x
+    2. Spring framwork 5.3.x
+    3. Spring Security 5.7.x
+    4. H2 DB
+    5. MariaDB (RDS)
+    6. mapstruct
+    7. JWT
+<br><br><br><br>
+
+># 문서
+
+
+#### 요구사항 명세서     
+  
+<img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064884149883772958/image.png" width=500 heigth=300>  
+  
+#### ERD    
+<img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064883968324943912/stacks.png" width=500 heigth=300>  
+  
+　　
+  　　
+    　　
+      
+  
 ># Our Team
 
 |임세영🧞|심이서|안지환|김유현|김민섭|
