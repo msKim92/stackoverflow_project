@@ -60,26 +60,6 @@
 |Frontend|Frontend|Frontend|Backend|Backend|
 
 <br><br>
-    
-># What we used
-
-
-* Frontend
-    1. React
-    2. styled-components
-    3. redux-toolkit 
-    4. JWT
-    
-#
-* Backend
-    1. Spring boot 2.7.x
-    2. Spring framwork 5.3.x
-    3. Spring Security 5.7.x
-    4. H2 DB
-    5. MariaDB (RDS)
-    6. mapstruct
-    7. JWT
-<br><br><br><br>
 
 
 
