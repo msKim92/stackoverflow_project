@@ -2,6 +2,15 @@
      http://pre-19.s3-website.ap-northeast-2.amazonaws.com/
 #     
 
+
+### ⚒ **What I did**
+<img src="https://github.com/msKim92/wiselife_project/blob/bedev/img/%EC%8A%AC%EA%B8%B0%EB%A1%9C%EC%9A%B4%EC%83%9D%ED%99%9C1.png?raw=true" width = 950>  
+
+### 📐 **How I managed problem**
+
+
+<br>
+
 <br><br>
 ># About Service
 - stackoverflow를 베이스로 클론 코딩
@@ -9,8 +18,7 @@
 - 특정회원이 로그인 시, 마이페이지에서 자신이 쓴 댓글, 질문을 `모아보기` 가능
 - 게시글에 작성된 질문, 댓글에 대해 `투표` 가능
 - `검색기능`
-- 좋아요, 조회수, 최신순으로 `정렬` 가능 (TBD)
-
+- 좋아요, 조회수, 최신순으로 `정렬` 가능 
 - 배포 후, 예상하지 못한 에러 메세지가 발생되면 디스코드 `웹후크` 기능을 통해서 해당 에러사유 출력
 
    # 
