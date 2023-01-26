@@ -4,10 +4,10 @@
 
 
 ### ⚒ **What I did**
-<img src="https://github.com/msKim92/wiselife_project/blob/bedev/img/%EC%8A%AC%EA%B8%B0%EB%A1%9C%EC%9A%B4%EC%83%9D%ED%99%9C1.png?raw=true" width = 950>  
+<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/%EC%8A%A4%ED%83%9D%EC%98%A4%EB%B2%841.png?raw=true" width = 950>  
 
 ### 📐 **How I managed problem**
-
+<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/%EC%8A%A4%ED%83%9D%EC%98%A4%EB%B2%842.png?raw=true" width = 950>  
 
 <br>
 
