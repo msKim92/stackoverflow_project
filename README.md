@@ -49,25 +49,7 @@
 
 #### 요구사항 명세서     
   
-<img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064884149883772958/image.png" width=500 heigth=300>  
+<img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064884149883772958/image.png" width=600 heigth=300>  
   
 #### ERD    
-<img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064883968324943912/stacks.png" width=500 heigth=300>  
-  
-　　
-  　　
-    　　
-      
-  
-># Our Team
-
-|임세영🧞|심이서|안지환|김유현|김민섭|
-|:---:|:---:|:---:|:---:|:---:|
-|<img src ="https://ifh.cc/g/sMwFpm.jpg" width="200" height="250"/>|<img src="https://ifh.cc/g/TthVgk.jpg" width="200" height="250"/>|<img src="https://ifh.cc/g/PVcxdM.jpg" width="200" height="250"/>|<img src ="https://ifh.cc/g/WtH9b5.jpg" width="200" height="250"/>|<img src="https://ifh.cc/g/SpR1fz.jpg" width="200" height="250"/>|
-|insidelamp|leeseoshim|jihwanAn|dbgys1127|ms92Kim|
-|Frontend|Frontend|Frontend|Backend|Backend|
-
-<br><br>
-
-
-
+<img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064883968324943912/stacks.png" width=600 heigth=300>  
