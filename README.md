@@ -1,13 +1,10 @@
-## Service Link (11월 19일 free tier 종료일)
-     http://pre-19.s3-website.ap-northeast-2.amazonaws.com/
-#     
-
 
 ### ⚒ **What I did**
 <img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/%EC%8A%A4%ED%83%9D%EC%98%A4%EB%B2%841.png?raw=true" width = 950>  
 
 ### 📐 **How I managed problem**
-<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/%EC%8A%A4%ED%83%9D%EC%98%A4%EB%B2%842.png?raw=true" width = 950>  
+
+<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/%EC%8A%A4%ED%83%9D2.png?raw=true" width = 950>  
 
 <br>
 
@@ -52,4 +49,4 @@
 <img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064884149883772958/image.png" width=600 heigth=300>  
   
 #### ERD    
-<img src="https://cdn.discordapp.com/attachments/1054789813494108160/1064883968324943912/stacks.png" width=600 heigth=300>  
+<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/stacks.png?raw=true" width=600 heigth=300>  
