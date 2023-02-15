@@ -1,10 +1,10 @@
 
 ### ⚒ **What I did**
-<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/%EC%8A%A4%ED%83%9D%EC%98%A4%EB%B2%841.png?raw=true" width = 950>  
+<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/K-014.jpg?raw=true" width = 950>  
 
 ### 📐 **How I managed problem**
 
-<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/%EC%8A%A4%ED%83%9D2.png?raw=true" width = 950>  
+<img src="https://github.com/msKim92/stackoverflow_project/blob/main/img/K-015.jpg?raw=true" width = 950>  
 
 <br>
 
